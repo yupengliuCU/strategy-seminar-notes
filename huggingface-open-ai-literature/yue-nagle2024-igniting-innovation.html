@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Igniting Innovation: Evidence from PyTorch on Technology Control in Open Collaboration (Yue &amp; Nagle, 2024) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Igniting Innovation: Evidence from PyTorch on Technology Control in Open Collaboration</h1>
+<div class="meta">
+<strong>Daniel Yue &amp; Frank Nagle (2024)</strong> — Working Paper 25-0, Harvard Business School · Georgia Institute of Technology (Yue) / Harvard Business School (Nagle); draft dated September 10, 2024<br>
+<strong>Authors</strong>: Daniel Yue (Georgia Institute of Technology); Frank Nagle (Harvard Business School)<br>
+<strong>Source</strong>: "Igniting Innovation: Evidence from PyTorch on Technology Control in Open Collaboration," Working Paper 25-0 (copyright © 2024 by the authors; distributed for comment and discussion only)<br>
+<strong>Nature</strong>: Empirical research paper — quasi-experimental econometrics on GitHub contribution data (difference-in-differences and triple-difference on a contributor-month panel)<br>
+<strong>Data &amp; code status</strong>: Novel panel assembled from the public GitHub API covering the pytorch/ GitHub organization (all repositories, April 2020–September 2023) plus TensorFlow as a comparison; no public replication archive is mentioned. Disclosure: Professor Nagle's research lab receives funding from the Linux Foundation and GitHub; neither organization had a role in design, analysis, or editorial decisions
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Using PyTorch's September 2022 governance shift from Meta to the Linux Foundation — an event that changed who controls the technology's future while leaving access rights untouched — the paper shows that relinquishing control rights does not "ignite" innovation out of thin air: it redistributes incentives, sharply reducing the focal firm's contributions while lifting participation mainly by complementors (chip manufacturers) who had been exposed to hold-up, leaving net project activity barely changed.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide — where this sits in "Hugging Face &amp; the Open-AI Economy".</strong> The topic library studies who controls the open-AI stack: Hugging Face the hub (Greenstein et al. 2022; Laufer et al. 2025; Longpre et al. 2025), the sponsors who release open-weight models (Wu, Lin &amp; Li 2025 on Llama 2; Azoulay et al. 2024 on open weights as a competitive move; White et al. 2024 on what "open" even means), and the developers who build on it. Yue &amp; Nagle supply the missing piece between sponsor choice and downstream response: a clean empirical decomposition of <em>access</em> (who may use the code) from <em>control</em> (who decides its future direction), estimated on the most important open-source AI infrastructure of all, PyTorch. Hugging Face is inside this paper in three guises — a top contributor to PyTorch, a PyTorch Foundation board member from 2023, and an example of "distributed" governance; the paper even argues its control-rights logic "potentially explains the emergence of open source machine learning hub Hugging Face and its popularity with investors despite its current lack of commercialization strategy" (p. 35 of the PDF). Read it as the theoretical benchmark for the "openness events" studied elsewhere in the library: the outcome is not hype but who actually commits code.
+</div>
+
+<h2>1. Background and motivation: the paradox of firm-sponsored openness</h2>
+
+<p>Open collaboration is a classic model of distributed innovation, associated with Wikipedia and Linux (Baldwin &amp; von Hippel 2011; Levine &amp; Prietula 2014). But over the past decade the strategically interesting cases have been <em>firm-sponsored</em>: Tesla's 2014 release of its electric-vehicle patents, Google's sponsorship of Kubernetes, Meta's sponsorship of PyTorch, and — most consequentially for this topic — the release of open machine-learning and generative-AI technology by firms that continue to sponsor its development. In these settings the sponsoring firm makes its technology freely usable, yet retains various forms of control over it. The paper's opening observation is that such projects are doubly coded:</p>
+
+<blockquote>Such firm-sponsored projects are paradoxically open (in the sense of free access for use and modification) but not open (in the sense of decentralized technical control). (p. 4 of the PDF)</blockquote>
+
+<p>The economic question follows immediately: because the focal firm can act strategically, participation by other firms — especially other firms, not hobbyists — should depend on the strength of the sponsor's control rights. Yet the prior literature had not studied this relationship. The research question is: <strong>how do technology control rights affect an external firm's likelihood of participating in open collaboration?</strong></p>
+
+<p>The motivation is both managerial and policy-relevant. Managers open technology to set standards, attract complementors, and improve their position in supply networks; platforms use governance choices (data sharing, low royalty rates, SDK openness) to attract complementors (Boudreau 2010; Wareham et al. 2014; Rietveld et al. 2019). A control-rights lens rationalizes seemingly puzzling openness as an attempt to accumulate decision rights over a technology's future. From a policy standpoint, knowing whether external firms anticipate future threats to profitability from the sponsor's retained control helps bound regulatory arguments that technologies should be forced open — the paper explicitly names the "enshittification" concern (Cory Doctorow's term) and the EU Digital Markets Act's interoperability and self-preferencing rules as the policy backdrop.</p>
+
+<p>Two identification problems explain why this question was open. First, changes in control rights almost always move together with changes in <em>access rights</em> — the direct ability of third parties to appropriate value (O'Mahony &amp; Karp 2020). Tesla's patent pledge reduced control but simultaneously handed access to rival manufacturers, so the two effects cannot be separated. Second, plausibly exogenous variation in control rights is hard to find: governance changes may be anticipated, or endogenously provoked by community lobbying.</p>
+
+<p>PyTorch resolves both problems at once. It had been open source (BSD-3 licensed) for almost its entire existence since 2016, so when its governance moved from Meta to the Linux Foundation in September 2022, third parties' access rights did not change at all — only their ability to shape the technology's future trajectory did. And the announcement was sudden and unanticipated by the machine-learning community, offering quasi-exogenous variation. The authors therefore interpret the event as <strong>a shift in control rights holding access rights constant</strong>, and use it to test a property-rights (incomplete-contracts) account of external firm participation.</p>
+
+<h2>2. Core concepts: control rights in open collaboration</h2>
+
+<h3>2.1 Access rights versus control rights</h3>
+
+<p>The literature on open collaboration has emphasized what the authors call access rights — low royalty rates, free IP use, free use of designs in follow-on innovation. The paper's move is to bring in expectations about <em>future</em> value capture, which it labels control rights, using the standard framework of property-rights theory (Grossman &amp; Hart 1986; Hart &amp; Moore 1990). In incomplete-contracts settings, relationship-specific effort must be sunk before non-contractible uncertainty resolves; the allocation of control rights — the ex-ante ability to make ex-post decisions about how shared assets are used — then determines who fears being held up. The paper adopts a working definition of control rights as "the ability for a single agent (often a single firm) to make decisions about an innovative asset in the future after current, non-contractible uncertainty is resolved" (p. 8 of the PDF). A footnote acknowledges the sibling transaction-cost-economics literature but prefers the control-rights frame because of its sharp predictions about hold-up.</p>
+
+<p>The theoretical innovation is to apply this framework, originally built for the boundary of the firm and for bilateral research agreements (Aghion &amp; Tirole 1994; Lerner &amp; Malmendier 2010; Oxley 1997), to open collaboration — a setting with many participants, no formal contract, and rapidly shifting technical and business-model uncertainty (the AI case par excellence). Control rights in open collaboration come from formal governance rules, but also from informal authority: Guido van Rossum's "Benevolent Dictator for Life" role over Python is the paper's example of control exercised through expertise and social authority rather than ownership.</p>
+
+<h3>2.2 The hypotheses: openness shifts incentives rather than creating them</h3>
+
+<p>Governance is often described as centralized ("dominant") or distributed ("collective") — O'Mahony &amp; Karp's (2020) terminology, which the paper adopts. Sponsorship does not necessarily imply centralized control: a sponsor seen as reputable, fair, and ideologically motivated, such as Hugging Face (Greenstein et al. 2023), can be perceived as distributing control. The paper's central claim about an exogenous move from dominant to collective governance is stated in two hypotheses (both p. 9 of the PDF):</p>
+
+<ul>
+<li><strong>Hypothesis 1</strong>: "In open collaboration, a change in governance from firm-dominant to collective will increase participation by external firms."</li>
+<li><strong>Hypothesis 2</strong>: "In open collaboration, a change in governance from firm-dominant to collective will reduce participation by the focal firm."</li>
+</ul>
+
+<p>Hypothesis 2 is the "no free lunch" hypothesis, and it is where the paper breaks with a naive pro-openness stance:</p>
+
+<blockquote>The key insight of our conceptual framework is that “opening” control rights in this way does not create incentives out of thin air but rather shifts incentives between parties. (p. 9 of the PDF)</blockquote>
+
+<p>Because collective governance requires voting and preference alignment among companies, the focal firm loses the ability to steer the technology alone; if the focal firm is a disproportionate contributor, its incentive to keep investing falls. The net effect on contributions is therefore ambiguous in sign — a governance change may reduce welfare if it merely discourages the largest investor. This is the lens through which the paper reads the small net change it later finds: a welfare claim that "openness at all costs" is not obviously right.</p>
+
+<h3>2.3 Complementors versus Users: outside options and the signature prediction</h3>
+
+<p>External firms are not homogeneous, and the paper distinguishes two classes. <strong>Complementors</strong> capture value through follow-on innovation in complementary products — the classic Teece (1986) logic of profiting from innovation via complementary assets; in PyTorch's world these are <strong>Chip Manufacturers</strong>, who need their chips and PyTorch to interoperate. <strong>Users</strong> contribute to make the technology more valuable for their own applications — <strong>Application Developers and Cloud Providers</strong> who rely on PyTorch as an input, following the "learning by contributing" logic (Nagle 2018). Both make technology-specific investments, but their <em>outside options</em> differ, and property-rights theory predicts that hold-up problems are worse when outside options are weaker (both claims at p. 10 of the PDF):</p>
+
+<ul>
+<li><strong>Users</strong> depend only on the interface (the "API") that all users share. Access rights are guaranteed because the code is open and the interface is unlikely to change dramatically; even if cooperation with the focal firm breaks down, Users keep most of the value of their investment. Their outside option is strong; their hold-up exposure is low.</li>
+<li><strong>Complementors</strong> depend on specific technical integrations coupling PyTorch to their products. If the sponsor stops cooperating, it can "limit or undo interoperability," and the Complementor's sunk investment loses value. Their outside option is weak; their hold-up exposure is high. The paper grounds this in the nature of technical dependence (Baldwin &amp; Clark 2000): dependence on specific integration predicts weaker outside options.</li>
+</ul>
+
+<h3>Table 2: Complementors versus Users — why hold-up exposure differs</h3>
+<table>
+<tr><th>Dimension</th><th>Complementors — Chip Manufacturers</th><th>Users — Application Developers &amp; Cloud Providers</th></tr>
+<tr><td>Value-capture logic</td><td>Profit from demand for their own chips enabled by PyTorch compatibility — profiting from the innovation via complementary products (Teece 1986)</td><td>Profit from using the technology inside their own products and clouds; learn by contributing (Nagle 2018)</td></tr>
+<tr><td>Contribution motive</td><td>Maintain deep, specific interoperability between their chips and PyTorch's implementation</td><td>Learn the tool and widen its applicability to their own applications</td></tr>
+<tr><td>Technical dependence</td><td>Specific integrations and backends coupling their products to PyTorch (e.g., Google's pytorch/xla for TPUs)</td><td>Only the shared interface ("API") on which all users rely</td></tr>
+<tr><td>Outside option</td><td>Weak: if cooperation breaks down the sponsor can "limit or undo interoperability," stranding sunk investments</td><td>Strong: access is guaranteed by the open license and the interface is unlikely to change dramatically</td></tr>
+<tr><td>Hold-up exposure</td><td>High — predicted under-investment in ex-ante effort before the change</td><td>Low</td></tr>
+<tr><td>Response to collective governance</td><td>Large, sustained participation increase (the +47.1% effect)</td><td>Little or no change</td></tr>
+<tr><td>Example firms (Table 1 of the paper)</td><td>NVIDIA, Intel, AMD, ARM, IBM, Apple, Google (TPU/XLA work)</td><td>Microsoft (Azure), Amazon (AWS), Alibaba, OpenAI, Hugging Face, Quansight, Spotify</td></tr>
+</table>
+
+<p>This yields <strong>Hypothesis 3</strong> (p. 10 of the PDF): "The positive effect of a change in governance from firm-dominant to collective on external firm participation in open collaboration will be greater for Complementors than Users." Hypothesis 3 matters methodologically because it is the theory's <em>signature prediction</em>:</p>
+
+<blockquote>Hypothesis 3 is critical for our empirical tests that interpret a governance change as a shift in control rights because it is singularly predicted by a control rights interpretation of that change. (p. 10 of the PDF)</blockquote>
+
+<p>Any governance change could raise external participation through several channels (publicity, goodwill, attention); only a hold-up mechanism predicts that participation rises specifically among firms with weak outside options. The whole empirical design is built to test this contrast.</p>
+
+<h3>Table 1: The three hypotheses and how the data speak to each</h3>
+<table>
+<tr><th>Hypothesis</th><th>Statement (as written in the paper)</th><th>Who it predicts responds</th><th>What the data show</th><th>Location</th></tr>
+<tr><td>H1 (p. 9)</td><td>"In open collaboration, a change in governance from firm-dominant to collective will increase participation by external firms."</td><td>External firms generally</td><td>Directionally supported: external-company participation rises ≈25.7% in the pooled DiD; the post-period interaction loses significance, plausibly because the unaffiliated comparison group is itself treated (making the estimate conservative)</td><td>Table 3; PDF p. 23</td></tr>
+<tr><td>H2 (p. 9)</td><td>Same governance change "will reduce participation by the focal firm."</td><td>The focal firm (Meta)</td><td>Consistent with the data: Meta's relative participation turns negative in the Post period; its event study shows a sharp post drop after a strong upward pre-trend. No clean causal estimate — the change is endogenous to Meta's strategy</td><td>Table 3; PDF pp. 23–24</td></tr>
+<tr><td>H3 (p. 10)</td><td>"The positive effect of a change in governance from firm-dominant to collective on external firm participation in open collaboration will be greater for Complementors than Users."</td><td>Complementors (Chip Manufacturers)</td><td>Supported: +47.1% for chip makers vs −12.1% for Users within PyTorch; triple-DiD vs TensorFlow +0.0977 (extensive) and +0.1226 (intensive); CUDA-owning NVIDIA is the single chip-maker exception</td><td>Tables 4–5; PDF pp. 27–28, 30</td></tr>
+</table>
+
+<h2>3. Evidence and methods: PyTorch, the governance change, and the data</h2>
+
+<h3>3.1 Why PyTorch is the right laboratory</h3>
+
+<p>PyTorch is a machine-learning framework for specifying, training, and running inference on neural networks, distinguished from numerical libraries by flexible specification with automatic differentiation and by optimized training across hardware accelerators. It has become the field's workhorse: "almost 70% of machine learning research papers with code use PyTorch" (p. 11 of the PDF), and it underlies higher-level open libraries such as Hugging Face's Transformers and Lightning AI's PyTorch Lightning, as well as production AI at OpenAI, Tesla, Airbnb, Genentech, and Disney. It is open source under the BSD-3 license, and the entire pytorch/ GitHub organization (73 repositories at the time of data collection, including the main pytorch/pytorch repo and auxiliary repos for documentation, integrations, and testing) is publicly visible.</p>
+
+<p>Meta (né Facebook) engineers created PyTorch and publicly released it in 2017, a year after Google's TensorFlow (2015) started the category. Despite its community-driven ethos — with outside contributions from NVIDIA and Quansight from early on — Meta was always the dominant investor: "Meta employees have typically provided over 60% of commits to the repository since its 2017 public release" (p. 12 of the PDF), a lower bound because some Meta employees commit under personal emails.</p>
+
+<p>Meta's control was dual. <em>Technically</em>, PyTorch was tightly coupled to Meta's internal infrastructure — the GitHub repository was a mirror of Meta's internal repo, so only current Meta employees could approve changes; <em>strategically</em>, Meta management held complete governing control over technical vision and direction, a form of "soft power" exercised through a democratically presented but Meta-anchored governance process.</p>
+
+<blockquote>PyTorch has tight technical integration with Meta’s infrastructure – Meta famously sources its own production PyTorch code directly from the head of PyTorch’s main branch, meaning that the GitHub PyTorch repository is technically a mirror of the “true” Facebook-internal repo, and thus only current Meta employees can “land” pull-requests (i.e., approve changes to the codebase that others pull from — see Eric Yang’s blog or PyTorch documentation). (p. 12 of the PDF)</blockquote>
+
+<p>In September 2022 the governance model moved to a standalone PyTorch Foundation operated under the Linux Foundation (LF), a non-profit founded in 2000 that also hosts Linux and Kubernetes. The move was explicitly intended to attract external code and financial investment "to accelerate progress in AI research." A governing board of external organizations — initially NVIDIA, AWS, Google Cloud, Microsoft Azure, and AMD, expanded through 2023 to include IBM, Hugging Face, Intel, Graphcore, Lightning AI, Huawei, and Snowflake — votes on high-level business and technical strategy. Board decisions concern business governance; day-to-day technical governance was meant to remain with the original maintainers. But the formal structure change was real: Meta's singular control over technical direction was diluted. The authors read the event as:</p>
+
+<blockquote>…we interpret this governance change as a shift in control rights from Meta to many external companies, what the literature calls a change from “dominant” to “collective” governance (O’Mahony and Karp 2020). Because collective governance requires voting and alignment of preferences between companies (similar to the Internet Engineering Task Force standard setting committees of Simcoe (2012)), Meta no longer has the ability to single-handedly set the technical direction of the tool (e.g., with respect to system architecture and higher level technology strategy). (p. 14 of the PDF)</blockquote>
+
+<p>Two timing subtleties shape the design. Private discussions between Meta and the LF had run for over two years, with the agreement in principle reached in Spring 2022 and early board members recruited around then; so the treatment is not a single instant. The paper therefore defines a <em>Transition</em> period (April–September 2022), when the change was "in the air" for insiders, and a <em>Post</em> period (October 2022 onward) after the public announcement. And the change was exogenous <em>to external firms</em> but endogenous to Meta's strategy — which is why Meta contributors are excluded from most analyses and Hypothesis 2 is treated with care.</p>
+
+<h3>3.2 Data and measures</h3>
+
+<p>The empirical core is a novel contributor-month panel built from the full public contribution history of the pytorch/ GitHub organization via the GitHub API. The analysis window runs April 2020–September 2023 (42 months): two years before the transition period began and one year after the announcement. A parallel dataset was collected for TensorFlow, Google's rival framework, to serve as a control. Key figures from the sample (all p. 5 and p. 18 of the PDF):</p>
+
+<ul>
+<li><strong>4,138 unique contributors</strong> to PyTorch in the window, of whom <strong>33.9% are from Meta</strong>; contributors span <strong>802 unique institutional affiliations</strong>, and <strong>2,022 contributors are unaffiliated</strong> (mostly one-time contributors using personal emails).</li>
+<li>Meta is vastly more productive per head: "Meta contributions account for over 70% of the total commits to PyTorch during the timeframe of the study" (footnote, p. 5).</li>
+<li>Because the authors care about <em>firm</em> participation, the most stringent analyses use only employees of large, recognizable external firms: <strong>964 total contributors employed at 72 key external firms, responsible for 7.19% of total commits</strong> (p. 5).</li>
+</ul>
+
+<p>Affiliation is imputed in three layers: self-reported employer on GitHub profiles (entity-resolved), email-domain mapping (e.g., fb.com, nvidia.com), and manual inspection of GitHub and LinkedIn profiles for contributors with over 100 commits. Subsidiaries roll up to parents (Oculus and Instagram to Meta; DeepMind and Google Brain to Google). The method is deliberately biased toward over-reporting Meta employment, which if anything attenuates the headline results; robustness checks using only email domains strengthen the estimates. Almost no one contributes seriously to both frameworks (29 dual contributors, 2.92%), which is convenient for the cross-framework design.</p>
+
+<p>The outcome variables target <em>contribution</em>, not usage. The extensive margin is <code>1(Is Active)</code> — whether contributor i committed in month t; the intensive margin is <code>Log(Commits + 1)</code>. Results are robust to using pull requests instead of commits. Issues and comments are deliberately excluded because they "are more indicative of using the technology than contributing to it" (p. 15 of the PDF) — a principled stand on what counts as downstream innovation in a code ecosystem: approved code changes, not chatter, not downloads, and not forks.</p>
+
+<p>Contributors are classified into mutually exclusive dummies: Meta employees, Unaffiliated, University affiliates, and External Company employees; External Company employees are further split into Chip Manufacturers (Complementors) and Non-Chip Manufacturers (Users, i.e., Application Developers and Cloud Providers). Chip manufacturers are about half of external-company contributors. Table 1 of the paper shows the top-25 contributing companies: Meta dominates PyTorch (1,402 contributors; 52,851 commits) while Google dominates TensorFlow (1,395 contributors); chip makers Intel, NVIDIA, ARM, AMD, IBM, and cloud providers Microsoft and Amazon follow, alongside app developers such as Quansight, OpenAI, Hugging Face, and Spotify. Google's own PyTorch commits target pytorch/xla, the extension enabling Google's TPU chips — Google is thus classified as a Chip Manufacturer acting as a Complementor, not as a rival platform.</p>
+
+<h3>3.3 Empirical strategy</h3>
+
+<p>All specifications are contributor-month regressions of the form</p>
+<p>$$Y_{it} = \omega_{Post}\cdot Treat_{i}\times Post_{t} + \omega_{Transition}\cdot Treat_{i}\times Transition_{t} + \varepsilon X_{it} + \vartheta_{i} + \varpi_{t} + \varrho_{it},$$</p>
+<p>with contributor and month fixed effects and standard errors clustered at the affiliation and month levels. Because a single governance change hits all PyTorch contributors at once, there is no entirely unaffected group inside PyTorch — the authors are explicit that their estimates are not a direct average treatment effect. Instead they stack evidence across three comparison groups (Section 3.4, pp. 17–18 of the PDF):</p>
+
+<ol>
+<li><strong>Unaffiliated / University contributors</strong> — individuals whose contribution choices are least contaminated by corporate incentives;</li>
+<li><strong>Non-Chip Manufacturers (Users) within PyTorch</strong> — firms whose access rights do not change and whose outside options are strong;</li>
+<li><strong>External-company contributors to TensorFlow</strong> — firms contributing to a rival framework that underwent no governance change, exploited through triple-difference specifications (Chip Manufacturer × PyTorch × Post) to absorb economy-wide shocks such as the ChatGPT-driven surge in AI demand in late 2022.</li>
+</ol>
+
+<p>The three comparison groups nest into one identification logic — two difference-in-differences inside PyTorch and one triple-difference across frameworks:</p>
+<pre class="mermaid">
+flowchart TB
+    subgraph TL["Event timeline — contributor-month panel, Apr 2020 – Sep 2023 (42 months)"]
+      PRE["Pre<br/>Apr 2020 – Mar 2022"] --> TR["Transition<br/>Apr – Sep 2022<br/>(LF agreement 'in the air' for insiders)"]
+      TR --> PO["Post<br/>Oct 2022 – Sep 2023<br/>(public announcement, Sep 2022)"]
+    end
+    subgraph D1["Within-PyTorch DiD (Hypotheses 1–3)"]
+      A["Chip Manufacturers<br/>(Complementors)"] --> B["vs Unaffiliated / University contributors — Control #1"]
+      A --> C["vs Non-Chip Manufacturers (Users) — Control #2"]
+    end
+    subgraph D2["Between-framework triple-DiD (Hypothesis 3)"]
+      D["Chip Manufacturer × PyTorch × Post"] --> E["vs Chip Manufacturer × TensorFlow × Post — Control #3<br/>(absorbs ChatGPT / AI-demand shocks)"]
+    end
+    B --> R["Outcome: monthly contributor activity<br/>1(Is Active) and Log(Commits + 1)<br/>Contributor + month fixed effects; SEs clustered by affiliation &amp; month"]
+    C --> R
+    E --> R
+</pre>
+
+<p>Meta contributors are excluded from tests of Hypotheses 1 and 3 because Meta initiated the change and its behavior is endogenous to it. Causal claims rest on parallel-trends logic, supported by event studies (Figures A4, A6, A7) showing no discernible pre-trends and sharp, sustained shifts at the expected time. The method is transparently described as relating "variation in control rights to variation in outcomes across different groups of theoretical interest" — a design that identifies the <em>mechanism</em> (control rights) rather than a global treatment effect.</p>
+
+<pre class="mermaid">
+flowchart LR
+    subgraph PRE["Before Sept 2022 — 'dominant' governance"]
+      A["Meta controls PyTorch<br/>(internal-repo mirror; only Meta<br/>can 'land' pull-requests; soft power<br/>over technical direction)"] --> B["External firms fear hold-up:<br/>focal firm could drop chip backends<br/>or reshape architecture"]
+      B --> C["Chip Manufacturers (Complementors)<br/>under-invest — weak outside options;<br/>Users less affected — strong outside options"]
+    end
+    EV["Sept 2022: governance → PyTorch Foundation<br/>under Linux Foundation; voting board of<br/>external firms (NVIDIA, AWS, Google Cloud,<br/>Azure, AMD, later HF, Intel, IBM…)<br/>Access rights unchanged: BSD-3 license stays"] --> POST["'Collective' governance —<br/>no single firm sets direction"]
+    POST --> D["Hold-up threat resolved for Complementors"]
+    D --> E["Chip Manufacturers ↑ participation<br/>(within-PyTorch DiD ≈ +47%;<br/>triple-DiD +0.0977***)"]
+    D --> F["Meta ↓ participation<br/>(focal firm loses incentive)"]
+    D --> G["Users / unaffiliated: little change"]
+    E --> H["Net participation barely rises —<br/>'no free lunch': openness shifts,<br/>not creates, incentives"]
+    F --> H
+    G --> H
+</pre>
+
+<h2>4. Findings</h2>
+
+<h3>4.1 The headline: external firms in, Meta out, net roughly flat</h3>
+
+<p>Raw time trends (Figure 2 of the paper) already tell the story: the Transition period brought a temporary influx of contributors driven by external companies, followed by a sharp drop-off after the public announcement — driven by a sharp decrease in Meta contributors — while unaffiliated contributors show no discernible trend. A second panel tracks "exits" (contributors making their final commit, for those with at least 6 commits — the threshold to be a maintainer of a code area): PyTorch experienced a spike in maintainer-level exits immediately before the announcement, "indicative of maintainer-level Meta employees rolling off of the project" (p. 22 of the PDF).</p>
+
+<p>Difference-in-difference estimates against the Unaffiliated baseline (Table 3, p. 23 of the PDF) quantify the pattern. In the Post period, External Company contributors' relative likelihood of being active is higher than before but imprecisely estimated; Meta's relative likelihood flips negative. Taking the Model (1) point estimates literally, external-company participation rose by roughly <strong>25.7%</strong> (the authors' computation: (0.0307 + 0.0080) / (0.0307 + 0.0757 + 0.0080 + 0.0359)), with the same magnitude in the fixed-effects version and on the intensive margin of log commits. The authors "cautiously interpret the results of Table 3 as evidence in favor of Hypothesis 1," noting that the unaffiliated comparison group is probably itself treated (so external-company estimates are likely underestimates). The introduction to the results previews the punchline (pp. 5–6 of the PDF):</p>
+
+<blockquote>…the transition of PyTorch governance from Meta to the Linux Foundation leads to only a small increase in net contributors to the project. The small magnitude of the net effect masks critical heterogeneity: participation by external firms increased roughly 25%, while participation by Meta sharply decreased following the governance change. (pp. 5–6 of the PDF)</blockquote>
+
+<p>For Hypothesis 2 the authors are candid that no clean causal estimate is possible — the change was anticipated by Meta and is part of its technology strategy — but the results are "certainly consistent with the predicted causal decrease," and the Meta event study shows a strong upward pre-trend followed by a strong downward post-trend (p. 23 of the PDF). The aggregate conclusion is stark:</p>
+
+<blockquote>By changing from ‘dominant’ to ‘collective’ governance, PyTorch experienced an increase in contribution from External Companies, but a sharp decrease in contribution from the focal company (Meta). Overall, the result is that PyTorch experiences a very small increase in net participation on the project, far less than would be expected based on the fanfare around the governance change. (p. 24 of the PDF)</blockquote>
+
+<h3>4.2 The mechanism result: the increase is entirely a complementor (chip-maker) phenomenon</h3>
+
+<p>If control rights were the mechanism, the external-company increase should concentrate among firms with weak outside options — Chip Manufacturers — and be absent among Users. The descriptive Figure 3 shows exactly this: chip manufacturers' monthly participation jumps sharply from the start of the transition, while App Developer and Cloud Provider trends dip slightly and track the unaffiliated baseline. Individually (Figure A5), all chip manufacturers except one increased contributions in sync with the transition, especially Google, Intel, and Apple.</p>
+
+<p>Within-PyTorch difference-in-differences (Table 4, pp. 26–27 of the PDF) confirm the split. Against the Unaffiliated baseline, Chip Manufacturer × Post is positive and significant on both margins (0.0939 on the extensive margin, with fixed effects), while Non-Chip Manufacturer × Post is negative. Compared directly against Non-Chip Manufacturers (Model 3), and taking the point estimates literally, "Chip Manufacturers experience a <strong>47.1% increase</strong> in participation relative to the pre-period, compared to a <strong>12.1% decrease</strong> for Non-Chip Manufacturers" (p. 27 of the PDF). Event studies show no pre-trends.</p>
+
+<p>The cross-framework triple-difference (Table 5, pp. 27–28 of the PDF) is the primary evidence for Hypothesis 3. The triple interaction Chip Manufacturer × PyTorch × Post is positive and significant: <strong>+0.0977</strong> on the extensive margin and <strong>0.1226</strong> on the intensive margin (log commits). The magnitude is essentially identical to the within-PyTorch difference-in-difference (0.0939), which implies the analogous difference-in-difference for TensorFlow is approximately zero — chip manufacturers gained relative ground on PyTorch but not on TensorFlow, ruling out explanations based on the ChatGPT-driven AI demand shock of late 2022 or any industry-wide shift in chip-makers' willingness to contribute to ML frameworks. Figure 4 visualizes the near-parallel TensorFlow lines against the diverging PyTorch lines.</p>
+
+<p>The one exception is instructive. NVIDIA — the most regular external contributor, the GPU market leader, and owner of the proprietary CUDA standard — was the only chip manufacturer that decreased participation after the change despite joining the board:</p>
+
+<blockquote>NVIDIA was the only chip manufacturer that actually decreased its participation post governance change, despite joining the PyTorch board. … our interpretation of NVIDIA's different reaction to the governance change is that NVIDIA already had significant control of the technology and had less of a threat of loss of interoperability due to the popularity of its GPUs. (p. 30 of the PDF)</blockquote>
+
+<p>The asymmetry is exactly what a hold-up theory predicts: the firm whose de facto control (via CUDA and GPU dominance) already protected it from hold-up had no new incentive to contribute, while firms dependent on PyTorch's openness toward their chips did.</p>
+
+<h3>Table 3: Headline results at a glance</h3>
+<table>
+<tr><th>Result (as reported)</th><th>Estimate / statistic</th><th>Design and sample</th><th>Location</th></tr>
+<tr><td>External-firm participation rises after the governance change</td><td>+25.7% increase in the likelihood of contributing (the authors' calculation from Table 3, Model 1)</td><td>Within-PyTorch DiD vs unaffiliated contributors; contributor-month panel with fixed effects</td><td>PDF p. 23</td></tr>
+<tr><td>Meta (focal firm) participation falls</td><td>Meta × Post = −0.0051 in the pooled DiD (imprecise); event study shows a sharp post-announcement drop after an upward pre-trend</td><td>Same design, Meta contributors; no clean causal attribution (change endogenous for Meta)</td><td>PDF pp. 23–24</td></tr>
+<tr><td>Net participation barely moves</td><td>"Only a small increase in net contributors"; "a very small increase in net participation on the project, far less than would be expected based on the fanfare"</td><td>Descriptive trends + DiD</td><td>PDF pp. 5, 24</td></tr>
+<tr><td>Complementors vs Users, within PyTorch</td><td>Chip Manufacturers +47.1% vs Non-Chip Manufacturers −12.1% in participation relative to the pre-period</td><td>Within-PyTorch DiD (chip vs non-chip; Table 4, Model 3 point estimates)</td><td>PDF p. 27</td></tr>
+<tr><td>Chip manufacturers vs unaffiliated, extensive margin</td><td>Chip Manufacturer × Post = 0.0939 (p &lt; 0.01), also significant on log commits</td><td>Table 4, Model 2 with contributor and month fixed effects</td><td>PDF pp. 26–27</td></tr>
+<tr><td>Triple-DiD against TensorFlow (primary evidence for H3)</td><td>Chip × PyTorch × Post = +0.0977 (p &lt; 0.01) on the extensive margin; +0.1226 on log commits; TensorFlow analog ≈ 0</td><td>External-company contributors to PyTorch or TensorFlow (Table 5)</td><td>PDF pp. 27–28</td></tr>
+<tr><td>The increase is not crowd-in replacing withdrawing Meta developers</td><td>Δ Meta contributors → Δ external contributors = 0.1406; Δ Meta commits → Δ external commits = 0.2421; chip-manufacturer commits = 0.1012 — Meta and external contributions are complements</td><td>Contribution-group correlations, 158 groups (Table 6)</td><td>PDF p. 31</td></tr>
+<tr><td>NVIDIA is the exception that confirms the mechanism</td><td>Only chip manufacturer to <em>decrease</em> participation post-change despite joining the board — attributed to CUDA-based de facto control and a weak hold-up threat</td><td>Descriptive per-firm trends (Figure A5)</td><td>PDF p. 30</td></tr>
+</table>
+
+<h3>4.3 Ruling out alternatives</h3>
+
+<p>Four alternative explanations are tested and rejected:</p>
+
+<ul>
+<li><strong>Substitution with withdrawing Meta developers (crowding out).</strong> Perhaps chip makers stepped in simply because Meta vacated the integration code. The authors build a contribution-group panel (158 groups defined by repository and directory structure, such as pytorch/xla for TPU integration versus pytorch/pytorch.github.io for the website) and regress year-over-year changes in external-company contributions on changes in Meta contributions (Table 6, p. 31 of the PDF). The correlations are <em>positive</em> (# Meta Contributors → external # Contributors = 0.1406; # Meta Commits → external commits = 0.2421; chip-manufacturer commits = 0.1012, all on the significant side): Meta and external contributions are complements, not substitutes. "This result is directly opposite a crowding out story" (p. 31 of the PDF) — if anything, the headline effects understate the causal effect of control rights.</li>
+<li><strong>Board membership as the driver.</strong> If joining the governing board mechanically raised contributions, the effect would track board accession. It does not: Microsoft and Amazon, original board members, "did not increase their contribution rate post-announcement" (Figure A8, p. 32 of the PDF). Board membership is treated as an endogenous signal of participation intent, not a cause.</li>
+<li><strong>Scope of the change.</strong> The LF formally took technical control only of the main pytorch/pytorch repository, not all repositories of the organization; restricting analysis to the main repo leaves results equivalent (Table A2).</li>
+<li><strong>Measurement and sample.</strong> Results hold using email-domain-only affiliation (Table A3) and are strengthened when filtering to contributors active for at least three months (Table A4).</li>
+</ul>
+
+<h2>5. Interpretation: relinquishing control, resolving hold-up, and the welfare trade-off</h2>
+
+<p>Putting the pieces together, the paper reads its findings as a controlled test of the hold-up mechanism. The aggregate pattern (external firms up, Meta down, net flat) shows that democratizing control "does not create value out of nothing"; the heterogeneous pattern (chip makers up, users flat, CUDA-owning NVIDIA down, nothing on TensorFlow) identifies control rights — not attention, goodwill, or AI hype — as the operative channel, because Hypothesis 3 is the only prediction singularly tied to a control-rights interpretation. In the authors' summary: "our results are consistent with the predictions of control rights theory, which interprets the governance change as resolving a latent 'hold-up' problem that previously limited the amount of external firm participation" (p. 33 of the PDF).</p>
+
+<p>The welfare message is deliberately anti-fanfare. Because the originating focal firm loses incentives when control is collectivized, and because optimal control allocation depends on whose ex-ante effort has the higher marginal return (Grossman &amp; Hart 1986; Hart &amp; Moore 1990):</p>
+
+<blockquote>When control rights are changed from dominant to collective, the originating focal firm loses incentives to invest. Control rights theory emphasizes that the optimal governance mode actually depends on the relative marginal benefit of effort between the focal firms and external firms, and that it is not always best to innovate under a collective governance model. (p. 33 of the PDF)</blockquote>
+
+<p>Boundary conditions are drawn explicitly: control rights matter where technological investment precedes the resolution of non-contractible uncertainty — the AI/Big-Data setting — and matter less where innovation fits cleanly into an existing value-capture framework, such as pharmaceutical research; this resonates with evidence that weak patent protection correlates with more open-source software (Lin &amp; Rai 2023).</p>
+
+<h2>6. Position in the literature</h2>
+
+<p>The paper locates itself at the intersection of three research streams, and its claims against each are specific.</p>
+
+<p><strong>1. Property-rights / incomplete-contracts theory (the theory it imports).</strong> The paper takes Grossman &amp; Hart (1986) and Hart &amp; Moore (1990) — developed to explain the boundary of the firm — and their extensions to bilateral research collaborations (Aghion &amp; Tirole 1994; Oxley 1997; Sampson 2004; Lerner &amp; Malmendier 2010) and applies them to multi-party open collaboration, where uncertainty over business models and regulation makes ex-post outcomes hard to contract. It self-consciously prefers control rights over the sibling transaction-cost-economics frame (footnote 6) for its sharp hold-up predictions. The empirical object — who decides a shared technology's future when it is too early to contract on value capture — is the same object the platform and ecosystem literatures approach from governance and architecture angles (Wareham et al. 2014; Adner &amp; Kapoor 2010; Jacobides et al. 2018).</p>
+
+<p><strong>2. The open-source and commons governance literature (the literature it answers).</strong> The direct interlocutor is O'Mahony &amp; Karp (2020), whose Eclipse case study established the "proprietary to collective governance" vocabulary and found that clear, collective governance deepened external participation; Yue &amp; Nagle provide the quasi-causal estimate of that claim and add the cost side (the focal firm's lost incentive) that qualitative studies could not quantify. It also engages the individual-level open-source literature (Lerner &amp; Tirole 2002; West &amp; Lakhani 2008; Dahlander &amp; Magnusson 2008) by studying <em>firms</em> rather than individuals, and the firm-OSS literatures on learning by contributing (Nagle 2018), OSS and firm productivity (Nagle 2019), and OSS and entrepreneurship (Wright et al. 2023; Conti et al. 2025). The commons literature's implicit "the more 'open' the commons, the better" stance (Ostrom 1990; West &amp; O'Mahony 2008; He et al. 2020; Altman et al. 2022) is the foil: "shifting control rights to a more 'distributed' model does not freely create incentives but may dampen the incentive for focal company investments" (p. 6 of the PDF). Selective-revealing work (Henkel 2006) and the private-collective model (von Hippel &amp; von Krogh 2003) supply the background on why sponsors open at all.</p>
+
+<p><strong>3. Value capture and platform/ecosystem strategy (the literature it extends).</strong> The paper's opening framing — firms open technology to control standards and attract complementors — connects to Teece (1986) on complementary assets (chip makers are literally "commercializing the complement"), Alexy et al. (2018) on "surrendering control to gain advantage," and the standards literature (Fontana &amp; Greenstein 2021 on Intel's Centrino). Its Complementor/User split deliberately mirrors the platform distinction between horizontal and vertical complementors (Thomas et al. 2024) and speaks to platform governance studies — Boudreau's (2010) "granting access vs. devolving control," Rietveld et al. (2019) on selective promotion, and Wen &amp; Zhu (2019) on complementor responses to platform-owner entry, here reframed as the threat of <em>not</em> owning the technology's future. The crowding-out debate it adjudicates (Reisinger et al. 2014; Nagaraj &amp; Piezunka 2023) is central to the OSS public-goods literature. One competitive-lens interpretation — that the change made rivals cooperate with Meta — is examined and rejected with data: among PyTorch contributors, only Google (acting as a TPU complementor) and ByteDance (8 commits) could even remotely count as Meta competitors.</p>
+
+<p><strong>4. Within this topic's core library (Part I).</strong> Yue &amp; Nagle is the "control-rights benchmark" that the Hugging Face and open-AI papers orbit:</p>
+<ul>
+<li><em>Greenstein et al. 2022</em> (the HF case) documents a platform whose sponsor deliberately practices distributed control — precisely the Hugging Face example the paper cites as control built through openness rather than ownership; Yue &amp; Nagle supply the economic mechanism for why such governance attracts complementors.</li>
+<li><em>Wu, Lin &amp; Li 2025</em> (ICIS) estimate a difference-in-differences around Meta's Llama 2 open-weight release on Hugging Face developers, finding openness spurs downstream innovation. Yue &amp; Nagle complicate that reading: an openness event's net effect depends on who loses control and who gains it — for PyTorch the net was near zero, with the composition shift (Meta out, chip makers in) hidden in the aggregate.</li>
+<li><em>Azoulay et al. 2024</em> ask whether open-weight publishing erodes the moats of frontier model builders — the <em>ex-ante</em> decision to open. Yue &amp; Nagle study the <em>ex-post</em> consequence of ceding control; together they frame the sponsor's problem as a two-stage choice (whether to open access; whether to keep control).</li>
+<li><em>White et al. 2024</em> (Model Openness Framework) taxonomize what "open" means along 17 components; Yue &amp; Nagle's access/control decomposition is the coarsest and most economically consequential cut of that taxonomy, and BSD-3 PyTorch sits at the fully-open extreme where the framework's finer distinctions are moot.</li>
+<li><em>Laufer et al. 2025</em> and <em>Longpre et al. 2025</em> map derivative and downstream activity on the HF Hub; Yue &amp; Nagle measure the upstream contribution side (who writes the core). <em>Yeverechyahu et al. 2024</em> (Copilot and OSS contributions) and <em>Khoshbash 2026</em> (specialization in open foundation-model ecosystems) examine how tooling and sponsor strategies reshape who contributes to open AI — both downstream of the control-rights logic formalized here. <em>Jin et al. 2026</em> show how U.S. export controls shifted control over China's AI stack toward open ecosystems — an external, policy-driven analogue of PyTorch's governance shock. And <em>Haese &amp; Peukert 2026</em> ("Open at the Core") study firms' decision to open-source core technology — the mirror-image managerial question of when control is worth giving up.</li>
+</ul>
+
+<h2>7. Limitations</h2>
+
+<p>Following the reading-note convention, claims below are labeled by epistemic status. <em>Author-stated limitations</em> come from the paper itself; <em>independent judgment</em> items are the note-writer's own assessment and are marked as such.</p>
+
+<p><strong>Author-stated limitations (paper claims about its own scope):</strong></p>
+<ul>
+<li><em>Claim:</em> no entirely unaffected control group exists — a single governance change hit every PyTorch contributor — so the estimates are not a direct average treatment effect; identification comes from difference-in-difference and triple-difference comparisons across theoretically motivated groups, and causal interpretation rests on parallel trends supported by pre-trend-free event studies (Sections 3.4, 4.2.2, 5.1).</li>
+<li><em>Claim:</em> the change was endogenous to Meta's strategy, so Hypothesis 2 (focal-firm decline) has no clean causal interpretation; the authors only claim consistency with the predicted direction.</li>
+<li><em>Claim:</em> the exact timing of when effects were "felt" is fuzzy — private LF discussions began two years earlier and key firms were recruited in Spring 2022 — handled with a Transition window rather than a sharp break.</li>
+<li><em>Claim:</em> generalization is directional, not universal: effects should appear where investment precedes resolution of non-contractible uncertainty (AI), and need not appear where value capture is contractible (pharma).</li>
+<li><em>Claim:</em> outcomes measure contributions (commits) to the project, the authors' chosen proxy for follow-on development; issues and comments are excluded by design as usage signals.</li>
+</ul>
+
+<p><strong>Independent judgment</strong> (labeled as the note-writer's inferences and open questions, not paper claims):</p>
+<ul>
+<li><em>Evidence:</em> the paper's measures are strong on the "who contributes" margin but silent on what contributions are worth — no code-quality, downstream-fork, model-adoption, or value measures; commits to an organization's repos proxy innovation effort, not innovation output or value. On its own terms this is fine (Hypothesis 1–3 are about participation), but the welfare discussion in Section 5 generalizes beyond what the dependent variable can support.</li>
+<li><em>Inference:</em> the hold-up interpretation, though powerfully supported by the Hypothesis 3 heterogeneity and the NVIDIA anomaly, is not directly observed — no contributor was surveyed about whether fear of Meta drove underinvestment. The authors rule out the main alternative channels (demand shocks, crowding out, board membership) rather than observing hold-up itself; this is honest but leaves room for unmodeled channels such as career or reputational benefits of contributing to an LF-governed project, which would also weigh most heavily on firms making public technology commitments.</li>
+<li><em>Inference:</em> Meta's decline mixes an incentive effect with a reallocation effect the data cannot separate — Meta engineers may have moved to Meta's other open-AI bets (the Llama family is mentioned in the same paper). If so, PyTorch-specific losses overstate portfolio-level losses for the focal firm, though not for the PyTorch ecosystem.</li>
+<li><em>Open question:</em> what does the near-zero net effect imply for welfare? Net commit counts treat a Meta commit and a chip-maker commit as equally valuable. If collective governance attracts more diverse, more relevant integration work (the paper's own reading of the chip-maker surge), the value created per commit may have risen even as counts stayed flat — the data cannot speak to this, and the paper's "no free lunch" caution is a lower bound on the upside.</li>
+<li><em>Open question:</em> external validity to generative AI. PyTorch is BSD-3 licensed — access is truly unrestricted. Open-weight models typically carry use restrictions (e.g., Llama's license terms), so "access" and "control" are less cleanly separable there; mapping this paper's clean decomposition onto the restricted-license regimes studied by Azoulay et al. 2024, White et al. 2024, and Wu et al. 2025 requires care. The governance mechanism — foundations and boards — is nonetheless becoming the standard answer in AI too (e.g., the governance of PyTorch itself and of Linux-adjacent AI projects).</li>
+</ul>
+
+<p><strong>Textual caveats</strong> (independent judgment on the source artifact): this is a working paper (25-0, September 10, 2024), not peer-reviewed; it is cited in this library as a working paper accordingly. The pdftotext layer used for this note garbled some ligatures and printed the significance stars of the regression tables as arrows; the coefficients and stars quoted here were read off the machine text and should be verified against the PDF. Two internal inconsistencies worth knowing before citing: the paper says the pytorch/ GitHub organization comprises 73 repositories in one footnote but "all 77" in the robustness section; and it cites O'Mahony &amp; Karp's Strategic Management Journal article as "2020" in text and references while the topic index files it as 2022 (SMJ 43(3)). Neither affects the results.</p>
+
+<h2>8. Conclusion and takeaways</h2>
+
+<p>The paper delivers a clean empirical answer to a first-order question in the open-AI economy: <strong>who controls an open technology's future determines who invests in its present.</strong> PyTorch's transfer from Meta to the Linux Foundation — with access rights untouched — raised external-company participation by roughly a quarter, cut Meta's sharply, and moved the project's net contribution barely at all. The compositional detail is the theoretical payoff: the gains accrued to chip manufacturers whose interoperability investments made them vulnerable to hold-up, not to users whose open interface already protected them, and not to NVIDIA, whose CUDA moat already protected it. That pattern is the fingerprint of control rights as the mechanism.</p>
+
+<p>Three takeaways for the topic's central question about openness in AI:</p>
+<ol>
+<li><strong>Open access and open control are different strategic acts with different consequences.</strong> Policy and commentary that treat "openness" as one thing miss the distinction that does the causal work. Relinquishing control is a transfer of incentives between the sponsor and specific classes of complementors — a point that applies with full force to open-weight model releases, where access and governance travel together.</li>
+<li><strong>The sponsor's incentive is part of the ecosystem's endowment.</strong> Meta wrote over 70% of PyTorch's commits before the change; no governance reform creates that endowment ex nihilo. Evaluations of open-AI "ignition" events (Llama 2 on Hugging Face in Wu, Lin &amp; Li 2025; open-weight releases in Azoulay et al. 2024) should count both the kindling and the fire: who stops contributing as well as who starts.</li>
+<li><strong>Complementor structure predicts where openness pays.</strong> Ecosystems full of firms whose value depends on deep, specific integration with the core (chip makers, and by analogy tool builders, fine-tuners, and hardware accelerators in open AI) are where ceding control unlocks the most participation — and where retaining it deters the most.</li>
+</ol>
+
+<div class="golden">
+"Opening" control rights in this way does not create incentives out of thin air but rather shifts incentives between parties. — Yue &amp; Nagle (2024), p. 9 of the PDF
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI (reading-notes workflow, academic style, English) from the pdftotext of the local PDF of Yue &amp; Nagle (2024), Working Paper 25-0. Page citations "(p. N of the PDF)" follow the convention of counting form-feed characters in the pdftotext output: the page number equals the number of form feeds before the passage plus one. The pdftotext layer garbled ligatures (e.g., rendering "effect" as "e!ect") and printed regression significance stars as arrows; quotations above restore standard English spelling and the reported coefficients and significance levels were transcribed from the machine text — verify quotations and numbers against the original PDF before citing in formal writing. Layered limitation labels (paper claims / evidence / inference / open questions, author-stated vs. independent judgment) follow the reading-note convention; independent-judgment items are the note-writer's own and are not peer-reviewed.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

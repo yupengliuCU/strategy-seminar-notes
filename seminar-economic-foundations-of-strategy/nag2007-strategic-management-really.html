@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is Strategic Management, Really? — 深度解读</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>What Is Strategic Management, Really? Inductive Derivation of a Consensus Definition of the Field</h1>
+
+<div class="meta">
+<strong>作者：</strong>Rajiv Nag、Donald C. Hambrick、Ming-Jer Chen<br>
+<strong>期刊：</strong><em>Strategic Management Journal</em>, Vol. 28, No. 9, pp. 935–955 (2007)<br>
+<strong>DOI：</strong>10.1002/smj.615<br>
+<strong>性质：</strong>实证归纳研究（inductive empirical study）——问卷调查 + 计算机辅助内容分析（content analysis）<br>
+<strong>关键词：</strong>strategic management（战略管理）；academic communities（学术共同体）；linguistics（语言学）
+</div>
+
+<div class="summary-box">
+<h3>一句话总结</h3>
+<p>Nag、Hambrick 与 Chen 用两份互为印证的实证归纳程序证明：战略管理领域看似碎片化、缺乏统一定义，但其成员共享一个<strong>隐含的共识定义（implicit consensus definition）</strong>——「关于总经理代表所有者，运用资源，采取重大<strong>计划性与涌现性举措（intended and emergent initiatives）</strong>，以提升企业在外部环境中的绩效」；正是这一底层共识让多元视角得以共存，构成了领域繁荣的根基。</p>
+</div>
+
+<div class="note">
+<strong>阅读提示（对课程主线的意义）：</strong>本课程主线是「theories of the firm 作为战略研究的经济学基础」，而本文处理的是这条主线的前置问题——<strong>「战略管理能否作为一个可识别的研究领域（identifiable academic field）而存在」</strong>。在把企业理论（Coase、Williamson、Penrose）引入战略研究之前，先要确认这个"接收端"领域有自己的身份与边界。本文的价值在于：它不靠权威定义、也不靠思辨，而是用一套可复制的社会语言学程序（social-linguistic procedure）从共同体成员的评分行为中<em>反推</em>出领域的隐含定义。这与经济学中"从行为推断偏好"的显示性偏好逻辑同构，也为后文讨论战略领域的学科身份提供了方法论锚点。
+</div>
+
+<h2>一、背景与动机：领域定义的争论</h2>
+
+<p>本文的出发点是一个悖论。战略管理（strategic management, SM）常被批评为"碎片化、缺乏连贯身份"（fragmented and lacks a coherent identity），但这一怀疑与它实际取得的巨大成功相互矛盾——SMJ 是公认的顶级期刊，Academy of Management 的 Business Policy and Strategy（BPS）分部是第二大会员分部、年会投稿量居各分部之首，战略学者在顶尖研究型大学里稳定获得终身教职。作者要回答的问题是：一个表面上缺乏清晰公认定义的领域，如何维持其动能？</p>
+
+<p>作者对这一悖论的预设答案是：领域成员之间存在一个<strong>强烈的隐含共识（strong implicit consensus）</strong>，尽管在<em>形式定义</em>上存在模糊。他们借用美国最高法院大法官 Potter Stewart 关于色情品的著名判断来类比这一状态——「我知道它是什么，但我说不清楚怎么定义它」。战略管理作为 1979 年才从"商业政策"（business policy）匆忙改名的年轻领域，正是这种"能识别、难定义"的典型。</p>
+
+<p>在提出问题之前，作者先盘点既有定义工作的缺位。自 Schendel 与 Hofer（1979）把"商业政策"更名为"战略管理"以来，学界做过大量领域盘点——如 Hoskisson 等人（1999）对"外部环境—内部资源"钟摆式偏好的追踪、Ramos-Rodriguez 与 Ruiz-Navarro（2004）的引文分析——但这些工作研究的是领域的<em>理论兴衰与知识结构</em>，却回避了一个更基本的问题：<strong>战略管理究竟是什么？</strong>而作者指出，回避这一问题有两重代价：其一，领域身份本身高度可争议，与经济学、营销学、组织理论、金融学、社会学等多个成熟领域交叉，缺乏集体身份会让战略管理在资源、版面、终身教职名额上遭到邻域侵蚀；其二，已公开的领域定义彼此差异极大（见下表一与附录 A），有的指向总经理（general managers），有的指向整体组织，有的强调绩效，有的强调外部环境，有的强调实施，有的什么都不强调——足够多样以至于传达了"这个领域到底做什么、如何区别于邻域"的模糊。</p>
+
+<h3>已有定义方式对比</h3>
+
+<table>
+<caption>表一：战略管理既有公开定义的方式差异（据原文附录 A 整理）</caption>
+<thead>
+<tr><th>作者 / Author（年份）</th><th>定义核心 / Core of definition（英文）</th><th>侧重要素 / Emphasized element</th></tr>
+</thead>
+<tbody>
+<tr><td>Learned et al. (1965)</td><td>Study of the functions and responsibilities of general management and the problems affecting the character and success of the total enterprise</td><td>总经理职能 + 整体企业成败</td></tr>
+<tr><td>Schendel &amp; Hofer (1979)</td><td>A process dealing with the entrepreneurial work, organizational renewal and growth, developing and utilizing strategy</td><td>创业性过程 + 更新与增长</td></tr>
+<tr><td>Bracker (1980)</td><td>Analysis of internal and external environments to maximize the utilization of resources in relation to objectives</td><td>内外部环境 + 资源利用</td></tr>
+<tr><td>Jemison (1981)</td><td>Process by which general managers coalign competences and the opportunities and constraints in the environment</td><td>总经理 + 能力—环境匹配</td></tr>
+<tr><td>Van Cauwenbergh &amp; Cool (1982)</td><td>Formulation (policy) and implementation (organization) of calculated behavior in new situations</td><td>制定 + 实施</td></tr>
+<tr><td>Smircich &amp; Stubbart (1985)</td><td>Organization making—to create and maintain systems of shared meanings</td><td>意义建构（社会建构论）</td></tr>
+<tr><td>Schendel &amp; Cool (1988)</td><td>Work associated with the entrepreneur and his function of starting (and renewing) organizations</td><td>企业家职能</td></tr>
+<tr><td>Fredrickson (1990)</td><td>Issues faced by managers who run entire organizations, or their multifunctional units</td><td>整体组织的管理者</td></tr>
+<tr><td>Teece (1990)</td><td>Formulation, implementation, and evaluation of managerial actions that enhance the value of a business enterprise</td><td>价值提升的管理行动</td></tr>
+<tr><td>Rumelt, Schendel &amp; Teece (1994)</td><td>Direction of organizations (business firms), subjects of primary concern to senior management, reasons for success and failure</td><td>组织方向 + 成败原因</td></tr>
+<tr><td>Bowman, Singh &amp; Thomas (2002)</td><td>Problems relating to the creation and sustainability of competitive advantage, or the pursuit of rents</td><td>竞争优势 + 租金</td></tr>
+</tbody>
+</table>
+
+<p>这些定义彼此并非严格矛盾，但差异足够大，导致"领域到底在谈什么、如何区别于邻域"含混不清。作者的核心洞见在于：与其在<em>规范层面</em>争论"战略管理<strong>应该</strong>是什么"，不如在<em>实证层面</em>追问"战略管理学者<strong>事实上认为</strong>它是什么"。这一转向把定义问题从哲学讨论转化为一个可检验的经验命题。</p>
+
+<h2>二、方法：两份互为印证的实证归纳</h2>
+
+<p>本文的方法论根基是<strong>知识社会学与语言学</strong>：一个科学领域是共享共同身份与语言的学者共同体，语言是使社会建构得以可能的根本媒介，领域的"本质"或隐含定义因此可以从其话语中识别。作者据此设计了两份彼此印证的实证研究，统称为<strong>归纳推导（inductive derivation）</strong>——从成员的实际判断与用词中<em>向上</em>归纳，而非从先验定义<em>向下</em>演绎。</p>
+
+<h3>研究一：隐含定义的推导（Study I）</h3>
+
+<p>第一步是识别"战略管理文本"。作者从 <em>Academy of Management Journal</em>、<em>Academy of Management Review</em>、<em>Administrative Science Quarterly</em> 三个期刊 1980–2001 年间（每五年取两年）中，宽松地挑选出 447 篇"哪怕只是沾边"可能属于战略管理的文章摘要，请 269 名战略学者（BPS 分部 2002、2003 年会议论文作者，回收率 46%）在四点量表上评分「这是否是一篇战略管理文章」。为保证评分质量，作者刻意排除了 SMJ 文章（避免期刊印记成为先验证据），并加入两篇明显非战略的"填充文章"来检验评分者是否陷入"一律打高分"的惰性——结果超过 95% 的填充文章被评为"明显不是 SM"，说明评分者在认真区分。</p>
+
+<p>评分者表现出高度一致：组内相关系数（intraclass correlation coefficient, ICC）达 0.50（p &lt; 0.001），385 篇（86%）因评分标准差小于 1 而被保留；其中均值高于 3.0 的 200 篇判为"战略管理"，其余 185 篇为"非战略管理"。第二步是<strong>内容分析（content analysis）</strong>：用计算机辅助文本分析软件 Concordance 对这 385 篇摘要做词法分析，经多阶段清洗（剔除出现少于 10 次的词、专有名词、介词冠词，合并同根词）后得到 223 个词根（lexeme），再对每个词计算它与"是否 SM"这一二分变量的<strong>二列相关（biserial correlation）</strong>，识别出 54 个在战略管理摘要中显著更频繁出现的<strong>主题词（distinctive lexicon）</strong>——其中「strategy」和「firm」的相关最高（r = 0.38）。</p>
+
+<p>第三步是归纳定义：作者在既有定义与 54 个主题词的概念聚类之间反复迭代，把 54 个词归入六个概念要素，从而把隐含定义表述为一句完整的话。三位独立编码者对词—要素归属的平均 Cohen's kappa 为 0.68，表明归类具备实质一致性。</p>
+
+<h3>研究二：显性定义的交叉验证（Study II）</h3>
+
+<p>研究二转向<strong>显性定义（explicit definition）</strong>。作者调查了 57 名<strong>边界跨越者（boundary-spanners）</strong>——即同时发表在 SMJ 与经济学、社会学、营销学或主流管理学顶级期刊的学者（12 名经济学、17 名社会学、8 名营销学、20 名主流管理学背景），直接问「你对战略管理领域的定义是什么？」。选择这些"骑墙"学者是刻意的：他们身处范式交汇处，若连他们都对领域的根本定义高度一致，就能对研究一的共识做出最严格的检验。对其定义文本再做内容分析，作者在原六要素之外发现并补充了第七个要素「内部组织」（internal organization）。</p>
+
+<div class="mermaid">
+flowchart TD
+    P["悖论 / Paradox<br/>领域看似碎片化，却蓬勃发展"] --> S1["研究一 Study I<br/>推导隐含定义 implicit definition"]
+    P --> S2["研究二 Study II<br/>获取显性定义 explicit definition"]
+    S1 --> A1["269 名学者评分 447 篇摘要<br/>ICC = 0.50，保留 385 篇"]
+    A1 --> A2["内容分析 CATA<br/>223 词根 → 54 主题词<br/>biserial correlation"]
+    A2 --> A3["归纳出六要素定义<br/>six-element definition"]
+    A3 --> A4["LOGIT 验证<br/>正确分类 82%"]
+    S2 --> B1["57 名边界跨越者<br/>econ / soc / mkt / mgmt"]
+    B1 --> B2["内容分析七要素<br/>六要素 + 内部组织"]
+    B2 --> B3["交叉验证共识<br/>performance 86% · firms 64%"]
+    A4 --> D["共识定义<br/>consensus definition"]
+    B3 --> D
+    D --> E["结论 Conclusion<br/>模糊边界 = 领域的力量<br/>organic solidarity 有机团结"]
+</div>
+
+<h2>三、核心发现：六要素共识定义</h2>
+
+<p>研究一推导出的隐含共识定义，原文（第 942 页，表 2）表述如下：</p>
+
+<blockquote>
+The field of strategic management deals with (a) the major intended and emergent initiatives (b) taken by general managers on behalf of owners, (c) involving utilization of resources (d) to enhance the performance (e) of firms (f) in their external environments.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">中文复述：战略管理领域处理的是——由总经理代表所有者采取的、重大的计划性与涌现性举措，这些举措涉及资源利用，旨在提升企业在外部环境中的绩效。（p. 942, Table 2）</span>
+</blockquote>
+
+<p>这六个要素构成了领域的隐含共识定义。作者强调，这一定义与其他定义的根本不同在于：它代表的是成员<strong>事实上</strong>如何思考这个领域（de facto），而非他们<strong>应该</strong>、<strong>可能</strong>或<strong>想要</strong>如何思考。换句话说，它是对共同体<em>显示出的</em>边界判断的语言学还原。</p>
+
+<table>
+<caption>表二：共识定义六要素拆解（据原文 Table 2 整理）</caption>
+<thead>
+<tr><th>定义要素 / Definitional element（中英）</th><th>代表性主题词 / Representative words（英文，括号内为二列相关 r）</th><th>要素含义 / Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td>重大计划性与涌现性举措<br>major intended and emergent initiatives</td><td>strategy (0.38), innovation (0.14), acquisition (0.14), investment (0.12), diversification (0.12), learning (0.12), entry (0.11), alliances (0.10)</td><td>领域关注的核心行动：既有审慎制定的计划，也有学习、创新等自下而上的涌现活动</td></tr>
+<tr><td>由总经理代表所有者<br>taken by general managers on behalf of owners</td><td>top (0.15), incentives (0.12), board (0.12), director (0.12), compensation (0.11), CEO (0.10), succession (0.10), agency (0.09), ownership (0.08)</td><td>关注的行动主体是高管团队与治理机构，且指向"所有者"而非其他利益相关者</td></tr>
+<tr><td>资源利用<br>involving utilization of resources</td><td>stock (0.15), capability (0.14), assets (0.13), technology (0.12), competency (0.10), ties (0.10), slack (0.09), knowledge (0.09), resources (0.08)</td><td>举措所调动的资源：内部能力/知识，以及联结外部环境的"关系"</td></tr>
+<tr><td>提升绩效<br>to enhance the performance</td><td>growth (0.16), advantage (0.11), returns (0.11), decline (0.10), dominance (0.10), performance (0.08)</td><td>领域关注的核心结果变量</td></tr>
+<tr><td>企业<br>of firms</td><td>firm (0.38), business (0.13), company (0.12), corporate (0.09), multibusiness (0.09), SBU (0.09), subsidiary (0.09)</td><td>分析单位是"企业"而非个人、团队或社会</td></tr>
+<tr><td>外部环境<br>in their external environments</td><td>industry (0.27), competition (0.21), market (0.17), environment (0.17), contingency (0.15), uncertainty (0.14), threats (0.14), risk (0.12)</td><td>企业所处的外部情境：直接竞争环境，以及更宽泛的偶然性与不确定性</td></tr>
+</tbody>
+</table>
+
+<p>作者随后用<strong>逻辑回归（logistic regression, LOGIT）</strong>检验这六个要素本身（而非单个词）能否区分战略与非战略摘要。结果（第 943–944 页，表 3）显示：整体模型在原始样本上正确区分 82.34% 的文章，在独立的 SMJ 匹配样本上正确区分 82.58%；六个要素中五个高度显著——唯一的例外是「提升绩效」（在第一个样本中不显著，在 SMJ 样本中仅 p &lt; 0.10）。这一例外本身是个重要发现：它说明"关注绩效"并非战略管理独有的标志，因为组织行为学、组织理论同样关注绩效（只是落在个体、岗位、团队、社会层面）。换言之，<strong>绩效是战略管理的必要但非充分要素</strong>——几乎所有管理子领域都谈绩效，战略管理的独特性在于<em>分析单位（企业）与行动主体（总经理/所有者）</em>的组合。</p>
+
+<h2>四、显性定义的交叉验证：边界跨越者的共识</h2>
+
+<p>研究二对 57 名边界跨越者的显性定义做内容分析，得到七要素的出现率（原文第 947 页，表 5）：</p>
+
+<table>
+<caption>表三：显性定义七要素的出现率（据原文 Table 5 整理）</caption>
+<thead>
+<tr><th>概念要素 / Conceptual element（中英）</th><th>出现率 / Incidence（%）</th></tr>
+</thead>
+<tbody>
+<tr><td>绩效 performance</td><td>86</td></tr>
+<tr><td>企业 firms</td><td>64</td></tr>
+<tr><td>战略举措 strategic initiatives</td><td>45</td></tr>
+<tr><td>环境 environment</td><td>43</td></tr>
+<tr><td>内部组织 internal organization</td><td>30</td></tr>
+<tr><td>管理者与所有者 managers and owners</td><td>30</td></tr>
+<tr><td>资源 resources</td><td>14</td></tr>
+</tbody>
+</table>
+
+<p>四个子群体（经济学、社会学、营销学、主流管理学取向）在要素强调上存在可辨识但<strong>不显著</strong>的差异（卡方与 Kruskal–Wallis 检验均不显著）：经济学取向者定义最窄，几乎不提资源、管理者、内部组织，其集体描绘高度吻合产业组织经济学的"结构—行为—绩效"（structure–conduct–performance, S-C-P）范式；主流管理学取向者定义最宽，七要素全部被实质覆盖；社会学与营销学取向者则突出"战略举措"要素，即选择、行动、决策等意志性维度。作者指出一个耐人寻味的细节：社会学取向者强调意志性行动，这有讽刺意味，因为人口生态学与制度理论这两个对战略管理有影响的社会学分支在原始论证中恰恰很少给战略选择或独特管理行动留位置。</p>
+
+<p>四组学者的核心共识压倒性集中于<strong>分析单位（企业）</strong>与<strong>首要结果（绩效）</strong>两点。作者据此判断：即便在理论上、方法上、因果逻辑上分歧很大，边界跨越者对"领域是什么"这一根本问题仍然高度一致——分歧主要体现为<em>具体程度</em>不同（有人给一句话，有人给一份清单），而非基本断言不同。</p>
+
+<p>研究二还附带调查了边界跨越者对战略管理与其母领域之间边界的看法。三类边界跨越者给出了方向各异的对照（原文第 949 页）：</p>
+
+<blockquote>
+Economics tends to study firms as "fixed effects" whereas strategic management thrives on firm-level idiosyncrasies.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">中文复述：经济学倾向于把企业当作"固定效应"来处理，而战略管理恰恰以企业层面的异质性（特质性）为生命力所在。（p. 949，一名 SM—经济学边界跨越者）</span>
+</blockquote>
+
+<p>SM—经济学边界跨越者强调：经济学是"认识论驱动"的，偏重演绎推理与建模、不深入组织的具体机制；战略管理是"现象学驱动"的，关心实务洞见。SM—社会学边界跨越者强调因果逻辑之别：战略管理主推理性的"技术优越性"与"经济适切性"，社会学则关注地位、权力、传染、身份等社会性力量，且社会学对"组织绩效"的界定更宽（涵盖合法性与生存，而非仅股东回报）。SM—营销学边界跨越者则给出与经济学组方向相反的对照：营销学比战略管理更"细节导向""操作化"，战略管理对顾客、价值主张、渠道这些议题持有"相对疏远、简单化"的看法。</p>
+
+<h2>文献位置（position in the literature）</h2>
+<p>本文属于<strong>领域身份（field identity）</strong>研究，回答"战略管理作为学科到底研究什么"。它对话的是领域定义的长年争论（Andrews、Porter、Mintzberg 等不同定义并存），方法论上用<strong>归纳（inductive）</strong>替代思辨——通过对学者的调查与对领域文本的内容分析，实证推导出共识定义。它与 Durand, Grant &amp; Madsen (2017) 互补：Nag 问"共识是什么"，Durand 问"边界为什么守不住"。</p>
+<h2>五、方法论贡献与局限</h2>
+
+<p>本文的方法论贡献在于把"领域是什么"这个看似只能思辨的问题，转化为一个<strong>可操作、可复制的经验程序</strong>：让共同体成员对文本做边界判断 → 对判断结果做词法分析 → 反推共同体隐含的概念结构 → 再用独立样本与逻辑回归验证。这套"从行为推断结构"的程序可以直接移植到其他管理子领域（如 I/O 心理学与人力资源管理、经济社会学与组织理论、创业学与战略管理之间的区分），作者对此已有明示。</p>
+
+<p>作者也如实列出了三组局限：其一，样本文章全部取自<em>美国管理学期刊</em>，只能刻画战略管理与其他管理子领域的区分，无法刻画它与经济学、社会学、营销学等<em>外邻领域</em>的区分（后者中战略取向文章太少，无法做同类分析）；其二，全部取自美国期刊，未含世界其他地区的期刊（尽管评分者中有相当比例来自美国以外）；其三，只取了最高学术影响力的期刊，排除了 <em>Harvard Business Review</em>、低影响力期刊与书籍。此外，六要素定义是作者"把六要素塞进一句句子的尽力而为"，句法上并不优雅，这本身就是归纳法的诚实之处。</p>
+
+<p>从外部视角还可以补充两点作者未充分展开的局限。第一，<strong>共识的来源被有意悬置</strong>：隐含定义反映的是 1980–2001 年这段特定历史时期美国精英期刊的语言印迹，作者虽推测「资源利用」要素的突出要归功于 Wernerfelt（1984）与 Barney（1991）开创的资源基础观（resource-based view, RBV），却未系统检验"高被引作品塑造领域语言"的反向因果——这被他们自己列为未来方向。第二，<strong>共识的内容与共识的存在是两回事</strong>：本文强证据支持"存在一个共享的隐含定义"，但这一共识偏向股东导向的、逐利性的"企业"，作者自己也注意到，凡涉及非财务绩效结果或非营利情境的摘要，无论话题多"战略"，评分都会偏低——这意味着共识定义里埋着领域成员<em>未言明的规范偏见</em>。</p>
+
+<h2>六、我的独立判断</h2>
+
+<p>这篇论文对课程主线"战略作为可识别研究领域/学科身份"的价值，在于它把领域的<em>身份问题</em>从"宣言"变成"测量"。在 theory of the firm 这条经济学主线里，我们通常默认"企业"是一个清晰的分析单位，然后去讨论它的边界、契约与能力；本文反过来提醒我们：<strong>"战略管理"这个领域自身的边界，与"企业"这个分析对象的边界，是同构地靠共同体成员的共享语言来维系的</strong>。一个领域能吸引多元视角而不瓦解，靠的正是这种"底层共识 + 表层多元"的双层结构——作者用 Durkheim 的<strong>有机团结（organic solidarity）</strong>与<strong>机械团结（mechanical solidarity）</strong>这对概念来命名它：战略管理更像社会学式的有机团结领域（靠劳动分工与相互依存维系，而非强制的集体良知），其"看似弱点的模糊边界"恰恰是力量来源。</p>
+
+<p>我认为本文最锋利的一处判断，是它对<strong>「绩效」要素的祛魅</strong>。流行观点把"关心绩效"当作战略管理的招牌，LOGIT 结果却显示绩效在区分战略与非战略管理研究上<em>不显著</em>——因为人人都在谈绩效。战略管理真正的识别性标志是「企业层面 + 总经理/所有者行动 + 外部环境」这个组合，而不是绩效本身。这一发现对后续阅读有直接启发：当我们判断一篇论文"算不算战略研究"时，应当问它的<em>分析单位与行动主体</em>，而不是它是否用了"绩效""竞争优势"这类词。据此，本文也为「what is strategy」系列阅读提供了一个判别式锚点：Mintzberg、Porter、Barney 等人给出的种种定义，都可视为对这个六要素共识的不同<em>加权与强调</em>，而非对它的否定。</p>
+
+<p>同时，作者用 Merton 的"局内人—局外人"（insiders/outsiders）分析为这层判断做了理论收束，原文（第 950 页）值得单独引用：</p>
+
+<blockquote>
+The upshot of Merton's arguments is that the same forces that create dissensus in a field also paradoxically provide the grounds for consensus and commonality.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">中文复述：Merton 论证的要义在于：制造领域分歧的那些力量，同时也悖论式地提供了共识与共通的基础。（p. 950）</span>
+</blockquote>
+
+<p>这条判断的深意是：战略管理的多元化（与经济学、社会学、营销学交叉）本身就是它身份的一部分，边界的可渗透性（permeability）让"局内人"与"局外人"在竞争中互相采纳视角，从而既制造分歧、又再生产共识。这为课程后续把经济学的企业理论"进口"到战略研究提供了一个解释框架——经济学视角的引入是"局外人"的进入，它通过竞争与融合改变了领域的语言（如本文的「资源利用」要素），却没有瓦解领域的身份核心。</p>
+
+<h2>七、结论</h2>
+
+<p>本文的最终结论（第 952 页）把这个悖论翻转成一个肯定命题：</p>
+
+<blockquote>
+Strategic management's apparent weakness seems to be its strength. Its amorphous boundaries and inherent pluralism act as a common ground for scholars to thrive as a community, without being constrained by a dominant theoretical or methodological strait-jacket.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">中文复述：战略管理看似弱点的东西，似乎正是它的力量。它模糊的边界与内在的多元主义，构成了学者作为一个共同体繁荣发展的公共地基，同时不受某种主导理论或方法论"紧身衣"的束缚。（p. 952）</span>
+</blockquote>
+
+<p>作者把战略管理定位为一个<strong>知识中介实体（intellectual brokering entity）</strong>：它靠允许多元研究取向并存而繁荣，同时又被一个根本性的隐含共识维系身份。这套发现对领域的规范含义是双刃的：这个共识定义既可以充当<strong>筛子（screen）</strong>——凡不合定义的工作一律排除在领域之外；也可以充当<strong>磁铁（magnet）</strong>——吸引邻近工作、随时间的推移改变领域（乃至定义）自身的形状。作者明确把选择权交给领域成员，并借"所有者/企业"这一共识元素提醒成员去审视其中埋藏的股东导向偏见。</p>
+
+<p>对「strategic management 作为战略研究的经济学基础」这条课程主线而言，本文给出的最终答案是：<strong>战略领域是"动态、可塑、由可渗透的核心所维系"的学术共同体</strong>。理解了这一点，后续阅读引入的企业理论（交易成本、代理理论、资源基础观、能力观）就都能被正确定位——它们是涌入这个"可渗透核心"的多元智识力量中的经济学一支，通过制造分歧与促成共识的双重运动，塑造了战略管理今天的语言与身份。</p>
+
+<div class="golden">
+「I'm not sure how to define pornography, but I know it when I see it.」<br>
+<span style="font-size:1rem;font-weight:400">战略管理与其说是一个可以被精确定义的领域，不如说是一个"成员一看便知"的共同体——它的共识藏在成员共享的语言与边界判断里，等待被归纳推导出来。</span>
+</div>
+
+<div class="note">
+<strong>AI 辅助说明：</strong>本文由 AI 基于 Nag、Hambrick 与 Chen（2007）原文全文（经 pdftotext 提取，非扫描版）撰写。结构、双语术语与三张对比表、Mermaid 研究流程图均由 AI 组织；所有英文引文逐字取自原文并标注页码/表号（表 1–5、图 1、附录 A），中文复述为 AI 翻译。术语对照（如 intended and emergent initiatives 译为"计划性与涌现性举措"、boundary-spanners 译为"边界跨越者"、organic solidarity 译为"有机团结"）遵循学术惯例，但个别译法（如 "strait-jacket" 译作"紧身衣"）可据课程约定微调。数据与结论请以原文为准，引用前建议核对原文页码。
+</div>
+
+<div class="back"><a href="index.html">← 返回课程索引</a> · <a href="../index.html">全部课程</a></div>
+
+</body>
+</html>

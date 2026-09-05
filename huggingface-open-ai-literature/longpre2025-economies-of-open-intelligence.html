@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Economies of Open Intelligence (Longpre et al., 2025) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Economies of Open Intelligence: Tracing Power &amp; Participation in the Model Ecosystem<br>
+<span style="font-size:1.15rem;color:var(--muted);font-weight:400">Longpre et al. (2025) · arXiv:2512.03073v1 [cs.CY] · 27 Nov 2025</span></h1>
+
+<div class="meta">
+<strong>Authors</strong>: Shayne Longpre (MIT; Data Provenance Initiative), Christopher Akiki (DPI; ScaDS.AI Leipzig), Campbell Lund (DPI; Univ. of Edinburgh), Atharva Kulkarni (DPI; USC), Emily Chen (DPI; UNC Chapel Hill), Irene Solaiman (Hugging Face), Avijit Ghosh (Hugging Face), Yacine Jernite (Hugging Face), Lucie-Aimée Kaffee (Hugging Face). Longpre and Kaffee are corresponding authors with equal contribution.<br>
+<strong>Source</strong>: "Economies of Open Intelligence: Tracing Power &amp; Participation in the Model Ecosystem," arXiv preprint arXiv:2512.03073v1 [cs.CY], November 27, 2025. Preprint (not peer-reviewed); the local copy is an annotated PDF whose reader marginal notes were ignored for this note.<br>
+<strong>Nature</strong>: Large-scale descriptive empirical measurement study of the open-weight model economy, using the complete weekly download history of the Hugging Face Model Hub merged with automatically crawled and manually annotated model metadata.<br>
+<strong>Data &amp; code status</strong>: The authors release the complete dataset and an interactive dashboard for real-time monitoring (huggingface.co/spaces/economies-open-ai/open-model-evolution), under an open license (p. 12). Caveat stated in the paper: the underlying download logs come from Hugging Face's internal databases, and the public dashboard's numbers differ slightly because it uses publicly available (less precise) download data (footnote 3, p. 2).<br>
+<strong>Topic slot</strong>: Part I.1 of the "Hugging Face &amp; the Open-AI Economy" library — the platform-and-ecosystem measurement anchor of the topic.
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Using 5+ years of weekly Hugging Face download logs covering 851,000 models and 2.2B downloads, the paper documents a cyclical rebalancing of economic power in the open-weight model economy — from US industry dominance (Google, Meta, OpenAI held 40–60% of downloads before 2022), through a community-led diffusion phase triggered by Stable Diffusion, to a 2025 recentralization led by Chinese developers (DeepSeek and Qwen) — alongside rising model size (mean downloaded model ≈20.8B parameters), an emerging layer of quantizer/repackager "intermediary" developers, and a sharp decline in data transparency (training-data disclosure fell from 79.3% of download-weighted models in 2022 to 39% in 2025, when open-weights models overtook truly open-source ones for the first time).</p>
+</div>
+
+<div class="note">
+<strong>Reading guide for the "Hugging Face &amp; the Open-AI Economy" topic</strong>: this paper supplies the topic's macro-usage census. Where Laufer et al. (2025) map the <em>relational graph</em> of ~2 million Hub models and Wu, Yang, Xu, Wang, Le &amp; Lo (2025) ask which model-card features predict popularity, Longpre et al. measure <em>who actually captures downloads over time</em> — a longitudinal, market-share view of power. It is also the natural companion to the innovation studies in the library: Wu, Lin &amp; Li (2025, ICIS) treat Llama 2's release as a commoditization shock on Hub developers, and Yue &amp; Nagle (2024) study PyTorch's open-sourcing as relinquished control; Longpre et al. show what such shocks do to aggregate download concentration (each architectural wave first decentralizes, then re-concentrates). For the openness debate, its data-transparency measure operationalizes, at scale, the open-weights-versus-open-source distinction that the Model Openness Framework (White et al., 2024) and the OSI definition formalize. Read it as a measurement paper: its headline numbers are robust indicators of trends and relative popularity, not precise counts of economic value, and the authors say so explicitly in their ethics statement.
+</div>
+
+<h2>1. Background and motivation: where power sits in an "open" AI economy</h2>
+
+<p>The paper opens from a governance problem rather than a technology problem: the concentration of power in artificial intelligence across computational resources, training data, and model development has become a central concern for the fairness, safety, and control of the AI economy. Its premise is that the <em>open</em> part of the AI economy has been under-measured. Prior work examined the broader AI supply chain, the topology of Hugging Face model relationships, or economic consolidation in the <em>closed</em> model market — but not the open ecosystem's own power dynamics over time.</p>
+
+<blockquote>…no study has systematically traced how economic power concentrates and diffuses in the open model ecosystem over time, nor rigorously examined which model characteristics are waxing or waning in adoption. (p. 1 of the PDF)</blockquote>
+
+<p>The Hugging Face Model Hub is the natural observatory. What began in 2019 as a way to distribute open PyTorch versions of BERT and GPT-2 became "the primary global platform for sharing open weight AI models," now hosting 2M+ models with 1.7B unique, cumulative downloads (pp. 1–2). Because the Hub spans text, speech, image, video, and tabular tasks and languages, the authors argue it "offers the most comprehensive view available into the evolution of the open AI model ecosystem—especially the dynamics of control, consolidation, and market power" (p. 2). The paper's central question is therefore: as open weights diffuse, does economic power follow — and toward whom, at what speed, and with what changes in what the ecosystem actually runs?</p>
+
+<h2>2. Core concepts and argument</h2>
+
+<p>The paper's argumentative spine has four conceptual moves, each following the paper's own sections.</p>
+
+<p><strong>(i) Downloads as the observable of adoption and market power (paper §2).</strong> The authors treat usage — measured as deduplicated, filtered weekly downloads — as "by far the most reliable metric, indicative of realistic measures of community adoption" (p. 3). They import two standard economic concentration statistics: the Herfindahl–Hirschman Index (HHI), "the sum of squared market shares," squashed to a 0–1 scale, and the Gini coefficient of the whole distribution. Their division of labor matters for how results are read: "HHI emphasizes market leaders at the head of the distribution, whereas the Gini coefficient evaluates the equality across all participants equally" (p. 4). Market share is computed at three levels — model, developer organization, and nation — which lets the authors separate "who wrote the weights" from "which organization controls distribution" from "which country hosts the developer."</p>
+
+<p><strong>(ii) Attribution conventions decide who gets credit (paper §2).</strong> Because most Hub models are adapters, quantizations, or fine-tunes of a base model, the paper makes its credit rule explicit. In parts of the analysis it uses “Recursive Model Attribution,” which assigns the download of an adapted model A to the base model B (and B's developer) from which A descends (p. 4). This choice is consequential: the rise of China in the national share figures and the persistence of Google/Meta/OpenAI in the all-time figures both partly reflect recursive attribution, since Llama, BERT, CLIP, and Stable Diffusion families sit under many derivative models. It is a modeling assumption, not a neutral fact, and the paper acknowledges that both conventions are valid but rest on different assumptions (p. 4).</p>
+
+<p><strong>(iii) A three-era periodization of the ecosystem (paper §3).</strong> The analysis is organized around three eras defined by dominant architecture families and their developers: the <em>Foundation Embeddings Era</em> (before late 2022, BERT/CLIP/encoder world), the <em>Generative Diffusion Period</em> (late 2022 to early 2024, Stable Diffusion and its adapter communities), and the <em>Sino-Multimodal Period</em> (late 2024 to the present, DeepSeek/Qwen-style reasoning models). The eras are not just labels; they carry the paper's main thesis of cyclical power: high concentration → a technological shock democratizes development → the next wave's leaders reconcentrate.</p>
+
+<p><strong>(iv) Openness is a bundle of separable dimensions (paper §4).</strong> The paper never treats "open" as a single state. Its annotation taxonomy separates gating (can you download without accepting conditions?), licensing, and — the dimension it stresses most — <em>training-data disclosure</em>, following the Open Source Initiative’s definition that open-source AI requires “sufficiently detailed information about their [training] data” in addition to open weights (p. 7). This lets the paper measure a decline in one dimension of openness even while weights themselves remain downloadable — the empirical core of its "decline of open source" finding.</p>
+
+<p><strong>The implied economics of "open intelligence."</strong> The title is a deliberate inversion: open ecosystems are usually described as the alternative to economies of scale and concentration, but the paper documents that openness has its own economies — of quantization, of repackaging, of distribution and monitoring — that produce new intermediaries and new leaders. This interpretive framing is the paper's own language ("the industrialization of open model reuse," p. 11), though the direct analogy to cloud-provider infrastructure is drawn explicitly in its discussion of the intermediary layer.</p>
+
+<h2>3. Evidence and methods: the download-history dataset</h2>
+
+<p><strong>Data sources.</strong> The dataset merges three inputs (paper §2 and Appendix B): (a) Hugging Face's internal weekly download logs from June 2020 to August 2025 — publicly the Hub only exposes ~30 days of per-model download history, so the authors relied on internal databases plus the <code>list_models</code> API to cover all models publicly available at collection time; (b) automatic crawls of Hub metadata (organization, model cards, modalities); and (c) manual annotations by hired experts. The paper states coverage of "851,000 models (97.6% of all downloads) with additional collected metadata," and the abstract rounds the whole exercise as "851,000 models, over 200 aggregated attributes per model, and 2.2B downloads" (pp. 1–2). At the time of collection the Hub itself held ~1.88M models available through the API (p. 3), while the introduction cites the larger “2M+ models” as the platform’s hosting scale (p. 1); the paper does not reconcile the two figures.</p>
+
+<p><strong>Filtering for authentic usage.</strong> Three cleaning rules shape every headline number. First, deduplication: "We only count one unique download per user per day" (p. 3). Second, a minimum-usage cutoff: models with fewer than 200 total downloads are dropped, on the logic that they mainly reflect the developer's own activity. Third, a "Rolling Window Filter": downloads count only if the model was created within a year of the download (p. 4). The rolling window is a direct response to a measurement artifact the authors document — "raw counts show a disproportionate number of downloads for pre-2023 models" driven by "outdated automatic software, that continuously loads models without any meaningful usage" (p. 4); their footnote example is vLLM automatically downloading OPT-125M in its CI/CD pipeline (footnote 5, p. 4). Every "recent year" figure in the paper (e.g., China's 17.1%) uses this window.</p>
+
+<p><strong>Two nested samples.</strong> The <em>Population Sample</em> (851k models, 97.6% of downloads) carries machine-readable metadata only. From it, the authors drew a stratified <em>Head Sample</em>: the top 200 most-downloaded models in each of the 265 weeks between June 2020 and August 2025, yielding 2,875 models that account for 49.6% of all downloads (p. 3). The Head Sample received the deep, human-annotated metadata — size, languages, derivations, architectures, training methods, data disclosure — "which Hugging Face metadata often misses" (p. 3). Manual annotation was done by four expert annotators (two US-based, one in Serbia, one in Egypt), compensated at $25/hour via Upwork with no imposed timelines, under author review targeting 90%+ annotation accuracy (pp. 4, 12, 20).</p>
+
+<p><strong>Measurement details worth noting.</strong> Model size comes from the Hub's safetensors field where available, else from regressing file byte size on parameter counts with RANSAC (robust) regression; the method reached a validation R² = 0.86 and lifted model-size coverage from 23.6% to 98% of models (p. 4). Organization nationality was assigned manually from each organization's headquarters; purely online entities are labeled "Online"/"International" and individual contributors "Individual" — and the authors deliberately identify countries only for organizations, "not for individual users, to retain anonymity" (Appendix B.3, p. 20; p. 12). The derivation graph in the appendix (Fig. 9) quantifies the reuse economy: supervised finetuning is the most common derivation type (21% of downloads), followed by continued pretraining (16%) and quantization (4%); 7% of downloads go to models with two or more rounds of derivation (p. 21).</p>
+
+<p><strong>What the data cannot show.</strong> Downloads are not runtime usage, revenue, or welfare. The authors are explicit: "Hugging Face download metrics, or any other metrics, are at best proxies for real usage," and "these metrics best serve the analysis of broader trends and relative popularity over time, rather than precise numerical designations of economic concentration" (p. 12). The public dashboard reproduces the analysis on public download counts and therefore differs slightly from the paper's internal numbers (footnote 3, p. 2).</p>
+
+<h2>4. Findings I: concentration and rebalancing across three eras</h2>
+
+<p>The paper's headline result is a rebalancing of power at every level of abstraction — model, developer, and nation — and a reversal in 2025. Table 1 condenses the three-era narrative; all numbers below are the paper's own.</p>
+
+<h3>Table 1: Three eras of the open model economy (paper §3, Figs. 1–3)</h3>
+<table>
+<tr><th>Era (paper's name)</th><th>Time window</th><th>Dominant actors / architectures</th><th>Concentration trajectory</th><th>Signature figures from the paper</th></tr>
+<tr><td>Foundation Embeddings Era</td><td>Before late 2022</td><td>US industry: Google, Meta, OpenAI; BERT, CLIP, YOLO, sentence-transformers, encoder-only text models</td><td>High and rising; most concentrated period</td><td>Top-3 US firms 40–60% of cumulative downloads (p. 4); USA &gt;60% of national share (p. 4); top-100 developers &gt;90% of downloads (p. 5); HHI starting ~0.3 (national) and ~0.6 (developer) in 2021 (p. 5); text encoder-only transformers 76.8% and embedding/classification heads 75.2% of downloads (p. 5); average model 217M parameters; 79.3% of downloads disclosed training data (p. 5)</td></tr>
+<tr><td>Generative Diffusion Period</td><td>Late 2022 to early 2024</td><td>Stable Diffusion release; CompVis, sd-concepts-library, adapter/LoRA communities; OpenAI's CLIP-VIT-Large and Whisper</td><td>Plummeting concentration; diffusion of market power</td><td>Diffusion networks spike to 20% of downloads vs. &lt;1% a year prior (p. 5); "Rest" developer category grows from 20% to over 50% of market share (p. 5); international/online organizations surge (p. 5)</td></tr>
+<tr><td>Sino-Multimodal Period</td><td>Late 2024 to present</td><td>Chinese developers — DeepSeek and Qwen reasoning models; multimodal and video generation (e.g., WanAI's Wan2.1)</td><td>Concentration indices rise again in 2025</td><td>China's download share 17.1% in the recent year, first time surpassing US developers collectively (p. 6); DeepSeek &amp; Qwen alone 14% of recent downloads (p. 6); mean downloaded model 20.8B parameters — a 17× increase (p. 6); only 39% of downloads disclose available training data, down from 79.3% (p. 6)</td></tr>
+</table>
+
+<p>The era logic is explicitly cyclical, and the paper's framing of the current moment is one of recentralization under new, non-US leadership:</p>
+
+<blockquote>China’s share of downloads surged to 17.1% in the recent year, surpassing the collective of American model developers for the first time. These advances are driven primarily by DeepSeek and Qwen’s reasoning models, with their developers capturing 14% of recent downloads alone. (p. 6 of the PDF)</blockquote>
+
+<p>Two details temper any triumphal reading of the US decline. First, the all-time leaderboard still shows US- and European-origin foundation models at the top — the all-time top models include Google's BERT lineage, OpenAI's CLIP, and Stable Diffusion (Fig. 1, p. 3) — because recursive attribution credits derivative downloads to base models. Second, the 2025 numbers themselves are split: the same recent-year window that gives China 17.1% also shows the USA at 15.8% and the catch-all "International/Online" category at 23.8%, which the paper reads as "both geographic diversification and the continued rise of online power users as significant ecosystem participants" (p. 6). The USA's absolute decline in the 2021–2024 phase is the paper's firmest result: "The download share of the three dominant U.S. industry such as Google, Meta, and OpenAI declined sharply, falling from peaks of &gt;40–60% to a marginal position by 2025," with unaffiliated developers and online communities at times accounting for "more than half of all downloads" (p. 11).</p>
+
+<h3>Table 2: Corporate versus community developers, by the paper's own shares</h3>
+<table>
+<tr><th>Developer type</th><th>Earliest period</th><th>Latest period</th><th>Trend the paper reports</th><th>Source</th></tr>
+<tr><td>Industry / Company</td><td>~70% of development before 2022</td><td>37% of development</td><td>Roughly halved; steepest relative decline of any type</td><td>§3.1, p. 7</td></tr>
+<tr><td>Independent / unaffiliated users</td><td>17%</td><td>39% in 2025</td><td>Replaced most of industry's lost share</td><td>§3.1, p. 7</td></tr>
+<tr><td>Community developers (HF classification; often online volunteer teams running open-source repos)</td><td>Small before 2025</td><td>—</td><td>Fastest riser: share of downloads up 1.5× since before 2025</td><td>§3.1, p. 7</td></tr>
+<tr><td>University and non-profit</td><td>Stable</td><td>Stable</td><td>No material change over the period</td><td>§3.1, p. 7</td></tr>
+<tr><td>Intermediary re-packagers (lmstudio-community, comfy, mlx-community)</td><td>—</td><td>&gt;22% of recent-year downloads combined</td><td>New structural layer between base-model creators and users</td><td>§3 and Discussion, pp. 6, 11</td></tr>
+</table>
+
+<p>Perhaps the paper's most counterintuitive single sentence concerns the identity shift in <em>who produces</em> models:</p>
+
+<blockquote>Perhaps most surprisingly, while industry used to occupy 70% of development before 2022, they now occupy only 37%. (p. 7 of the PDF)</blockquote>
+
+<p>The corporate-vs-community contrast is also geographic. In Figure 4 the authors split each country's downloads by organization type and find the US, China, and UK ecosystems "skewed heavily to industry," whereas Germany, France, and the rest of Asia, Europe, and online contributors have "a healthier distribution of non-profits, universities, and community contributors" (p. 7). The power asymmetry the paper stresses is therefore not simply "open vs. closed" or "US vs. China" — it runs inside the open world between organizations that can train frontier-scale base models and everyone else, a gap the next section's size statistics make vivid.</p>
+
+<h2>5. Findings II: what the ecosystem runs now — sizes, modalities, transparency</h2>
+
+<p><strong>Scale concentrates in a long tail of deployers.</strong> The mean size of a downloaded model rose from 827M parameters in 2023 to about 20B in 2025, and the paper's Table 1 puts the download-weighted 2025 mean at 20.8B parameters, a 17× increase over the earlier period's average (pp. 6, 8; the introduction states the multiplier as "17× the average 2020 parameter count," p. 2). But the median tells a different story:</p>
+
+<p>“the mean size of a downloaded model has increased from 827M in 2023 to 20B in 2025. Note that the median size of a downloaded model remains much lower: 326M in 2023, and 406M in 2025.” (p. 8)</p>
+
+<p>The authors read this mean–median divergence as inequality inside the ecosystem: "most of the community's compute affordances have risen more modestly, whereas some power users have scaled to multi-billion parameter architectures" (p. 8). The scaling enablers are aggressive quantization for inference-time memory savings and mixture-of-experts (MoE) designs — Kimi K2 is cited as a popular 1T-parameter MoE with only 32B active parameters per token, alongside DeepSeek-V3, Mixtral, Grok-1, MiniMax, and Snowflake Arctic in the hundred-billion class, while Nvidia's Nemotron series are dense networks at comparable scale (p. 8). A further asymmetry: models are created larger than they are downloaded, and the gap is widening — "the mean size of created models is larger than the mean size of downloaded models" and rising much faster, implying "developers are scaling faster than most deployers can reasonably adopt," with a development-to-deployment lag that "may span over a year" (p. 9).</p>
+
+<p><strong>Efficiency methods become a core stage of the pipeline.</strong> Parameter-efficient finetuning (PeFT) and quantization incidence increased by 40% and 500%, respectively, since before 2025 (p. 9); the Discussion restates this as quantization techniques surging 5× and PeFT rising "by over 40%" (p. 11). Mixture-of-experts architectures increased 7.2× in download-weighted incidence (p. 11), and multimodal- and video-generation models each grew 3.4× (pp. 6, 11). Reinforcement learning / RLHF became "significantly more common-place in terms of usage since 2024," which the authors link to a shift from teacher-model techniques to reward-model and synthetic-data techniques (p. 9). Architecturally, encoder-only text transformers collapsed from 76.8% of downloads (2022) toward roughly a third by 2025, while CNNs, LSTMs, and GANs faded (Table 1 and §4.3, pp. 5, 9). Output-side heterogeneity now exceeds input-side: aggregate inputs are dominated by text (61%), then text+images (20%), images (9%), and audio (7%); outputs fan out across text encoding (33%), text generation (22%), image generation (19%), image encoding (18%), audio generation (3%), and video generation (1%) (Fig. 6, p. 10).</p>
+
+<p><strong>The decline of open source, measured as data transparency.</strong> This is the paper's sharpest normative finding. Because the OSI definition of open-source AI requires disclosed training data in addition to open weights, the authors can separate "open weights" from "open source" empirically:</p>
+
+<blockquote>Without training data disclosure, a released model is considered “open weight” rather than “open source.” Whereas in 2022 over 79% of downloads were for models which disclosed their training data, in 2025 that value is only 39% (see Figure 7 for more details). (p. 7 of the PDF)</blockquote>
+
+<blockquote>Models disclosing any information about training data fell from 79.3% (2022) to 39% (2025), and for the first time, open-weights models outnumber truly open-source models. (p. 11 of the PDF)</blockquote>
+
+<p>Access restrictions rose in parallel: gating now applies to major families — "Many major models, such as Meta’s Llama series, are now gated, comprising over 3.6% of all model downloads" (p. 8) — and licensing shifted from permissive Open Use licenses toward non-commercial, attribution, and acceptable-use-policy terms (Fig. 8 and §4.1, pp. 7–8). The paper's appendix taxonomy records the full ladder it used to classify disclosure (not disclosed / partially disclosed but unavailable / disclosed but unavailable / disclosed and available), so "39%" is the share of downloads whose model cards name training datasets that are publicly available (p. 25).</p>
+
+<p><strong>Intermediaries as the new architecture of the ecosystem.</strong> The paper's other structural headline is a new layer of developers who do not train base models but "re-packaging, quantizing, adapting, and refactoring them for community use" — lmstudio-community, comfy, and mlx-community together represented over 22% of recent-year downloads (pp. 6, 11). The Discussion elevates this into an infrastructure analogy:</p>
+
+<blockquote>These intermediaries play an infrastructural role analogous to cloud providers in traditional computing: they translate cutting-edge frontier models into practically deployable artifacts. (p. 11 of the PDF)</blockquote>
+
+<p>"This development reflects the industrialization of open model reuse" (p. 11): as mean model size grew from 827M (2023) to ~20B (2025), efficient inference and adaptation became essential, and the intermediaries that specialize in this efficiency layer now shape "not only which models become accessible to typical users, but also how innovations diffuse across the ecosystem" (p. 11). In economic-structure terms this is a control point distinct from training: whoever controls the quantization/repackaging channel mediates what most users can actually run — a finding that connects directly to the topic's platform-governance questions about who holds bottlenecks in an ostensibly open stack.</p>
+
+<pre class="mermaid">
+flowchart TD
+    A["Hugging Face Model Hub<br/>(2M+ models · weekly downloads Jun 2020–Aug 2025)"] --> B["Population Sample<br/>851k models = 97.6% of downloads"]
+    B --> C["Head Sample 2,875 models = 49.6%<br/>of downloads · human-annotated metadata"]
+    C --> D["Attributes measured<br/>size · architecture · modality · derivation<br/>gating · license · training-data disclosure"]
+    B --> E["Concentration metrics<br/>HHI (0–1) · Gini · Top-10 share"]
+    E --> F1["Era 1 Foundation Embeddings (≤ late 2022)<br/>Google/Meta/OpenAI 40–60% · USA &gt;60%<br/>concentration HIGH"]
+    F1 --> S1["Technological shock: Stable Diffusion + LoRA workflows"]
+    S1 --> F2["Era 2 Generative Diffusion (2022–24)<br/>communities &amp; unaffiliated users · 'Rest' 20%→&gt;50%<br/>concentration FALLS"]
+    F2 --> S2["Technological shock: DeepSeek &amp; Qwen reasoning models"]
+    S2 --> F3["Era 3 Sino-Multimodal (late 2024–25)<br/>China 17.1% vs USA 15.8% · DeepSeek+Qwen 14%<br/>concentration RISES again (2025)"]
+    F3 --> G["Intermediary layer<br/>lmstudio-community · comfy · mlx-community<br/>(&gt;22% of recent downloads)"]
+    G --> H["Deployers / end users<br/>(median model 406M params vs mean 20B)"]
+    B -. monitoring .-> I["Released dataset + live dashboard<br/>(competition-authority-style monitoring)"]
+</pre>
+
+<p><em>Figure (diagram): the paper's measurement pipeline (top half) and its cyclical power narrative (bottom half). The dashed edge marks the paper's own proposal that continuous monitoring of the open model economy is needed (p. 11).</em></p>
+
+<h2>6. Position in the literature</h2>
+
+<p>The paper situates itself in four overlapping literatures and claims a first-mover position in one of them.</p>
+
+<p><strong>Hugging Face ecosystem analytics.</strong> Its closest neighbors are the network studies of the Hub: Laufer, Oderinwale &amp; Kleinberg's "Anatomy of a Machine Learning Ecosystem: 2 Million Models on Hugging Face" (arXiv:2508.06811, in this topic library) and Horwitz et al.'s "atlas of all the world's models" (p. 10). Longpre et al. extend these static or graph-level anatomies with the temporal, usage-weighted dimension and with economic concentration statistics — exactly the piece the authors say was missing ("no study has systematically traced how economic power concentrates and diffuses… over time," p. 1). Where Laufer et al. describe adaptation structure among ~2M models, Longpre et al. rank models, developers, and nations by downloads and track shares year by year. The registered report by Wu, Yang, Xu, Wang, Le &amp; Lo (2025) asks what features predict Hub popularity; this paper supplies the dependent-variable side of that question (download-based adoption) at ecosystem scale, while cautioning that raw download counts are noisy — the rolling-window critique (p. 4) is a methodological contribution to anyone using Hub downloads as an outcome.</p>
+
+<p><strong>Economic concentration in AI.</strong> The paper's economics lineage runs through HHI and Gini measurement and through the closed-market concentration literature it cites: Korinek &amp; Vipra on scaling and market structure, Vipra &amp; Korinek on foundation-model concentration, and Nagle &amp; Yue (2025), "The latent role of open models in the AI economy," whose finding it quotes — "closed models dominate 80% of usage and 95% of revenue" — alongside the observation that "open models [cost] 6x less to deploy" (p. 10). Against that literature's focus on closed leaders, Longpre et al. show that the open market has its own leaders, cycles, and recently a Chinese-led consolidation. This connects to the topic library's other working papers: Wu, Lin &amp; Li (2025, ICIS) test a commoditization shock (Llama 2) on Hub developer innovation using difference-in-differences; Azoulay, Krieger &amp; Nagaraj (2024) ask whether open-weight publishing erodes frontier builders' proprietary moats; Yue &amp; Nagle (2024) study PyTorch's open-sourcing as relinquished control. Longpre et al. complement all three by quantifying the aggregate usage consequences of such openness shocks — each major open release (Stable Diffusion, then DeepSeek/Qwen) is associated in their data with a phase transition in developer composition and concentration.</p>
+
+<p><strong>Openness as multi-dimensional governance.</strong> The open-source literature distinguishes access from control (Boudreau 2010's access-vs-devolution distinction in this library; O'Mahony 2003 on commons protection; von Hippel &amp; von Krogh 2003 on private-collective innovation). Longpre et al. give the AI case a measurement backbone: their gating, license, and training-data-disclosure dimensions parallel the Model Openness Framework of White et al. (2024, arXiv:2403.13784, in this library) and the OSI open-source-AI definition (p. 7). Their headline transparency result — open weights overtaking truly open-source models in 2025 — is precisely the empirical demonstration the MOF taxonomy predicts: most "open" releases satisfy only the weights component. Methodologically, however, the paper is descriptive where White et al. are prescriptive: it measures the state of the world rather than scoring individual models.</p>
+
+<p><strong>Geopolitics of compute and AI labor.</strong> The rise of DeepSeek and Qwen on download leaderboards speaks to the same phenomenon Jin, Kunievsky, Lou, Sun &amp; Evans (2026, in this library) attribute to US export policy accelerating China's open AI ecosystems; Longpre et al. provide complementary, platform-level usage evidence of that acceleration (China at 17.1% of a US-hosted hub's recent downloads). The paper also engages the compute-geography literature it cites — Lehdonvirta et al.'s "Compute North vs. Compute South" and Vipra &amp; West's argument that "the fundamental barrier remains computational access rather than institutional affiliation" (p. 10) — and Ahmed, Wahed &amp; Thompson's Science finding that 96% of recent AI advances originate from industry (p. 10). Its own data labor practices (paid annotators at $25/hour, named in the acknowledgments, privacy-protective national attribution) read as a deliberate contrast to the data-labor critiques it cites, e.g., Du &amp; Okolo on AI labor in the Global South (pp. 12, 20). Within the topic library, its closest methodological sibling is Khoshbash (2026), which builds its own longitudinal Hugging Face panel (12 model families, 1,529 foundation models, 2,768 developers, March 2022–December 2025) but asks a different question — sponsor fine-tuning vs. MoE specialization trade-offs with staggered DiD — whereas Longpre et al. measure whole-ecosystem concentration. Finally, the paper's caution that downloads proxy adoption rather than value parallels the measurement skepticism of Dell (2024) and the platform-measurement validation literature it cites (Ait et al.; Jones et al., p. 10).</p>
+
+<h2>7. Limitations: author-stated and independent</h2>
+
+<p><strong>Author-stated limitations.</strong> The ethics statement is unusually explicit about measurement validity: downloads are "at best proxies for real usage"; even deduplicated and filtered, the data "remains imperfect"; and the metrics "best serve the analysis of broader trends and relative popularity over time, rather than precise numerical designations of economic concentration" (p. 12). The authors also acknowledge the framing risk of geopolitical analysis — "Our analysis seeks to document ecosystem dynamics, not to reinforce nationalistic narratives or proprietary advantage" (p. 12) — and note the internal-data dependence of the strongest numbers (the public dashboard differs slightly; footnote 3, p. 2).</p>
+
+<p><strong>Independent judgment (layered and labeled):</strong></p>
+<ul>
+<li><strong>Paper claims</strong>: that US industry dominance declined sharply and cyclically re-concentrated around Chinese developers in 2025; that an intermediary layer now intermediates open-model diffusion; that data transparency deteriorated; that these constitute "a fundamental rebalancing of economic power." These are the paper's explicit assertions.</li>
+<li><strong>Evidence</strong>: all claims rest on one platform's download logs (one deduplication scheme, one rolling window), on a Head Sample of 2,875 models for the richest attributes, and on share-based concentration metrics. The evidence is therefore strong for <em>relative popularity trends on Hugging Face</em> and weaker for market power in any economic sense: downloads exclude API-mediated use (the paper notes OpenRouter's complementary skew, p. 3), exclude closed-model usage entirely, and capture attention rather than willingness to pay. The 39%/79.3% transparency numbers are download-weighted (Fig. 7, p. 20), so they describe what is used, not what exists.</li>
+<li><strong>Inference</strong> (my reading, not the paper's wording): the three-era periodization and the "cyclical" thesis (quote below) are presented as an observed pattern; the causal story — that each technological shock (diffusion models, then Chinese reasoning models) drives the cycle — is the authors' interpretation of timing correlations, not an identified causal estimate. Likewise, treating the intermediary layer as a future "control point" equivalent to cloud providers is an analogy the paper draws (p. 11) whose competitive consequences (e.g., dependency, rent capture, switching costs) are not yet measured anywhere.</li>
+<li><strong>Open questions</strong>: ① Download leadership ≠ market value: DeepSeek and Qwen's 14% of recent downloads says nothing about revenue, and open-model monetization happens mostly off-platform (inference providers); ② the recursive-attribution convention materially inflates base-model (US) shares and deflates derivative developers (China's lmstudio-community-style entities); the paper reports both conventions exist but publishes mainly recursive-attributed figures; ③ the paper's own internal figures are inconsistent at the margins — the abstract says "2.2B downloads" while the intro cites "1.7B unique, cumulative downloads"; the mean-size multiplier is given as 17× against both a 2020 baseline (p. 2) and the 2022-starting Table 1 (p. 6) although the Table's own year-by-year values (827M in 2023 → ~20B in 2025) imply a smaller fold; and the USA's recent share is printed as 15.8% in one place (p. 6) and 15.7% in another (p. 11). None of these changes the direction of any finding, but they are reminders to check numbers against the released dataset before citing; ④ generalization: one US-hosted platform cannot represent the global open-model economy (ModelScope, for instance, is outside this data), so "China's rise" here means Chinese developers' share of <em>Hugging Face</em> downloads.</li>
+</ul>
+
+<blockquote>This pattern of diffusion following a technological shock, then consolidation around leaders of the next technological wave suggests a cyclical rather than linear evolution of the ecosystem. (p. 11 of the PDF)</blockquote>
+
+<h2>8. Conclusion and takeaways</h2>
+
+<p>The paper's durable contribution is empirical infrastructure: a released, monitorable, longitudinal record of who downloads what in the open-weight economy, with a defensible measurement protocol. Its substantive lessons for the economics of open AI are three. First, openness does not guarantee diffusion of power — it shifts where power sits, and by 2025 it was re-concentrating around a new set of base-model leaders (DeepSeek, Qwen) plus a new layer of distribution intermediaries. Second, "open" is decomposing as a category: weights are open while training data, licenses, and gating grow more restrictive, so open-weights and open-source are diverging in usage terms for the first time. Third, the ecosystem's growth is unequal in a measurable way — mean downloaded model size (≈20B) versus median (406M) — and this compute gap, more than institutional affiliation, is where the paper locates the asymmetry between power users and typical developers.</p>
+
+<p>For the topic library, this paper functions as the measurement backbone: platform-level usage data, explicit proxies and filters, and a transparency taxonomy that the openness-framework papers (White et al., 2024) formalize and the innovation papers (Wu et al., 2025; Yue &amp; Nagle, 2024; Azoulay et al., 2024) implicitly assume. Its "cycles of decentralization" thesis is the single most useful lens for organizing the rest of the reading: treat every headline about AI openness as dated within an era, and ask which wave's consolidation the next shock will dissolve.</p>
+
+<div class="golden">
+"US open-weight industry dominance by Google, Meta, and OpenAI has declined sharply in favor of unaffiliated developers, community organizations, and, as of 2025, Chinese industry, with DeepSeek and Qwen models potentially heralding a new consolidation of market power." — Longpre et al. (2025), Abstract, p. 1 of the PDF
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the academic-style workflow of the reading-notes skill, grounded in the pdftotext conversion of the local annotated PDF ("2025 - Longpre et al. - Economies of Open Intelligence - Annotated.txt"). Reader marginal notes in the annotated copy were ignored; only the running text was used. Page numbers ("p. N of the PDF") were computed by counting form-feed characters in the source text. Two transcription caveats: the pdftotext extraction renders the multiplication sign as "→" (and as "!" inside Table 1), so figures such as "17→", "5→", "3.4→" are read here as 17×, 5×, 3.4×; and a handful of the paper's internal figures are inconsistent across pages (2.2B vs 1.7B downloads; 15.8% vs 15.7% US share; the baseline year for the 17× multiplier), all flagged in the Limitations section. Blockquotes are verbatim from the source text (line-break artifacts removed); check quotes and numbers against the original paper or the released dataset before citing in formal writing. This page is an English deep dive for the "Hugging Face &amp; the Open-AI Economy" topic (site only; no canonical Obsidian note is mirrored for this topic).
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

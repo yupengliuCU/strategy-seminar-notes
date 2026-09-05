@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overview — Hugging Face &amp; the Open-AI Economy</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.05rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2rem;line-height:1.8}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.4rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+p{margin:1rem 0}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.5rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
+td,th{border:1px solid var(--border);padding:.55rem .8rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.4rem 1.5rem;border-radius:12px;margin:1.5rem 0}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.golden{font-size:1.15rem;font-weight:600;color:var(--accent);text-align:center;padding:1.6rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.2rem 0;line-height:1.6}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+pre{background:var(--code-bg);padding:.8rem 1rem;border-radius:8px;overflow-x:auto;font-size:.8rem;line-height:1.5;margin:1.2rem 0;border:1px solid var(--border)}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Hugging Face &amp; the Open-AI Economy<br><span style="font-size:1.1rem;font-weight:400;color:var(--muted)">An overview of the topic and how its two libraries fit together</span></h1>
+<div class="meta">
+Topic synthesis · English · companion to <a href="index.html">the topic index</a> and <a href="literature-map.html">the literature map</a><br>
+Source: the merged reading library <code>Dropbox/Hugging face/</code> (2026-09-04) — 14 core papers (Part I) + 21 supporting classics (Part II). Written for the research group; treat working papers as non-archival.
+</div>
+
+<div class="summary-box">
+<p><strong>One-paragraph overview.</strong> Hugging Face has become the default commons of machine learning — a platform where model weights, datasets, and applications are shared, adapted, and reused at a scale the open-source software literature never observed (millions of models, hundreds of thousands of daily users). The reading library in <code>Hugging face/</code> studies that object with two complementary bodies of work. <strong>Part I</strong> is the empirical core: platform-level anatomy of the Hub, the economics of open-weight releases, and the effect of foundation models on who innovates and how. <strong>Part II</strong> is the canonical theory the core speaks to: why contributors reveal private work for collective goods (private-collective innovation, selective revealing, commons governance), how platforms and ecosystems create and capture value (ecosystem structure, governance, complementor responses), and how open software and generative AI show up in firm productivity and entrepreneurship. Read together, they turn one empirical question — <em>what does openness buy in AI, and to whom?</em> — into a structured research conversation spanning organizational theory, strategy, and applied economics.</p>
+</div>
+
+<h2>1 · The object of study: Hugging Face as a platform commons</h2>
+<p>Hugging Face started in 2016 as a chatbot startup and became, by 2021–22, the de-facto hub for sharing machine-learning models — most of it volunteered by an open-source community the firm does not direct. The 2022 Harvard Business School case (<strong>Greenstein, Yue, Herman &amp; Gulick</strong>, Part I) is the descriptive anchor: a decentralized organization that adapts its development goals to its community rather than the reverse. The quantitative anchors follow. <strong>Laufer, Oderinwale &amp; Kleinberg (2025)</strong> map 2 million Hub models as a network of adaptation and fine-tuning; <strong>Longpre et al. (2025)</strong> trace participation, commercialization, and corporate control in the open-weight ecosystem after 2024; <strong>Wu et al. (2025, “Learning From the Best”)</strong> ask which features make a model popular in the first place. These papers convert “open-source AI” from a slogan into a measurable structure of who builds on whom, and who captures value.</p>
+
+<h2>2 · The core questions Part I asks</h2>
+<ol>
+<li><strong>What does “open” mean in AI?</strong> Open weights are not open models. <strong>White et al. (2024)</strong> build the Model Openness Framework (MOF) — 17 components × open/partial/closed classes — to say precisely what a release does and does not disclose. This taxonomy is the vocabulary every other Part I paper implicitly uses.</li>
+<li><strong>Does opening the core technology help or hurt the opener?</strong> <strong>Yue &amp; Nagle (2024)</strong> study PyTorch and argue that relinquishing control of a core technology ignited downstream innovation; <strong>Azoulay, Krieger &amp; Nagaraj (2024)</strong> ask whether open-weight publishing erodes the proprietary moats of frontier model builders. The two papers bracket the central strategic tension of open AI.</li>
+<li><strong>How do foundation models reshape the innovation ecosystem?</strong> <strong>Wu, Lin &amp; Li (2025)</strong> treat Meta’s Llama 2 release as a commoditization shock that pushed Hub developers out of generic text generation toward differentiated domains. <strong>Yeverechyahu, Mayya &amp; Oestreicher-Singer (2024)</strong> ask whether AI coding tools (GitHub Copilot) expand voluntary open-source contributions. <strong>Khoshbash (2026)</strong> models the specialization trade-off: provider specialization widens adoption but squeezes complementors’ room to differentiate.</li>
+<li><strong>Does policy shape the openness equilibrium?</strong> <strong>Jin, Kunievsky, Lou, Sun &amp; Evans (2026)</strong> argue U.S. export controls unintentionally accelerated China’s shift to open-source AI — a geopolitical boundary condition on the whole literature.</li>
+<li><strong>What drives innovation behavior and how do we measure outcomes?</strong> <strong>Greve (2003)</strong> supplies the behavioral-theory machinery (problemistic and slack search) for why firms change innovation effort; <strong>Dell (2024)</strong> supplies the deep-learning measurement toolkit for reading unstructured data at scale; <strong>Atlan (2026)</strong> is a practitioner benchmark on what AI deployments return in the field.</li>
+</ol>
+
+<h2>3 · The theoretical canon Part II contributes</h2>
+<p>Part I’s findings are only interpretable against the literature collected in Part II — the 21 classics the group pulled in from projects, Zotero, and seminars. Three streams do most of the work.</p>
+<ul>
+<li><strong>Open source &amp; commons (II.1).</strong> <strong>von Hippel &amp; von Krogh (2003)</strong> give the organizing theory — the <em>private-collective model</em>, in which contributors privately invest in goods they freely reveal; <strong>Henkel (2006)</strong> shows firms reveal selectively, keeping proprietary advantage while contributing; <strong>O’Mahony (2003)</strong> and <strong>O’Mahony &amp; Ferraro (2007)</strong> explain how commons communities protect and govern their work; <strong>von Hippel (2005)</strong> generalizes to user innovation; <strong>O’Mahony &amp; Karp (2022)</strong> bring the analysis to platform leaders who change access rules; <strong>Fleischmann &amp; Haeussler (2026)</strong> measure degrees of openness in open-source AI itself.</li>
+<li><strong>Platforms &amp; ecosystems (II.2).</strong> <strong>Adner &amp; Kapoor (2010)</strong> and <strong>Adner (2017)</strong> define value creation through interdependence; <strong>Jacobides, Cennamo &amp; Gawer (2018)</strong> theorize ecosystems via complementarities and modularity; <strong>Wareham et al. (2014)</strong> identify the governance tensions of software ecosystems; <strong>Boudreau (2010)</strong> separates granting access from devolving control; <strong>Rietveld et al. (2019)</strong> and <strong>Wen &amp; Zhu (2019)</strong> analyze how platforms steer or threaten complementors; <strong>Wen, Ceccagnoli &amp; Forman (2016)</strong> connect IP strategy to open-source entry.</li>
+<li><strong>Firm-level and AI-at-work economics (II.3).</strong> <strong>Nagle (2019)</strong> and <strong>Wright, Nagle &amp; Greenstein (2023)</strong> quantify what open software does for incumbent firms and for entrepreneurship; <strong>Conti, Peukert &amp; Roche (2025)</strong> show OSS engagement signals quality to investors; <strong>Haese &amp; Peukert (2026)</strong> study firms moving their proprietary core to open source; <strong>Baker &amp; Nelson (2005)</strong> contribute bricolage as the behavioral micro-foundation of resource-constrained innovation; <strong>Brynjolfsson, Li &amp; Raymond (2023)</strong> give the canonical generative-AI productivity field experiment.</li>
+</ul>
+
+<h2>4 · Reading paths: core question → Part I evidence → Part II theory</h2>
+<table>
+<tr><th>Core question (Part I)</th><th>Primary evidence</th><th>Theory lens (Part II)</th></tr>
+<tr><td>What is the HF ecosystem made of?</td><td>Laufer et al. 2025; Longpre et al. 2025; Wu et al. 2025 (popularity)</td><td>von Hippel &amp; von Krogh 2003; Jacobides et al. 2018; Wareham et al. 2014</td></tr>
+<tr><td>Why do people contribute for free?</td><td>Greenstein et al. 2022 (case); Wu et al. 2025 (ICIS)</td><td>von Hippel &amp; von Krogh 2003; Henkel 2006; von Hippel 2005; O’Mahony &amp; Ferraro 2007</td></tr>
+<tr><td>Should the core be open?</td><td>Yue &amp; Nagle 2024; Azoulay et al. 2024; White et al. 2024</td><td>Boudreau 2010; Haese &amp; Peukert 2026; Wen et al. 2016</td></tr>
+<tr><td>Who wins/loses when models commoditize?</td><td>Wu et al. 2025 (ICIS); Khoshbash 2026; Yeverechyahu et al. 2024</td><td>Adner &amp; Kapoor 2010; Rietveld et al. 2019; Wen &amp; Zhu 2019; Adner 2017</td></tr>
+<tr><td>How does policy/geopolitics change openness?</td><td>Jin et al. 2026</td><td>O’Mahony &amp; Karp 2022; O’Mahony 2003</td></tr>
+<tr><td>What do firms get out of all this?</td><td>Atlan 2026; (AI-at-work evidence)</td><td>Nagle 2019; Wright et al. 2023; Conti et al. 2025; Brynjolfsson et al. 2023</td></tr>
+<tr><td>How to study behavior/measurement?</td><td>Greve 2003; Dell 2024</td><td>Baker &amp; Nelson 2005 (micro-foundations); (methods across II)</td></tr>
+</table>
+
+<h2>5 · The live debates</h2>
+<ul>
+<li><strong>Openness spectrum, not binary.</strong> MOF (White et al.) insists most “open” AI is partially open; the empirical papers operationalize the spectrum in different places — weights only, code, data, or ecosystem access. This makes cross-paper comparison of “open” a measurement problem, not just a semantic one.</li>
+<li><strong>Openness as strategy vs. openness as commons.</strong> Azoulay et al. and Yue &amp; Nagle frame releasing the core as a strategic choice with competitive consequences; the commons literature (O’Mahony, von Hippel &amp; von Krogh) frames contribution as a governance puzzle. Hugging Face sits at the seam: a firm that commoditizes its own platform layer to build ecosystem gravity.</li>
+<li><strong>Who captures value?</strong> Anatomy papers (Laufer, Longpre) document concentration and corporate entry in the Hub; ecosystem theory (Adner &amp; Kapoor, Jacobides et al., Rietveld et al.) supplies the mechanism vocabulary; Khoshbash formalizes the specialization trade-off that decides where complementors can still differentiate.</li>
+<li><strong>Control points move.</strong> When weights are free, rents migrate to compute, data, evaluation, and downstream services — Jin et al. and Longpre et al. both observe control migrating rather than disappearing, which is exactly the pattern Wen &amp; Zhu and Boudreau describe for platform owners.</li>
+</ul>
+
+<pre class="mermaid">
+flowchart LR
+  subgraph P2["Part II · theory canon"]
+    PC[private-collective innovation<br/>von Hippel &amp; von Krogh 2003]
+    REV[selective revealing<br/>Henkel 2006]
+    GOV[commons &amp; platform governance<br/>O'Mahony 2003 / 2007 / 2022]
+    ECO[ecosystem structure &amp; value<br/>Adner &amp; Kapoor 2010 · Adner 2017 · Jacobides 2018]
+    PLAT[platform access &amp; control<br/>Boudreau 2010 · Wen &amp; Zhu 2019 · Rietveld 2019]
+    FIRM[firm &amp; entrepreneurship effects<br/>Nagle 2019 · Wright 2023 · Conti 2025]
+  end
+  subgraph P1["Part I · empirical core"]
+    HF[the Hub as platform commons<br/>Greenstein 2022 · Laufer 2025 · Longpre 2025]
+    OPEN[open-weight releases<br/>White 2024 MOF · Yue &amp; Nagle 2024 · Wu ICIS 2025]
+    AI[AI innovation &amp; policy<br/>Yeverechyahu 2024 · Jin 2026 · Khoshbash 2026]
+    M[behavior &amp; measurement<br/>Greve 2003 · Dell 2024 · Atlan 2026]
+  end
+  PC --> HF
+  REV --> OPEN
+  GOV --> HF
+  ECO --> OPEN
+  PLAT --> AI
+  FIRM --> M
+  HF --> AI
+</pre>
+
+<h2>6 · Boundary and maintenance</h2>
+<ul>
+<li><strong>In scope:</strong> the 35 files in the merged library. Part I deep dives are the current build priority; Part II deep dives are queued.</li>
+<li><strong>Provenance:</strong> file renames and dedup decisions are recorded in <code>_literature_admin/2026-09-04_merge/</code> (rename_map.csv, source_manifest.csv, validation.csv, acquisition_log.md).</li>
+<li><strong>Citation care:</strong> several Part I sources are working papers (Yeverechyahu, Yue &amp; Nagle, Jin et al., Khoshbash, Longpre et al., Atlan) or in-press (Haese &amp; Peukert; Conti et al.); check for published versions before formal citation. The annotated PDFs in <code>01_Coauthor_Original_14</code> are reader-annotated copies of the public versions.</li>
+<li><strong>This topic is not a course:</strong> it lives alongside the seminar directories in the same Reading Notes site, without course-week structure; new papers append to the closest thematic group on <a href="index.html">the topic index</a>.</li>
+</ul>
+
+<div class="golden">The question behind this library is not whether AI is open — it is which parts are open to whom, and what that openness buys the opener, the complementor, and the community.</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

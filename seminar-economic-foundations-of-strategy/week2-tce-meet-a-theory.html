@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STR Meet a Theory: Transaction Cost Economics (Video Panel)</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:820px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>STR Meet a Theory: Transaction Cost Economics<br><span style="font-size:1.05rem;font-weight:400;color:var(--muted)">Four TCE scholars on its assumptions, current state, and future (video panel)</span></h1>
+<div class="meta">
+Video panel notes · STR "Meet a Theory" series, episode 5 · 2022-07-06, ~90 min<br>
+Moderator: Nuno Barros De Oliveira (Tilburg University)<br>
+Panelists: Brian Silverman (Toronto) · Nick Argyres (Washington Univ. in St. Louis, Olin) · Fabrice Lumineau (Hong Kong) · Libby Weber (UC Irvine)<br>
+Video: <a href="https://www.youtube.com/watch?v=QX_yz93HsXs">YouTube · STR Meet a Theory: Transaction Cost Economics</a> · English edition (Chinese original backed up in <code>tmp/en-switch/backup/</code>) · 2026-08-30
+</div>
+
+<div class="summary-box">
+<h3>In one sentence</h3>
+<p>Four TCE scholars each cut into the same theory from a different angle: Silverman on the basic propositions and the empirical map, Argyres on informal organization (the 47-year-old unsolved problem), Lumineau on digital technology and blockchain, Weber on using psychology to pry at TCE's behavioral assumptions — together covering the moderator's three opening questions: assumptions &amp; foundations, current state, future trajectory.</p>
+</div>
+
+<div class="note"><strong>Nature and sources</strong>: this page is a note-style integration of a 90-minute video panel, parallel to — but different in kind from — the Week 2 per-paper deep dives and the <a href="week2-tce-integration.html">four-reading integration page</a>. It records how practicing scholars talk to each other about TCE's current state and future. Content is based on the video's YouTube auto-captions (ASR), with names and terms corrected to standard academic usage; quotations should be checked against the video itself. Read it alongside the <a href="week2-tce-integration.html">integration page</a>: that page shows how the four <em>papers</em> form one line; this page shows how <em>living researchers</em> assess where that line stands. Sections marked "Connections to the readings" are this page's synthesis, not the panel's words.</div>
+
+<h2>1 · The panel's positioning</h2>
+<p>"Meet a Theory" is the STR (AOM Strategy Division) monthly series; each episode unpacks one theory's three things: <strong>assumptions &amp; foundations, current state, future trajectory</strong>. This episode is #5, following behavioral strategy, real options, the attention-based view, and resources &amp; capabilities. The moderator opens with an "X-ray" scan of TCE, then each panelist takes a block, followed by cross Q&amp;A.</p>
+<pre class="mermaid">
+graph TD
+ M["Moderator Nuno
+TCE's X-ray: unit/attributes/governance/assumptions/evidence/controversies"] --> S["Silverman
+basic propositions + empirical map + four future directions"]
+ M --> A["Argyres
+informal organization (the 47-year atmosphere puzzle)"]
+ M --> L["Lumineau
+digital technology &amp; blockchain"]
+ M --> W["Weber
+behavioral governance: prying at the assumptions with psychology"]
+ S --> Q["Cross Q&amp;A: risk neutrality / measuring transaction costs / platform–complementor relations"]
+ A --> Q
+ L --> Q
+ W --> Q
+ style M fill:#f0f4ff
+ style Q fill:#faf5ff
+</pre>
+
+<h2>2 · The moderator's opening: an X-ray of TCE</h2>
+<p>Nuno takes ten minutes to take TCE apart. The unit of analysis is the <strong>transaction</strong> — a good or service transferred across a technological interface; the transaction attributes of interest are <strong>asset specificity, uncertainty, and frequency</strong>; the governance modes are <strong>market / hybrid / hierarchy</strong>; the two behavioral assumptions are <strong>bounded rationality</strong> and <strong>opportunism</strong>. The core prediction is clean: as asset specificity rises, the transaction costs of market governance rise, and hierarchy becomes more likely. (These are the exact building blocks spelled out in <a href="tce-literature-review.html#p1985williamson">Williamson 1985</a> and <a href="tce-literature-review.html#p1991asq">Williamson 1991</a>.)</p>
+<p>On the "current state" he offers a glass-half-full/half-empty frame: TCE is at once "alive and prolific" (an enormous number of empirical tests) and "continuously criticized." On the evidence side he flags the milestones: <a href="tce-literature-review.html#p2004david">David &amp; Han (2004, SMJ)</a> — a review of roughly 60 studies finding that <strong>asset specificity is the most reliable predictor</strong> while uncertainty gets weaker support; a Tilburg meta-analysis with 90,000+ observations giving broad support; and the most recent review, co-authored by Silverman himself — <a href="tce-literature-review.html#p2021cuypers">Cuypers, Hennart, Silverman &amp; Ertug (2021, Academy of Management Annals)</a>. On the controversy side he names: the opportunism assumption caricatured as a "cartoon of human nature," construct-validity problems (Kyle Mayer's 2009 chapter), and the irony of practical implications — if you treat everyone as an opportunist, you may induce opportunistic behavior.</p>
+
+<h2>3 · The four panelists' lenses</h2>
+<table>
+<tr><th>Speaker</th><th>Lens</th><th>Core claim in one line</th><th>Keywords</th></tr>
+<tr><td><strong>Brian Silverman</strong></td><td>Basic propositions + empirical map</td><td>Discriminating alignment is massively supported by evidence, and (mis)alignment affects performance; the future is organizational change and within-firm design</td><td>asset specificity, appropriability, performance consequences, organizational change</td></tr>
+<tr><td><strong>Nick Argyres</strong></td><td>Informal organization</td><td>Williamson knew early that "atmosphere matters" but couldn't handle it; 47 years later, informal organization is TCE's biggest unplowed field</td><td>informal organization, atmosphere, social networks, relational contracts, informal authority</td></tr>
+<tr><td><strong>Fabrice Lumineau</strong></td><td>Digital technology / blockchain</td><td>Blockchain provides a "third enforcement mode" beyond contractual and relational governance, changing the structure of opportunism and transaction costs; "TCE is dead maybe, but long live TCE"</td><td>blockchain, smart contracts, codifiability, transaction cost stages</td></tr>
+<tr><td><strong>Libby Weber</strong></td><td>Behavioral / psychology</td><td>Using psychology to pry at TCE's behavioral assumptions can answer the classic criticisms, reopen old debates, and connect to new areas — but you must "say something new"</td><td>behavioral governance, goal frames, framing, trust, prevention vs promotion</td></tr>
+</table>
+
+<h3>3.1 Brian Silverman: basic propositions, the empirical map, four future directions</h3>
+<p>Silverman positions himself as the bridge from Nuno's introduction to the other three. He first works through the first-order assumption: actors economize on transaction costs by assigning transactions — which differ in their attributes — to governance structures — which differ in their governance capabilities — <em>in a discriminating way</em>. To the familiar attribute triad (asset specificity, uncertainty, frequency) he adds a fourth that entered later: <strong>appropriability</strong>. He illustrates "asset specificity × uncertainty → hold-up" with an example: a Chicago furniture maker shipping down the Mississippi to New Orleans asks you, the railroad, to finance a 50-mile spur line into the plant; once built, the furniture maker can squeeze you — and the more uncertainty there is, the more you worry. So you either sign a safeguarded contract or integrate. He also defends the opportunism assumption: the famous <a href="tce-literature-review.html#p1996ghoshal">Ghoshal &amp; Moran (1996)</a> critique is largely a straw man that "rewrites Williamson's words and attacks the rewrite"; quoting Joe Mahoney, safeguards are "another form of insurance," and business schools teaching accounting fraud are not teaching people <em>how</em> to commit fraud.</p>
+<p>On the empirical map he traces a line from organizational <em>form</em> to <em>performance consequences</em>: Coase poses the question → Williamson fills it in (first vertical integration) → Teece (empirical tests + horizontal diversification + international) → Hennart (international) → Erin Anderson (marketing) → Gary Pisano (alliances as the midpoint between market and hierarchy) → Joanne Oxley (the first empirical work on appropriability — see <a href="tce-literature-review.html#p1997oxley">Oxley 1997</a>). The recent "performance consequences" literature asks: do firms that are "misaligned" by Williamson's standard suffer? The answer: lower profits, higher costs, faster death. The reach extends from vertical integration, diversification, alliances, entrepreneurship, innovation, and international business to supply chain, marketing, law — even the diffusion of diamond engagement rings (Margaret Brinig's paper). His four future directions: ① <strong>organizational change</strong> — why don't misaligned firms adjust? (adjustment costs); ② <strong>within-firm design</strong> — R&amp;D centralization vs decentralization, and the finding that "firms use contracts internally too" (Katie Magelssen and co-authors); ③ <strong>cognition</strong> (handed to Weber); ④ <strong>culture and values</strong> — returning to an old 1996 debate.</p>
+
+<h3>3.2 Nick Argyres: informal organization — the 47-year atmosphere puzzle</h3>
+<p>Argyres picks the future direction he finds most interesting and drills into it: <strong>TCE and informal organization</strong>. His anchor is Williamson 1975's sentence — "atmosphere matters, but I don't know how to handle it" — and the fact that by 1991 Williamson had "forgotten atmosphere," returning to the purely formal market/hybrid/hierarchy matching. Argyres's challenge: formal structures are easier to imitate than informal ones, so if competitive advantage only came from "matching governance to transactions by the book," every firm would do it and there would be no advantage. His opening quote is Drucker's:</p>
+<blockquote>Culture eats strategy for breakfast.<br><span style="color:var(--muted)">Peter Drucker, as quoted by Argyres.</span></blockquote>
+<p>He breaks "informal organization" into four pieces, each of which TCE does not explicitly handle but which, extended, would explain organization and performance better: ① <strong>informal communication</strong> — communication not mandated by the organization, distinct from the formal-hierarchy information-processing literature (Nonaka noted organizations have a "special language" but did not compare); ② <strong>social networks</strong> — partly communication channels, and how they interact with formal governance structures (he, Silverman, and Luis Rios studied how R&amp;D centralization shapes inventors' informal networks and thereby innovation); ③ <strong>informal incentives</strong> — relational contracts, payments/bonuses without legal enforcement, and Bob Gibbons's question of whether relational contracts can be observed inside firms (see <a href="tce-literature-review.html#p2011weber">Weber &amp; Mayer 2011</a> for the formal side of this debate); ④ <strong>informal authority</strong> — people without high positions who nevertheless influence decisions, like the senior Boeing engineers of the 707/727 era who refused management roles and could "push back" against wrong design decisions (the Aghion &amp; Tirole model). His practical challenge is data availability (emails, meeting records are hard to get), and his advice to students: some research with downloadable data, some "walking into organizations" for finer-grained casework and theory building.</p>
+
+<h3>3.3 Fabrice Lumineau: digital technology and blockchain</h3>
+<p>Lumineau connects TCE to digital technology, focusing on blockchain. His premise: TCE has been discussing technology since Coase 1937 (Coase already noticed the telephone and telegraph shaping firm boundaries) — the digital era just refreshes the question. Blockchain is a cryptography-based decentralized system resting on two pillars: <strong>decentralized consensus + machine automation</strong>, with <strong>smart contracts</strong> delivering immutability and traceability. His core judgment: blockchain offers a <strong>third enforcement mode</strong> beyond contractual and relational governance — contracts rely on legal remedies (damages, termination); relational governance relies on social norms and trust (the shadow of the future); blockchain relies on a self-contained set of formal rules (protocol + cryptographic enforcement).</p>
+<p>Decomposing transaction costs by stage: <strong>search costs</strong> fall (entering a smart contract is a pre-commitment not to behave opportunistically); <strong>design/coding costs</strong> rise (transactions must be codifiable, constrained by verifiability); <strong>monitoring costs</strong> fall (real-time transparency); <strong>enforcement costs</strong> fall (simplified dispute resolution). The conclusion is two-sided: digital technology can both expand and contract firm boundaries; AI can relieve some limits of bounded rationality (learning, processing speed, memory, computation) while potentially amplifying some cognitive biases. Blockchain lowers behavioral uncertainty — and therefore directly interrogates one of TCE's central pillars: the incidence and form of opportunism. His closing line is the panel's lightest and heaviest:</p>
+<blockquote>TCE is dead maybe, but long live TCE.<br><span style="color:var(--muted)">Fabrice Lumineau.</span></blockquote>
+<p><em>Connections to the readings</em>: this is the same "third enforcement mode" logic as the digital-governance agenda in <a href="tce-literature-review.html#p2024nagle">Nagle, Seamans &amp; Tadelis (2024)</a> (reputation systems as substitutes for trust) and the expanded governance menu in <a href="tce-literature-review.html#p2022kretschmer">Kretschmer et al. (2022)</a>.</p>
+
+<h3>3.4 Libby Weber: behavioral governance — prying at the assumptions with psychology</h3>
+<p>Weber calls herself a "TCE geek" (her dog is named Oliver) whose career has been poking at TCE's assumptions one by one. Her claim: strengthening TCE with psychology — not just cognition, but psychology more broadly — can do three things: answer the classic criticisms, reopen long-settled debates, and connect to areas TCE previously couldn't reach (like Argyres's atmosphere). Her methodological reminders: ① <strong>know the theory cold</strong> (she re-reads <em>The Economic Institutions of Capitalism</em> repeatedly, finding something new each time); ② <strong>target the assumptions</strong> — Williamson had specific reasons for each assumption, and you may change one (e.g., swap risk-neutrality for risk aversion and see what breaks); ③ <strong>dig out the hidden assumptions</strong> — e.g., "why do people think contracts damage/promote trust?"; ④ <strong>be explicit about the level of analysis</strong> (individual → aggregated to firm); ⑤ <strong>you must say something new</strong> (the best advice a reviewer ever gave her).</p>
+<p>Two examples she develops. First, treating <strong>opportunism as a motive, not a single motive</strong>: with Foss &amp; Lindenberg's work she links organizational form to <strong>goal frames</strong> — a normative goal frame drives collusive/status opportunism (e.g., hold-up), a hedonic goal frame drives shirking/instinctive opportunism (e.g., free-riding); matching Williamson 1986 Ch.10's 2×2 of simple hierarchy/U-form/M-form/project matrix against these motives, the <strong>diagonal (matched) pairs suppress opportunism, off-diagonal pairs do not</strong> — yielding two previously unknown kinds of "hierarchy failure." Second, reopening the old "contracts and trust: substitutes or complements" debate: dig out the hidden assumption that "contracts are only for prevention," then introduce <strong>prevention-framed vs promotion-framed contracts</strong>, and show experimentally (with Chris Bauman) that <strong>promotion-framed contracts complement trust while prevention-framed contracts substitute for it</strong>. New areas this connects to: job design, leadership, organizational learning. <em>Connections to the readings</em>: this is the behavioral governance program of <a href="tce-literature-review.html#p2011weber">Weber &amp; Mayer (2011)</a> and <a href="tce-literature-review.html#p2014schepker">Schepker et al. (2014)</a>, and it answers the <a href="tce-literature-review.html#p1996ghoshal">Ghoshal &amp; Moran</a> charge of a cynical human model from within — the same critique that motivated <a href="tce-literature-review.html#p2009verbeke">Verbeke &amp; Greidanus (2009)</a> to widen opportunism into the envelope concept of bounded reliability.</p>
+
+<h2>4 · Three highlights from the cross Q&amp;A</h2>
+<ul>
+<li><strong>The risk-neutrality assumption</strong> (audience question): TCE assumes risk neutrality, but it has barely been tested empirically. Silverman's judgment: it is not a load-bearing assumption but a simplification that focuses attention; it can be relaxed and formal models can trace the consequences — which is exactly where Weber's cognitive work bites.</li>
+<li><strong>How to measure transaction costs</strong> (audience question): Lumineau says almost nobody measures them directly; the key is first to decompose <em>which stage</em> and <em>which level</em> (firm / transaction / international), then talk about measurement. (The measurement agenda is also challenge #1 in <a href="tce-literature-review.html#p2021cuypers">Cuypers et al. 2021</a>.)</li>
+<li><strong>Platform–complementor relations</strong> (Argyres answering "the big future question"): TCE usually studies buyer–supplier dyads or intra-firm units, but platform owners and <strong>complementors</strong> often have no explicit goods/services exchange at all — yet they stand in a transaction relationship with ample opportunism space on both sides. This is a large domain TCE has not explicitly modeled.</li>
+</ul>
+
+<h2>5 · How to use this panel with the Week 2 readings</h2>
+<p>The panel and the four readings stand as "textbook" to "frontier." The readings give TCE's canonical skeleton (question → operationalization → formalization → entry into strategy — see the <a href="week2-tce-integration.html">four-reading integration page</a>); the panel gives four working scholars' assessment of where that skeleton is strong and where it is missing pieces. A useful pairing exercise: take each panelist's gap — Silverman's adjustment costs, Argyres's informal organization, Lumineau's third enforcement mode, Weber's goal frames — and ask which of the four readings' concepts (unit of analysis, behavioral engine, specificity, discriminating alignment, remediableness) it most directly challenges. Silverman and Lumineau challenge the governance menu; Argyres challenges the unit of analysis; Weber challenges the behavioral engine. For the full paper-level background on everything the panelists cite, use the <a href="tce-literature-review.html">TCE literature review</a>.</p>
+
+<div class="note">
+<strong>AI assistance disclosure</strong>: note-style integration of a video panel (STR Meet a Theory, 2022-07-06), based on YouTube auto-captions with names/terms normalized. Panelists' claims are reported as the panel's words; the "Connections to the readings" paragraphs and the final pairing exercise are this page's synthesis. Verify quotations against the video before citing.
+</div>
+
+<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
+
+</body>
+</html>

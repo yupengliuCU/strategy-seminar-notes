@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Costs and Benefits of Ownership — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+caption{caption-side:top;text-align:left;font-weight:600;font-size:.95rem;padding-bottom:.35rem;color:#333}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>The Costs and Benefits of Ownership: A Theory of Vertical and Lateral Integration</h1>
+
+<div class="meta">
+<strong>Authors:</strong> Sanford J. Grossman (Princeton University) &amp; Oliver D. Hart (Massachusetts Institute of Technology)<br>
+<strong>Journal:</strong> Journal of Political Economy, Vol. 94, No. 4, pp. 691–719<br>
+<strong>Year:</strong> 1986<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1086/261404">10.1086/261404</a><br>
+<strong>Nature:</strong> Formal two-period game-theoretic model (incomplete contracts; modern property-rights theory of the firm), with an informal industry application to insurance distribution<br>
+<strong>Keywords:</strong> residual rights of control; specific vs. residual contractual rights; incomplete contracts; relationship-specific (ex ante) investment; hold-up; vertical &amp; lateral integration; ownership allocation
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Ownership is the purchase of residual rights of control over assets, so integration reallocates control from one party to another and should be assigned to the party whose relationship-specific investment matters most, trading that party's stronger incentive against the other party's weaker one.</p>
+</div>
+
+<div class="note"><strong>Reading note.</strong> This paper is the foundational formal statement of <em>modern</em> property-rights theory (PRT) in the course's Week-3 arc: it follows the classical PRT of monitoring and metering (Alchian &amp; Demsetz 1972) by replacing the question "who is the residual claimant that monitors team production?" with "who should own which assets when contracts are incomplete?" It supplies the residual-control-rights framework that strategic-management applications translate into firm-boundary and ownership-competence arguments (Kim &amp; Mahoney 2005 and the ownership-competence stream), and it generates the allocation rule that later empirical work (e.g., Magelssen 2020) tests. Read it as the hinge between transaction-cost economics and the property-rights approach: integration is neither free nor automatically beneficial — it is a reallocation of control with costs on both sides.</div>
+
+<h2>1. Background and motivation</h2>
+
+<p>The paper attacks a question that transaction-cost economics (TCE) had posed but, in Grossman and Hart's judgment, never answered: what is a firm, and what determines how vertically or laterally integrated its activities are? The authors build explicitly on Coase (1937), Klein, Crawford, and Alchian (1978), and Williamson (1979), all of which emphasize the benefit of "control" when complete contracts are costly or impossible to write. Their diagnosis is that this tradition has two unresolved gaps.</p>
+
+<p>The first gap is that transactions-cost arguments explain why market contracting between separately owned firms can be costly, but not why integration fixes it. If integration always reduced transaction costs, any buyer and seller could improve their position by a mechanical reorganization: buy the partner, keep the old contract as an internal transfer price, and pay the acquired manager the subsidiary's profit. Nothing in TCE explains why this replication fails — which is another way of asking what limits the size of the firm.</p>
+
+<blockquote>"Furthermore, if vertical integration always reduces transaction costs, any buyer A and seller B that have a contractual relationship should be able to make themselves better off as follows: (i) A buys B and makes the previous owner of B the manager of a new subsidiary; (ii) A sets a transfer price between the subsidiary and itself equal to the contract price that existed when the firms were separate enterprises; and (iii) A gives the manager of B a compensation package equal to the profit of the subsidiary. Given this, however, how can integration ever be strictly worse than nonintegration; that is, what limits the size of the firm?"</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Grossman &amp; Hart (1986), p. 693, §I.A (critique of transactions-cost arguments for integration; see also Evans &amp; Grossman 1983, fn. 1)</span>
+
+<p>The second gap is definitional. "Integration" is not clearly defined: is a firm that calls its retail force "employees" more integrated than one that uses "independent but exclusive sales agents"? Grossman and Hart cut through the labels with an asset test — what matters is who owns the productive assets, not what the parties are called. In insurance retailing, an employee-agent differs from an independent agent only because the employee does not own his list of clients while the independent agent does; a "direct writer" that owned the list and the agents' other important assets would be exactly as integrated as one employing its sales force. Chandler's (1977) putting-out-to-factory shift in shoemaking makes the same point: even under identical piece rates, the factory is more integrated because the factory owner owns the machines. Ownership, not compensation method, defines the firm.</p>
+
+<h2>2. Core argument and framework</h2>
+
+<h3>2.1 Specific rights versus residual rights</h3>
+
+<p>The central conceptual move is to divide contractual rights into two types. <em>Specific rights</em> are the particular, enumerated rights a contract grants over another party's assets or actions. <em>Residual rights of control</em> are everything left over: the right to decide all uses of an asset that the contract has not explicitly assigned away. Because it is costly to write a long list of specific rights covering every future contingency, a party may instead buy "all the rights except those specifically mentioned in the contract" — and that purchase is ownership.</p>
+
+<blockquote>"This is the simplest possible illustration of our assumption that the owner of an asset has the residual rights of control of that asset, that is, the right to control all aspects of the asset that have not been explicitly given away by contract."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Grossman &amp; Hart (1986), p. 695, §I.B (the publisher–printer example: when an unanticipated second print run becomes profitable, the right to decide belongs to the owner of the printing press)</span>
+
+<p>Residual rights are why integration is not free. Ownership rights are zero-sum: when one party purchases residual rights, the other loses them — the paper's opening words are that this "inevitably creates distortions." The party who loses control also loses bargaining power over the ex post surplus, so every acquisition carries a cost side that the rest of the paper makes precise.</p>
+
+<h3>2.2 The model (Section II)</h3>
+
+<p>The formal model has two firms and two periods. Firm 1 is downstream and firm 2 upstream in the standard vertical reading (firm 2 supplies an input to firm 1); the same structure covers a lateral relationship such as two adjacent retail stores. Each firm is run by a single manager who receives the full return of his firm's activities — a private, nonverifiable benefit $B_i[a_i, \phi_i(q_1,q_2)]$ (managerial perquisites or effort) that never appears in the accounts and hence cannot be contracted over.</p>
+
+<p>The timeline carries all of the theory's weight:</p>
+
+<ul>
+<li><strong>Date 0.</strong> The contract can do only one substantive thing: allocate ownership (residual rights of control) over the two firms' assets, plus make a lump-sum transfer. None of $a_i$, $q_i$, or $B_i$ is ex ante contractible — the investments are too complex to describe or are unverifiable managerial effort, and the $q$'s cannot be specified in advance for every state of the world.</li>
+<li><strong>Date 0 (after contracting).</strong> Managers 1 and 2 choose their relationship-specific investments $a_1, a_2$ simultaneously and noncooperatively; the investments are sunk by date 1.</li>
+<li><strong>Date 1.</strong> The state is realized, the relevant production choices become clear, and $q_1, q_2$ become <em>ex post</em> contractible. In the default (no renegotiation) outcome, each asset's owner chooses the $q$'s he controls. Because information is symmetric and renegotiation is costless, the parties always renegotiate to an ex post efficient allocation, splitting the gains 50:50 (Nash bargaining).</li>
+</ul>
+
+<p>Two choices deserve emphasis. First, the disagreement point in bargaining is the noncooperative outcome in which each owner maximizes his own $\phi_i$; ownership matters only through this disagreement point and hence the division of surplus. Second, with costless renegotiation and symmetric information there is no ex post inefficiency at all: conditional on investments, every ownership structure yields an efficient allocation, so all welfare loss is an ex ante investment distortion. That is the paper's meaning of "hold-up": each investor anticipates capturing only his bargaining share of the marginal surplus from his own sunk investment, so investment falls short of the first best — not because a finished asset is expropriated (the appropriable-quasi-rents story of Klein, Crawford, and Alchian 1978), but because the surplus will be divided later.</p>
+
+<blockquote>"The inefficiency arises, then, because manager i puts 50 percent weight on the noncooperative outcome q, which is generally ex post inefficient, instead of all the weight on the cooperative outcome, which is ex post efficient; this is in spite of the fact that the noncooperative outcome never occurs!"</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Grossman &amp; Hart (1986), p. 703, §III.A (the underinvestment mechanism; cf. Grout 1984)</span>
+
+<p>The incompleteness assumptions are load-bearing. If the $q$'s were ex ante contractible, the first best would be reachable under <em>any</em> ownership structure even with noncontractible investments (fix $q_i = q_i^*$ and each manager invests correctly); if the benefits $B_i$ were transferable, all conflicts of interest would vanish. Ownership has efficiency content only because contracting is incomplete — the point the conclusion presses when it asks which Coase-theorem assumption has been dropped.</p>
+
+<h3>2.3 The three ownership structures and the main results (Section III)</h3>
+
+<p>Given that the date-0 contract is just an ownership allocation plus a transfer, three configurations are interesting: nonintegration (each manager owns and controls his own firm's assets), firm 1 control (manager 1 owns both firms' assets), and firm 2 control (the mirror image) — in the vertical reading, type-1 and type-2 integration: the buyer owns its supplier, or the supplier owns the buyer. A fourth case of cross-ownership, and message-contingent "option to own" contracts, are set aside as inferior (fn. 13, p. 701).</p>
+
+<p>Ownership affects incentives through a monotonicity channel. Given Assumption 5 (marginal benefit is high when average benefit is high), a manager who commands a larger share of ex post surplus because ownership improves his disagreement point <em>overinvests</em> relative to the first best, while the manager who lost control <em>underinvests</em>. Firm 1 control thus makes manager 1 overinvest and manager 2 underinvest; firm 2 control does the reverse; nonintegration leaves both parties some power and produces moderate — typically too low — investment by each. The efficient structure minimizes the total loss from these distortions.</p>
+
+<blockquote>"Firm 1 control will be desirable when firm 1's ex ante investment is much more important than firm 2's (so that firm 2's underinvestment under firm 1 control is relatively unimportant) and when overinvestment by firm 1 under firm 1 control is a less severe problem than underinvestment by firm 1 as in, for example, the nonintegrated solution. … Finally, nonintegration is desirable if a1 and a2 are both "important" in some sense, so that it is preferable to have both of them at a medium level than to have one very high and the other very low as under integration."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Grossman &amp; Hart (1986), p. 708, §III (the central trade-off, stated verbally)</span>
+
+<p>The formal statement is Proposition 1. If firm 1's benefit depends primarily on its own $q_1$ and firm 2's primarily on $q_2$, nonintegration approximates the first best, since each owner's unilateral choice is nearly ex post efficient. If firm 2 barely cares about the noncontractibles (its $\phi_2$ is nearly constant in $q_1, q_2$), firm 1 control approximates the first best; symmetrically, firm 2 control does so when firm 1's benefit hardly depends on the $q$'s. The organizing principle: <em>if the noncontractibles matter little to firm j, j can safely lose control of them — j's investment stays undistorted, while j's ownership would distort the investment of the party who cares.</em> Remark 1 covers one manager running both firms with no loss of efficiency ($B_2 \approx 0$: complementary activities and spare capacity, per Aron 1984 and Mann &amp; Wissink 1984); firm 1 control then dominates. Remark 2 states the human-capital limit: when a subvector of control stays with the acquired manager because only he can exercise it — the lawyer whose client buys the law firm — ownership is worth little.</p>
+
+<p>The overinvestment effect makes the model genuinely two-sided. Even when firm 2's investment is irrelevant ($\partial B_2 / \partial a_2 = 0$), firm 1 control is not automatically first-best, because control may make firm 1 overinvest. Only if firm 2's benefits are perfectly <em>alienable</em> — manager 1 can fire and replace manager 2 at date 1, capturing $B_2$ — does overinvestment vanish and firm 1 control attain the first best. Inalienable private benefits are the source of the cost side of ownership.</p>
+
+<h3>2.4 Why the "larger feasible set" argument fails</h3>
+
+<p>A reader trained on standard contract theory might object that acquiring a firm can only enlarge the feasible set, so integration should weakly dominate. The model shows why this fails. The acquiring owner gains the power to intervene in the subsidiary in ways that distort the subsidiary manager's incentives, and — critically — the owner <em>cannot commit to intervene selectively</em>, because residual rights are by definition powers that cannot be specified in advance in enforceable detail. Integration therefore imposes costs as well as benefits, and the first-best is unattainable whenever both parties' investments and benefits respond to the allocation of control.</p>
+
+<div class="mermaid">
+flowchart TD
+    A["Date 0: contract allocates ownership = residual rights of control over assets + a transfer"] --> B["Managers choose relationship-specific investments a1, a2 (noncontractible, sunk)"]
+    B --> C["Date 1: state realized; q1, q2 become contractible; owner(s) hold default control"]
+    C --> D["Costless renegotiation to ex post efficient allocation; surplus split 50:50"]
+    D --> E["Each manager's investment incentive = his bargaining share of its marginal return"]
+    E --> F{"Ownership structure"}
+    F --> G["Nonintegration: each keeps control of own assets — moderate investment by both; underinvestment if default outcome is far off the efficiency frontier"]
+    F --> H["Type-1 integration (firm 1 owns firm 2): manager 1 overinvests, manager 2 underinvests"]
+    F --> I["Type-2 integration (firm 2 owns firm 1): manager 2 overinvests, manager 1 underinvests"]
+    G --> J["Choose the structure that minimizes the total ex ante investment distortion"]
+    H --> J
+    I --> J
+    J --> K["Assign ownership to the party whose relationship-specific investment matters most"]
+    style F fill:#faf5ff,stroke:#7c3aed
+    style K fill:#f0f4ff,stroke:#2563eb
+</div>
+
+<h2>3. Evidence and worked examples</h2>
+
+<h3>3.1 Worked examples inside the model</h3>
+
+<p>As a theory paper, Section III's "evidence" is worked cases that fix the mechanism's meaning. The <em>publisher–printer</em> case defines residual rights: the right to order an unanticipated extra print run belongs to the owner of the press. The <em>mine-mouth power plant</em> case (following Joskow 1985 on long-term coal contracts) shows the noncontractible becoming contractible ex post: too many potential coal impurities to list ex ante, but once realized the relevant one (high ash) is clear — owning the mine lets the plant direct low-ash coal; owning the plant lets the mine direct boiler modification. The <em>firing-and-replacement</em> case (p. 709) illustrates alienability: owning assets lets the acquirer transfer the target manager's private benefit by replacement, making integration approach "one manager with the social objective function." The <em>law firm</em> example (Remark 2, p. 709) bounds the theory: when an asset's value lives in a person, buying the asset does not buy the person's discretion, and ownership rights are worth little.</p>
+
+<h3>3.2 Application: who owns the client list in insurance (Section IV)</h3>
+
+<p>Section IV applies the framework to a single-asset setting in which nonintegration has no meaning: the choice is exactly company control versus agent control of the policyholder list. In property-casualty and life insurance, "direct writers" (employees or captive agents) do not own the list of policyholders; independent agents do. List ownership determines who can sell to the client if the relationship ends and who captures the renewal. The model's logic runs through the commission structure: because the agent's effort to deliver persistent clients is nonverifiable, the efficient commission must be back-loaded — initial commissions below acquisition cost, renewal commissions above servicing cost. Back-loading is harmless only if nothing else can interfere with the renewal stream; two families of noncontractibles can:</p>
+
+<ul>
+<li><strong>Type 1 — actions that hurt the agent when the company owns the list.</strong> The company can make its product less competitive (raise price, cut service quality in a region, change advertising), making clients switch and destroying the agent's back-loaded renewal rents. If the agent owned the list he could move the client to a better-matched company; if the company owns it, the agent's ex ante effort to produce persistent clients is blunted.</li>
+<li><strong>Type 2 — actions that hurt the company when the agent owns the list.</strong> The agent must consent before the company can solicit his clients for a newly developed product, and the agent can switch clients to competitors in states where the switch merely transfers surplus from company to agent. This distorts the company's ex ante investments in list building, product development, and policyholder services.</li>
+</ul>
+
+<blockquote>"Our analysis therefore predicts that, in products in which the renewal is not guaranteed and is sensitive to the agent's actions, the agent will be more likely to own the list, whereas in products in which the renewal is more certain and is less sensitive to the agent's actions, the company will be more likely to own the list."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Grossman &amp; Hart (1986), p. 714, §IV (prediction taken to the insurance data)</span>
+
+<table>
+<caption>Table 1 — Observed "importance of agent list ownership" by life-insurance product (from Grossman &amp; Hart 1986, Table 1, p. 715, source Czepiec 1984)</caption>
+<tr><th>Product</th><th>Renewal economics</th><th>Model prediction</th><th>Agents using brokerage (list-owning) placement, %</th></tr>
+<tr><td>Substandard insurance</td><td>Substantial agent effort to find a good match; client persistence depends on match quality</td><td>Agent owns list</td><td>55.9</td></tr>
+<tr><td>Term insurance</td><td>Short term; renewal is a live event and sensitive to agent's service</td><td>Agent owns list</td><td>46.2</td></tr>
+<tr><td>Group / pension</td><td>Considerable agent effort in matching client and insurer</td><td>Agent owns list (weaker)</td><td>43.1</td></tr>
+<tr><td>Whole life insurance</td><td>Long-term contract; renewal largely automatic and insensitive to agent effort</td><td>Company owns list</td><td>19.4</td></tr>
+</table>
+
+<p>The same pattern holds across property-casualty lines: independent (list-owning) agents hold 47 percent of private passenger automobile liability but 96 percent of surety insurance (Webb et al. 1984), and Marvel (1982) reports a positive correlation across products between the importance of independent agents and the size of the agent's client-acquisition costs. Automobile insurance is short-term with effort-sensitive renewals; surety is idiosyncratic and match-sensitive — both push ownership to the agent. The authors rebut Marvel's rival exclusive-dealing-and-advertising account (fn. 20, pp. 714–715): exclusive dealing is better read as an enforcement device for list ownership, and Marvel neither separates ownership of the renewal from exclusive dealing nor explains why life insurance uses captive agents far more than property-casualty insurance.</p>
+
+<h3>3.3 Commentary on the evidence</h3>
+
+<p>The insurance material is deliberately informal — the model is applied "with considerable latitude" because some variables are contractible in reality, and the theory "lacks quantitative completeness" (pp. 697, 710). The evidence is correlational and product-level: premium shares, brokerage-placement rates, and Marvel's cross-product correlation, with no regression, controls, or identification strategy to separate the incentive channel from rivals. The numbers are consistent with the theory, which is all the paper claims; they do not test it against TCE in any statistical sense. Within the paper's terms the evidence is a plausibility demonstration: ownership of the client list moves in the direction the investment-incentive logic requires as renewal certainty and effort sensitivity vary across products.</p>
+
+<h2>4. Position in the literature</h2>
+
+<p>Grossman and Hart (1986) is the founding paper of <em>modern</em> property-rights theory, and its place shows in the conversation it conducts. It extends Coase (1937) by giving "the nature of the firm" a definition TCE lacked — the firm is the set of assets one ownership unit controls — and Coase (1960) by showing that even with permitted, costless ex post bargaining, the ex ante allocation of property rights has efficiency consequences when contracts are incomplete. It refines Klein, Crawford, and Alchian (1978): hold-up still originates in relationship-specific investment, but the object shifts from quasi-rents expropriated ex post to the ex ante investment distortion from anticipated surplus division. It answers Williamson (1971, 1979, 1983) and the surrounding TCE line (Williamson, Wachter, and Harris 1975; Teece 1980) by denying the implicit premise that internal organization approximates the complete-contract outcome. Against classical PRT (Alchian &amp; Demsetz 1972), which locates the firm in a residual claimant who meters team production, Grossman and Hart relocate the action to residual control over assets between two owner-managers with inalienable private benefits.</p>
+
+<table>
+<caption>Table 2 — Classical PRT vs. modern PRT (Grossman &amp; Hart 1986) vs. TCE (Williamson) on the firm</caption>
+<tr><th>Dimension</th><th>Classical PRT (Alchian &amp; Demsetz 1972)</th><th>Modern PRT (Grossman &amp; Hart 1986)</th><th>TCE (Williamson 1975, 1979, 1985)</th></tr>
+<tr><td>Core question</td><td>How to meter team production and deter shirking</td><td>Who should own which assets (hold residual control)</td><td>Which governance mode matches which transaction</td></tr>
+<tr><td>Key concept</td><td>Residual claimant / central monitor; firm has no "power of fiat"</td><td>Residual rights of control; specific vs. residual rights; ex ante investment</td><td>Asset specificity; opportunism; governance costs</td></tr>
+<tr><td>Source of inefficiency</td><td>Shirking under costly metering of individual effort</td><td>Ex ante under-/over-investment from incomplete contracting (ex post always efficient)</td><td>Ex post haggling, maladaptation, hold-up under incomplete contracts</td></tr>
+<tr><td>What integration does</td><td>Not really distinct from contracting; ownership of the team's output by the monitor</td><td>Reallocates residual rights from one party to another — a real trade-off, not a one-way gain</td><td>Substitutes hierarchy (authority) for market; economizes on transaction costs</td></tr>
+<tr><td>Bottom-line prescription</td><td>Residual claimant = monitor with authority to adjust rewards</td><td>Give ownership to the party whose relationship-specific investment matters most</td><td>Align governance (make-or-buy) with asset specificity and uncertainty</td></tr>
+</table>
+
+<table>
+<caption>Table 3 — The three ownership structures in Grossman &amp; Hart (1986), §III</caption>
+<tr><th>Ownership structure</th><th>Who controls the q's absent renegotiation</th><th>Ex ante investment pattern</th><th>When (approximately) optimal</th></tr>
+<tr><td>Nonintegration</td><td>Manager 1 controls q1; manager 2 controls q2; uncoordinated default outcome can be highly inefficient</td><td>Moderate investment by both; underinvestment by both if the default lies southwest of the efficient frontier</td><td>Both investments are important, so medium levels for both beat one very high and one very low (Prop. 1A: each party's benefit depends on its own control variable)</td></tr>
+<tr><td>Type-1 integration (firm 1 owns firm 2)</td><td>Manager 1 controls q1 and q2</td><td>Manager 1 overinvests; manager 2 underinvests</td><td>Firm 1's investment is much more important than firm 2's (Prop. 1B: firm 2's benefit hardly depends on the q's; Remark 1: B2 ≈ 0)</td></tr>
+<tr><td>Type-2 integration (firm 2 owns firm 1)</td><td>Manager 2 controls q1 and q2</td><td>Manager 2 overinvests; manager 1 underinvests</td><td>Firm 2's investment is much more important than firm 1's (Prop. 1C, symmetric)</td></tr>
+</table>
+
+<p>Within the PRT line, the paper's immediate predecessor is the authors' own 1984 mimeograph, "Vertical Integration and the Distribution of Property Rights," which this article extensively revises — and which, with Farrell (1985), develops the ex post-inefficiency variant (barriers to renegotiation). The direct descendants are Hart and Moore (1990), generalizing ownership to multi-asset, multi-agent settings, and Hart (1995), consolidating the property-rights approach and pushing it into financial structure — the investor-control agenda the conclusion sketches (p. 717). In strategy, the rule "give ownership to the party whose investment matters most" underlies applications to co-specialized assets and firm boundaries (Kim &amp; Mahoney 2005), the ownership-competence idea that exercising residual control is itself a capability, and empirical tests such as Magelssen (2020). The symmetry claim is the contrast with Williamson that later literature quotes most: TCE says integration protects specific investments by removing opportunism; GH (1986) says integration shifts the incentives for opportunistic behavior from one party to the other.</p>
+
+<h2>5. Limitations</h2>
+
+<h3>(a) The author's own stated limitations</h3>
+
+<p>The paper is unusually explicit about what it does not cover. The starkest admission concerns the very assumptions that make ownership matter:</p>
+
+<blockquote>"It is nonetheless very strong to assume that no aspects of these variables are contractible. In any realistic situation, some parts of a firm's performance will be reflected in verifiable shareholders' profit, even if other parts, such as managerial well-being, are not. … While we are confident that some version of our results will continue to hold when a1, q1, and B1 are partly contractible, the formal extension of our analysis to this case is by no means straightforward."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Grossman &amp; Hart (1986), p. 700, end of §II</span>
+
+<p>The remaining author-stated limits, all traceable to the text: (i) Assumption 7 — the ex post efficient choice of the $q$'s independent of the investments — is "a strong assumption," unreasonable when benefits are differentiable in the $q$'s, though it can hold with discrete $q$'s (pp. 706–707). (ii) If renegotiation were blocked by transaction costs or asymmetric information, residual rights would affect the size as well as the distribution of ex post surplus; the authors defer that analysis to Grossman and Hart (1984) and Farrell (1985) (p. 717). (iii) The relationship is once-and-for-all; repetition and reputation (Telser 1980; Kreps 1984) are set aside, with no clear implication of reputation for asset ownership (fn. 5, pp. 695–696). (iv) The manager-as-full-residual-claimant and inalienability assumptions are extreme; alienability is explored only via the special replacement case (p. 709). (v) Only simple allocations are considered — cross-ownership and option-to-own contracts are ignored, and the analysis covers two firms and assets whose control can transfer (fn. 13, p. 701; Remark 2, p. 709). (vi) The theory "lacks quantitative completeness," so the application is qualitative (p. 697); risk aversion and financing motives are acknowledged as additional unmodeled reasons residual rights matter (p. 717).</p>
+
+<h3>(b) Independent judgment</h3>
+
+<ul>
+<li><strong>[paper claim]</strong> Under the model's assumptions (in particular monotonicity — Assumption 5, that marginal and average benefits of investment move together), firm i control makes firm i overinvest and firm j underinvest, while nonintegration produces moderate investment by both; the optimal structure minimizes the total ex ante investment distortion, and ownership should go to the party whose investment matters most. This is the paper's central assertion, not a commentator's gloss.</li>
+<li><strong>[paper claim]</strong> Because renegotiation is costless and information is symmetric, every ownership structure yields an ex post efficient allocation given investments; all welfare loss is ex ante, so ownership matters only through investment incentives. The authors state this repeatedly (pp. 703, 717) — but it describes an assumed environment, not a theorem about real transactions.</li>
+<li><strong>[evidence]</strong> The insurance patterns (65 vs. 12 percent list-owning-agent premium shares; Table 1's brokerage-placement rates; 47 vs. 96 percent agency shares; Marvel's correlation) are informal, cross-sectional, and correlational — consistent with the model's comparative statics but unable to rule out rivals such as Marvel's advertising/exclusive-dealing account, which the authors rebut on plausibility grounds rather than with data (fn. 20, pp. 714–715).</li>
+<li><strong>[evidence]</strong> The worked examples inside Sections I–III (publisher–printer, mine-mouth plant, firing-and-replacement, the law firm) function as plausibility demonstrations of the mechanism, not empirical evidence about real ownership patterns.</li>
+<li><strong>[inference]</strong> The model's welfare accounting excludes the ex post transaction costs that motivated TCE. Once renegotiation is costly or information asymmetric, integration can generate benefits — avoiding haggling and maladaptation — that lie outside the ex ante-investment metric, so the Grossman–Hart comparison understates what hierarchy can buy and what market contracting can lose. The authors gesture at this (p. 717) without bringing it into the formal model.</li>
+<li><strong>[inference]</strong> The sign of the investment response rests on monotonicity (marginal return rising with average return). If returns were non-monotone — control beyond some point breeding complacency, or marginal returns peaking at intermediate surplus shares — the "overinvest under control, underinvest without it" prescriptions could weaken or reverse, so the empirical content of "whose investment matters most" depends on a functional-form property the paper does not defend with evidence.</li>
+<li><strong>[open question]</strong> The two-firm, two-manager, single-relationship setting leaves unanswered the questions its successors took up: which party should own complementary assets in multi-asset settings (Hart &amp; Moore 1990), and how residual rights operate over people and actions — the employer–employee versus contractor–contractee distinction the authors themselves flag as future work (p. 717) — rather than over assets alone.</li>
+<li><strong>[open question]</strong> How to observe residual rights empirically — what "ownership" means for intangibles, data, and human capital — and how to test the allocation rule against TCE in data remain unresolved; the authors offer no measurement strategy, and the task fell to later applied work.</li>
+</ul>
+
+<h2>6. Conclusion</h2>
+
+<p>The paper establishes three things. First, a definition: a firm is the set of assets it owns, and ownership is the purchase of residual rights of control — the right to decide all uses of an asset not explicitly assigned away in a contract. Second, a mechanism: because contracts are incomplete, residual rights determine each party's bargaining position at date 1, and through it each party's incentive to make relationship-specific investments at date 0; hence the allocation of ownership has real efficiency consequences even though ex post bargaining is perfect. Third, a normative rule with a built-in trade-off: integrate when one party's investment is pivotal, because concentrating residual control strengthens that party's incentive while weakening the other's; stay nonintegrated when both investments matter and should be kept at moderate levels.</p>
+
+<blockquote>"We argue that the relevant comparison is not between the nonintegrated outcome and the complete contract outcome but instead between a contract that allocates residual rights to one party and a contract that allocates them to another. … Integration shifts the incentives for opportunistic and distortionary behavior, but it does not remove these incentives."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Grossman &amp; Hart (1986), p. 716, §V (Conclusions)</span>
+
+<blockquote>"The impossibility of ex ante bargaining over all aspects of the product to be delivered, that is, the incompleteness of the contract, is the source of our conclusion that the distribution of property rights has efficiency consequences."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Grossman &amp; Hart (1986), p. 718, §V (which Coase-theorem assumption is dropped)</span>
+
+<p>One-line normative takeaway for strategy: identify whose relationship-specific investment creates the surplus, and put residual control — ownership — with that party, accepting that every act of integration buys one party's incentive at the price of the other's.</p>
+
+<div class="golden">"When residual rights are purchased by one party, they are lost by a second party, and this inevitably creates distortions."<br><span style="font-size:.95rem;font-weight:400;color:var(--muted)">Grossman &amp; Hart (1986), p. 691 — the sentence that turns integration from a one-way gain into a trade-off, and the reason this theory is called the costs and benefits of ownership.</span></div>
+
+<div class="note"><strong>AI-assistance disclosure.</strong> This page was written by an AI assistant from the paper's full text (pdftotext-extracted from the published JPE article, pp. 691–719). All verbatim blockquotes are reproduced from that extracted text and carry page references drawn from the article's running heads; tables and the Mermaid diagram were AI-organized from the paper's content. Readers should verify quoted wording and page numbers against the original before citing them.</div>
+
+<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
+
+</body>
+</html>

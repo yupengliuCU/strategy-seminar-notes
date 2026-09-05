@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Notes — Course Deep Dives</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.7;padding:2.5rem 1.5rem;max-width:800px;margin:0 auto;font-size:16px}
+h1{font-size:1.6rem;margin-bottom:.4rem}
+.sub{color:var(--muted);font-size:.92rem;margin-bottom:2rem;line-height:1.7}
+.course{display:block;text-decoration:none;color:inherit;padding:1rem 1.2rem;margin:1rem 0;border:1px solid var(--border);border-radius:12px;background:#fff;transition:box-shadow .15s}
+.course:hover{box-shadow:0 2px 10px rgba(37,99,235,.12);border-color:#bcd0f7}
+.course .t{font-weight:600;font-size:1.05rem}
+.course .d{color:var(--muted);font-size:.88rem;margin-top:.3rem;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:2rem 0;font-size:.85rem;line-height:1.7}
+</style>
+</head>
+<body>
+
+<h1>Reading Notes</h1>
+<div class="sub">Index of course reading deep dives and non-course literature topics. One directory and one index page per course or topic; all links are relative, so pages open directly via <code>file://</code> or under a local <code>python3 -m http.server</code>.</div>
+
+<h2 style="font-size:1.1rem;margin:1.8rem 0 .4rem;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:.3rem">Courses</h2>
+
+<a class="course" href="seminar-economic-foundations-of-strategy/index.html">
+  <span class="t">Economic Foundations of Strategy</span>
+  <div class="d">PhD Seminar · Tony · Fall A 2026 · Themes: theories of the firm as the economic foundations of strategy research<br>Readings: Porter (1991, 1996), Leiblein et al. / Csaszar (2018), Whittington (1996), Nag et al. (2007), Durand et al. (2017), Hambrick &amp; Fredrickson (2001), Ghemawat (2002); Week 2 TCE: Coase (1937), Williamson (1985, 1991, 1999) — plus the English TCE literature review (1937–2026); Week 3 PRT (English deep dives): Alchian &amp; Demsetz (1972), Demsetz (1967), Grossman &amp; Hart (1986), Hart &amp; Moore (1990), Kim &amp; Mahoney (2005), Foss et al. (2021), Magelssen (2020)</div>
+</a>
+
+<h2 style="font-size:1.1rem;margin:1.8rem 0 .4rem;color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:.3rem">Literature Topics (non-course)</h2>
+
+<a class="course" href="huggingface-open-ai-literature/index.html">
+  <span class="t">Hugging Face &amp; the Open-AI Economy</span>
+  <div class="d">Research literature topic · English · The Hugging Face platform, open-weight models, and the economics of open AI<br>Part I core library (14 papers, deep dives in progress): Greenstein HF case, Laufer et al. (2025) anatomy of the Hub, White et al. (2024) MOF, Longpre et al. (2025), Azoulay et al. (2024), Jin et al. (2026), Yeverechyahu et al. (2024), Yue &amp; Nagle (2024), Khoshbash (2026), Wu et al. (2025) ×2, Greve (2003), Dell (2024), Atlan (2026) · Part II supporting library (21 classics: open source &amp; commons, platforms &amp; ecosystems, AI at work)</div>
+</a>
+
+<div class="note">
+<strong>Maintenance</strong>: to add a course, create <code>reading-notes/&lt;course-slug&gt;/</code> with its <code>index.html</code> and per-reading pages, then add an entry card here; a non-course research topic follows the same convention and is listed under “Literature Topics”. Generation conventions: paper-analyzer skill (bilingual terminology + site output for courses; English-first for the HF topic); the 2026-08-30 English conversion replaced the Chinese synthesis pages (originals backed up in the workspace under <code>tmp/en-switch/backup/</code>).
+</div>
+
+</body>
+</html>

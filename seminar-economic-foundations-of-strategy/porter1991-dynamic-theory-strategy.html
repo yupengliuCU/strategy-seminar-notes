@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Towards a Dynamic Theory of Strategy（Porter, 1991）— 深度解读</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Towards a Dynamic Theory of Strategy</h1>
+<div class="meta">
+<strong>作者</strong>：Michael E. Porter（哈佛商学院）<br>
+<strong>出处</strong>：<em>Strategic Management Journal</em>, Vol. 12, Special Issue（Winter 1991）, pp. 95–117<br>
+<strong>DOI</strong>：<a href="https://doi.org/10.1002/smj.4250121008">10.1002/smj.4250121008</a><br>
+<strong>性质</strong>：纲领性（programmatic）理论综述论文；提出框架而非检验假设，无计量数据、无形式化模型<br>
+<strong>代码状态</strong>：不适用 —— 纯理论文献，无代码实现
+</div>
+
+<div class="summary-box">
+<h3>一句话总结</h3>
+<p>Porter 把"企业为何成败"这一战略中心问题拆成两层：<strong>横截面问题（cross-sectional problem）</strong>（在给定时刻，什么决定了优异绩效）与<strong>纵向问题（longitudinal problem）</strong>（优异位置是如何随时间被<em>创造</em>出来的），并论证前者逻辑在先；在评述博弈论（game theory）、承诺与不确定性、资源基础观三条路线后，他提出优势的真正起源可能在企业的<strong>本地（邻近）环境（local/proximate environment）</strong>——即"钻石模型"（diamond），从而把战略理论从"企业内部"推向"企业与其环境的关系"。</p>
+</div>
+
+<div class="note">
+<strong>阅读提示</strong>：这是一篇"元理论"（meta-theory）论文，讨论的不是"某个战略是什么"，而是"战略理论应该长什么样、在哪一层因果关系上切入"。对"Economic Foundations of Strategy"这门课，它的价值尤其在于：①它明确把战略理论的源头接到产业组织经济学（IO）、博弈论、要素市场理论等经济学传统上；②它讨论"模型（models）还是框架（frameworks）"这一方法论张力，正是战略研究与经济学的分界处；③它用"活动—资源对偶"的说法，试图弥合定位学派与资源基础观（resource-based view, RBV）的分裂。
+</div>
+
+<h2>1. 论文的起点：一个贯穿四十年的问题</h2>
+
+<p>Porter 开篇把问题立得很高：<strong>"企业为什么成功或失败，是战略领域最核心的问题。"</strong>这个问题自领域创立四十年以来一直占据中心，它囊括了所有其他子问题——企业为何彼此不同、如何行为、如何选择战略、如何被管理。而且，任何对这一问题的回答，都不得不面对一个现实：<strong>同一产业里，不同国家的企业绩效差异极大</strong>。这为后文"环境（尤其国家/本地环境）可能是优势起源"的论点埋下伏笔。</p>
+
+<p>接着他做了一个关键的自我定位：要建立动态战略理论，必须"从具体假说和模型后退一步，广泛地看战略与经济学两边的文献"。这句话点明了全文的方法——这不是提出新模型，而是<strong>盘点已有理论、划清因果边界、指出缺口</strong>。</p>
+
+<h2>2. 早期战略文献：三个成功条件</h2>
+
+<p>Porter 先回到早期战略文献（Learned et al. 1965；Andrews 1971）对"成功"的经典定义，总结为三个条件：</p>
+
+<h3>表 1：早期战略文献的三个成功条件</h3>
+<table>
+<tr><th>条件</th><th>内容</th><th>现代语言</th></tr>
+<tr><td>① 内部一致性</td><td>一套内部一致的目标与职能政策，共同界定市场位置</td><td>战略是"代理问题"的解——用统一战略对抗各职能部门的离心力</td></tr>
+<tr><td>② 内外匹配</td><td>让企业的优势/劣势与产业的机遇/威胁对齐</td><td>SWOT 的原型；"战略是把公司与其环境对齐的行动"</td></tr>
+<tr><td>③ 独特能力</td><td>创造并利用"独特竞争力（distinctive competences）"</td><td>后来 RBV 与"核心能力"思潮的先声</td></tr>
+</table>
+
+<p>这里有一个值得注意的判断：Porter 指出，早期文献<strong>只给出宽泛原则，没有可检验的理论</strong>，其根源是战略领域的两大取向——<strong>以指导实践为目的</strong>（一个只解释部分现象、却无法给企业具体建议的理论被认为不合格），以及<strong>对竞争复杂性与情境特定性的执念</strong>（Andrews 视每家企业、每个产业、每个时期都独一无二）。这两点构成了战略研究日后与经济学方法论分道扬镳的起点。</p>
+
+<h2>3. 理论化的四个挑战</h2>
+
+<p>要把这些宽泛原则变成理论，Porter 提炼出四个根本挑战。其中第一个——<strong>理论建构的方法</strong>——对理解这篇论文乃至整个战略领域的方法论立场最为关键。</p>
+
+<h3>挑战一：模型（models）还是框架（frameworks）？</h3>
+
+<blockquote>A framework… encompasses many variables and seeks to capture much of the complexity of actual competition… [Models] provide clear conclusions, but… are highly sensitive to the assumptions underlying them.</blockquote>
+
+<p>Porter 把理论建构分成两条路（对应原文 Figure 1）：</p>
+
+<h3>表 2：模型 vs 框架</h3>
+<table>
+<tr><th>维度</th><th>模型（models）</th><th>框架（frameworks）</th></tr>
+<tr><td>特征</td><td>情境特定但严格（可数学化）、变量少、复杂度有限</td><td>涵盖多变量，试图捕捉竞争的真实复杂性</td></tr>
+<tr><td>代表</td><td>近几十年经济学（IO、贸易理论）的主流</td><td>战略领域的传统（五力、价值链等）</td></tr>
+<tr><td>优点</td><td>逻辑一致、结论清晰、能探索少数变量的微妙互动</td><td>近乎"专家系统"，可针对具体产业/企业给出定制判断</td></tr>
+<tr><td>代价</td><td>对假设高度敏感；各模型难以整合；适用面窄</td><td>均衡概念不精确；变量间关系无法全部严格刻画；难以证伪</td></tr>
+<tr><td>关系</td><td colspan="2">二者不互斥，应形成"建设性张力"：模型检验框架，框架挑战模型（指出被遗漏的变量与参数的非固定性）</td></tr>
+</table>
+
+<p>Porter 的立场是：因为战略研究必须<strong>指导实践</strong>，所以（包括他自己在内的）战略学者选择了"框架"路线，但这不等于放弃严格性——框架必须建立在深入的实证研究之上，才有资格既指导实践、又推动更严格理论的发展。<strong>这一段是把"战略作为一门学科"与"经济学"并置、并解释二者差异的关键文本</strong>。</p>
+
+<h3>挑战二、三、四：因果链、时间跨度、实证检验</h3>
+
+<ul>
+<li><strong>因果链（chain of causality）在哪里切入？</strong>看到一个成功企业成本低，那只是"结果"不是"原因"；要不断追问"为什么"——成本低源于规模经济，规模经济源于早期进入，早期进入又源于什么……理论上可以无限回溯。这本质上是<strong>外生变量与内生变量的划界问题</strong>：环境该不该视为给定？企业规模是结果还是原因？</li>
+<li><strong>时间跨度多长？</strong>解释 2–3 年的成功、几十年、还是几世纪？跨度越长，环境变化越大，理论越要向内看（更强调企业自我转型的能力），且更早切入因果链。时间跨度与因果链切入点是紧密绑定的。</li>
+<li><strong>如何实证检验？</strong>框架变量多、交互复杂，严格统计检验困难。Porter 自述 1970 年代做过横截面计量研究，最终"放弃"——因为框架的复杂度跑在了可得数据前面，转而依赖大量深入案例研究。</li>
+</ul>
+
+<h2>4. 横截面框架：一条因果链</h2>
+
+<p>Porter 把自己的答案组织成一条因果链（原文 Figure 2），这也是全文的"锚"。他先声明一个基本单位：战略理论的分析单位必须是<strong>"战略上可区分的业务或产业"</strong>——多元化企业的公司层战略，必须建立在对单个业务如何取胜的深刻理解之上。</p>
+
+<p>在最宽层面，企业成功是两块之和：<strong>所在产业的吸引力 + 企业在该产业中的相对定位</strong>。企业利润可分解为<strong>"产业效应"与"定位效应"</strong>。这个区分之所以重要，是因为企业可以选择"改善其一、损害其二"的战略——比如通过触发模仿，可能改善产业结构却拿不到竞争优势。</p>
+
+<p>因果链（由结果向原因回溯）如下：</p>
+
+<pre class="mermaid">
+flowchart TB
+    A["Firm success =<br/>Industry effect +<br/>Positioning effect"] --> B["Attractive relative<br/>position (outcome)"]
+    B --> C["Sustainable competitive<br/>advantage: lower cost<br/>or differentiation (premium)"]
+    C --> D["Activities /<br/>value chain &amp; value system"]
+    D --> E["Drivers: scale, learning,<br/>linkages, sharing, capacity,<br/>location, timing, integration,<br/>institutions, policy choices"]
+    E -. "cross the dotted line<br/>(longitudinal)" .-> F["Initial conditions<br/>vs managerial choice"]
+    F -.-> G["Local environment<br/>(the diamond)"]
+</pre>
+
+<p>这条链的每一环，都是一次"再问一个为什么"：</p>
+
+<ul>
+<li><strong>竞争优势的两类</strong>：低于对手的成本，或能支撑溢价的差异化。优异绩效只能逻辑地来自"比对手要价更高"或"成本更低"（更低一层还包括资产成本）。</li>
+<li><strong>活动（activities）是基本单位</strong>：企业是"离散但相互关联的经济活动"的集合。竞争优势来自"以集体上更低成本执行所需活动"或"以独特方式执行某些活动以创造买方价值"。价值链（value chain）与价值系统（value system，Figure 4）就是活动的排列方式——价值系统把供应商、渠道、买方的价值链连进来。</li>
+<li><strong>驱动因素（drivers）才是真正的原因</strong>：为什么有的企业能以更低成本或更优方式执行某项活动？答案是"驱动因素"——规模、在该活动中的累积学习、与其他活动的联系、跨业务共享、产能利用率模式、区位、投资时机、垂直整合程度、制度因素（如政府管制）、以及独立于其他驱动因素的政策选择。<strong>品牌声誉是"结果"不是"原因"</strong>；要看它背后是哪种驱动因素（如早期广告的时机、或当前销量的规模效应），才知道它到底意味着成本优势还是差异化。</li>
+</ul>
+
+<p>驱动因素这一层还回答了<strong>可持续性</strong>：优势能否持续，取决于价值链上优势的数量、尤其是每个优势背后的具体驱动因素——基于学习的优势能否持续，取决于学习能否保持专有；基于时机要素位置的优势能否持续，取决于要素市场的不完全性。</p>
+
+<h2>5. 纵向问题：优势是如何被创造的</h2>
+
+<p>横截面框架解释了"什么构成优势"，但对"优势如何被<em>创造</em>"保持沉默——这正是<strong>纵向问题</strong>。Porter 特意澄清术语：他<strong>有意避免"静态/动态"这对词</strong>，因为横截面与纵向问题各自都含有静态与动态成分（脚注 13）。这个措辞的精确性本身就是他方法论自觉的一部分。</p>
+
+<p>纵向问题的逻辑答案是二分：优势要么来自<strong>初始条件（initial conditions）</strong>（企业历史带来的声誉、技能、既有活动），要么来自<strong>纯管理选择（managerial choices）</strong>（在不确定性下做出的、独立于初始条件的选择）。Porter 用案例强调后者被低估：沃尔玛选址中小城镇并独特配置物流系统，靠的是"更好的想法"而非既有的强项；联邦快递、苹果、Crown Cork and Seal 亦如此——它们的成功更常来自"缺什么"而非"有什么"。他还提醒：<strong>内部初始条件背后，本就是更早的管理选择</strong>；越往前回溯，越发现"逐次管理选择 + 外部初始条件"在支配结果。</p>
+
+<h2>6. 三条纵向研究路线的评述</h2>
+
+<p>Porter 逐一评述当时正兴起的三条路线，指出各自的贡献与不足。这是全文最有"对话感"、也是最能看出他理论立场的地方。</p>
+
+<h3>表 3：三条纵向研究路线</h3>
+<table>
+<tr><th>路线</th><th>核心主张</th><th>贡献</th><th>Porter 的批评</th></tr>
+<tr><td>① 博弈论模型（game-theoretic models）</td><td>用均衡分析理解竞争者在产能、R&amp;D 等变量上的选择后果</td><td>揭示信息与信念、相互一致选择的条件</td><td>一次只处理少数变量，强推战略同质性；把许多已知在变的变量固定住——"探索的其实是一个大体静态世界的动态"</td></tr>
+<tr><td>② 承诺与不确定性（Ghemawat 1991）</td><td>战略体现为少数难以逆转的投资承诺，须在不确定下做出</td><td>强调承诺的不可逆性、可持续性、不确定性</td><td>聚焦大而离散的逐次投资，忽略价值链上<em>同时</em>的一组选择；环境被假定相对稳定</td></tr>
+<tr><td>③ 资源基础观（RBV）</td><td>优势起源是稀缺、难模仿、难替代的有价值资源</td><td>把"内部资源"这个重要洞见引入经济学建模</td><td>最内向；有循环论证风险；资源只是"活动与优势之间的中间环节"，不能替代定位观</td></tr>
+</table>
+
+<p>对 RBV，Porter 花了最多篇幅，给出了他最具整合性的一个判断：<strong>资源与活动是"对偶"（duals）</strong>。</p>
+
+<blockquote>Resources are not valuable in and of themselves, but because they allow firms to perform activities that create advantages in particular markets… Resources and activities are, in a sense, duals of each other.</blockquote>
+
+<p>展开说：资源或是"长期执行活动的产物"（如声誉是营销与客服活动的历史函数），或是"从外部购得"，两者都反映此前的管理选择。资源是活动与优势之间的<strong>中间位置</strong>；脱离活动，"资源"就无法被严谨定义（有些所谓资源其实是活动，如销售队伍、R&amp;D 组织）。他还给出一个尖锐的批评：资源学派常把 IO 理论丑化为"只讲市场同质、只讲垄断租金、只能做业务层战略"，那是拿 1970 年代的老 IO 说事——1991 年时 IO 与战略早已在桥接。RBV 的"价值性"条件（更优使用、难模仿、难替代、在企业内比在外更有价值）本身就像五力框架的影子：供应商议价力≈投入市场、可替代性≈替代品威胁、可模仿性≈进入壁垒。</p>
+
+<p>Porter 的结论是明确的：<strong>RBV 不能成为战略的替代理论，只能作为定位观的补充</strong>；而且它最大的风险在于——若把"资源"定义过宽，会为 1970–80 年代那种灾难性的无关多元化重新背书。</p>
+
+<h2>7. 起源的起源：本地环境（钻石模型）</h2>
+
+<p>三条路线都不够，于是 Porter 提出全文最关键的转向：<strong>优势的真正起源，可能不在企业内部，而在企业所处的"本地（邻近）环境"</strong>。这个观点来自他研究《国家竞争优势》（1990）时遇到的一个谜题——同一产业的优势常常高度集中在某一两个国家、甚至某一两个区域，且往往有多个成功的本土竞争对手互相厮杀。</p>
+
+<p>他总结出本地环境四个相互强化的属性，即<strong>钻石模型</strong>（Figure 5）：</p>
+
+<h3>表 4：钻石模型的四个决定因素</h3>
+<table>
+<tr><th>决定因素</th><th>作用机制</th><th>反直觉要点</th></tr>
+<tr><td>① 要素条件</td><td>高度专业化、针对特定产业需求的要素池支撑最快的学习与创新</td><td>基本要素的<em>选择性劣势</em>（劳动力/能源/原料贵）反而常常是优势来源——它逼企业摆脱要素成本依赖、转向创新升级</td></tr>
+<tr><td>② 需求条件</td><td>本地需求影响对买方需求的感知与改进能力</td><td>需求<em>质量</em>（挑剔/超前的客户）比<em>规模</em>更重要</td></tr>
+<tr><td>③ 相关与支持产业</td><td>本地供应商与关联产业带来信息、信号、技术通道与市场压力</td><td>投入要素可移动，但"创新过程"中的本地外部性难转移——稀缺的是 know-how</td></tr>
+<tr><td>④ 企业战略、结构与竞争</td><td>本地竞争情境影响管理实践、组织形态与目标</td><td><em>本地对手</em>比外国对手更能刺激升级；激烈的本土竞争压低了本土利润，却催生了能在全球赚钱的优势</td></tr>
+</table>
+
+<p>钻石是<strong>动态系统</strong>：一个决定因素的效应取决于其他因素的状态（挑剔的买家若无合格人才响应也白搭；选择性要素劣势若无激烈竞争也不会刺激创新）；四要素<strong>相互强化</strong>（本土竞争催生专业要素池、升级本土需求、促进相关产业形成）。由此解释<strong>集群（clusters）</strong>与地理集中——成功的产业、供应商、客户、关联产业在某一地点的共生。政府的作用是<strong>间接的</strong>：作为"催化剂与挑战者"，通过影响钻石四要素（要素创造、目标、买方角色、竞争政策）来起作用，而非直接下场。</p>
+
+<p>但 Porter 谨慎地保留了企业的中心地位：</p>
+
+<blockquote>The local environment creates potential for competitive success, but firms must sense and respond to it.</blockquote>
+
+<p>同一地区、同一国家的企业绩效差异巨大，说明环境只提供"潜力"，企业必须感知并回应；且企业也能通过行动反哺（改善）本地环境，形成"企业行动 ↔ 本地钻石"的反馈环。命运并非由环境单向决定。</p>
+
+<h2>8. 留给未来的四个问题</h2>
+
+<p>论文以开放议程收尾，列出四个待解问题：</p>
+
+<ol>
+<li><strong>环境决定论 vs 企业/领导者选择的平衡</strong>：能否通过比较同一国家内的不同企业，隔离出解释绩效差异的"子环境"？</li>
+<li><strong>位置的粘性/惯性</strong>：一旦停止前进，竞争优势的持久性如何？一次创新爆发 vs 持续改进能力，哪个更重要？</li>
+<li><strong>因果链要回溯到多深</strong>：钻石的每个要素本身又是历史与本地条件的产物（技能池来自其他产业与既有制度，制度又受社会价值与历史影响）——回溯到何处才算"够"？</li>
+<li><strong>实证检验的方法</strong>：如何收集与分析数据来区分竞争性解释？Porter 的答案是把战略研究推向"历史学家的工作方式"——覆盖长时间、多产业、多国别的纵向案例研究。</li>
+</ol>
+
+<h2>文献位置（position in the literature）</h2>
+<p>本文是 SMJ 特刊的<strong>纲领性（programmatic）</strong>论文，站在<strong>产业组织经济学（industrial organization）与战略的交界</strong>。它逐一对话三条当时兴起的纵向研究路线：<strong>博弈论（game theory）</strong>（Shapiro 1989）、<strong>承诺与不确定性</strong>（Ghemawat 1991）、<strong>资源基础观 RBV</strong>（Wernerfelt 1984；Barney 1991；Peteraf 1990），指出各自不足后，把理论源头推向企业之外的<strong>本地环境（diamond，源自其 1990 年《国家竞争优势》）</strong>。它奠定了 cross-sectional vs longitudinal 的二分，是活动观与互补性经济学（Milgrom &amp; Roberts）之间的桥梁。</p>
+<h2>9. 局限分析</h2>
+
+<p><strong>作者自述的边界</strong>：Porter 相当坦诚。他承认因果链的"切点"选择（选在钻石这一层）本身是可争议的；承认框架"难以证伪"，承认"环境提供潜力、企业必须响应"的平衡问题尚未解决；承认历史偶然（luck）的角色被低估且难以独立于环境条件来处理。</p>
+
+<p><strong>我的独立判断</strong>：</p>
+
+<ul>
+<li><strong>程序性论文的固有局限</strong>：这是一篇"纲领"而非"理论"。它指出缺口、提出框架，但钻石模型在此文中几乎无独立证据支撑——其证据在 1990 年的书中，本文只是转述。作为单独文本，它"断言多于检验"。</li>
+<li><strong>与 RBV 的整合其实未完成</strong>：Porter 说"资源与活动是对偶"，但"对偶"的确切含义（是同一事物的两面？还是两个本体上不同的层次？）没有展开，留下了后续文献（如 Teece 的动态能力）填补的空间。</li>
+<li><strong>"本地环境"的可迁移性存疑</strong>：钻石模型源自对"国家竞争优势"的横截面观察，把它推广到"单个企业优势的起源"时，是否存在生态谬误（用国家层面的规律解释企业层面的结果），Porter 未充分论证。</li>
+<li><strong>方法论自洽的张力</strong>：Porter 一方面批评博弈论"把变量固定住、探索静态世界的动态"，另一方面他自己的横截面框架同样把许多变量视为给定。这个张力他意识到了（脚注 13 的措辞），但未完全化解。</li>
+</ul>
+
+<h2>10. 结论：对"战略的经济学基础"的含义</h2>
+
+<p>这篇论文的持久价值，在于它<strong>画出了战略理论的因果地图</strong>：从"产业效应 + 定位效应"，下探到"活动 → 驱动因素"，再跨过虚线进入"初始条件 vs 管理选择"，最终抵达"本地环境（钻石）"。它把战略理论的源头，显式地接到了产业组织经济学、博弈论、要素市场理论（Barney 的 strategic factor markets）、承诺理论（Ghemawat）、以及互补性/活动系统的经济学传统上。</p>
+
+<p>对这门课，它提供了一条清晰的主线：<strong>战略研究之所以需要"经济学基础"，是因为"为什么成功"这个问题本身要求一条能不断回溯"为什么"的因果链</strong>——而经济学提供了处理外生/内生划界、均衡、要素市场、承诺与互补性的工具。Porter 1991 是站在这条链的"中间偏后"位置发言：他既批评纯经济学的模型路径"太窄、太静态"，又批评纯企业内省（RBV）"太内向、会循环论证"，从而主张一种"框架 + 案例"的中间道路。理解这一点，就理解了战略领域与主流经济学之间持续几十年的方法论张力从何而来。</p>
+
+<div class="golden">
+战略理论的关键，是选对切入因果链的位置——太早则不可操作，太晚则错过真正的起源。
+</div>
+
+<div class="note">
+<strong>AI 辅助说明</strong>：本文由 AI 依据 paper-analyzer 技能的 academic 风格工作流，对 Porter (1991) 原文（ProQuest 扫描版，经本地 OCR 转为文本）生成。解读用于辅助理解；blockquote 为原文直接引用，OCR 可能造成个别字符误差，引用请以原文为准。局限分析中"我的独立判断"为 AI 视角，未经同行评审。原文无形式化公式，故工作流的公式讲解环节在本例不适用。
+</div>
+
+<div class="back"><a href="index.html">← 返回课程索引</a> · <a href="../index.html">全部课程</a></div>
+
+</body>
+</html>

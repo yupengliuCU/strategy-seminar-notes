@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy Research: Governance and Competence Perspectives（Williamson, 1999）— 深度解读</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Strategy Research: Governance and Competence Perspectives</h1>
+<div class="meta">
+<strong>作者</strong>：Oliver E. Williamson（加州大学伯克利分校 Haas 商学院）<br>
+<strong>出处</strong>：<em>Strategic Management Journal</em>, Vol. 20, No. 12（December 1999）, pp. 1087–1108<br>
+<strong>DOI</strong>：<a href="https://onlinelibrary.wiley.com/doi/10.1002/(SICI)1097-0266(199912)20:12%3C1087::AID-SMJ71%3E3.0.CO;2-Z">10.1002/(SICI)1097-0266(199912)20:12&lt;1087::AID-SMJ71&gt;3.0.CO;2-Z</a><br>
+<strong>性质</strong>：纲领性（programmatic）理论论文；概念整合与比较制度分析，无计量数据、无形式化模型<br>
+<strong>代码状态</strong>：不适用 —— 纯理论文献，无代码实现
+</div>
+
+<div class="summary-box">
+<h3>一句话总结</h3>
+<p>Williamson 把战略研究的两大视角——<strong>治理视角（governance perspective）</strong>与<strong>能力视角（competence perspective）</strong>——放到同一把"六步骤"标尺下对勘，论证二者"既竞争又互补、互补多于竞争"：治理回答交换如何被组织，能力回答企业擅长什么；交易成本经济学（transaction cost economics, TCE）的核心承诺是<strong>经济化（economizing）</strong>，并应进一步从"通用治理"推进到具体企业的战略问题。</p>
+</div>
+
+<div class="note">
+<strong>阅读提示</strong>：这是交易成本经济学（TCE）传统的一篇"边界拓土"之作。它不提出新模型，而做三件事：① 把 TCE 已经完成的"操作化（operationalization）"整理成六个关键步骤，作为方法论的标杆；② 用同一把尺子丈量资源/能力/知识基础观（competence perspective），指出它长期停在"事后合理化"阶段；③ 反过来接受能力视角对 TCE 的批评，把 TCE 从"make-or-buy"的通用问题推进到具体企业的战略问题。对"Economic Foundations of Strategy"这门课，它把 Coase (1937)、Williamson (1985, 1991) 的治理理论接到战略学科版图上，正面回答了"企业理论如何成为战略研究的经济学基础"。
+</div>
+
+<h2>1. 背景与动机：两个视角为何要放在一起</h2>
+
+<p>Williamson 开篇就给出判断：商业战略是"一项扩张性的事业（an expansive enterprise）"，商学院的所有职能部门都与之相关，而且战略天生是跨学科的——所有社会科学（尤其经济学与组织理论）外加契约法都被卷入，在技术密集型领域，工程与知识产权法也有一席之地（p. 1087）。面对这样一个宽泛的领域，本文只聚焦两个视角：<strong>治理视角（governance perspective）</strong>与<strong>能力视角（competence perspective）</strong>。两者的共同点是都把经济学推理与组织理论结合起来；区别在于配比——治理视角更偏经济学，因为它主要用交易成本节约（transaction cost economizing）来解释治理模式的选择；能力视角更偏组织理论，因为它特别强调<strong>过程（process）</strong>的重要性（p. 1087）。</p>
+
+<p>为什么要先讲治理视角？作者给出一个时间顺序的理由：治理视角起步更早、操作化得更彻底，所以先从它开始，再拿它当尺子去衡量"期待已久的"能力视角的操作化。这个顺序本身就埋下全文的论点——<strong>操作化（operationalization）</strong>是判断一个研究纲领成熟与否的标尺。Williamson 反复强调，交易成本概念曾经"模糊而富有弹性（vague and elastic）"，因为自由度太多，任何结果都能被事后合理化（p. 1088，引 Fischer 1977）。Coase 1937 年的文章一度"被大量引用、极少使用（much cited and little used）"（Coase, 1972: 67，见 p. 1088）。直到 1970 年代操作化开始，TCE 才从非正式（informal）走向前形式、半形式乃至完全形式化。能力视角今天正处在同样的十字路口。</p>
+
+<h2>2. 治理视角：六个操作化步骤</h2>
+
+<p>治理视角的方法论内核可以拆成六个步骤。前五个是"操作化所必需"，第六个（效率判据）更多是"带有操作意义的观念步骤"（p. 1092）。这六个步骤是全文的骨架，也是后文丈量能力视角的尺子。</p>
+
+<h3>步骤一：人类行为者（human actors）</h3>
+
+<p>TCE 在行为假设上明确点出三个特征。第一是<strong>有限理性（bounded rationality）</strong>：人类"有意理性但只有限理性（intendedly rational but only limitedly so）"（Simon, 1961），因此所有复杂契约都不可避免是不完备的。第二是<strong>远见（foresight）</strong>而非短视（myopia）：TCE 把远见归于人类行为者，认为人会向前看、识别契约风险并重新定位。第三是<strong>机会主义（opportunism）</strong>：自我利益追求超越正统的简单描述，加入策略行为——表现为逆向选择（adverse selection）、道德风险（moral hazard），更一般地是"欺诈性地自利"。正因为有这三种行为假设，单纯的"承诺"不足以自我执行，必须辅以可信承诺（credible commitments）。Williamson 用一个法庭比喻点透机会主义的意义：法官不满足于证人"告诉我们你知道的"，而要求宣誓"说出真相、全部真相、唯有真相"——因为伪证风险真实存在，需要主动威慑（p. 1090）。</p>
+
+<blockquote>Nothing is more fundamental in setting our research agenda and informing our research methods than our view of the nature of the human beings whose behavior we are studying.</blockquote>
+<p>这句话出自 Simon (1985: 303)，Williamson 在"人类行为者"一节开头引用（p. 1089），作为整节的行为假设宣言：研究纲领的地基，是你如何刻画被研究对象的人类。TCE 的刻画就是"有限理性 + 远见 + 机会主义"三件套。</p>
+
+<h3>步骤二：分析单位（unit of analysis）</h3>
+
+<p>TCE 沿用 John R. Commons 的提议，把<strong>交易（transaction）</strong>作为基本分析单位。Commons 的洞见是：终极活动单位必须同时包含冲突（conflict）、互惠（mutuality）与秩序（order）三原则，这个单位就是交易。当一件商品或服务在<strong>技术上可分离的阶段（technologically separable stages）</strong>之间转移时，就发生一次交易。可分离阶段的联合无法用技术解释，必须推导出来（p. 1090）。</p>
+
+<p>操作化的关键一步，是给交易命名三个带来交易成本后果的主要维度：<strong>频率（frequency）、不确定性（uncertainty）、资产专用性（asset specificity）</strong>——其中解释力大半来自最后一个。资产专用性又分多种形式：实物专用、人力专用、地点专用、专有资产（dedicated assets）、品牌资本、时间专用（脚注 2，p. 1090）。所有形式都伴随双边依赖（bilateral dependency），但治理结构响应因专用性细节而异。</p>
+
+<h3>步骤三：企业刻画（describing the firm）</h3>
+
+<p>TCE 拒绝把企业描述为生产函数，而把它描述为<strong>治理结构（governance structure）</strong>。企业与市场是两种治理模式，在离散的结构性维度上不同。刻画一种治理模式的三个首要属性是：<strong>激励强度（incentive intensity）、行政控制（administrative controls）、法律规则体制（legal rules regime）</strong>（Williamson, 1991）。它们派生出不同的<strong>适应能力（adaptive capacity）</strong>——既包括自发适应（autonomous adaptation，市场所长），也包括合作适应（cooperative adaptation，科层所长）。每一种治理模式都是这些属性的一组"内部一致的症候群（syndrome）"，各有其强项与弱项（p. 1090）。</p>
+
+<p>这种刻画逼出著名的<strong>科斯之谜（Coasian puzzle）</strong>：既然企业相对市场有优势，为何不把所有交易都放进一个巨型企业？TCE 用两个假设性动作来回答——<strong>复制（replication）</strong>（合并后照旧"照常营业"）与<strong>选择性干预（selective intervention）</strong>（只在失准时干预）。两个动作在执行上都出问题，官僚成本（bureaucratic costs）随之而来，所以企业只在有"令人信服的理由"时才整合（p. 1090）。</p>
+
+<h3>步骤四：所服务的目的（purposes served）</h3>
+
+<p>TCE 的核心承诺是<strong>经济化（economizing）</strong>：在交易成本上节约是"主案例（main case）"——但注明是主案例、不是唯一案例（p. 1090）。经济组织的一个产出性理解方式，就是把它看作节约有限理性、缓解机会主义风险的手段。整个论证落在<strong>判别对齐假说（discriminating alignment hypothesis）</strong>上：属性不同的交易，要与成本与能力不同的治理结构对齐，以实现节约的结果（p. 1090）。</p>
+
+<p>这个假说浓缩在图 1 的<strong>简单缔约方案（simple contracting scheme）</strong>里。假设有两种技术：通用的（k = 0）与需要交易专用投资的（k &gt; 0）。k = 0 时得到法律与经济学意义上的理想交易（节点 A）；k &gt; 0 时产生双边依赖风险，若没有保障（s = 0）则风险被定价、落入节点 B；若提供保障（s &gt; 0），可采取市场/混合形式（节点 C）或统一所有权（节点 D）。因为内部组织有额外官僚成本，<strong>企业（节点 D）是组织形式的"最后手段（last resort）"</strong>：先试市场，再试混合（hybrids），都不行才退到企业（p. 1091）。知识产权的保护也可能导向节点 D（Teece 1986；Liebeskind 1996）。</p>
+
+<h3>步骤五：实证（empirical）</h3>
+
+<p>TCE 的实证记录是作者最有底气的一步。自 1980 年代在美国起步以来，实证应用呈指数增长：已发表研究超过 400 项，遍布欧洲、日本、印度、墨西哥、南美、新西兰等。Williamson 引 Simon (1991: 27) 曾批评新制度经济学"缺乏实证"是"信仰或虔诚之举"，但回应是"理论与证据显示出显著的一致性（remarkable congruity）"（Masten, 1995: xi），并引 Joskow (1991: 81) 的背书："这项实证工作比产业组织一般领域的实证工作状态好得多"。他还指出，这项研究甚至动摇了"风险厌恶（risk aversion）对商业缔约的重要性"这一传统信念（p. 1092）。</p>
+
+<h3>步骤六：效率判据（efficiency criterion）——可修复性（remediableness）</h3>
+
+<p>第六步给出 TCE 的效率概念。<strong>可修复性判据（remediableness criterion）</strong>是全文最锋利的一个定义：</p>
+
+<blockquote>The remediableness criterion holds that an extant condition for which no feasible superior alternative can be described and implemented with expected net gains is presumed to be efficient.</blockquote>
+<p>译文：可修复性判据认为，一个现存状态，若无法描述并实施一个可行的、预期有净收益的更优替代方案，就被推定为有效率的。这里每一个斜体词都做实事：<strong>可行（feasible）</strong>排除对有限理性提出不可能要求的形式（如边际成本定价）；<strong>可实施（implemented）</strong>要求变革所需的集体行动真能达成并被强制执行（如美国糖业项目的受益者若不相信"补偿承诺"，就不会同意终止项目）。这个推定的效率可被反驳，但在被反驳之前，它提醒我们："人不可能比自己的最好状态更好（it is impossible to be better than one's best）"（p. 1092）。</p>
+
+<h3>表 1：治理视角的六个操作化步骤</h3>
+<table>
+<tr><th>步骤 Step</th><th>内容 Content</th><th>关键术语 Key term</th></tr>
+<tr><td>① 人类行为者 Human actors</td><td>有限理性 + 远见 + 机会主义</td><td>bounded rationality / foresight / opportunism</td></tr>
+<tr><td>② 分析单位 Unit of analysis</td><td>交易；频率、不确定性、资产专用性三维</td><td>transaction / asset specificity</td></tr>
+<tr><td>③ 企业刻画 Describing the firm</td><td>治理结构而非生产函数；激励强度、行政控制、法律规则</td><td>governance structure</td></tr>
+<tr><td>④ 所服务的目的 Purposes served</td><td>经济化为主案例；判别对齐假说</td><td>economizing / discriminating alignment</td></tr>
+<tr><td>⑤ 实证 Empirical</td><td>400+ 项研究，理论与证据高度一致</td><td>empirical success story</td></tr>
+<tr><td>⑥ 效率判据 Efficiency criterion</td><td>可修复性判据</td><td>remediableness</td></tr>
+</table>
+
+<pre class="mermaid">
+flowchart TB
+    T["交易 Transaction<br/>资产专用性 k"]
+    T -->|"k = 0 通用资产"| A["节点 A Node A<br/>理想交易 ideal transaction"]
+    T -->|"k > 0 交易专用投资"| K["双边依赖风险<br/>bilateral dependency hazard"]
+    K -->|"s = 0 无保障"| B["节点 B Node B<br/>风险被定价 priced out"]
+    K -->|"s > 0 有保障"| S["提供保障 safeguards"]
+    S --> C["节点 C Node C<br/>市场 / 混合治理<br/>market / hybrid"]
+    S --> D["节点 D Node D<br/>企业（最后手段）<br/>firm, last resort"]
+</pre>
+
+<h2>3. 能力视角：同一把尺子下的对勘</h2>
+
+<p>能力视角（competence perspective）泛指那批自称为"能力（capabilities）""动态能力（dynamic capabilities）""胜任力（competence）"路线的作者，Langlois 与 Foss (1997) 开列了一份清单（Langlois 1992；Langlois &amp; Robertson 1995；Kogut &amp; Zander 1992；Foss 1993；Dosi &amp; Marengo 1994；Teece &amp; Pisano 1994）。其思想谱系可上溯到 Penrose (1959) 的《企业成长理论》、Schumpeter (1942)、Richardson (1972) 的《产业组织》、Cyert &amp; March (1963) 的《企业行为理论》，以及 Nelson &amp; Winter (1982) 的《经济变迁的演化理论》。贯穿其中的母题是<strong>过程（process）</strong>的重要性（p. 1092）。</p>
+
+<p>Williamson 对能力视角的诊断很直接：它"奇怪地免于持续的批评"，存在两个相关问题——<strong>关键术语定义晦涩且常常是套套逻辑（tautological）</strong>，以及<strong>操作化的失败</strong>。他引 Kuhn (1970: 156)"多数新范式早期版本都很粗糙"，但终究要给出一个正面的研究议程。能力概念像当年的交易成本一样背上了"套套逻辑"的名声（Porter 1994；Mosakowski &amp; McKelvey 1997）。引 Georgescu-Roegen (1971: 37)："科学的目的不是预测，而是知识本身"，但预测是"科学知识的试金石（touchstone）"——而能力视角主要靠"成功故事（success stories）"来立论（p. 1093）。</p>
+
+<p>一个典型例子：Prahalad &amp; Hamel (1990) 通过 GTE 与 NEC 的对比，把"核心能力（core competence）"推上议程，认为太多美国公司靠外包"无意中让渡了核心能力"。Teece、Pisano &amp; Shuen (1997) 则把"界定企业根本业务的能力"定义为核心，这"近乎循环"——核心能力就是核心的能力。Williamson 尖锐地总结其论证逻辑：<strong>给我一个成功故事，我就（发现）一个核心能力；给我一个失败，我就（发现）一个缺失的能力</strong>（pp. 1093–1094）。这是典型的事后合理化（ex post rationalization）。</p>
+
+<p>接着，Williamson 用一个"孕育期（gestation interval）"的类比量化这个差距：Coase 1937 到 1970 年代操作化用了 35 年；若把 Richardson 1972 当作能力视角的起点，加上 35 年，操作化的"诞生年"将是 2007 年（若以 Penrose 1959 为起点则是 1994 年，脚注 4，p. 1094）。然后他逐项检查能力视角在六个步骤上的表现。</p>
+
+<h4>人类行为者</h4>
+<p>能力视角的认知假设也是有限理性（尽管有时只是隐含的），并高度重视学习（learning），隐含假定契约不完备。但在<strong>短视与远见</strong>之间，能力视角主要强调短视：搜索是局部的、"头脑简单的"，学习是试错式的，适应由危机触发（企业更像消防队而非战略行动者）。实验心理学（Kahneman、Slovic、Tversky 1982）常被引作短视的证据。在<strong>自利</strong>上，能力文献"语焉不详（chary）"：Foss、Knudsen 与 Montgomery 检查行为假设时对自利只字未提，Simon 用"动机的脆弱（frailties of motive）"回避机会主义，许多文献对机会主义表现出主动厌恶，转而诉诸"难以捉摸的信任（trust）"概念。TCE 的对照是：在 TCE 里，<strong>心智（mind）与信任（机会主义的缺席）都是稀缺资源</strong>，需要成本有效地开发与部署（p. 1094）。</p>
+
+<h4>分析单位</h4>
+<p>演化理论以<strong>惯例（routine）</strong>为基本单位，资源基础观以<strong>资源（resource）</strong>为基本单位。Mahoney &amp; Pandian (1992) 提出"隔离机制（isolating mechanisms）"解释租金可持续性，并给出 11 种机制，自问"可推广的洞见是什么"，答案落在"隔离机制因资产专用性与有限理性而存在"——这恰恰回到了 TCE 的地盘。Williamson 指出资源概念更"复合（composite）"，指一簇相关交易，难题在于定义并维度化这些"簇"。</p>
+
+<blockquote>routines play the role that genes play in biological evolutionary theory</blockquote>
+<p>这句出自 Nelson &amp; Winter (1982: 14)，Williamson 在"分析单位"一节引用（p. 1095）。惯例具有持久、可遗传、可被选择三个性质，如同基因。Nelson &amp; Winter 区分三种惯例：短期运营惯例、投资惯例、以及"随时间修改运营特征"的高阶惯例。高阶惯例正是"核心能力"概念的骨架（Nelson 1991: 70）。</p>
+
+<p>但惯例如何落地？最完整的实证示范是 Cyert &amp; March 的百货公司定价研究。他们主张定价由简单惯例完成——标准加价规则是：</p>
+
+<blockquote>Divide each cost by 0.6 (1-mark-up) and move the result to the nearest $.95</blockquote>
+<p>译文：把每项成本除以 0.6（即 1 减去加价率），再进位到最接近的 0.95 美元。三类惯例（正常定价、促销定价、降价）随后被检验：197 张发票命中 188 张、58 件促销品命中 56 件、159 件降价品命中 140 件——判定标准是"预测到分（to the exact penny）"（Cyert &amp; March, 1963: 138–147，见 pp. 1095–1096）。然而几乎没有组织理论家、更没有经济学家跟进这条实证线索。Williamson 进一步指出：Coriat &amp; Dosi 把惯例提升到"泰勒主义（Tayloristic）vs 大野主义（Ohnistic，即日式）生产方法"的层次，这时惯例更接近<strong>组织形式（organization form）</strong>而非简单定价规则，与 Williamson (1980) 的六种工作组织模式的比较研究异曲同工（p. 1096）。</p>
+
+<h4>企业刻画与所服务的目的</h4>
+<p>能力视角同样拒绝"企业即生产函数"，把企业描述为基本单位的聚合：资源基础观下是"一捆相关资源（bundle of resources）"，演化视角下是"一捆惯例（bundle of routines）"，TCE 下是"一捆交易/契约（bundle of transactions/contracts）"。Hodgson (1998) 声称能力视角能"至少不逊于"TCE 回答企业存在、结构与边界问题，其核心解释是企业有"在变化环境中保护并发展其所含群体与个人能力的能力"。但 Williamson 的反驳是：Hodgson 从未说明为什么这些效应在<strong>一个统一企业（AB）里</strong>比在<strong>两个自治企业（A 和 B）里</strong>更好，也从未处理"企业规模限度"问题，官僚负担被能力文献"奇怪地轻视"了（pp. 1096–1097）。</p>
+
+<p>关于目的，Penrose (1959: 24) 说企业独特能力在于"更好地利用其资源"，Winter (1988: 175) 把企业称为"生产性知识的仓库（repositories of productive knowledge）"，Foss (1996c: 18) 主张"企业存在是因为它能比市场更有效地协调集体学习过程"。但这些论证都绕开了一个比较制度问题：所有企业都是知识的仓库、都学习、都发展人际关系，问题是何时在分离企业里做比在一个企业里做更好——这从未被追问，遑论在比较制度框架里解出来。Teece (1986) 与 Liebeskind (1996) 的知识产权弱保护情境是一个例外：企业为防知识外泄而内部化，而 Liebeskind 点出关键一步——"并非所有企业都同等擅长部署其制度能力以保护知识"（1996: 104），追问"哪些企业更擅长"，才开始操作化能力视角（p. 1098）。</p>
+
+<h4>实证与效率判据</h4>
+<p>能力视角的实证多属事后合理化，预测性欠缺。Kor &amp; Mahoney (1998) 列出近 50 篇资源基础观的统计分析，但通用假设只是"更多资源正向影响增长与绩效"——问题在于"更多资源是否真的更好"要<strong>比较地</strong>判断，因为某些资源经由外包会得到更生产性的利用，而能力文献没有做这种比较评估（pp. 1097–1098）。效率判据上，能力视角谈"动态效率（dynamic efficiency）"，用"与假想理想比较"来判定路径依赖（path dependency）导致无效率——这落入了 Pigou 的零交易成本传统（Coase 1960 所反对），"从未提出判断动态效率的可行判据，也从未触及可修复性"（p. 1098）。</p>
+
+<h3>表 2：治理视角与能力视角的六步对勘</h3>
+<table>
+<tr><th>维度 Dimension</th><th>治理视角 Governance</th><th>能力视角 Competence</th></tr>
+<tr><td>人类行为者 Human actors</td><td>有限理性 + 远见 + 机会主义</td><td>有限理性（常隐含）+ 短视；对自利语焉不详、诉诸信任</td></tr>
+<tr><td>分析单位 Unit of analysis</td><td>交易（transaction），三维：频率/不确定性/资产专用性</td><td>惯例（routine）或资源（resource），更复合、难维度化</td></tr>
+<tr><td>企业刻画 Describing the firm</td><td>治理结构（激励强度/行政控制/法律规则）</td><td>资源、惯例或交易的"捆绑"；忽视官僚成本与规模限度</td></tr>
+<tr><td>所服务的目的 Purposes served</td><td>经济化为主案例；判别对齐</td><td>更好地利用资源、协调集体学习；缺比较制度论证</td></tr>
+<tr><td>实证 Empirical</td><td>400+ 项、高度一致、经验成功</td><td>事后合理化、成功故事；"更多资源更好"未经比较检验</td></tr>
+<tr><td>效率判据 Efficiency criterion</td><td>可修复性（remediableness）</td><td>动态效率（dynamic efficiency），与假想理想比较</td></tr>
+</table>
+
+<h2>4. 能力视角对治理的三项"误置"批评</h2>
+
+<p>两视角有大量共识：都反对正统（orthodoxy）、都是有限理性构造、都主张"组织重要（organization matters）"，且处理部分重叠的现象、常以互补方式工作。但确实存在张力。Williamson 把能力视角对 TCE 的批评分成两类：他认为是"误置（mistaken）或过度（overdrawn）"的，与"建设性（constructive）"的。先处理三项误置批评（p. 1098）。</p>
+
+<h4>批评一：机会主义没有被赋予它的那些组织后果</h4>
+<p>Connor 与 Prahalad (1996) 承认机会主义对经济组织影响巨大，但坚持在零机会主义下仍有许多有趣的组织问题，主张在"有限理性 + 零机会主义"的世界里，信息不对称足以支撑一个"知识基础的企业理论"——因为"每个人的部分知识保持私有"，"诚实的人也可能对责任分配有分歧"，市场因而需要被权威关系替代。Williamson 的回应是：<strong>把机会主义清零，其组织后果比 Connor 与 Prahalad 描述的更普遍、更彻底</strong>——我们会进入 Manuel 夫妇所说的"乌托邦幻想（utopian fantasies）"世界。零机会主义下，界定不同治理模式的<strong>激励、控制与契约法差异全部消失</strong>：各群体都订阅同一"一般条款"并同样地充分承诺，成本有效的常规做法被所有群体采纳（无论私有企业、公共官僚、非营利还是自治市场），契约法差异失去意义（pp. 1099–1100）。他补一个脚注的俏皮话：在组织研究中否认或压制机会主义，等于"上演没有丹麦王子的《哈姆雷特》"——尽管那样的组织理论剧也不是不能演（团队理论即是，Marschak &amp; Radner 1972）。但有一个 caveat：若初始条件重要，组织形态的初始劣势可能被差异学习放大——这为后文"学习与路径依赖"埋下伏笔（p. 1100）。</p>
+
+<h4>批评二：交易成本是静态概念，需要动态化</h4>
+<p>Langlois (1992) 在《实时中的交易成本经济学》里提出<strong>动态交易成本（dynamic transaction costs）</strong>概念：</p>
+
+<blockquote>dynamic transaction costs are 'the costs of persuading, negotiating, coordinating, and teaching outside suppliers'... So construed, dynamic transaction costs are 'the costs of not having the capabilities you need when you need them'</blockquote>
+<p>译文：动态交易成本是"说服、谈判、协调并教导外部供应商的成本"；如此理解，动态交易成本就是"在你需要能力时却不拥有这些能力的成本"（Langlois, 1992: 113，见 p. 1100）。Langlois 引 Teece (1976: 13)：当生产阶段间高度相互依赖、适应时机不可预测却频繁时，若各阶段独立运营，协调反应就难以保障，垂直一体化因此有利于协调。</p>
+
+<p>Williamson 的回应是：这个论证"至少在若干方面可还原为契约不完备性论证"，而且——关键一点——<strong>没有理由把事后缔约（ex post）称为静态、把事前（ex ante）称为动态，二者都是跨期论证</strong>，都与 TCE 的基本命题一致。他翻出自己 1971 年的原始表述（脚注 12 全文引用）证明这个论证他早就做过：不完备长期契约无法事前预见或妥善安排未来偶然性（March &amp; Simon 的论证），而古典市场契约无法可靠实现预期收敛（Malmgren 的论证），前者关乎及时适应（事后），后者关乎及时收敛（事前）。他的主要观点是：跨期复杂性对 TCE 是<strong>核心而非偶发</strong>——最熟悉的是<strong>根本转变（Fundamental Transformation）</strong>：大数目竞标在事前变成小数目供应关系（当交易由耐久的、不可再配置的资产支撑时）。治理结构主要是适应工具，组织有自身的跨期生命，声誉效应受跨期限制，可修复性判据对路径依赖给出很不同的跨期解释。他承认 TCE 尚未满意地解决所有这些问题，但留下一句方法论箴言：<strong>"说动态容易，做动态难（saying dynamics is easy, doing dynamics is hard）"</strong>——始终要以"适度、缓慢、分子式、确定（modest, slow, molecular, definitive）"的方式推进机制（p. 1101）。</p>
+
+<h4>批评三：治理没有触及管理问题</h4>
+<p>Coase (1988: 38) 批评经济学家"忽视企业的主要活动——经营业务（running a business）"。Williamson 承认"企业即治理结构"没有对管理做出"充分"安排，但做出了"显著"安排：TCE 从一开始就反对"市场与科层对命令（fiat）有相同通道"（反驳 Alchian &amp; Demsetz 1972），为"非正式组织（informal organization）"（Barnard 1938）与市场/科层间的官僚成本差异留了位置，把适应作为经济组织的中心问题（企业在合作适应上优于市场、在自发适应上劣于市场）。企业被描述为一组"管理性属性"的症候群：低能激励、广泛行政控制、自有纠纷解决机制（法院常拒绝受理企业内部纠纷，企业成为自己的终审法院）。但他坦承：显著安排不等于充分安排——<strong>认知专业化（cognitive specialization）欠发达，官僚制理解仍不完善，企业家精神仍难以捉摸，风险投资提出许多谜题</strong>（p. 1102）。</p>
+
+<h3>表 3：三项误置批评与 TCE 的回应</h3>
+<table>
+<tr><th>批评 Critique</th><th>来源 Source</th><th>Williamson 的回应 Response</th></tr>
+<tr><td>机会主义被夸大</td><td>Connor &amp; Prahalad (1996)</td><td>零机会主义下激励/控制/契约法差异全消失，进入"乌托邦幻想"</td></tr>
+<tr><td>TCE 是静态的</td><td>Langlois (1992)</td><td>动态交易成本可还原为契约不完备；事前/事后都是跨期论证</td></tr>
+<tr><td>不触及管理</td><td>Coase (1988)</td><td>显著但不充分；认知专业化、官僚制、企业家精神仍欠缺</td></tr>
+</table>
+
+<h2>5. 三项建设性挑战：TCE 可以并应当回应</h2>
+
+<p>真正有生产力的批评有三项，TCE 在不同程度上可以回应。</p>
+
+<h4>挑战一：超越零散（beyond piecemeal）</h4>
+<p>TCE 是微观分析（microanalytic）练习：交易与治理模式对齐。但若交易间存在显著<strong>交互效应（interaction effects）</strong>，把交易"当作"独立来检验就会误设（Nickerson 1997）。更麻烦的是<strong>聚合（aggregation）</strong>问题：企业整体大于部分之和。Williamson 用"氛围经济学（economics of atmosphere）"与近可分解系统（nearly decomposable systems，Simon 1962）回应：短期内各子系统近似独立，长期只以聚合方式相互影响，这为"只修局部"提供了尊重认知过载的设计原则。但 Coriat &amp; Dosi 关于"惯例簇"的洞见提示，TCE 可以从能力传统对系统后果的研究中获益（p. 1102）。</p>
+
+<h4>挑战二：超越通用治理，走向战略（beyond generic governance）</h4>
+
+<p>这是全文对战略研究最直接的贡献。Rumelt、Schendel 与 Teece (1991) 观察到：</p>
+
+<blockquote>Of all the new fields of economics, the transaction cost branch of organizational economics has the greatest affinity with strategic management</blockquote>
+<p>译文：在所有新兴经济学领域中，组织经济学的交易成本分支与战略管理有最大的亲缘性（Rumelt et al., 1991: 14，见 p. 1102）。他们挑战战略学者提出"关于有效内部协调与资源配置、企业家精神与技术进步的连贯理论"。</p>
+
+<p>Williamson 的回应是把 TCE 的问题从"组织 X 的最佳通用模式是什么"（市场、混合、企业还是官僚）推进到<strong>"具有既有强项与弱项（核心能力与残疾）的 A 企业应当如何组织 X"</strong>。这个推进分六级（Table 1，pp. 1102–1104）：</p>
+
+<h3>表 4：TCE 与战略的六个层次（Table 1）</h3>
+<table>
+<tr><th>层次 Level</th><th>名称 Name</th><th>问题 Question</th></tr>
+<tr><td>1</td><td>通用 generic</td><td>组织交易 X 的替代通用模式（市场/混合/企业/官僚）如何比较？</td></tr>
+<tr><td>2</td><td>特定 particular</td><td>具有既有强项与弱项的 A 企业应如何组织交易 X？</td></tr>
+<tr><td>3</td><td>固定生态位 fixed niche</td><td>A 企业的既有强项与弱项，相对于在位对手在生态位 α₁ 上如何比较？</td></tr>
+<tr><td>4</td><td>可变生态位 variable niche</td><td>A 企业相对于在位与潜在对手，在多个生态位（α₁, α₂; β₁, β₂, β₃; γ）上如何比较？</td></tr>
+<tr><td>5</td><td>重新定位 repositioning</td><td>A 企业应如何面向未来重新定位，以应对其所处的战略情势？</td></tr>
+<tr><td>6</td><td>战略化 strategizing</td><td>若 A 企业拥有垄断力量，它如何最好地威慑并约束在位与潜在对手？</td></tr>
+</table>
+
+<p>这个六级台阶的关键机制是<strong>路径依赖（path dependency）</strong>：传统 TCE 查询假定支持交易的专用投资尚未做出；一旦企业或潜在供应商已有（大体）不可再配置的既有投资，对齐计算就会暂时乃至更久地偏向拥有专用闲置产能的一方。清点既有投资等于加入此前被省略的变量，能减少通用对齐假说简单检验中未解释的方差。层级 5（重新定位）与层级 6（战略化，引入博弈论所关心的威慑与约束）最雄心勃勃，但前三层最易实施——而大量有趣的战略问题就出现在前三个层次。Williamson 诚实标注：这一框架"只在很高的概括层级运作，最多提供补充视角"，在能力与生态位操作化之前"尚无可反驳的含意"（p. 1104）。</p>
+
+<h4>挑战三：学习（learning）</h4>
+<p>TCE 早年已为显性知识与隐性知识（tacit knowledge）的区分留了位置（Williamson 1971），并发展了企业专用人力资本的契约后果，但与<strong>学习</strong>这个主题接触有限。Williamson 把学习与远见联系起来：TCE 假定行动者有远见，但往往"必要的识别来自经验"。学习通过经验发现环境、供应商与竞争，然后做出适应——这比单纯试错更雄心，又比"远见缔约"更谦逊。他举层级 2 的例子：企业与部分合格的外部供应商签中期契约，执行中遭遇未预见的扰动，双方都学到契约风险、沟通能力、合作倾向，这些学习影响续约决策——由此"一个预测性的经济组织理论，会因更突出地容纳学习影响跨期治理选择的诸多方式而更丰富"（p. 1104）。</p>
+
+<p>更重要的对话对象是 March (1991) 与 Levinthal &amp; March (1993) 的"有偏学习（biased learning）"研究。其起点命题是：</p>
+
+<blockquote>The effectiveness of learning in the short run and in the near neighborhood of current experience interferes with learning in the long run and at a distance</blockquote>
+<p>译文：短期内、在当下经验邻近处的学习有效性，会干扰长期与远距离的学习（Levinthal &amp; March, 1993: 97，见 p. 1105）。组织用两个机制学习——<strong>简化（simplification）</strong>与<strong>专业化（specialization）</strong>——其代价是三种短视倾向：忽视长期、忽视大局、忽视失败。忽视大局的机制是搭便车："任何单个组织的最佳策略往往是强调他人的成功探索；若人人如此，就没有可模仿的创新，只剩精炼既有技术的下行螺旋，整个系统对探索投资不足"（Levinthal &amp; March, 1993: 104）。忽视失败源于"组织学习产生有偏历史"，成功者被提拔，于是"成功的偏见"进入决策。</p>
+
+<p>TCE 的贡献在于：一旦这些规律被揭示，TCE 会问"其中蕴含什么更有效组织设计的教训"，并用<strong>可修复性判据</strong>给出比较制度视角——若合并各自治部分太贵、契约合作太贵、纠偏的公共政策自身也有问题，那么"系统对探索投资不足"就是一个须与之共存的现实。Williamson 的结论是：能力研究擅长揭示学习与路径依赖的偏见，TCE（尤其可修复性判据）提供比较制度视角，<strong>二者都需要</strong>（p. 1106）。</p>
+
+<pre class="mermaid">
+flowchart LR
+    G["治理视角 Governance<br/>(TCE)"] -->|"六步骤 operationalization"| T["经济化 economizing<br/>判别对齐"]
+    C["能力视角 Competence<br/>(RBV / 演化 / 知识)"] -->|"过程 process / 学习 learning"| D["动态效率 dynamic efficiency"]
+    T -->|"挑战 competence"| O["操作化 routine、资源簇<br/>比较制度检验"]
+    D -->|"挑战 TCE"| R["动态交易成本<br/>超越通用治理→战略<br/>学习 / 有偏学习"]
+    O --> S["组织科学<br/>a science of organization"]
+    R --> S
+</pre>
+
+<h2>6. 文献位置（position in the literature）</h2>
+
+<p>本文属于<strong>交易成本经济学（TCE）</strong>传统，是 Williamson 从 1971 年《生产的垂直一体化》经 1975《市场与科层》、1985《资本主义经济制度》、1991《比较经济组织》、1996《治理机制》一路下来的纲领性延伸。它把 TCE 从一个"企业边界/组织理论"推进到<strong>战略管理</strong>的学科场域——发表于 SMJ 1999 年第 12 期（"战略研究的经济学基础"语境），是对同期战略领域转向的正面回应。</p>
+
+<p>它对话的前作可分为四组。第一组是 TCE 自己的谱系：Coase (1937) 的《企业的性质》提出企业为何存在、Coase (1960) 的可行性/比较制度思路、Commons (1932) 的交易单位与冲突—互惠—秩序三原则、Barnard (1938) 的合作适应、Hayek (1945) 的自发适应、Simon 与 Carnegie 学派（March &amp; Simon 1958；Cyert &amp; March 1963）的组织理论、Arrow (1969) 的"市场失灵不如交易成本范畴广"。第二组是<strong>能力/演化谱系</strong>：Penrose (1959)、Schumpeter (1942)、Richardson (1972)、Cyert &amp; March (1963)、Nelson &amp; Winter (1982)、Teece (1986)、Prahalad &amp; Hamel (1990)、Teece/Pisano/Shuen (1997)。第三组是<strong>当期的能力学派评论者</strong>：Langlois (1992) 的动态交易成本、Langlois &amp; Foss (1997)、Hodgson (1998)、Connor &amp; Prahalad (1996)、Foss (1996a,b,c)。第四组是<strong>战略研究的制度经济学接口</strong>：Rumelt/Schendel/Teece (1991, 1994) 的《战略基本议题》、Mahoney &amp; Pandian (1992)、Liebeskind (1996)、Winter (1988, 1995)。</p>
+
+<p>它挑战了什么、又填补了什么？它挑战能力/资源基础观长期免于操作化批评的豁免权，把"套套逻辑 + 事后合理化"的诊断钉在核心能力概念上；同时它承认并吸收能力视角的正当诉求——动态交易成本、学习、路径依赖、企业异质性——把 TCE 的查询从通用层次推向"特定企业的战略问题"。这篇论文因此在战略领域扮演了"制度经济学与战略研究之间的一座桥"：一方面它为 TCE 的"经验成功故事"向战略学界作证，另一方面它为战略学者指出，TCE 的六步操作化程序可以作为能力视角走出"成功故事"阶段的模板。它与暑期阅读 [[porter1991-dynamic-theory-strategy|Porter (1991)]] 的动态战略议程形成呼应：Porter 追问"优势如何被创造"，Williamson 追问"治理与能力如何共同决定企业的组织选择"。</p>
+
+<h2>7. 局限分析</h2>
+
+<p><strong>作者自述的边界</strong>：Williamson 相当坦率。他承认六层次战略框架"只在很高的概括层级运作，最多提供补充视角"，在能力与生态位操作化之前"尚无可反驳的含意"（p. 1104）；承认 TCE 的认知专业化欠发达、官僚制理解不完善、企业家精神难以捉摸、风险投资提出诸多谜题（p. 1102）；承认"说动态容易、做动态难"，TCE 尚未满意地解决全部跨期问题（p. 1101）。他也没有回避"拿 TCE 的尺子去量能力视角可能不公平"（脚注 5），并指出学习是一个"不可能在此处补上"的大主题。</p>
+
+<p><strong>我的独立判断</strong>，用四个标签分层：</p>
+
+<ul>
+<li><strong>作者主张</strong>：治理与能力两视角"既竞争又互补、互补多于竞争"；TCE 的主案例是经济化；能力视角缺乏操作化、停在事后合理化；TCE 应超越通用治理走向特定企业的战略。这些是原文的明确断言（pp. 1090, 1104, 1106）。</li>
+<li><strong>证据</strong>：治理侧的证据是 400+ 项实证研究与判别对齐假说；能力侧的证据是 Cyert &amp; March 定价惯例的预测精度、Mahoney &amp; Pandian 的隔离机制、Teece/Liebeskind 的知识保护，以及 Kor &amp; Mahoney 列的近 50 篇统计研究。作者用它论证"TCE 经验成功、能力视角经验薄弱"。</li>
+<li><strong>推断</strong>（原文未明说的合理延伸）：所谓"互补"，在本文里实际是"分工"——TCE 管通用治理决策、能力管企业特定细节。这个分工并未真正回答两视角在同一决策里如何加权，因此"互补"更接近一个待办事项的标签，而非一个已完成的综合。我据此推断本文的实际贡献是"划定各自领地与相互要求"，而非"完成整合"。</li>
+<li><strong>开放问题</strong>：动态交易成本被判定"可还原为契约不完备性"，但正面操作化方案付之阙如；"能力视角 2007 年诞生"的类比是可检验的预言还是修辞，需时间验证；能力与生态位的操作化（Williamson 自己点名的两块）至今仍是最硬的钉子。</li>
+</ul>
+
+<p>另一个独立观察：全文的论证方式是"用 TCE 已经达成的操作化，去衡量一个尚未操作化的对手"，这天然有利于 TCE。作者虽在脚注 5 里承认"可能不公平"，但没有真正给能力视角一个对称的辩护机会——能力视角的"过程性"恰恰可能不适配"分析单位 + 维度化"这套 TCE 方法论。这是本文作为纲领性文本的一个结构性不对称。</p>
+
+<h2>8. 结论：走向一门组织科学</h2>
+
+<p>Williamson 的收尾把两视角的关系定性为"既竞争又互补、互补多于竞争"，因为部分差异"其实比表面更小（more apparent than real）"。两视角都是有限理性构造、都主张组织重要，因此共享大片共同基础。差异在于：治理视角更微观分析（交易是基本单位）、采用经济化的方法评估比较经济组织；能力视角更复合（惯例是分析单位？——问号是原文保留的）、更关注过程（尤其学习）及其对战略的启示。二者之间是"健康的张力（healthy tensions）"。</p>
+
+<p>对这门课，本文提供了一条清晰的主线：<strong>战略研究之所以需要经济学基础，是因为"企业如何组织其交换"这个问题要求一个可操作的分析单位、一组明确的行为假设、一个不诉诸假想理想的效率判据</strong>——这正是 TCE 六步骤所供给的。而战略研究反哺企业理论的，是能力、学习、路径依赖与企业异质性这些"具体企业的战略问题"。两视角的合流，指向的既不是经济学的独白，也不是组织理论的自说自话，而是 Williamson 念兹在兹的那个目标——"走向一门组织科学（a science of organization）"。</p>
+
+<div class="golden">
+Both are needed in our efforts to understand complex economic phenomena as we build towards a science of organization.<br>
+<span style="font-size:.85em;font-weight:400">（在我们迈向一门组织科学的努力中，理解复杂经济现象，二者都不可或缺。—— Williamson, 1999, p. 1106）</span>
+</div>
+
+<div class="note">
+<strong>AI 辅助说明</strong>：本文由 AI 依据 reading-notes 技能的 academic 风格工作流，对 Williamson (1999) 原文（出版社 PDF 文本层，转存为 txt）生成。解读用于辅助理解；blockquote 为原文直接引用，个别标点在 PDF 文本层提取中可能出现差异（如破折号/引号被替换为 %、希腊字母 α/β/γ 显示为占位符），引用请以原文为准。局限分析中"我的独立判断"为 AI 视角、按"作者主张/证据/推断/开放问题"四标签分层，未经同行评审。原文为纯理论论文，无形式化公式，故不涉及公式讲解。
+</div>
+
+<div class="back"><a href="index.html">← 返回课程索引</a> · <a href="../index.html">全部课程</a></div>
+
+</body>
+</html>

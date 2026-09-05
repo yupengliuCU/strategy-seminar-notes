@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Behavioral Theory of R&D Expenditures and Innovations (Greve, 2003) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>A Behavioral Theory of R&amp;D Expenditures and Innovations: Evidence from Shipbuilding</h1>
+<div class="meta">
+<strong>Henrich R. Greve (2003) · Academy of Management Journal 46(6), 685–702</strong><br>
+<strong>Author</strong>: Henrich R. Greve (Norwegian School of Management BI)<br>
+<strong>Source</strong>: <em>Academy of Management Journal</em>, Vol. 46, No. 6 (December 2003), pp. 685–702; JSTOR stable URL 30040661<br>
+<strong>Year</strong>: 2003<br>
+<strong>Nature</strong>: Empirical archival panel study; applies the behavioral theory of the firm to when firms search (R&amp;D) and when they launch innovations<br>
+<strong>Tradition</strong>: Behavioral theory of the firm / organizational learning (Cyert &amp; March 1963; March 1994); innovation search and organizational risk taking<br>
+<strong>Data &amp; code status</strong>: Panel of 11 large Japanese shipbuilders, 1971–1996, built from Nikkei NEEDS corporate accounts and the innovation journals <em>New Technology Japan</em> and <em>Techno Japan</em>; no replication data or code were published with the article
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Greve separates the two stages of firm innovation — the <strong>development</strong> of innovations through search and the <strong>decision to launch</strong> them — and shows that both respond to performance feedback in a behavioral way: below-aspiration performance triggers <strong>problemistic search</strong> (higher R&amp;D intensity) and simultaneously raises managerial <strong>risk tolerance</strong> (more innovation launches), while accumulated <strong>absorbed slack</strong> raises R&amp;D intensity but drops out at the launch stage; high performance suppresses both R&amp;D intensity and innovation launches.</p>
+</div>
+
+<div class="note">
+<strong>Page-number convention used below</strong>. The pdftotext file provided for this article contains no form-feed page separators, so page numbers could not be derived by counting form-feed characters. Each quoted or cited passage was instead matched verbatim against the published article PDF (JSTOR scan, NTNU mirror copy: <code>Greve (2003).pdf</code>), in which PDF p. 1 is the JSTOR cover sheet and PDF pp. 2–19 carry the article pages AMJ pp. 685–702. All "(p. N of the PDF)" notes refer to that file.
+</div>
+
+<div class="note">
+<strong>Reading guide for "Hugging Face &amp; the Open-AI Economy"</strong>. This 2003 paper supplies the behavioral micro-foundations that most of the topic's Part&nbsp;I empirical papers test at the level of platforms and ecosystems rather than single firms: <em>when do organizations search, and when do they dare launch?</em> Three of its ideas are directly reusable when reading the open-AI library: (1)&nbsp;search has two engines with opposite triggers — problems (problemistic search) and resources (slack search); (2)&nbsp;developing an innovation and launching it are separate decisions, so an innovation buffer can sit unused until low performance raises risk tolerance; (3)&nbsp;solutions also arrive from the environment (consultants, prior adopters, and — in the open-AI setting — shared hubs and open-weight releases). Carry these as hypotheses to the platform studies, not as facts: the shipbuilding test says nothing directly about Hugging Face. Which Part&nbsp;I results look like problemistic search by complementors (e.g., a DiD response to a platform-owner release such as Llama&nbsp;2 in Wu, Lin &amp; Li 2025), which look like slack-funded experimentation (e.g., sponsor-funded fine-tuning in Khoshbash 2026), and which look like environment-supplied solutions (e.g., the diffusion of models through the hub in Laufer et al. 2025 and Longpre et al. 2025)? Those mappings are this note's interpretive bridge, not claims made by any of the papers.
+</div>
+
+<h2>1. Background and motivation: innovation as two processes, not one</h2>
+
+<p>The paper opens with a diagnosis that echoes Cyert and March: innovation theory had no answer to the question of <em>when</em> organizations adjust their innovation rates. Greve quotes the canonical complaint directly:</p>
+
+<blockquote>However, Cyert and March wrote that "one persistent problem in the development of a theory of the firm is the problem of innovations" (1963: 278), and this statement still seems to be true (Fiol, 1996). (p. 2 of the PDF; AMJ p. 685)</blockquote>
+
+<p>The source of difficulty, Greve argues, is that an innovation reaches the market only after two processes succeed: a <strong>development stage</strong> leading to an innovation, and a <strong>decision-making stage</strong> that launches a product incorporating it (Burgelman &amp; Sayles, 1986). Research had split accordingly into a <strong>development tradition</strong> (how the acquisition and management of knowledge and innovative people affect innovativeness — Cohen &amp; Levinthal, 1990; Helfat, 1997; Nonaka &amp; Takeuchi, 1995) and a <strong>decision-making tradition</strong> (how organizations reconcile innovation with stability, legitimacy, and risk aversion — Burgelman, 1991; Dougherty &amp; Hardy, 1996; Tabak &amp; Barr, 1998). Development theory could say which organizations are innovative; decision theory could say when managers take risks. Because both contribute to observed innovation, closer integration was needed. Greve's proposal is to run both through one framework, the behavioral theory of the firm (Cyert &amp; March, 1963): developing innovations is a form of organizational <strong>search</strong>, and deciding to launch them belongs to the theory's <strong>decision-making</strong> stage. The payoff is an account of two empirical facts conventional innovation theory leaves unexplained: innovation rates vary widely within a firm over time, and firms sometimes fail to launch innovations their R&amp;D functions have already developed.</p>
+
+<p>His abstract states the integrated claim in one paragraph (verbatim):</p>
+
+<blockquote>I base an integrated model of innovation development and launch on the behavioral theory of the firm. This model specifies that research and development expenses are increased when low performance causes "problemistic search" and when excess resources cause "slack search." Innovations generated by search are launched if low performance gives managers high risk tolerance. Using data from shipbuilding firms, I show that high performance reduces R&amp;D intensity and innovation launches, and high slack increases R&amp;D intensity, as predicted. (p. 2 of the PDF; AMJ p. 685)</blockquote>
+
+<h2>2. The integrated model: performance evaluation, search, and decision making</h2>
+
+<p>Section "Overall Model" builds Figure 1 (credited to Cyert &amp; March 1963: 127 and March 1994: 33). Managers evaluate performance against an <strong>aspiration level</strong> — "the smallest outcome that would be deemed satisfactory by the decision maker" — and the sign of performance-minus-aspiration steers three processes: problemistic search, slack search, and risk tolerance, which jointly determine the stock of solutions and whether a risky solution is launched. The definitions of the two search types are quoted directly from the behavioral theory:</p>
+
+<blockquote>Managers evaluate organizational performance relative to their "aspiration level" and initiate problemistic search when performance is low. An aspiration level, "the smallest outcome that would be deemed satisfactory by the decision maker" (Schneider, 1992: 1053), is used by "boundedly rational" decision makers to determine the boundary between success and failure in continuous measures of performance (March &amp; Simon, 1958). (p. 3 of the PDF; AMJ p. 686)</blockquote>
+
+<blockquote>Organizations with excess resources engage in slack search, which is search for "innovations that would not be approved in the face of scarcity but have strong subunit support" (Cyert &amp; March, 1963: 279). (p. 3 of the PDF; AMJ p. 686)</blockquote>
+
+<p>A third source of solutions sits outside the firm: solutions "in the environment," introduced through consultants, prior adopters, or sellers. Search through R&amp;D is only one component of organizational search, and innovations are only one type of solution (imitation is another). The launch decision is governed by risk tolerance, which low performance raises:</p>
+
+<blockquote>Low performance increases managerial tolerance for risk because managers view performance below their aspiration level as a loss situation and are willing to take risks to improve it (Kahneman &amp; Tversky, 1979). (p. 4 of the PDF; AMJ p. 687)</blockquote>
+
+<p>The model's logic is assembled in the flowchart below, which renders Figure 1 of the paper together with the two theoretical implications Greve draws in prose. First, the launch probability factorizes: "The probability that a firm will launch an innovation equals the probability that an innovation is in the solution pool multiplied by the probability that an innovation in the pool will be launched" (p. 4 of the PDF) — search feeds the pool (supply), risk tolerance drives selection from it (demand). Second, having an innovation in the pool is necessary but not sufficient for a launch, because non-innovative solutions compete for managerial attention.</p>
+
+<pre class="mermaid">
+flowchart LR
+    A["Performance evaluation<br/>Performance minus aspiration level"] --> B["Problemistic search<br/>triggered when performance is low"]
+    C["Slack resources<br/>absorbed / unabsorbed / potential"] --> D["Slack search<br/>excess resources fund experimentation"]
+    K["High performance over time"] -. "builds up slack (dotted link in Fig. 1)" .-> C
+    B --> E["R&amp;D intensity<br/>one form of organizational search"]
+    D --> E
+    E --> F["Solution stock<br/>innovations + non-innovative solutions"]
+    D --> F
+    G["Solutions in the environment<br/>consultants, prior adopters, imitation"] --> F
+    F --> H["Decision making<br/>does risk tolerance accept the solution?"]
+    A --> T["Risk tolerance<br/>below-aspiration performance raises it"]
+    T --> H
+    H --> L["Innovation launches"]
+    L -. "rejected innovations are stored in a buffer<br/>that can be drawn on later" .-> F
+</pre>
+
+<p>Two implications follow for measurement and for what "launching an innovation" means. Problemistic and slack search occur in many organizational locations and produce non-innovative solutions too, so R&amp;D is a partial indicator of search, and innovation is a partial indicator of the solution pool. This staging explains the central puzzle the data section later documents: a firm can show high R&amp;D yet launch nothing, because the decision step filters the pool through risk tolerance.</p>
+
+<h2>3. Four hypotheses: search intensity and launch rates</h2>
+
+<p>The hypotheses are stated exactly as in the paper (PDF pp. 4, 5, and 6; AMJ pp. 687–689):</p>
+
+<h3>Table 1. The four hypotheses: predictions and outcomes</h3>
+<table>
+<tr><th>Hypothesis (verbatim)</th><th>Behavioral mechanism</th><th>Outcome in the shipbuilding data (main estimates)</th></tr>
+<tr><td><strong>H1.</strong> "When performance relative to aspiration level decreases, R&amp;D intensity increases."</td><td>Problemistic search: below-aspiration performance motivates search; added R&amp;D is channeled toward projects near completion to reconcile urgency with long lead times.</td><td><strong>Supported.</strong> Spline terms: above-aspiration performance −0.018 (p &lt; .05), below-aspiration −0.013 (n.s.); the two do not differ, and a single pooled coefficient is −0.016, significant at the 1% level (Table 2, PDF p. 11).</td></tr>
+<tr><td><strong>H2.</strong> "When organizational slack increases, R&amp;D intensity increases."</td><td>Slack search: absorbed slack (staff, facilities, time) permits experimentation; financial reserves loosen monitoring, protecting long uncertain R&amp;D projects.</td><td><strong>Supported for absorbed slack only.</strong> Absorbed slack coefficient 0.057, s.e. 0.018 (p &lt; .01); unabsorbed and potential slack have no effect; slack loses significance under firm fixed effects (Table 2, PDF pp. 11–12).</td></tr>
+<tr><td><strong>H3a.</strong> "When performance relative to aspiration level increases, the rate of launching innovations decreases."</td><td>Risk tolerance: performance above aspiration is a reason to avoid risky change; below aspiration, managers accept risky solutions such as innovations.</td><td><strong>Supported above the aspiration level.</strong> Poisson coefficient for above-aspiration performance −34.12, s.e. 10.88 (p &lt; .01); below-aspiration coefficient +2.99 (n.s.) (Table 3, model 2, PDF p. 12).</td></tr>
+<tr><td><strong>H3b.</strong> "The rate of launching innovations decreases more rapidly for performance increases above aspiration level than for performance increases below aspiration level."</td><td>Inertia asymmetry: inertial forces counteract risk taking below the aspiration level but not risk reduction above it (Greve, 1998).</td><td><strong>Supported.</strong> Wald test of the difference between the two coefficients = 7.88 (p &lt; .01); the asymmetry persists in the random-effects model (PDF p. 12).</td></tr>
+</table>
+
+<p>The theoretical development behind the hypotheses is worth unpacking. Hypothesis 1 rests on the claim that search responds to a performance <em>problem</em>: problemistic search is "conducted in the parts of an organization that are close to the perceived problem or in the parts that have previously solved similar problems" (p. 4 of the PDF). Greve hedges one boundary condition: performance problems attributed to temporary external adversity are less likely to trigger search than problems attributed to enduring internal deficiencies (Mone, McKinley, &amp; Barker, 1998).</p>
+
+<p>Hypothesis 2 requires disentangling slack from performance, because slack is created by high performance — which would otherwise make the two effects collide. Greve resolves the apparent opposition by distinguishing <strong>resource stock from performance flow</strong> and <strong>absolute performance from aspiration-adjusted performance</strong>. Slack is a stock (employees' time, underused capital and facilities); performance is typically a flow goal (most recent accounting profits) that investors use to evaluate managers. "Performance is more subjective, short-term, and volatile than slack, so the two variables have distinct and separable effects on R&amp;D" (p. 5 of the PDF). A rich organization can have a bad year and a poor one a good year; and because judgment is aspiration-relative, an objectively strong firm can feel unsuccessful. Operationally, Greve distinguishes <strong>absorbed slack</strong> (administrative resources beyond short-term needs: R&amp;D facilities, development staff, time) from <strong>unabsorbed slack</strong> (cash and financial instruments) and <strong>potential slack</strong> (untapped borrowing capacity). Only the absorbed kind directly finances development; the financial kinds matter through looser monitoring that lets uncertain projects survive early bad signals (Lounamaa &amp; March, 1987; Garud &amp; Van de Ven, 1992).</p>
+
+<p>Hypotheses 3a and 3b embed risk theory in the decision stage. Below-aspiration performance simultaneously raises problemistic search and risk tolerance, so launches should concentrate below the aspiration level. But inertia arguments (Hannan &amp; Freeman, 1977; Staw, Sandelands, &amp; Dutton, 1981) cut the other way, implying the reaction to feedback is asymmetric: "Since inertial forces counteract risk taking below an aspiration level but not risk reduction above it, the effect of performance on organizational change is weaker when performance is below the aspiration level" (p. 6 of the PDF). Hence H3b predicts the steeper response above the aspiration level. A final theoretical block concerns <strong>innovation buffers</strong> (Garud &amp; Nayyar, 1994): rejected innovations accumulate in a stored buffer whose recent part remains innovative because knowledge leaks depreciate it (Levin, Klevorick, Nelson, &amp; Winter, 1987). Firms with a history of risk aversion therefore hold unused innovations and can respond fast when low performance arrives; firms habituated to risk taking have depleted buffers. Greve also notes why risk theory should <em>not</em> apply symmetrically to R&amp;D spending itself: R&amp;D gives the firm options and is a risk-reducing search activity, an argument he links to evidence that managers with incentives to reduce risk pursue R&amp;D (Wiseman, McNamara, &amp; Devers, 2001; pp. 6–7 of the PDF).</p>
+
+<h2>4. Evidence and methods: the Japanese shipbuilding panel</h2>
+
+<p><strong>Setting.</strong> The study follows the 11 largest Japanese shipbuilding firms from 1971 to 1996 (the sample description begins on PDF p. 6 and runs onto p. 7). Shipbuilders entered the period as the world's dominant population, strong in high-margin segments relying on innovative designs; the 1973 oil shock brought a demand slump, followed by competition from Korea and China. Firms responded with cost cuts, diversification, and continued innovating: "They also launched an average of one innovation per firm-year" (p. 7 of the PDF), with firm-year launch counts ranging from zero to eight. World market share stayed high — 38 percent in the year 2000 (p. 3 of the PDF). A single-industry design is not incidental: slack measures compare resource ratios across similar businesses, so "analysis of slack effects requires a single-industry study population or controls for firm effects to give comparability; both were applied" (p. 8 of the PDF).</p>
+
+<p><strong>Dependent variables.</strong> R&amp;D intensity is R&amp;D expenditure divided by sales, taken from the Nikkei NEEDS database of corporate accounts (p. 7). Innovation launches are counts of innovations reported in the monthly journals <em>New Technology Japan</em> (Japan External Trade Research Organization) and <em>Techno Japan</em> (Fuji Marketing Research) over 1971–1996; reports on project initiation were excluded to keep the focus on launches (p. 7). The journals capture product-oriented innovations: of the 357 innovations, only 33 are production-process innovations, the rest being accessories and equipment (84), communication and control (47), engines (60), propulsion (26), and whole vessels (107) (p. 7). The 357 innovations yield 401 innovation–organization matches: 246 launched by sample firms, 35 by smaller shipbuilders, 84 by non-shipbuilders (mostly suppliers), 10 by research centers, and 2 by individuals (p. 8).</p>
+
+<p><strong>Performance and aspiration.</strong> Performance is return on assets (ROA preferred over ROE because the latter mixes in capital structure; ROA and ROS correlate 0.86 in these data and give consistent results — p. 8). Following Cyert and March (1963: 123), the aspiration level mixes a <strong>social</strong> component (mean ROA of the other large shipbuilders) and a <strong>historical</strong> component (past aspiration and the firm's own past performance). Weights were estimated on the data by grid search in increments of 0.1 maximizing model log-likelihood, yielding a social weight of 0.8 and a historical-updating weight of 0.2 — equivalent to a 0.16 weight on previous-period firm performance and 0.04 on the previous historical aspiration level (p. 8 of the PDF).</p>
+
+<p><strong>Slack and controls.</strong> Absorbed slack = selling, general, and administrative expenses (SGAE) / sales; unabsorbed slack = quick assets (cash and marketable securities) / liabilities; potential slack = debt/equity, with a predicted negative coefficient since greater debt means lower borrowing ability (Bromiley, 1991; p. 8). Slack is lagged one year in the R&amp;D analyses and entered as five-year moving averages (as is R&amp;D itself) in the innovation analyses, matching the long duration of development projects (p. 8). Controls include logged employees (size), previous-year industry innovation count (the "environmental solutions" proxy), annual production in million gross tons, growth in shipping income, and the Hampton Roads–Japan freight rate, the latter two being leading indicators of ship demand (pp. 8–9).</p>
+
+<p><strong>Estimators.</strong> R&amp;D intensity is modeled with panel regression including firm effects and a first-order autocorrelation control for budget inertia; random effects were preferred because preliminary tests showed variable effects significant and fixed effects not, though a fixed-effects model is reported for comparison (p. 9). Innovation launches, a count, are modeled with Poisson regressions; random- and fixed-effects variants were estimated, and negative binomial and heterogeneity extensions did not improve fit — "The data thus do not appear to have overdispersion of events" (p. 9 of the PDF). Robustness checks with a zero-inflated model (Lambert, 1992) and a model with endogenous underreporting related to firm size (Terza, 1998) gave results consistent with the main analysis (p. 10).</p>
+
+<h3>Table 2. How each behavioral construct is operationalized</h3>
+<table>
+<tr><th>Construct (Figure 1 role)</th><th>Operationalization in the data</th><th>Predicted effect</th><th>Main result</th></tr>
+<tr><td>Performance relative to aspiration (performance evaluation)</td><td>ROA minus aspiration level; aspiration = 0.8 × social (industry mean ROA) + historical blend; spline split above/below aspiration</td><td>Negative on R&amp;D (H1) and on launch rate above aspiration (H3a, H3b)</td><td>Pooled R&amp;D coefficient −0.016 (p &lt; .01); launch-rate coefficient above aspiration −34.12 (p &lt; .01), below aspiration n.s.</td></tr>
+<tr><td>Problemistic search</td><td>Not measured directly; inferred from R&amp;D intensity response to below-aspiration performance</td><td>Rises when performance falls below aspiration</td><td>Supported (H1)</td></tr>
+<tr><td>Slack search</td><td>Absorbed slack = SGAE/sales; unabsorbed = quick assets/liabilities; potential = debt/equity</td><td>Rises with each slack form (negative for potential)</td><td>Absorbed slack 0.057 (p &lt; .01) raises R&amp;D; other forms n.s.; no slack effect on launch rates</td></tr>
+<tr><td>Risk tolerance (decision making)</td><td>Not measured directly; inferred from launch-rate response to performance relative to aspiration</td><td>Rises below aspiration; falls steeply above it</td><td>Launch rate declines sharply above aspiration; flat below (H3a, H3b)</td></tr>
+<tr><td>Solutions in the environment</td><td>Previous-year count of innovations in the shipbuilding industry</td><td>Positive on launches (solutions observed by managers)</td><td>Poisson coefficient 0.04 (p &lt; .01), Table 3</td></tr>
+</table>
+
+<h2>5. Findings</h2>
+
+<p><strong>R&amp;D intensity (Table 2).</strong> Models 1–3 add controls, performance, and slack sequentially; model 3 (random effects, 11 firms, 229 firm-years) is the interpreted specification. Employees raise R&amp;D intensity (0.0025, p &lt; .01) and annual production lowers it (−0.0004, p &lt; .01). For performance, the above-aspiration coefficient is −0.018 (p &lt; .05) and the below-aspiration coefficient −0.013 (n.s.); because an F-test shows the two do not differ, the model is reestimated with a single performance variable:</p>
+
+<blockquote>When this was done, the coefficient estimate was −0.016, which was significant at the 1 percent level. Hypothesis 1 is thus supported. (p. 11 of the PDF; AMJ p. 694)</blockquote>
+
+<p>Slack results are selective: "The coefficient estimates for the slack variables show that absorbed slack had a positive and significant effect, consistent with Hypothesis 2. No effect was found for the other forms of slack" (p. 11 of the PDF). Adding absorbed slack lifts R² from .33 (controls and performance) to .49 in model 3, which Greve reads as evidence that absorbed slack is "very important for explaining R&amp;D expenses" — Hypothesis 2 is supported "but only for absorbed slack" (p. 11). The fixed-effects model (model 4, 11 firms, 218 firm-years) changes the picture: slack is no longer significant, while a single performance variable is −0.014 (p &lt; .05). Greve interprets the fixed-effects result as showing that the slack effect is mainly cross-sectional: "Slack changes slowly, and thus it is more effective for explaining how firms differ cross-sectionally in search intensity than how firms change their search intensity over time" (pp. 11–12 of the PDF).</p>
+
+<p><strong>Innovation launches (Table 3).</strong> Model 2, a Poisson regression with no firm effects (11 firms, 185 firm-years), tests the hypotheses. Above-aspiration performance has a strongly negative coefficient (−34.12, s.e. 10.88, p &lt; .01); below-aspiration performance is positive but insignificant (+2.99). The two coefficients differ significantly (Wald test 7.88, p &lt; .01), so:</p>
+
+<blockquote>Thus, this model supports Hypothesis 3a, which predicts a declining rate of innovation as performance increases, for performance above aspiration level. The coefficients of performance above and below aspiration level are significantly different, with performance above the aspiration level showing a strongly negative effect on the rate of launching innovations, so Hypothesis 3b is also supported. The findings indicate that high performance suppresses innovation launches more than low performance increases them, consistent with inertia theory. (p. 12 of the PDF; AMJ p. 695)</blockquote>
+
+<p>The result survives firm effects with reduced precision: the random-effects model 3 gives −27.02 (p &lt; .05) above aspiration, and the fixed-effects model 4 (7 firms, 147 firm-years) gives −20.10, significant only at the 10 percent level (p. 12). No slack variable is significant in the innovation models, and R&amp;D intensity itself is not (coefficient −5.97, n.s.) — a pattern Greve reads as slack's development-stage effect being filtered out at the decision stage (p. 13). Among controls, previous-year industry innovations (0.04, p &lt; .01), employees (0.65, p &lt; .01), and growth in shipping income (1.09, p &lt; .05) raise launch rates (Table 3).</p>
+
+<p><strong>Effect sizes (Figure 2).</strong> Greve translates coefficients into multipliers by moving each variable 2.5 standard deviations from the origin and computing predicted rates from model 2 (p. 13). Performance above the aspiration level dominates: moving from the origin to +1.5 standard deviations cuts the innovation rate to a multiplier of 0.2; the curve rises slightly below the aspiration level, but not significantly; the aspiration level sits about 0.4 standard deviations below mean performance. For comparison, +1.5 standard deviations of shipping-income growth gives a multiplier of 1.25, and of previous-year industry innovations 1.15. The asymmetry is stark enough that if both performance and shipping income rose by 1.5 standard deviations, the predicted innovation rate would still fall. Model fit is high: R² = .49 for R&amp;D intensity (Table 2, model 3) and a maximum-likelihood R² of .57 for the innovation model (Table 3, model 2), versus .51 for the controls-only model (PDF pp. 11 and 13).</p>
+
+<h3>Table 3. The two outcome analyses compared</h3>
+<table>
+<tr><th>Dimension</th><th>R&amp;D intensity (Table 2)</th><th>Innovation launches (Table 3)</th></tr>
+<tr><td>Dependent variable</td><td>R&amp;D expenditure / sales (continuous ratio)</td><td>Annual count of launched innovations (integer count)</td></tr>
+<tr><td>Estimator</td><td>Panel regression; random effects + AR(1) autocorrelation (fixed-effects variant for comparison)</td><td>Poisson; no-firm-effects, random-effects, and fixed-effects variants; negative binomial / heterogeneity tried, no better fit</td></tr>
+<tr><td>Sample</td><td>11 firms, 229 firm-years (models 1–3); 11 firms, 218 firm-years (fixed-effects model 4)</td><td>11 firms, 185 firm-years (models 2–3); 7 firms, 147 firm-years (fixed-effects model 4)</td></tr>
+<tr><td>Performance effect</td><td>Pooled single variable −0.016, p &lt; .01 (H1); slack-inclusive model 3: above-aspiration −0.018, p &lt; .05</td><td>Above aspiration −34.12, p &lt; .01 (model 2); below aspiration +2.99 n.s.; difference Wald 7.88, p &lt; .01 (H3a, H3b)</td></tr>
+<tr><td>Slack effect</td><td>Absorbed slack 0.057, p &lt; .01; unabsorbed and potential n.s.; slack n.s. under firm fixed effects</td><td>No slack measure significant in any model</td></tr>
+<tr><td>Key controls</td><td>Employees (+), annual production (−), growth in shipping income (†)</td><td>Industry innovations (+0.04, p &lt; .01), employees (+0.65, p &lt; .01), growth in shipping income (+1.09, p &lt; .05)</td></tr>
+<tr><td>Fit</td><td>R² = .49 (model 3) vs .33 (controls only)</td><td>Max-likelihood R² = .57 (model 2) vs .51 (controls only)</td></tr>
+<tr><td>Source</td><td>PDF p. 10–12 (AMJ pp. 693–695)</td><td>PDF p. 11–13 (AMJ pp. 694–696)</td></tr>
+</table>
+
+<h2>6. Discussion: buffers, the "master switch," and where slack drops out</h2>
+
+<p>Greve's discussion draws three broad conclusions from the results. First, performance relative to aspiration behaves like a general control variable for organizational action, not a predictor specific to innovation:</p>
+
+<blockquote>Add this prior evidence to the current finding that performance affects the rate of launching innovations, and it seems that performance relative to aspiration level functions as a "master switch" that affects a wide range of organizational behaviors (Greve, 2003). (p. 13 of the PDF; AMJ p. 696)</blockquote>
+
+<p>Second, the speed of the response points to <strong>innovation buffers</strong>. Launches followed disappointing performance within about a year — far too fast for a full development cycle of complex vessels — which implies stored or near-completion innovations being drawn down when risk tolerance rises:</p>
+
+<blockquote>Such quick reaction to adversity clearly cannot be the result of a full innovation development cycle, as one year is too short a time to develop the kind of complex innovations that shipbuilders make. Rather, it supports the argument that innovations are sometimes rejected and are added to a buffer that can be drawn on when low performance increases top managers' risk tolerances (Garud &amp; Nayyar, 1994). (p. 14 of the PDF; AMJ p. 697)</blockquote>
+
+<p>He generalizes the buffer idea with Fiol's (1996) sponge metaphor, extended to two stages: capabilities fill the development sponge; risk tolerance squeezes the decision sponge. "The findings from this study suggest that there are two sponges: Innovations squeezed out of the development sponge enter the decision-making sponge, and are squeezed out by managerial risk tolerance" (p. 14 of the PDF). Third, slack's asymmetry across stages — it funds search but does not raise launch rates — implies its effect is "neutralized in the decision-making stage of the innovation process" (p. 13 of the PDF). The paper also redirects diffusion research toward performance feedback: since imitation is a major organizational response and external influences dominate diffusion studies, Greve asks whether adoptions of external innovations respond to performance feedback the way own-innovation launches do (p. 14).</p>
+
+<h2>7. Position in the literature</h2>
+
+<p><strong>Within the behavioral theory and innovation lineage.</strong> Greve's paper is a direct empirical descendant of Cyert and March's (1963) <em>A Behavioral Theory of the Firm</em>, implementing its aspiration-level machinery (with the social/historical mixture of Cyert &amp; March 1963: 123) for R&amp;D and innovation. In that lineage it stands between the search-stage classics and the 1990s performance-feedback program to which Greve himself contributed (Greve, 1998, on performance, aspirations, and risky change in radio broadcasting; Audia, Locke, &amp; Smith, 2000, on the "paradox of success"; Lant, Milliken, &amp; Batra, 1992, on persistence and reorientation). Its distinctive move is to test search and decision making in the same data, treating R&amp;D spending as the search-stage output and product launches as the decision-stage output. It thereby answers development-only accounts — the absorptive-capacity tradition of Cohen &amp; Levinthal (1990), the "sponge" debate of Fiol (1996) — and decision-only accounts of innovation rejection (Dougherty &amp; Hardy, 1996) by showing both stages respond to the same feedback variable. It also extends earlier evidence that low performance raises R&amp;D effort (Antonelli, 1989; Hundley, Jacobson, &amp; Park, 1996; Kamien &amp; Schwartz, 1982) from inputs to an innovative outcome (the launch), and it engages the slack literature — Singh (1986) and the Damanpour (1991) meta-analysis found weak slack effects, Nohria &amp; Gulati (1996) an inverted-U effect on adoption — by separating slack types and stages: only absorbed slack raises search, and none of it reaches launches. The risk-taking hypothesis imports prospect theory (Kahneman &amp; Tversky, 1979) and its organizational applications (Bromiley, 1991; Wiseman et al., 2001) into the innovation context, while the asymmetry result speaks to the inertia debate (Hannan &amp; Freeman, 1977) and to disruption theory's observation that strong incumbents neglect innovations (Christensen &amp; Bower, 1996): high performance suppresses launches even when R&amp;D continues, offering a mechanism for why successful firms fail to innovate.</p>
+
+<p><strong>Within this topic's library (interpretive).</strong> Greve 2003 is the oldest core paper in Part&nbsp;I of the "Hugging Face &amp; the Open-AI Economy" index and the only one that tests behavioral search theory at the level of the individual firm. Read alongside the platform papers, it supplies a vocabulary the platform studies mostly imply rather than test:</p>
+<ul>
+<li><em>Problemistic search at the ecosystem level.</em> Wu, Lin &amp; Li (2025, ICIS) use a difference-in-differences around the Llama&nbsp;2 release to study how Hugging Face developers' innovation changes after a platform-owner move; Greve's framework suggests such responses should be conditioned on each developer's performance relative to aspiration. That reading is this note's inference; the ICIS paper does not cite behavioral theory.</li>
+<li><em>Slack-funded experimentation.</em> Khoshbash (2026) documents sponsor-funded fine-tuned variants of open foundation models; sponsors look like external providers of absorbed slack that lower the monitoring threshold on uncertain model work — an ecosystem-level analogue of the slack-search channel Greve finds operates only at the search stage.</li>
+<li><em>Environment-supplied solutions.</em> Where Greve proxies environmental solutions by industry innovation counts, the hub itself makes such solutions visible: Laufer et al. (2025) count 2 million models and their re-use relationships, and Longpre et al. (2025) trace power and participation in the open-weight ecosystem. A hub is, in behavioral-theory terms, a large public solution stock that lowers the cost of "contact with earlier adopters or sellers of solutions" (p. 3 of the PDF).</li>
+<li><em>Control points and search intensity.</em> Yue &amp; Nagle (2024) show that relinquishing control of PyTorch increased downstream innovation; in Greve's language, opening a control point enlarges the environment-supplied solution pool available to downstream firms. Yeverechyahu et al. (2024) treat LLM-based coding tools as changing the cost of producing open-source contributions — a shift in the productivity of search itself.</li>
+<li><em>Appropriability and openness.</em> Greve's citations to Levin et al. (1987) — patents versus secrecy, depreciation of stored innovations by knowledge leaks — are the classical backdrop to Azoulay et al.'s (2024) question of whether open weights are a viable business model, and to White et al.'s (2024) Model Openness Framework, which formalizes what "open" means for components and training data.</li>
+</ul>
+<p>These bridges are the reader's construction: Greve tests firms in a mature manufacturing industry with long development cycles, and every carry-over to software platforms and open model hubs needs its own evidence. The clearest general lesson for the topic is methodological: innovation output should not be read off search inputs alone, because a decision stage with risk tolerance sits in between — an argument for why papers in this library should look at launches and deployments (Atlan 2026 on B2B deployments is a practitioner attempt) rather than only at uploads, contributions, or R&amp;D-style inputs.</p>
+
+<h2>8. Limitations</h2>
+
+<p><strong>Boundaries the author states.</strong> Greve flags four. (1)&nbsp;The innovation journals "may overlook innovations by less prominent firms and process innovations," and process innovations are underrepresented by design (33 of 357) — the interpretation should respect that product orientation (p. 7). (2)&nbsp;Generalization to industries with fast-moving basic technologies is doubtful, since high launch rates there may just track an expanding technological frontier (his example is software riding on processor and memory advances; p. 14). (3)&nbsp;Japan-specific goal attention is a possible boundary: managerial folklore (and Johansson &amp; Yip, 1994) suggests Japanese firms weight sales over ROA, though his own ROA results and other studies of Japanese low-profitability change (Hundley et al., 1996; Kaplan &amp; Minton, 1994) contradict that folklore (p. 14). (4)&nbsp;R&amp;D intensity measures only one form of organizational search, and slack analysis requires the single-industry design he used (pp. 7–8).</p>
+
+<p><strong>My independent assessment (layered and labeled).</strong></p>
+<ul>
+<li><strong>Paper claim:</strong> that performance relative to aspiration affects search (R&amp;D) and launch rates with the predicted signs, and that slack raises search. The summary sentence — "all predictions were supported" (p. 13) — is accurate for the four hypotheses as specified, with the qualification that H2 holds only for absorbed slack and only cross-sectionally.</li>
+<li><strong>Evidence:</strong> the tests rest on 11 firms in one industry — 229 firm-years for R&amp;D intensity and 185 for innovation launches, shrinking to 7 firms and 147 firm-years in the fixed-effects launch model. R&amp;D intensity has mean 0.01, a thin ratio. Innovation is measured from two trade journals, so it is a publication-based proxy for launches. Slack is proxied by an expense ratio (SGAE/sales) and a debt ratio. Aspiration weights (0.8/0.2) are estimated by in-sample grid search on the log-likelihood of the same models used for hypothesis tests; the 0.1 grid is coarse, but the calibration is still in-sample and uncorrected for the search over weights. Risk tolerance itself is never observed; it is inferred from the shape of the performance–launch relationship.</li>
+<li><strong>Inference (mine, not stated in the paper):</strong> the asymmetry in H3b is read as inertia, but it is also consistent with other mechanisms the design cannot separate — for example, asymmetric measurement error in the spline variables, or different aspiration dynamics above and below the reference point. The "buffer" interpretation of the one-year lag is plausible given development times, but the data do not observe stored innovations directly. Likewise, my mappings from shipbuilding results to Hugging Face ecosystem behavior (Section 7) are extrapolations.</li>
+<li><strong>Open questions the paper itself raises:</strong> how innovation rates respond to the proliferation of profit centers and performance measures in large corporations (more and more specialized measures should raise the probability that some unit is below aspiration and taking risks); how authority structure matters (taller hierarchies should generate more rejections, biasing against innovation); and how industrial structure matters (wide interfirm performance dispersion should ignite "innovation races" by pushing many firms below aspiration) — all posed at p. 15 of the PDF. Greve also leaves the adaptiveness question open: risk rules that shift with performance are temporally inconsistent, yet they may be what lets robust firms trade some profit for lower profit variability (pp. 14–15).</li>
+</ul>
+
+<h2>9. Conclusion and takeaways</h2>
+
+<p>Greve's contribution is to make the behavioral theory of the firm carry the full innovation pipeline in one empirical design. Development and launch are separated analytically and then reconnected through a single feedback variable: performance relative to aspiration drives problemistic search into R&amp;D, absorbed slack funds search, and low performance raises the risk tolerance that converts stored and near-completion innovations into launches. The shipbuilding panel supports all four hypotheses, with the notable wrinkles that slack works only through its absorbed form and only cross-sectionally, and that the launch response to performance is sharply asymmetric — high performance suppresses launches far more than low performance stimulates them.</p>
+
+<p>Three takeaways travel best to the open-AI economy. First, innovation output is a joint product of search supply and decision demand; measures of one alone mislead. Second, resources and problems are separable engines of search — an ecosystem rich in sponsor slack and an ecosystem full of below-aspiration firms should show different innovation patterns, and the two should not be conflated. Third, organizations carry buffers of rejected innovations, so observable launch waves can lag development by years and can be triggered by sudden drops in performance rather than by new development effort. Each of these is a hypothesis for platform settings, not an established result, and that transfer is precisely the research gap the rest of this topic's library is well placed to fill.</p>
+
+<div class="golden">
+The good fit to the data shows that the behavioral theory of the firm not only helps resolve conceptual issues in firm innovation, but is also empirically successful. — Greve (2003), p. 13 of the PDF (AMJ p. 696)
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the reading-notes workflow, grounded in the full pdftotext of the local copy of Greve (2003). All quotations are verbatim from the article text; minor spacing artifacts of pdftotext (for example "R&amp;Dintensity" run-together) were normalized for readability. The provided text file contains no form-feed page separators, so quoted passages were matched against the published PDF (JSTOR scan, NTNU mirror), and page notes report "(p. N of the PDF)" of that file, where PDF pp. 2–19 correspond to AMJ pp. 685–702; verify quotes and numbers against the original before citing. The "independent assessment" items labeled as my inference, and the Section 7 bridges to the Hugging Face library, are the AI reader's extensions and have not been peer-reviewed; author-stated claims and evidence are reported separately in Section 8.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

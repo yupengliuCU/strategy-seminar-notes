@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toward a Theory of Property Rights — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Toward a Theory of Property Rights</h1>
+<div class="meta">
+<strong>Authors:</strong> Harold Demsetz (University of Chicago)<br>
+<strong>Journal:</strong> <em>The American Economic Review</em>, Vol. 57, No. 2, Papers and Proceedings of the Seventy-Ninth Annual Meeting of the American Economic Association (May 1967), pp. 347–359<br>
+<strong>Year:</strong> 1967<br>
+<strong>DOI:</strong> none (pre-DOI print article; JSTOR stable URL: http://www.jstor.org/stable/1821637)<br>
+<strong>Nature:</strong> theoretical economics essay — the classical origin of property-rights theory; no formal model, argument built on definitions, a cost–benefit thesis, and anthropological case evidence<br>
+<strong>Keywords:</strong> property rights; externalities; internalization; communal vs. private vs. state ownership; transaction costs; fur trade; Coase theorem; ownership structure
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Property rights are not a fixed datum but emerge and change to internalize externalities whenever the gains from internalization exceed its costs, so a community's ownership structure responds endogenously to new technologies, relative prices, and market values.</p>
+</div>
+
+<div class="note"><strong>Reading note (Week 3 — classical PRT → modern PRT → strategy → ownership competence → empirical test).</strong> This paper opens the arc: it defines the classical, efficiency-based branch of property-rights theory, in which ownership institutions exist to align private incentives with social costs and benefits and therefore adapt to changes in technology and market values. It does not yet pose the metering/monitoring problem of Alchian &amp; Demsetz (1972) or the residual-control-rights problem of Grossman &amp; Hart (1986); its corporate discussion foreshadows both, and its communal/private/state trichotomy plus its internalization thesis supply the taxonomy and benchmark that modern PRT, its strategic-management translation, and the later empirical test all presuppose.</div>
+
+<h2>1. Background and motivation</h2>
+<p>Demsetz attacks the price-theoretic mainstream of the 1960s, which took the bundle of property rights attached to a good as a datum and asked only what determines price and quantity. He inverts the priorities: the emergence and mix of the components of the bundle are prior questions, and exchange is itself an exchange of two bundles of rights rather than of physical commodities. The deeper adversary is the Pigovian welfare tradition, in which externalities such as smoke and overhunting appear as market failures justifying state correction. Coase (1960) had shown that with well-defined, transferable rights and zero transaction costs, private bargaining reaches efficiency regardless of initial assignment; Demsetz goes one step further and asks what determines which rights exist at all. A second, local adversary is anthropology: Speck and Leacock had documented the correlation between the fur trade and private hunting territories among American Indians, yet no theory relating the privacy of land to the fur trade had been articulated. The paper supplies that theory, making property rights the dependent variable of economic analysis.</p>
+
+<h2>2. Core argument / framework</h2>
+<p>The paper proceeds through its three announced parts — the concept and role of property rights, their <em>emergence</em>, and their <em>coalescence</em> into bundles with a particular ownership structure.</p>
+
+<h3>Part I — The concept and role of property rights</h3>
+<p>In a Robinson Crusoe world property rights play no role: they are "an instrument of society" that help a person form the expectations he can reasonably hold in dealings with others, expressed in laws, customs, and mores. Because rights specify how persons may benefit and harm one another, they determine "who must pay whom to modify the actions taken by persons" — hence the close relationship between property rights and externalities.</p>
+<blockquote>When a transaction is concluded in the marketplace, two bundles of property rights are exchanged. A bundle of rights often attaches to a physical commodity or service, but it is the value of the rights that determines the value of what is exchanged.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Demsetz 1967, p. 347 (opening paragraph).</span></blockquote>
+<p>The two load-bearing terms come next. An externality is a transaction-cost phenomenon, not a physical one: no effect is external to the world — someone always suffers or enjoys it — so an effect becomes an externality when the cost of bringing it to bear on the decisions of the interacting persons is too high to be worthwhile. <em>Internalization</em> is the process, "usually a change in property rights," that lets the effect bear (in greater degree) on all interacting persons.</p>
+<blockquote>What converts a harmful or beneficial effect into an externality is that the cost of bringing the effect to bear on the decisions of one or more of the interacting persons is too high to make it worthwhile, and this is what the term shall mean here. "Internalizing" such effects refers to a process, usually a change in property rights, that enables these effects to bear (in greater degree) on all interacting persons.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Demsetz 1967, p. 348.</span></blockquote>
+<p>Hence "a primary function of property rights is that of guiding incentives to achieve a greater internalization of externalities." Transaction costs block internalization in two distinct ways: "natural" trading difficulties (many parties, hard-to-measure effects), or legal prohibitions of voluntary negotiation, which make the cost of transacting infinite. A firm using slave labor internalizes the cost of slavery if slaves may offer to buy their freedom — Demsetz reads the serf-to-free-man transition in feudal Europe through this lens — and taxpayers escape the full cost of the military draft only because the law forbids "buy-him-in" volunteer or "let-him-buy-his-way-out" exemption markets: "so many economists can recognize an externality when they see smoke but not when they see the draft." In a zero-transaction-cost world two "striking implications" follow (footnote 1 credits Coase 1960): the output mix with exchangeable rights is efficient, and the mix is independent of who is assigned ownership, since the highest bidder to be excused under one system is the last volunteer under the other. Footnote 2's farmer–rancher case shows where invariance fails: a farmer who just breaks even on his compensation right cannot pay the rancher to reduce cattle — but then it becomes profitable for the rancher to buy the farm, merging cattle raising with farming so self-interest internalizes the damage. Merger is thus an internalization device, a theme Part III develops.</p>
+
+<h3>Part II — The emergence of property rights</h3>
+<p>If the allocative function of rights is internalization, their emergence is best understood by association with new or revalued beneficial and harmful effects, and the thesis follows directly:</p>
+<blockquote>property rights develop to internalize externalities when the gains of internalization become larger than the cost of internalization. Increased internalization, in the main, results from changes in economic values, changes which stem from the development of new technology and the opening of new markets, changes to which old property rights are poorly attuned.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Demsetz 1967, p. 350.</span></blockquote>
+<p>Three qualifications frame the thesis. First, the analysis takes as given "a community's preferences for private ownership": given that taste, new private or state rights emerge in response to changes in technology and relative prices. Second, adjustment need not be conscious — in Western societies it proceeds through "gradual changes in social mores and in common law precedents," hit-and-miss experiments whose long-run viability turns on how well they accommodate the externalities behind major changes, "in a society that weights the achievement of efficiency heavily." Third, the thesis is an empirical claim: "A rigorous test of this assertion will require extensive and detailed empirical work," for which the American Indian material is offered as evidence. The Mermaid diagram maps the full causal chain.</p>
+<div class="mermaid">
+flowchart TD
+    A["Change in knowledge, technology, or market values"] --> B["New or revalued harmful and beneficial effects"]
+    B --> C["Externality becomes economically significant"]
+    C --> D{"Gains of internalization &gt; costs of internalization?"}
+    D -->|No| E["Old rights persist; effect stays external"]
+    D -->|Yes| F["Adjustment of property rights via mores, common law, legislation"]
+    F --> G["Communal / private / state ownership"]
+    G --> H["Concentration of benefits and costs on decision-makers"]
+    H --> I["Incentives: husbanding, conservation, efficient intensity of use"]
+    I --> J{"Residual externalities affect how many parties?"}
+    J -->|Few| K["Private negotiation or contracts among owners"]
+    J -->|Many| L["Buy-outs and scale of ownership, or state action"]
+</div>
+
+<h3>Part III — The coalescence and ownership of property rights</h3>
+<p>Emergence explains <em>that</em> rights appear; form is a second question. Three idealized forms anchor the trichotomy: communal ownership (a right exercisable by all members of the community, which denies the state or any individual the right to interfere); private ownership (the community recognizes the owner's right to exclude others); and state ownership (the state may exclude anyone from use, subject to accepted political procedures). State ownership is not examined in detail; the analysis targets private-property communities. The workhorse is the communal-land paradigm:</p>
+<blockquote>Suppose that land is communally owned. Every person has the right to hunt, till, or mine the land. This form of ownership fails to concentrate the cost associated with any person's exercise of his communal right on that person. If a person seeks to maximize the value of his communal rights, he will tend to overhunt and overwork the land because some of the costs of his doing so are borne by others.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Demsetz 1967, p. 354.</span></blockquote>
+<p>Communal ownership fails on three cost margins: negotiation, because every member must agree and each hold-out "has the right to work the land as fast as he pleases"; policing, which is costly even after agreement; and time, because future generations cannot bid on current use — no one under communal rights can sell a claim on future output, whereas the private owner "acts as a broker whose wealth depends on how well he takes into account the competing claims of the present and the future." Under communal property "the claims of the present generation will be given an uneconomically large weight." Private ownership internalizes most of these costs through exclusion — an owner can count on realizing the rewards of husbanding game and improving his land — but only partially: the dam builder accounts for water stored on his own land, not for lower water levels on his neighbor's parcel. Private ownership's deeper advantage is that residual externalities touch few owners, so negotiation is cheap; the farmer–engineer dialogue shows that under communal property the engineer "cannot guarantee that another engineer will not take up the task," turning a two-person negotiation into one between the farmer and everyone else.</p>
+<blockquote>This is the basic explanation, I believe, for the preponderance of single rather than multiple owners of property. Indeed, an increase in the number of owners is an increase in the communality of property and leads, generally, to an increase in the cost of internalizing.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Demsetz 1967, p. 357.</span></blockquote>
+<p>Facing residual externalities, owners choose between contractual agreement and buy-outs that change parcel size, "which option is selected will depend on which is cheaper"; parcels tend toward sizes minimizing the sum of negotiating/policing and ownership-scale costs — the rationale Coase (1937) gave for the firm, per Demsetz's footnote 8. The "exception" to single ownership, the publicly held corporation, is no exception: operating-scale economies without capital-provision-scale economies make joint stock desirable, so authority is delegated to a small management group that becomes the <em>de facto</em> owner (the first legal modification). Partnership law then made managerial decisions a large externality for shareholders, cured by limited liability (the second modification), while free transferability of shares — the "escape hatch" — lets a shareholder exit when preferences diverge, giving rise to organized securities trading.</p>
+<blockquote>De facto management ownership and limited liability combine to minimize the overall cost of operating large enterprises. Shareholders are essentially lenders of equity capital and not owners, although they do participate in such infrequent decisions as those involving mergers.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Demsetz 1967, p. 358.</span></blockquote>
+<p>What shareholders own is their shares, not the corporation; "ownership in the sense of control again becomes a largely individual affair." The paradigm extends to ideas: if new ideas are freely appropriable by all, incentives to develop them are lacking, so patents and copyrights grant originators partial private rights — while the obsolescence they impose on older ideas is handled through market negotiation, since "all problems of externalities are closely analogous to those which arise in the land ownership example. The relevant variables are identical."</p>
+
+<h2>3. Evidence / examples</h2>
+<p>This is a theory paper; its evidence consists of worked cases, of which the Montagnes fur-trade example is the centerpiece, developed "in some detail." The facts come from Frank G. Speck, who found a long-established tradition of property in land among Indians of the Labrador Peninsula, and from Eleanor Leacock's memoir, <em>The Montagnes "Hunting Territory" and the Fur Trade</em>, which established a close historical and geographical relationship between private land rights and the commercial fur trade. The Jesuit accounts Leacock examined (Le Jeune, winter 1633–34; Druilletes, 1647–48) show no private land holdings before the trade; the sequence then runs from purely temporary allotments, through seasonal allotments (an anonymous 1723 account describes hunters blazing trees with their crests "so that they may never encroach on each other"), to relatively stabilized territories by mid-century. Before the fur trade, hunting was for food and a few family furs; the externality of free hunting was real but so small "that it did not pay for anyone to take them into account," so no rights emerged. The trade changed both margins:</p>
+<blockquote>We may safely surmise that the advent of the fur trade had two immediate consequences. First, the value of furs to the Indians was increased considerably. Second, and as a result, the scale of hunting activity rose sharply. Both consequences must have increased considerably the importance of the externalities associated with free hunting.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Demsetz 1967, p. 352.</span></blockquote>
+<p>The causal chain closes through husbanding: the trade made it economic to husband fur-bearing animals; husbanding requires preventing poaching; preventing poaching requires exclusion over hunting land. Speck documents the resulting practices — retaliation against trespass, and family territories divided into quarters hunted in rotation, with a central tract kept "as a sort of bank, not to be hunted over unless forced to do so by a shortage in the regular tract." The example gains force from a built-in negative case — the southwestern plains, where no private territories developed, consistent with the thesis on both cost and value margins (Table 3) — and from a corroborating one: Northwest Indians developed family rights, including inheritance, where forest animals predominate and sailing schooners regularly traded in furs.</p>
+<table>
+<caption>Table 3 — Labrador Peninsula vs. southwestern plains: the thesis tested on two margins (Demsetz 1967, pp. 351–353)</caption>
+<thead>
+<tr><th>Factor</th><th>Labrador Peninsula (Montagnes)</th><th>Southwestern plains</th></tr>
+</thead>
+<tbody>
+<tr><td>Commercial value of game</td><td>Fur-bearing forest animals, highly valued once the European fur trade arrived</td><td>"No plains animals of commercial importance comparable to the fur-bearing animals of the forest" — until cattle arrived with Europeans</td></tr>
+<tr><td>Animal mobility / cost of exclusion</td><td>Forest animals "confine their territories to relatively small areas," so internalizing husbandry effects is cheap</td><td>Grazing species "whose habit is to wander over wide tracts of land" — boundaries are expensive because animals cross them</td></tr>
+<tr><td>Predicted and observed rights</td><td>Private family hunting territories emerge, with trespass retaliation and rotational conservation</td><td>Little development of private hunting lands; "The externality was just not worth taking into account"</td></tr>
+</tbody>
+</table>
+<p>Two further examples extend the portability logic beyond land: portable, time-consuming objects (weapons, utensils) are generally private property among wandering peoples, and property attaches to portable crops rather than to fallow land among the most primitive agriculturalists (pp. 353–354).</p>
+
+<h2>4. Position in the literature</h2>
+<p>Demsetz (1967) is the founding statement of the classical, efficiency-based branch of property-rights theory. It extends two Coase papers Demsetz cites: Coase (1937), whose firm economizes on the same negotiating costs Demsetz uses for parcel size and corporate delegation (footnote 8), and Coase (1960), whose invariance results (footnote 1) are qualified by the wealth-constrained rancher case. Coase took the assignment of rights as given and asked whether parties trade around it; Demsetz asks what determines the assignment itself, making ownership an endogenous outcome of benefit–cost pressure — the "efficiency view" of rights.</p>
+<p>The map of the PRT line runs through two further contrasts. Against Alchian &amp; Demsetz (1972), the 1967 paper is complementary: it asks which rights exist and in what form, while 1972 asks how a given team-production setting should be organized, answering that a centralized residual claimant who monitors inputs and meters outputs is the efficient response to costly monitoring and shirking. The 1967 corporate discussion foreshadows that separation problem (de facto management ownership vs. shareholders) but resolves it with legal modifications, not team-monitoring logic. The sharpest contrast is with modern formal PRT: Grossman &amp; Hart (1986) and Hart &amp; Moore (1990), consolidated in Hart (1995), drop the zero-transaction-cost invariance, replace complete contracts with ex ante non-contractible investments and hold-up, and define ownership as <em>residual control rights</em> over assets in states the contract leaves open. Where Demsetz explains why rights exist at all, Grossman–Hart take fixed assets and ask who should hold residual control so that the party whose relationship-specific investment matters most has the best ex ante incentives — the formal heir of Demsetz's claim that concentrated ownership beats shared ownership.</p>
+<table>
+<caption>Table 2 — Demsetz (1967) and the PRT line it opens: classical internalization, classical metering, and modern formal PRT</caption>
+<thead>
+<tr><th>Stage</th><th>Representative works</th><th>Focal question</th><th>Core mechanism</th><th>What ownership means</th></tr>
+</thead>
+<tbody>
+<tr><td>Classical PRT — internalization branch</td><td>Demsetz 1967</td><td>Why do property rights emerge, and in communal, private, or state form?</td><td>Rights change to internalize externalities when gains exceed costs</td><td>An endogenous social instrument concentrating benefits and costs on decision-makers</td></tr>
+<tr><td>Classical PRT — metering branch</td><td>Alchian &amp; Demsetz 1972</td><td>Why does team production take the form of the classical firm with a central monitor?</td><td>Shirking under costly monitoring; the residual claimant meters inputs and outputs</td><td>A device for solving the monitoring problem within a given production team</td></tr>
+<tr><td>Modern formal PRT</td><td>Grossman &amp; Hart 1986; Hart &amp; Moore 1990; Hart 1995</td><td>Who should own assets when contracts are incomplete and investments non-contractible?</td><td>Ex ante investment incentives; hold-up; allocation of residual control rights</td><td>Ownership = residual control over assets, held by the party whose investment matters most</td></tr>
+<tr><td>Strategy translation and empirical test</td><td>Kim &amp; Mahoney 2005; Foss &amp; Klein; Magelssen 2020</td><td>How does PRT explain firm boundaries, governance, and performance as strategic variables?</td><td>PRT synthesized with transaction-cost and agency reasoning; empirical identification</td><td>Ownership and its boundaries as strategic choices subject to competence and empirical testing</td></tr>
+</tbody>
+</table>
+<p>In strategy research, Demsetz (1967) underwrites the claim that ownership structure is a strategic variable rather than a constraint: Kim &amp; Mahoney (2005) systematize PRT with transaction-cost and agency theory as an organizational-economics approach to strategic management, and the ownership-competence and empirical literatures (e.g., Magelssen 2020) test hypotheses whose ancestry runs through this paper's trichotomy and internalization thesis.</p>
+
+<h2>5. Limitations</h2>
+<h3>(a) The author's own stated limitations</h3>
+<ul>
+<li>State ownership is set aside: "I shall not examine in detail the alternative of state ownership …" — the analysis "is to discern some broad principles governing the development of property rights in communities oriented to private property" (p. 354).</li>
+<li>The externality concept is acknowledged as ambiguous; the working definition deliberately includes external costs, external benefits, and pecuniary as well as nonpecuniary effects (p. 348).</li>
+<li>The emergence thesis awaits a rigorous test: the paper calls for "extensive and detailed empirical work" and rates the Indian material only "fairly close to what can be called convincing evidence in the field of anthropology" (pp. 350–351).</li>
+<li>Adjustment need not be conscious; Western change proceeds through mores and common-law precedents that are "hit-and-miss procedures to some extent" (p. 350).</li>
+<li>The community's preference for private vs. state ownership is taken as given — outside the theory (p. 350).</li>
+<li>Footnote 2 concedes that output-mix invariance to ownership assignment requires a compensating wealth change when redistribution shifts demands; the clean result holds in the ordinary profit-maximizing-firm case (pp. 348–349).</li>
+</ul>
+<h3>(b) Independent judgment</h3>
+<ul>
+<li><strong>[evidence]</strong> The evidentiary base for a general theory is thin: the fur-trade correlation rests on a few anthropological sources (Speck, Leacock, the Jesuit Relations), and one case is asked to support a claim about all property-rights emergence — a gap the paper itself signals by demanding "extensive and detailed empirical work."</li>
+<li><strong>[inference]</strong> Causality may run both ways. Demsetz reads the evidence as fur trade → higher fur value → private territories, but exclusive territories could also have let particular bands capture the gains of trade by controlling access to European traders, making territory a precondition of trade participation rather than only a consequence. The "safe surmise" of two immediate consequences is asserted against this alternative, not demonstrated.</li>
+<li><strong>[inference]</strong> The theory abstracts from power and distributional conflict in rights creation. Demsetz notes only that wealth is distributed differently across assignments; he does not ask how gainers secure a rights change when losers resist, though real rights creation (enclosure, mineral titles) is frequently contested and sometimes inefficient ex post.</li>
+<li><strong>[open question]</strong> The theory does not predict when communal or open-access arrangements persist despite evident gains from internalization: community "tastes" are exogenous, and no account covers the transition costs, coordination failures, or politics that keep inefficient tenure in place.</li>
+<li><strong>[paper claim]</strong> Because state ownership is excluded, the trichotomy is never compared three ways: Demsetz establishes private ownership as the internalizing ideal relative to communal ownership but gives no theory of when the state is the efficient owner — a gap modern PRT and the empirical literature inherit.</li>
+<li><strong>[inference]</strong> The framing is efficiency-teleological and hedged to societies "that weight the achievement of efficiency heavily," which makes the theory's predictive content conditional on an unobservable preference parameter; when rights fail to adjust, the theory can appeal to tastes rather than to a refutable mechanism.</li>
+</ul>
+
+<h2>6. Conclusion</h2>
+<p>Demsetz (1967) establishes three durable results: property rights are a social instrument whose allocative function is to internalize externalities; rights emerge when the gains from internalization exceed its costs, driven by changes in knowledge, technology, and market values (canonically illustrated by the Montagnes fur trade); and the form of ownership — communal, private, or state — is an economic choice variable spanning everything from beaver husbanding to the modern corporation. The strategic takeaway: ownership structure is a margin of choice, not fixed backdrop, so "who should own what" should be answered by asking which allocation best aligns the costs and benefits of use at the lowest transaction cost.</p>
+
+<div class="golden">
+"Communal property means that future generations must speak for themselves." — Demsetz 1967, p. 356<br>
+<span style="font-size:.95rem;font-weight:400;color:var(--text)">Demsetz's deepest move is to read ownership as society's answer to the question of who should bear the consequences of whose actions — and to insist that the answer changes whenever the price of getting it wrong rises.</span>
+</div>
+
+<div class="note"><strong>AI-assistance disclosure.</strong> This page was written by an AI from the paper's full text (pdftotext-extracted from the JSTOR scan of AER 57(2), pp. 347–359). All verbatim blockquotes carry page references and were copied from that extracted text (with OCR line-break hyphens rejoined). The comparison tables and Mermaid diagram are AI-organized distillations of the paper's argument, not reproductions of any original exhibit. Page numbers should be verified against the original print pagination before academic use.</div>
+
+<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
+
+</body>
+</html>

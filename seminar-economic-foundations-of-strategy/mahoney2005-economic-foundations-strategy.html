@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Economic Foundations of Strategy, Ch.2 — Transaction Costs Theory — 深度解读</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Economic Foundations of Strategy · Ch.2<br><span style="font-size:1.1rem;font-weight:400">交易成本理论（Transaction Costs Theory）</span></h1>
+<div class="meta">
+Joseph T. Mahoney（2005）· <em>Economic Foundations of Strategy</em>（Sage Publications）· 第二章，pp. 86–157<br>
+性质：教材式综述（textbook synthesis）· 无 DOI · 定位：Week 2 TCE 四篇 reading 的「总纲章」<br>
+Zotero：<code>zotero://select/library/items/ZIRD4BJ6</code> · 全文为整本书扫描版（330 页），本章对应书页 86–157
+</div>
+
+<div class="summary-box">
+<h3>一句话总结</h3>
+<p>Mahoney 把交易成本理论（transaction costs theory, TCE）写成一条从 Coase 1937 到 Williamson 三部曲（1975／1985／1996）的发展线索：它以「交易」（transaction）为分析单位，以有限理性与机会主义为行为引擎，以资产专用性为关键维度，主张把交易「区分性地匹配」到治理结构上，从而把「企业为什么存在」改写为可检验的治理问题。</p>
+</div>
+
+<div style="background:#eef0ff;border:1px solid #c7cbf0;border-radius:8px;padding:.7rem 1rem;margin:1.2rem 0;font-size:.92rem;">
+📌 <strong>本页含一节「<a href="#tong-tce" style="color:#2563eb;text-decoration:none;border-bottom:1px solid #2563eb;">Tony Tong 老师的 TCE 研究延伸</a>」</strong>——按「TCE 味道」从浓到淡分三层，列明哪几篇最贴近本章。点击直达。
+</div>
+
+<div class="note">
+<strong>阅读提示</strong>：这一章不是一篇原创论证，而是一张「地图」。Mahoney 站在教师的位置，把 Arrow (1974)、Coase (1988) 与 Williamson 的三本书串成一个整体，并在中间插入两个应用案例（蜜蜂寓言、航空航天业）与一个博弈附录（Wal-Mart／P&amp;G 的相互沉没成本承诺）。在进入 Week 2 的四篇原文（Coase 1937、Williamson 1985/1991/1999）之前，先读本章可以拿到坐标系：谁问了什么问题、谁补了哪一块、每一步的动机是什么。本章与 <code>williamson1985-economic-institutions.html</code>、<code>williamson1991-comparative-economic-organization.html</code> 三篇互为「总纲—框架—形式化」的关系。
+</div>
+
+<h2>一、背景与动机：为什么读一本「教材」</h2>
+
+<p>本课程叫「战略的经济学基础」（Economic Foundations of Strategy），而 Mahoney 这本同名书就是为这个问题而写的。它的组织方式很特别：全书按五种「企业理论」（theories of the firm）分章——行为理论、交易成本理论、产权理论、代理理论、资源基础观／动态能力——每一章再按「经典文献逐一精读」的方式展开。第二章处理的是交易成本理论，它回答的核心问题是：<strong>企业如何把成本最小化？</strong>（How can firms minimize costs?）这是 Williamson 为交易成本理论认领的那一个基础问题。</p>
+
+<p>Mahoney 给战略管理学生的一个直接建议是「要仔细研读交易成本理论」，理由是它「把逻辑上的严格与实务上的相关性结合了起来，帮助描述、解释并预测基于比较效率判据的治理安排」。这句话点出了 TCE 的方法性格：它始终在做<strong>比较</strong>（comparative），比较的是「这一组交易在市场里完成」与「这一组交易在企业内完成」之间的相对成本，而非求交易成本的绝对大小。这个「比较制度分析」（comparative institutional analysis）的姿态，是理解全章、乃至理解整个 TCE 的钥匙。</p>
+
+<h2>二、章节地图：从 Arrow 到 Williamson 三部曲</h2>
+
+<p>第二章的内部顺序本身就是一个论证顺序。Mahoney 没有按时间线平铺，而是按「概念从抽象到可操作」的递进组织：先讲 Arrow（组织为什么会存在、有哪些限度），再讲 Coase（企业为什么存在、法律为什么重要），然后进入 Williamson 的三部曲（把 Coase 的问题变成一套可检验的治理理论），最后用一个博弈附录落到战略含义上。</p>
+
+<pre class="mermaid">
+graph TD
+    A["Coase 1937 企业的性质<br/>企业为何存在？"] --> B["Arrow 1974 组织的限度<br/>理性 / 信息 / 议程 / 权威"]
+    A --> C["Coase 1988 企业、市场与法律<br/>1937 ↔ 1960 同构"]
+    B --> D["Williamson 1975 市场与科层<br/>组织失灵框架"]
+    C --> D
+    D --> E["Williamson 1985 资本主义经济制度<br/>资产专用性 + 治理"]
+    E --> F["Williamson 1996 治理机制<br/>可修复性 / 适应 / 容忍法"]
+    F --> G["战略含义：沉没成本承诺<br/>= 好战略的动力学"]
+    style A fill:#f0f4ff
+    style F fill:#faf5ff
+</pre>
+
+<p>这条线索可以用一句话记住：<strong>Coase 提出问题，Arrow 补充了组织的限度，Williamson 把问题装配成理论。</strong>下面的小节逐一展开这条线索。</p>
+
+<h2>三、Arrow (1974)：组织的限度</h2>
+
+<p>Arrow 的《组织的限度》（<em>The Limits of Organization</em>）是 1970–71 年 Fels 讲座的讲稿，Mahoney 认为它围绕四个主题展开：理性（个体与社会的）、信息经济学、组织的议程、权威与责任。这四个主题共同回答一个问题：当价格机制失灵时，组织凭什么存在、又受什么限制？</p>
+
+<p>Arrow 的起点是「理性」的张力。他引犹太哲人 Hillel 的三连问——「如果我不为自己，谁为我？如果我只为自己，我是什么？如果不是现在，又是何时？」——来说明个体自我实现与社会责任之间的紧张。经济学家的角色是「理性的守护者」，但理性只规定手段与目的的关系，不规定目的本身。由此引出的第一个关键事实是：<strong>价格系统并不总能工作</strong>。空气与水的污染无法被「定价」，道德、信任、忠诚这类「看不见的制度」也不能作为商品在市场上交易。</p>
+
+<blockquote>Trust is an important lubricant of a social system. Trust is extremely efficient; it saves a lot of trouble to have a fair degree of reliance on other people's word.（Mahoney 2005, p. 92，转述 Arrow 1974）<br><span style="color:var(--muted)">信任是社会系统的重要润滑剂。信任极其高效；能对他人之言抱有一定程度的信赖，可以省去大量麻烦。</span></blockquote>
+
+<p>第二个主题是「组织与信息」。Arrow 论证的核心机制是：<strong>不确定性</strong>使完备的或有商品契约（contingent claims contracts）变得不可行——要么契约复杂到写不出来，要么道德风险（moral hazard）与逆向选择（adverse selection）使保险失去意义。组织于是作为「处理信息的装置」出现，通过把信息压缩、编码、再传输来节约稀缺的信息处理能力。这里有一个对战略研究意味深长的结论：信息通道一旦建立就构成<strong>不可逆投资</strong>，历史（初始条件）会因此留下烙印——「历史很重要」（History matters），组织的编码（code）决定了它能处理什么、不能处理什么。</p>
+
+<p>第三个主题是「议程」（agenda）。Arrow 区分了三种决策区：主动区（active，做实验、收信号、据此行动）、监测区（monitored，只做部分实验）、被动区（passive，不做实验）。一项决策是否进入议程，本身可能比给它取值更难。这解释了为什么「泰坦尼克号沉没」这样的「强制性事实」（coercive fact，William James 语）比任何关于变革好处的推测都更有说服力——议程由经验打开。</p>
+
+<p>第四个主题是「权威与责任」。权威关系的核心机制是「趋同预期」（convergent expectations）：人们服从权威，是因为他们预期别人也会服从。这一点的直接后果是权威的脆弱性——它需要可见性来充当协调信号。Arrow 给权威下的定位很精确：雇佣契约购买的不是一件确定的物，而是一段人身关系；「在契约范围内，雇主与雇员之间不再是市场关系，而是权威关系」。</p>
+
+<blockquote>authority is viable to the extent that it is the focus of convergent expectations.（Mahoney 2005, p. 103，转述 Arrow 1974）<br><span style="color:var(--muted)">权威在多大程度上成立，取决于它在多大程度上成为趋同预期的焦点。</span></blockquote>
+
+<p>Mahoney 对 Arrow 的评价是「对组织经济学的示范性贡献」，因为它把微观经济学逻辑、交易成本经济学与行为经济学结合在了一起。Arrow 为 TCE 补上了两块地基：<strong>信息与有限理性</strong>（组织存在的理由）与<strong>权威作为协调机制</strong>（组织区别于市场的机制）。</p>
+
+<h2>四、Coase (1988) 与科斯同构：1937 ↔ 1960</h2>
+
+<p>Coase 的《企业、市场与法律》把 1937 与 1960 两篇经典收在一处。Mahoney 在这里提出一个贯穿全章、也是他自己（Mahoney, 1992a）的原创观察——<strong>科斯两篇论文的同构（isomorphism）</strong>：</p>
+
+<blockquote>In the one paper, Coase (1960) shows that if transaction costs were zero the law had no purpose in serving economic efficiency and in the other paper, Coase (1937) shows that if transaction costs were zero the firm had no purpose in serving economic efficiency.（Mahoney 2005, p. 105）<br><span style="color:var(--muted)">在一篇论文里，Coase (1960) 说明：若交易成本为零，法律对经济效率没有用处；在另一篇论文里，Coase (1937) 说明：若交易成本为零，企业对经济效率没有用处。</span></blockquote>
+
+<p>这个同构是 Week 2 报告里「整合者」最有力的一张幻灯片：<strong>零交易成本世界里，企业与法律都不重要；正交易成本世界里，组织形态与法律规则都变得具有经济决定性。</strong>由此，TCE 与法律的制度分析（法经济学）是同一个项目，而非两个。下表把这个同构拆开看：</p>
+
+<table>
+<tr><th>维度 / Dimension</th><th>Coase 1937《企业的性质》</th><th>Coase 1960《社会成本问题》</th></tr>
+<tr><td>研究对象 / Object</td><td>企业（组织形态）</td><td>法律（责任与产权规则）</td></tr>
+<tr><td>零交易成本结论 / Zero-TC result</td><td>企业没有存在的效率理由</td><td>法律没有影响效率的理由</td></tr>
+<tr><td>正交易成本结论 / Positive-TC result</td><td>组织形态决定效率</td><td>产权初始界定决定效率</td></tr>
+<tr><td>共同结构 / Shared structure</td><td colspan="2">零交易成本 = 制度无关；正交易成本 = 制度至关重要</td></tr>
+</table>
+
+<p>Coase (1988) 还给交易成本一个 Mahoney 采用的三分法：<strong>搜寻与信息成本、议价与决策成本、监督与执行成本</strong>。这是对 1937 年「使用价格机制的成本」的更清晰归类，也是全文里交易成本最接近「定义」的一次。企业的性质于是被重申为「价格机制的替代」（supersession of the price mechanism），而「为什么不全在一个大企业里生产」的答案是「管理收益递减」——组织额外交易的成本上升，加上企业家错配生产要素。</p>
+
+<h2>五、应用一：蜜蜂的寓言（Cheung 1973）</h2>
+
+<p>Mahoney 在每个理论段落后插入一个「应用」方框。第一个应用是 Cheung (1973) 对养蜂人与果农的研究。教科书通常把「蜜蜂传粉」当作正外部性的经典案例，推论是养蜂人与果农会彼此搭便车、从而投资不足。Coase 定理则提示：只要交易成本够低，双方可以私下谈判解决。Cheung 的田野调查发现，<strong>这种契约解决在现实中确实存在</strong>：果农租用蜂箱为花蜜少的树传粉，养蜂人为在高产蜜树上放蜂而向果农付费。通过市场定价，双方把溢出效应内化，无需政府协调即达到有效投资水平。这个案例的意义在于：它把 Coase 定理从「零交易成本的思想实验」拉回到「低交易成本下私人秩序如何工作」的经验证据。</p>
+
+<h2>六、Williamson (1975)：组织失灵框架与行为引擎</h2>
+
+<p>《市场与科层》是 TCE 的第一本专著。Mahoney 强调它的两个基本姿态：其一，「技术对组织形态虽有影响，但<strong>并不决定</strong>组织形态」，决定性的因素是交易的属性；其二，要理解市场与科层的问题，必须「自觉地注意人类的基本属性」。这两点合起来就是<strong>组织失灵框架（organizational failures framework）</strong>：市场与科层是完成一组相关交易的两种备选治理模式，选择取决于两者的相对效率。</p>
+
+<p>这个框架的引擎是两对「配对」：环境因素（不确定性、小数目）只有与人因素（有限理性、机会主义）配对时才会引发交换困难。Mahoney 原样引用了 Simon 对有限理性的定义：</p>
+
+<blockquote>The capacity of the human mind for formulating and solving complex problems is very small compared with the size of problems whose solution is required for objectively rational behavior in the real world.（Simon 1957: 198，转引自 Mahoney 2005, p. 114）<br><span style="color:var(--muted)">与真实世界中客观理性行为所需解决的问题规模相比，人类心智提出并解决复杂问题的能力非常小。</span></blockquote>
+
+<p>机会主义（opportunism）则被定义为「<strong>带有狡诈的自利寻求</strong>」（self-interest seeking with guile）。关键在配对逻辑：有限理性只有在面临不确定性／复杂性时才「咬人」，机会主义只有在面临小数目时才会造成风险。Mahoney 用棋类比喻把这点讲透：井字棋（tic-tac-toe）的决策树小到可以在事前完全写出，象棋（chess）的决策树有 $10^{120}$ 种可能、无法穷举——前者无需治理选择，后者才使「比较治理」成为必要。这里「确定性复杂」与「环境不确定」的区分在实用上无关紧要，结果一样：<strong>近似取代精确</strong>。</p>
+
+<p>由此导出内部组织相对市场的五项优势：①在复杂或有契约不可行时，内部组织允许「适应性、序贯的决策」以节约有限理性（「到桥头再跨桥」）；②面对小数目交换时，内部组织削弱机会主义（内部部门对利润流没有先占权）；③促进趋同预期、降低不确定性；④更易克服信息不对称（信息冲击）；⑤有时发展出更令人满意的交易氛围。Mahoney 同时记录了 Williamson 对 Alchian &amp; Demsetz (1972) 的反驳：他们把雇佣关系等同于「顾客—杂货商」关系，隐含假设是员工流动的转换成本可忽略；但一旦工作带有「任务特殊性」（job idiosyncrasy），员工—雇主关系就不再与杂货商关系契约等价。</p>
+
+<p>这一章还包括对「企业规模限度」与「多部门结构（M-form）」的讨论。内部组织的效率扭曲有四类：内部采购偏向、内部扩张偏向、持久性（persistence）、沟通扭曲。M-form 则被论证为「资本市场的内部化」：它把经营决策下放到准自主的事业部，把战略决策留在总部，从而在节约有限理性的同时削弱机会主义——「整体大于部分之和」。</p>
+
+<h2>七、Williamson (1985)：资产专用性与治理</h2>
+
+<p>《资本主义经济制度》是 TCE 的锚文本。Mahoney 首先记下一个常被忽略却极具信息量的事实——这本书题献给四位老师：</p>
+
+<table>
+<tr><th>老师 / Teacher</th><th>贡献给 TCE 的那一块 / Ingredient</th></tr>
+<tr><td>Arrow</td><td>信息的重要性；不把难题塞进正统框架</td></tr>
+<tr><td>Chandler</td><td>组织创新是真实、改变历史的现象（M-form）</td></tr>
+<tr><td>Coase</td><td>交易成本是核心；比较制度方法</td></tr>
+<tr><td>Simon</td><td>行为假设重要；不畏惧学科边界</td></tr>
+</table>
+
+<p>一句话记忆钩子（Week 2 报告里用过）：<strong>Coase 给了问题，Simon 给了心智，Arrow 给了信息难题，Chandler 给了历史，Williamson 把它们装配成理论。</strong></p>
+
+<p>1985 年的核心推进是把「资产专用性」（asset specificity）提到舞台中央。交易被定义为「一件商品或服务跨越一个技术上可分离的界面而被转移」，交易成本则是「机械系统中摩擦的类比物」：</p>
+
+<blockquote>A transaction occurs when a good or service is transferred across a technologically separable interface.（Mahoney 2005, p. 133，转述 Williamson 1985）<br><span style="color:var(--muted)">当一件商品或服务跨越一个技术上可分离的界面被转移时，就发生了一次交易。</span></blockquote>
+
+<p>资产专用性指「为支持特定交易而做的耐久投资」，一旦原交易提前终止，这类投资在其他用途或其他使用者手里的再部署价值要低得多。四种类型是：<strong>区位专用性（site specificity，电厂与煤矿）、实物资产专用性（physical asset specificity，专用工具）、人力资产专用性（human asset specificity，企业专属知识）、专用资产（dedicated assets，Fisher Body 为 GM 造的车身模具）</strong>。与之配套的还有「根本性转变」（fundamental transformation）：</p>
+
+<blockquote>a large-numbers condition at the outset (ex ante competition) is transformed into a small-numbers condition during contract execution and at contract renewal (ex post competition).（Mahoney 2005, p. 133，转述 Williamson 1985）<br><span style="color:var(--muted)">起初的大数目竞价状态，在契约执行与续约阶段被转变成小数目供给状态。</span></blockquote>
+
+<p>根本性转变把「竞争如何变成双边依赖」这个机制讲清楚，正是它使「关系连续性」变得有价值、使契约与组织保障变得必要。1985 年的另一个关键区分是<strong>事前交易成本</strong>（起草、谈判、保障）与<strong>事后交易成本</strong>（适应不良、扯皮、治理运行、担保）的区分，二者相互依赖、须同时处理。全书纲领落为一句：资本主义经济制度「主要的目的与效果是节约交易成本」，企业应被视为<strong>治理结构（governance structure）而非生产函数</strong>。</p>
+
+<p>Mahoney 还对比了 TCE 与代理理论：代理理论聚焦契约的<strong>事前</strong>激励对齐、默认法庭有效（法律中心主义），TCE 则把重心放在契约的<strong>事后</strong>制度、依赖私人秩序（private ordering）。这个对照在 1996 年得到更系统的展开（见第九节）。</p>
+
+<h2>八、应用二：航空航天业（Masten 1984）</h2>
+
+<p>第二个应用是 Masten (1984) 对某大型航空航天承包商约 2000 个零部件的自制／外购决策研究。TCE 预测：资产越专用、契约不确定性越大，越倾向内部生产。Masten 用两个专用性测度（设计／实物专用性与区位专用性）加一个复杂度测度（代理契约不确定性），发现与理论一致——</p>
+
+<blockquote>When the product was both design-specific and complex, there was a 92 percent probability of internal production. If the product was design-specific but not complex, the probability of internal production was 31 percent. The probability of internal production was only 2 percent when the product was neither design-specific nor complex.（Mahoney 2005, p. 145）<br><span style="color:var(--muted)">当产品既设计专用又复杂时，内部生产的概率是 92%；设计专用但不复杂时为 31%；既不专用也不复杂时仅为 2%。</span></blockquote>
+
+<p>这组 92%／31%／2% 的数字是 TCE 实证里最常被引用的一个「判别对齐」（discriminating alignment）证据：资产专用性与复杂性<strong>联合</strong>起来，几乎完全决定了内部化。它也是 Week 2 报告里「TCE 经验上最可靠」这一判断的直接出处。</p>
+
+<h2>九、Williamson (1996)：治理机制、可修复性与适应</h2>
+
+<p>《治理机制》把 TCE 从「交易—治理」的一阶命题推进到制度层级与可检验性。Mahoney 记下它的开场白——「制度是什么？制度之间如何不同？目的与效果为何？行动发生在哪里？机制是什么？可反驳的含义是什么？公共政策含义是什么？数据支持什么？」——这一连串问题本身就是 TCE 的研究纲领。</p>
+
+<p>1996 年的核心贡献有三。第一，<strong>制度层级</strong>：区分 North 意义上的<strong>制度环境</strong>（游戏规则）与 Williamson 意义上的<strong>治理制度</strong>（市场、混合、科层）。前者变动极难，所以「经济史是失败经济体的故事」；后者以制度环境为给定，主张行动者能把交易对齐到治理结构上实现节约——这既产生大量可反驳含义，也被数据大体证实。</p>
+
+<p>第二，<strong>可修复性判据（remediableness criterion）</strong>。TCE 拒绝与假设性的理想比较，坚持与可行的、都有瑕疵的备选方案比较：</p>
+
+<blockquote>the relevant economic test is whether an alternative can be described that can be implemented with expected net gains. This test is the remediableness criterion.（Mahoney 2005, p. 149，转述 Williamson 1996）<br><span style="color:var(--muted)">相关的经济检验是：能否描述一个可实施、且有预期净收益的备选方案。这个检验就是可修复性判据。</span></blockquote>
+
+<p>由此，那些「事后才能识别、且无法以净收益实施」的（路径依赖式）无效率主张，没有操作意义。第三，<strong>适应（adaptation）与容忍法（forbearance law）</strong>。适应是经济组织的中心问题，分两类：<strong>Hayek 式自主适应</strong>（价格作为充分统计量，市场占优）与<strong>Barnard 式合作适应</strong>（权威、诱导性合作，科层占优）。科层之所以拥有市场无法复制的「命令」（fiat），是因为它的隐含契约法是「容忍」——法院拒绝受理内部部门之间的技术争议：</p>
+
+<blockquote>Access to the courts being denied, the parties must resolve their differences internally. Accordingly, hierarchy is its own court of ultimate appeal.（Mahoney 2005, p. 152，转述 Williamson 1996）<br><span style="color:var(--muted)">既然无法诉诸法院，当事人必须在内部解决分歧。因此，科层是其自身的终审法院。</span></blockquote>
+
+<p>这一节还给出一个著名的措辞修正：<strong>「算计性信任是一个自相矛盾的词」（calculative trust is a contradiction in terms）</strong>。TCE 讨论的是契约保障及其缺失，而非「信任」；真正的信任只留给家庭、朋友、爱人这类特殊关系，商业交换里被「信任」这个词覆盖的东西，其实是可计算的保障。最后，Williamson 重申「经济组织研究的重点是节约（economizing）而非策略（strategizing）」——但 Mahoney 把这个声明引向一个对战略学生更有用的方向：附录。</p>
+
+<h2>十、附录：Wal-Mart／P&amp;G 的相互沉没成本承诺</h2>
+
+<p>附录用囚徒困境（prisoners' dilemma）把全章的治理逻辑翻译成战略语言。在 Wal-Mart 与 P&amp;G 的 IT 协作中，双方「合作」是集体理性，但各自「机会主义」是占优策略，纳什均衡落在 (91, 91) 这个次优结果上。出路是「恶化自己的某些支付可能性」以改变支付矩阵（Schelling 1960）：P&amp;G 单方面押上一笔关系专用 IT 投资作为经济债券（economic bond），一旦背叛就损失掉，于是「合作」变成 P&amp;G 的占优策略；若 Wal-Mart 同样明智地模仿，双方都承诺，均衡就移动到 (112, 112)。结论是：</p>
+
+<blockquote>(sunk-cost) commitments are the dynamics of good strategy (Ghemawat, 1991).（Mahoney 2005, p. 157）<br><span style="color:var(--muted)）（沉没成本）承诺是好战略的动力学（Ghemawat, 1991）。</span></blockquote>
+
+<p>Mahoney 在这里补了一个方法论上的诚实注脚：这个博弈是 Kaplan (1964) 意义上的「重构逻辑」（reconstructed logic），是否等于双方经理的「使用中逻辑」（logic-in-use）并不确定。换言之，模型帮我们理解相互承诺为何在理论上站得住，但不声称还原了当事人的真实心理。</p>
+
+<h2>十一、文献位置（position in the literature）</h2>
+
+<p>这一章在文献地图上的位置很清晰：它是<strong>TCE 谱系的教材式总纲</strong>，站在「把 Coase 的洞见操作化为可检验理论」这条研究线的下游回望，并把 TCE 安置进更大的「组织经济学」（organizational economics）版图。</p>
+
+<p>它直接对话（并点名）的前作有四个层次。第一层是 TCE 的<strong>源头</strong>：Coase (1937, 1960) 的问题与同构、Commons (1924, 1934) 的「交易作为分析单位」、Barnard (1938) 的合作适应、Hayek (1945, 1948) 的自主适应与价格作为充分统计量、Simon (1947, 1957) 的有限理性。第二层是<strong>直接的竞争性解释</strong>：Alchian &amp; Demsetz (1972) 的团队生产／计量（被反驳为「摩擦消失的虚构」）、Klein–Crawford–Alchian (1978) 的准租金与敲竹杠（被吸收进「根本性转变」与资产专用性）、Grossman–Hart–Moore 式的产权理论（被定位到「认知图」的激励分支，另章处理）。第三层是<strong>TCE 自己的三部曲内部推进</strong>：1975 的框架 → 1985 的资产专用性 → 1996 的可修复性与适应。第四层是<strong>实证与战略接口</strong>：Masten (1984)、Joskow (1987)、Monteverde &amp; Teece (1982) 等判别对齐证据，以及 Ghemawat (1991) 的承诺视角、Porter (1985) 的价值链、Mahoney (1992c) 对纵向契约与纵向所有权等价性的论证。</p>
+
+<p>这一章「填补」的理解缺口是：TCE 常被当作一个松散的口号（「降低交易成本」），而 Mahoney 把它还原成一条<strong>可追溯、可检验、可比较</strong>的论证链。它挑战的隐性前提是「企业 = 生产函数」「契约可由法庭低成本执行」——这两点分别被「企业 = 治理结构」与「私人秩序优先」所取代。它整合的对象是分散在 Arrow、Coase、Williamson 各自文本里的论点，把它们焊成一套连续的分析装置。</p>
+
+<h2 id="tong-tce">延伸 · Tony Tong 老师的研究与 TCE 的交汇</h2>
+
+<p>本课老师 Tony Tong 自己的研究里，有几篇与本章的 TCE 谱系直接相关。按「TCE 味道」从浓到淡分三层——判断标准是：是否直接踩在 TCE 的核心命题（纵向一体化、企业边界、治理、产权）上。</p>
+
+<h3>第一层：直接踩在 TCE 核心命题上</h3>
+<ul>
+<li><strong>Zhang, Y., &amp; Tong, T. W. (2021). How Vertical Integration Affects Firm Innovation: Quasi-Experimental Evidence. <em>Organization Science</em>, 32(2): 455–479.</strong> 纵向一体化（vertical integration）是 TCE 最核心的「自制还是外购」（make-or-buy）议题。这篇用「公告并完成纵向并购的公司 vs 公告但未完成的公司」作准实验，识别纵向一体化对创新率与创新类型的因果效应——方法论上也延续了 TCE 对识别问题的自觉。</li>
+<li><strong>Li, Z., &amp; Tong, T. W. (2025). Property Rights and Firm Scope. <em>Journal of Management</em>.</strong> 「企业范围」（firm scope）加产权制度，直接接在 Coase 1937／1960 与本书第三章（产权理论）的谱系上，追问产权如何塑造企业边界。</li>
+</ul>
+
+<h3>第二层：TCE 与实物期权在合资／联盟治理中的整合</h3>
+<ul>
+<li><strong>Tong, T. W., &amp; Reuer, J. J. (2010). Competitive Consequences of Interfirm Collaboration: How Joint Ventures Shape Industry Profitability. <em>Journal of International Business Studies</em>, 41(6): 1056–1073.</strong> 用交易成本逻辑解释「合资企业」这类混合治理（hybrid）安排如何影响行业利润。</li>
+<li><strong>Reuer, J. J., &amp; Tong, T. W. (2005). Real Options in International Joint Ventures. <em>Journal of Management</em>, 31(3): 403–423.</strong> 明确把 TCE（股权安排、治理设计、资产专用性）与实物期权整合，分析国际合资企业的治理与期权价值。</li>
+<li><strong>Tong, T. W., Reuer, J. J., &amp; Peng, M. W. (2008). International Joint Ventures and the Value of Growth Options. <em>Academy of Management Journal</em>, 51(5): 1014–1029.</strong> 混合治理（合资）的治理结构如何承载成长期权价值，TCE 作为治理背景。</li>
+<li><strong>Tong, T. W., &amp; Reuer, J. J. (2007). Real Options in Multinational Corporations: Organizational Challenges and Risk Implications. <em>Journal of International Business Studies</em>, 38(2): 215–230.</strong> 多国公司内部的组织（治理）挑战，实物期权视角下的组织设计问题。</li>
+</ul>
+
+<h3>第三层：产权与治理视角的延伸</h3>
+<ul>
+<li><strong>Tong 及其合作者 (2022). How Property Rights Matter to Firm Resource Investment: Evidence from China's Property Law Enactment. <em>Organization Science</em>, 33(1).</strong> 产权保护（Coase 1960 谱系）如何影响企业资源投资，属 Mahoney 认知图里 TCE「激励分支」的近邻。</li>
+<li><strong>平台治理系列（Tong 参与，2022，SMJ／JOM）</strong>：gatekeeping、multihoming、meta-organization 等治理词汇延续 TCE 的「治理」母题，但对象转向平台生态。</li>
+<li><strong>Ecosystem Orchestration: Mechanisms, Regimes, and Theories of the Firm Foundations（2026, <em>Academy of Management Annals</em>）</strong>：标题里的「theories of the firm foundations」直接呼应本书「五种企业理论」的框架。</li>
+</ul>
+
+<div class="note"><strong>说明</strong>：第二、三层属于「TCE 味道」的延伸——Tong 与 Reuer 的合作大量整合实物期权理论（real options theory），TCE 往往作为治理视角的底色出现。若只想读「最纯」的 TCE 味道，第一层的纵向一体化与产权—企业边界两篇最贴近本章；若想看 TCE 如何与期权理论杂交、应用到合资／联盟，第二层四篇是标准样本。</div>
+
+<h2>十二、局限：作者自述与独立判断</h2>
+
+<p>这一节按「作者主张／证据／推断／开放问题」四层区分，凡推断处都显式标注。</p>
+
+<h3>作者自述的边界</h3>
+<p><strong>作者主张</strong>：Mahoney 在章首即声明，TCE 的「组织经济学原理是持久的」，并预测信息技术带来的「纵向去整合」（战略外包）是交易成本变化（测量成本与资产专用性）的结果（p. 87）。<strong>证据</strong>：他对「经验研究大体证实 TCE」的判断，依据是 1985 年书里列出的一长串田野数据、二手数据、案例与商业史研究（pp. 139–140），以及 Masten (1984) 的 92%／31%／2%。<strong>推断</strong>：把「去整合」归因于 IT 驱动的交易成本变化，是 Mahoney 的延伸判断，原文没有给出因果识别，只是「arguably」（可以说）——这是推断，不是已证实的主张。<strong>开放问题</strong>：他明说「交易成本理论的实证检验仍受设定问题、测量问题与识别问题困扰」，下一代学生「可以说能做得更好」——这是作者自己留下的开放问题。</p>
+
+<h3>我的独立判断</h3>
+<p>其一，<strong>本章是综述而非原创论证</strong>，它对 TCE 的内部批评处理得很轻。例如「选择性干预不可行」（selective intervention）是 TCE 解释企业边界上限的关键命题，但 Mahoney 只转述结论，没有展开 Grossman–Hart–Moore 对同一问题的形式化竞争解释，读者容易把它当成定论。其二，<strong>机会主义假设的单边苛刻</strong>在这个教材版里被进一步柔化：Arrow 讲信任、Barnard 讲合作适应，但 Mahoney 没有正面处理「信任／声誉／嵌入性」与「机会主义假设」之间的张力，Williamson 自己的「算计性信任是自相矛盾」一句，其实把这个张力压进了措辞里。其三，<strong>「判别对齐」的因果方向</strong>在教材里被当作既成事实（交易属性 → 治理结构），但资产专用性本身可能内生于治理选择，这个内生性问题是 TCE 实证 40 年的老病灶，本章未提。其四，<strong>战略含义止于承诺</strong>：附录把 TCE 落到「沉没成本承诺是好战略的动力学」，但这是把 Ghemawat 的承诺视角接进 TCE，两者在「企业是否追求利润最大化」上的前提并不一致，Mahoney 没有把这个裂缝讲出来。</p>
+
+<p>这些局限不影响本章作为「地图」的价值——一张地图不必替代它所指向的原著，但地图上该标出的悬崖，它应当标出。</p>
+
+<h2>十三、结论</h2>
+
+<p>Mahoney 第二章把交易成本理论写成一条可追溯的论证链：Coase 提出「企业为何存在」，Arrow 补上组织的限度（信息、理性、权威），Coase (1988) 用 1937↔1960 的同构把企业与法律统一到「正交易成本下制度至关重要」这个命题下，Williamson 再用三部曲把它装配成一套以交易为单位、以有限理性与机会主义为引擎、以资产专用性为关键维度、以判别对齐为可检验假设、以可修复性为效率判据的治理理论。两个应用（蜜蜂、航空航天）与一个博弈附录（Wal-Mart／P&amp;G）把抽象框架分别接到了经验与战略上。</p>
+
+<p>对 Week 2 的意义在于：它是进入四篇原文之前的坐标系。读完它，Coase 1937 是「问题」、Williamson 1985 是「操作化」、Williamson 1991 是「离散结构的形式化」、Williamson 1999 是「进入战略」——每一步为什么必要、上一步留下了什么缺口，都有了着落。而它留给战略学生的最后一句话，恰恰是 TCE 与战略的交汇点：<strong>好战略的动力学，是可信承诺的动力学。</strong></p>
+
+<div class="golden">（沉没成本）承诺是好战略的动力学——<br>而交易成本理论教给战略研究的，正是如何把「承诺」变成「治理」。</div>
+
+<div class="note">
+<strong>AI 辅助说明</strong>：本页由 AI 依据 Mahoney (2005) <em>Economic Foundations of Strategy</em> 第二章全文（整书扫描版 pp. 86–157）生成，学术解读风格；引用原文为逐字摘录并标注书页，中文复述紧随其后。局限一节已区分「作者主张／证据／推断／开放问题」，其中标注为「推断」与「独立判断」的内容是解读者的延伸，非原文主张。引用以原书为准，课前请以 Week 2 的 Coase 1937 与 Williamson 1985 原文为最终依据。
+</div>
+
+<div class="back"><a href="index.html">← 返回课程索引</a> · <a href="../index.html">全部课程</a></div>
+
+</body>
+</html>

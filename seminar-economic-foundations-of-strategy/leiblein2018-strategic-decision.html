@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Makes a Decision Strategic?（Leiblein, Reuer &amp; Zenger, 2018）— 深度解读</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>What Makes a Decision Strategic?</h1>
+<div class="meta">
+<strong>作者</strong>：Michael J. Leiblein（俄亥俄州立大学）、Jeffrey J. Reuer（科罗拉多大学）、Todd Zenger（犹他大学）<br>
+<strong>出处</strong>：<em>Strategy Science</em>, Vol. 3, No. 4, pp. 558–573, 2018（特刊 "What Makes a Decision Strategic"）<br>
+<strong>DOI</strong>：10.1287/stsc.2018.0074<br>
+<strong>性质</strong>：立场性理论论文（essay）；提出一个概念框架（三维决策相互依赖），无计量模型、无一手实证数据<br>
+<strong>代码状态</strong>：不适用 —— 本文为纯理论文献，无开源代码、无数据
+</div>
+
+<div class="summary-box">
+<h3>一句话总结</h3>
+<p>判定一项决策是否<strong>战略性（strategic）</strong>，依据是<strong>相互依赖（interdependence）</strong>：它在<strong>同期决策</strong>、<strong>其他经济行动者的决策</strong>、<strong>跨期决策</strong>三个维度上与别的决策相互牵连，并有望把这些决策引导成<strong>互补或超加性（complementary or superadditive）</strong>的价值创造模式——依赖越多、引导力越强，决策越战略。</p>
+</div>
+
+<div class="note">
+<strong>阅读提示（对话关系）</strong>：本文与 <strong>Csaszar (2018)</strong>（<em>Strategic representations</em>）、<strong>Van den Steen (2018)</strong> 同属 <em>Strategy Science</em> 第 3 卷第 4 期的同一特刊，三人对"什么使决策成为战略"给出互补但不同的回答：Leiblein–Reuer–Zenger 落在<strong>决策之间的相互依赖</strong>这一客观属性；Csaszar 落在决策者用<strong>心理表征（strategic representations）</strong>压缩庞大决策空间的认知过程；Van den Steen 落在<strong>核心决策对后续决策的引导（guidance）</strong>。本文对 <strong>Porter (1996)</strong> 的继承最直接：Porter 用"活动契合（fit）与取舍（trade-offs）"定义战略，本文则把"契合"精炼为"同期决策的相互依赖"，并把 Porter 的案例（Ikea、Southwest、Vanguard）全部收编为"互补性决策模式"的例证。阅读时应把本文当作 Porter 1996 的<strong>形式化升级版</strong>：Porter 给出了现象与直觉，本文给出了可检验、可划界的判准。它也是本课程"strategy 的经济学基础"的关键一环——本文把战略定义直接接到了 Milgrom–Roberts 的互补性（complementarity）经济学与企业理论（theory of the firm）上。
+</div>
+
+<h2>1. 这篇论文在回应什么问题</h2>
+
+<p>本文诊断的问题是战略管理领域的<strong>身份危机（identity problem）</strong>。过去几十年，战略研究在主题上急剧扩张：与会者可以参加整场战略会议、读完一整期战略期刊，却几乎不碰那些被多数人视为根基的议题——竞争优势（competitive advantage）、竞争定位（competitive positioning）、公司边界（corporate scope）、战略的制定与执行过程。期刊与会议上的主题，同教科书与课堂里的主题之间，出现了一条不断拉大的裂缝。</p>
+
+<p>三位作者把这种扩张定性为一个两难：增长与专业化值得肯定，因为它标志着一门年轻、跨学科领域的成熟；但专业化同时瓦解了领域对<strong>核心假设、中心问题与身份</strong>的共识。共识瓦解的代价很具体——它限制了我们积累知识的能力，也削弱了我们向一个名叫"战略管理"的独特领域提供实质贡献的能力。</p>
+
+<p>作者梳理了三种既有的整合方案，逐一指出其局限。其一，1994 年 Napa Valley 战略会议的四个根本议题（企业如何行为、企业为何不同、多业务企业总部的作用、国际竞争成败的决定因素）——这些议题如今已不再覆盖战略文献的重要分支。其二，Strategy Research Initiative 提出的一套共享研究规范（Oxley et al. 2010）——规范约束的是研究<strong>质量</strong>，任何学科都适用，触及不到领域的<strong>连贯性</strong>。其三，Durand et al. (2017) 呼吁的整合性综述——必要，但至今仍是愿景而非现实。三条路的共同缺口是：它们都没回答"什么使一项决策成为战略性的"，因而无法给出领域的边界。</p>
+
+<h2>2. 既有"战略性"判准为什么不够用</h2>
+
+<p>作者先拆掉两个最流行的候选判准，为后文的主张清场。</p>
+
+<h3>判准一：重要程度（importance）</h3>
+
+<p>日常用法把战略性决策等同于"重要"或"对绩效有重大影响"的决策。Mintzberg et al. (1976, p. 246) 就把战略决策定义为"在行动、投入资源或先例设定上重要"的决策。作者指出这套判准有三重缺陷：</p>
+
+<ul>
+<li><strong>无法区分贡献归属</strong>。公司金融、营销、组织行为同样研究"重要"的决策；以重要程度划界，战略管理就失去了独特性，沦为其他学科决策研究的合集。</li>
+<li><strong>"重要"的标准滑向"重要的人"</strong>。许多人不言明地把战略决策等同于"CEO、事业部负责人做出的决策"。这等于承认中层管理者与一线团队负责人不做战略决策——一个站不住的结论，因为战略决策应当可观察于组织的所有层级。</li>
+<li><strong>落入事后定义</strong>。若以"对未来绩效的后果大小"衡量重要，就只能等绩效显现之后、事后（ex post）判断，对正面对决策、需要在当下识别战略性的决策者毫无帮助。</li>
+</ul>
+
+<h3>判准二：关键张力（critical tensions / trade-offs）</h3>
+
+<p>第二种思路用"存在尖锐取舍"来定义战略：差异化还是成本领先（Porter 1985）、探索还是利用（March 1991）、自制还是外购（Williamson 1985）、竞争还是合作、开放还是封闭创新、承诺还是保持弹性。这套"中心张力"叙事在过去 25 年里催生了大量重要理论。但作者的反驳直指要害：<strong>带取舍的决策同样遍布所有商业学科</strong>。只要任何研究者找到一个调节变量去塑造某职能领域内的取舍，他就能宣称对战略管理做出了贡献。以取舍划界，同样无法把战略管理从公司金融、组织行为、营销中分离出来。</p>
+
+<p>作者由此给出一个总判断：无论是"重要程度"还是"取舍"，都无法区分"什么是战略、什么不是"。这种区分的失败，正是研究碎片化的温床。</p>
+
+<h2>3. 核心主张：以相互依赖（interdependence）定义战略性</h2>
+
+<p>作者提出的替代判准是把战略决策定义为<strong>与其他决策高度相互依赖的决策</strong>——依赖的对象分三类：同期决策、其他经济行动者的决策、未来的决策。原文给出的定义是：</p>
+
+<blockquote>Strategic decisions are those decisions that are highly interdependent with and, therefore, potentially shaping of other contemporaneous decisions faced by an economic actor. Second, strategic decisions are interdependent with decisions facing other related economic actors… Third, strategic decisions are intertemporally interdependent, shaping and guiding decisions potentially far into the future. <em>（p. 559）</em></blockquote>
+
+<p>复述：战略性决策首先是那些与行动者自己面对的其他同期决策高度相互依赖、因而可能<strong>塑造</strong>这些决策的选择；其次与相关经济行动者（主要是竞争者，也包括供应商、买方与互补者）的决策相互依赖，既塑造又反映对方的决策；第三在时间上相互依赖，塑造并引导可能延伸到遥远未来的决策。</p>
+
+<p>这个定义的关键动作是"引导"（guidance）。作者援引 Van den Steen (2017)：战略决策因为与别的决策相互依赖，所以拥有最大的潜力去<strong>引导或塑造</strong>其他相互依赖决策的选择，把它们编排成对绩效<strong>超加性（superadditive）</strong>的模式。换言之，战略决策的价值不在于它自身，而在于它能否把一串后续决策"带出"一份大于各部分之和的结果。用形式化语言表达，超加性意味着联合价值超过各自价值的加总：</p>
+
+$$V(x_1, x_2, \ldots, x_n) > \sum_{i=1}^{n} V(x_i)$$
+
+<p>人话解释：$V(\cdot)$ 代表一组决策创造的价值。若两项决策 $x_1$、$x_2$ 各自单独执行各值 $V(x_1)$ 和 $V(x_2)$，而把它们作为一套协调的决策一起执行时价值高于两者之和，就出现了<strong>超加性</strong>——这正是战略决策要追求的东西：让决策"互相成就"，而非"各自为政"。</p>
+
+<p>一个必须点破的张力：是否真的生成了超加性模式，只能<strong>事后</strong>评估；但战略决策之所以能在<strong>事前</strong>被识别，靠的是它的<strong>相互依赖与引导属性</strong>——最相互依赖、最能决定后续决策模式走向超加还是次加（subadditive）的决策，就是最战略的决策。作者明确说，Van den Steen 关注"核心引导"这一属性，他们也视为中心，但本文把焦点放在<strong>相互依赖</strong>这个更基础、更可观察的属性上。</p>
+
+<p>由此得到本文的完整主张：<strong>战略管理就是研究"如何发现、框定、评估、做出并执行那些体现决策相互依赖三项基本属性的决策"的学问</strong>。作者强调这个定义"既限制又扩张"——限制在于它排除了一大批重要但孤立的决策；扩张在于它跨越职能、情境与组织层级，把任何涉及三类依赖的决策都纳入战略版图。</p>
+
+<h2>4. 论证逐层展开：三个维度的决策相互依赖</h2>
+
+<p>作者把相互依赖拆成三个维度（对应原文 Figure 1 的三维示意）。三个维度构成一个空间：最不战略的决策至多是<strong>加性（additive）</strong>的，位于空间的"左下前"角；最战略的决策在三个维度上都相互依赖、有潜力在全部维度上对绩效超加性，位于"右上后"角。</p>
+
+<h3>4.1 同期决策之间的相互依赖（interdependence across contemporaneous decisions）</h3>
+
+<p>第一类依赖发生在同一行动者内部的同期决策之间。战略性决策要求决策者理解一项选择与其他同期选择之间的<strong>契合（fit）</strong>。作者把这类决策放在 Simon 意义上的<strong>复杂系统（complex systems）</strong>中：</p>
+
+<blockquote>systems that Simon (1962, p. 468) described as "made up of a large number of parts that interact in a non simple way," noting that within such systems "it is not a trivial matter to infer the properties of the whole." <em>（p. 562）</em></blockquote>
+
+<p>复述：这类系统"由大量以非简单方式相互作用的部分构成"，而"推断整体的性质绝非易事"。即便如此，战略决策恰恰要求决策者去<strong>想象或模拟</strong>决策之间的相互作用——孤立的、无论多重要的决策可以单独做出，战略决策则必须先把相互作用"想"出来。</p>
+
+<p>作者用哈佛商学院早期商业政策教材的表述点出"契合"的经典渊源，并直接引 Christensen et al. (1987, p. 116)：</p>
+
+<blockquote>The interdependence of purposes, policies, and organized action is crucial to the particularity of an individual strategy. It is the unity, coherence, and internal consistency of a company's strategic decisions that give the firm its identity and individuality… <em>（p. 562）</em></blockquote>
+
+<p>复述：目的、政策与有组织行动之间的相互依赖，是单项战略独特性的关键；正是战略决策的统一、连贯与内在一致，赋予企业身份与个性。</p>
+
+<p>这一维度的经验素材直接接续 Porter (1996)：Lincoln Electric 把内部持股、内部晋升、高额奖金、弹性工作规则等一整套互补选择组合起来，独特地提升了生产率；Wal-Mart 的条形码扫描投资之所以比对手更值，是因为它配套了信息系统、物流与供应商关系的互补决策；Ikea 与 Southwest Airlines 各有一套独特且连贯的相互依赖选择；Siggelkow (2002) 描述的 Vanguard 低成本结构，由直销、坦诚沟通、指数型保守基金等相互连接的互补选择支撑。这些例子的共同点：一套<strong>连贯、超加性的选择模式</strong>相对降低了成本、提升了某细分市场的价值创造，或提高了相对对手的价值获取能力。</p>
+
+<p>作者接着把这条线接到互补性的经济学上。Milgrom &amp; Roberts (1990) 指出，当组织实践互为<strong>互补（complements）</strong>时，它们会成簇出现；Athey &amp; Stern (1998) 给出了用<strong>交叉偏导数（cross-partial derivatives）</strong>检验组织设计互补性的方法。互补性的标准形式化条件是：</p>
+
+$$\frac{\partial^2 F(x_i, x_j)}{\partial x_i \,\partial x_j} \geq 0$$
+
+<p>人话解释：$F$ 是绩效函数，$x_i$、$x_j$ 是两项组织实践。交叉偏导数为正，意味着提高 $x_j$ 会提高 $x_i$ 的边际收益——两项实践"互相抬轿"，即互补。作者随后引用 Postrel (2012) 的批评：当选择是二元（做/不做）时，规模经济会让交叉偏导数即使在投入完全可互换时也为正，于是交叉偏导数判准"既非必要也非充分"。以 Vanguard 为例，直销与坦诚沟通各自都带规模效应，规模效应会污染对二者互动收益的估计。这个方法论警钟是本文少见的"技术细节"，它提示：识别互补性需要深度的定性理解，并需要能分离规模效应与互补效应的新方法。</p>
+
+<h3>4.2 与其他行动者决策的相互依赖（interdependence with decisions of other actors）</h3>
+
+<p>第二类依赖超出焦点企业自身的掌控。战略决策还与<strong>企业之外</strong>的行动者——竞争者、供应商、客户、以及生态系统的其他成员——的决策相互依赖。战略行动者的目标，是让自己的决策<strong>塑造</strong>他人的决策，使其也落入互补的选择模式。</p>
+
+<p>竞争定位是这类依赖最清晰的舞台。作者举 Husky Injection Molding 与 Mannesmann 集团 Netstal 部门在 1990 年代中期的互动：Husky 曾靠为"需要快速、耐用注塑机"的狭窄客户细分度身定制活动而获得超额回报，但当 Mannesmann 的 Netstal 部门进入同一市场，Husky 定位的可行性被改写，它被迫在"捍卫现有定位"与"彻底改变一套决策、另寻定位"之间选择。同一逻辑贯穿 Home Depot 与 Lowe's、Ryanair 与 British Airways 及 Aer Lingus 的竞争。</p>
+
+<p>作者把这条线接到<strong>产业组织（industrial organization）</strong>传统的<strong>价值获取（value capture）</strong>与博弈论。Dixit 与 Nalebuff (1991, p. ix) 给"战略思维"的定义是：</p>
+
+<blockquote>"the art of outdoing an adversary, knowing that the adversary is trying to do the same to you" <em>（p. 564）</em></blockquote>
+
+<p>复述：战略思维是"在明知对手也在同样算计你的情况下胜过对手的艺术"。Brandenburger &amp; Stuart (1996, 2007) 的价值网络与双形式博弈（biform game）模型则进一步说明：行动者既通过<strong>非合作</strong>部分的结构性选择塑造竞争环境，又通过<strong>合作</strong>部分的谈判实现价值创造与获取。由此推出的一条判准是：显著影响企业<strong>附加价值（added value）</strong>、或影响限制讨价还价的<strong>市场摩擦</strong>的决策，比其他决策更战略。</p>
+
+<p>但作者对博弈论持保留态度。博弈论模型的简化——少量对手、清晰成本、明确支付与走法——依赖的行为、信息与认知假设，对许多战略决策不现实。作者明确拒绝 Dixit &amp; Nalebuff "战略思维的科学就是博弈论"这一断言，主张战略决策的科学需要一套<strong>远为宽泛的工具</strong>，从认知、社会学等多学科传统汲取。</p>
+
+<h3>4.3 跨期相互依赖（intertemporal interdependence）</h3>
+
+<p>第三类依赖在时间维度展开：战略决策通过<strong>承诺（commitment）</strong>与<strong>不可逆投资（irreversible investment）</strong>塑造未来的决策。Mintzberg (1978) 把战略定义为"决策流中的模式"；Ghemawat (1991, p. 14) 把承诺定义为"战略随时间持续的倾向"；Teece et al. (1997, p. 515) 观察到企业"在若干时点上对特定能力领域做出长期、准不可逆的承诺"。作者引用 Van den Steen (2017) 的观察来锚定这一维度的地位：</p>
+
+<blockquote>"commitment and irreversibility are the only decision characteristics that have been explicitly linked to strategic decisions" <em>（p. 566）</em></blockquote>
+
+<p>复述：承诺与不可逆性，是文献中唯一被明确同战略性决策挂钩的两项决策特征——尽管 Van den Steen 本人主张"可靠性（reliability）"应优先于承诺与不可逆。</p>
+
+<p>作者给出两条理由说明承诺与不可逆为何是跨期依赖的核心。第一，若决策完全可逆，就无需动态思考——错误选择可零成本纠正，一系列短视决策就足以达到理想结果；完全可逆性直接抹掉了考虑跨期相互依赖的收益。第二，若决策含承诺或不可逆，当下选择必然为未来决策提供引导——它部分地把企业"绑"在某一行动路径上，从而也降低了员工未来选择中的不确定性，帮助对齐与协调组织内部努力。</p>
+
+<p>但高承诺不可逆投资也有代价：它降低组织的适应性。在不确定性可被降低且降低有价值的情境里，缺乏弹性是昂贵的。作者引 Arrow (1973, p. 4)："有不确定性时，通常就有通过获取信息来降低它的可能。"由此引入<strong>实物期权（real options）</strong>逻辑：McDonald &amp; Siegel (1986) 首次对不可逆条件下的投资做了显式估值，证明在不确定性存在时，即使立即执行有正价值，<strong>等待</strong>也可能是最优的——等待的期权价值随不确定性上升。于是决策者必须在<strong>承诺的价值</strong>与<strong>弹性的价值</strong>之间权衡。</p>
+
+<h2>5. 各种"战略性"判准的对比</h2>
+
+<p>把本文的判准同它批评的、以及相关的候选判准并排，边界一目了然。</p>
+
+<h3>表 1：判定"战略性"的四种判准对比（Criteria for "Strategic" Decisions）</h3>
+<table>
+<tr><th>判准 Criterion</th><th>核心问题 Key Question</th><th>代表出处 Representative Source</th><th>可否事前判定 A Priori?</th><th>能否区分战略领域 Distinctive?</th></tr>
+<tr><td><strong>重要程度 / 资源投入规模</strong><br>Importance / Resource Scale</td><td>决策有多重要、投入多大？</td><td>Mintzberg et al. (1976)</td><td>否（易滑向事后、或"重要的人"）</td><td>否（各职能都研究重要决策）</td></tr>
+<tr><td><strong>长期影响 / 持久性</strong><br>Long-term Impact / Persistence</td><td>影响是否深远、能否持续？</td><td>Chandler (1962); Andrews (1971); Ghemawat (1991)</td><td>部分（依赖"承诺/不可逆"代理）</td><td>弱（长期性只是相互依赖的一个维度）</td></tr>
+<tr><td><strong>关键取舍</strong><br>Critical Tensions / Trade-offs</td><td>是否存在尖锐的两难？</td><td>Porter (1985); March (1991); Williamson (1985)</td><td>是</td><td>否（取舍遍布所有商业学科）</td></tr>
+<tr><td><strong>决策相互依赖</strong><br>Decision Interdependence</td><td>决策与多少其他决策相互牵连？</td><td>Leiblein, Reuer &amp; Zenger (2018)</td><td>是</td><td>是（三维修正后构成独特领域）</td></tr>
+</table>
+
+<p>这张表揭示本文判准的两个真正卖点：<strong>事前可判定</strong>（在做出决策、观察绩效之前即可分类）与<strong>领域独特性</strong>（它锁定的是"跨决策、跨行动者、跨时间"的相互依赖，其他学科不以此为核心对象）。作者还列出第三、第四个优势：判准<strong>独立于任何学科传统</strong>，因而拥抱战略管理的多学科本性（认知、社会学、经济学都可贡献）；以及这些相互依赖要素<strong>位于既有取舍议题的根部</strong>（何时竞争还是合作、何时承诺还是弹性，都是特定相互依赖的表现）。</p>
+
+<h3>表 2：三个维度的决策相互依赖（Three Dimensions of Decision Interdependence）</h3>
+<table>
+<tr><th>维度 Dimension</th><th>依赖对象 Interdependence With</th><th>核心机制 Core Mechanism</th><th>代表文献 Representative Work</th><th>典型案例 Exemplar</th></tr>
+<tr><td><strong>同期决策</strong><br>Contemporaneous</td><td>焦点行动者自己的其他同期选择</td><td>内部契合 / 互补性（fit / complementarity）</td><td>Porter (1996); Levinthal (1997); Milgrom &amp; Roberts (1990)</td><td>Vanguard、Ikea、Lincoln Electric</td></tr>
+<tr><td><strong>其他行动者</strong><br>Interactor</td><td>竞争者、供应商、买方、互补者的决策</td><td>塑造他人选择、价值创造与获取</td><td>Brandenburger &amp; Stuart (1996, 2007); MacDonald &amp; Ryall (2004)</td><td>Husky vs. Mannesmann；Ryanair vs. BA</td></tr>
+<tr><td><strong>跨期</strong><br>Intertemporal</td><td>未来（含遥远未来）的决策</td><td>承诺、不可逆、期权与等待</td><td>Ghemawat (1991); McDonald &amp; Siegel (1986); Van den Steen (2017)</td><td>分期投资、进入时机选择</td></tr>
+</table>
+
+<h2>6. 论证结构总览</h2>
+
+<pre class="mermaid">
+flowchart TB
+    A["领域碎片化<br/>fragmentation"] --> B["三种整合路径的局限<br/>Napa议题 / SRI规范 / 整合综述"]
+    B --> C["拆掉两个旧判准<br/>重要程度 · 关键取舍"]
+    C --> D["新判准：决策相互依赖<br/>interdependence"]
+    D --> D1["同期决策<br/>contemporaneous"]
+    D --> D2["其他行动者<br/>interactor"]
+    D --> D3["跨期<br/>intertemporal"]
+    D1 --> E["战略决策 = 引导出互补/超加性<br/>决策模式的决策"]
+    D2 --> E
+    D3 --> E
+    E --> F["三大基础理论<br/>资源配置 / 竞争优势 / 企业理论"]
+    F --> G["整合机会位于<br/>理论交界处 (interstices)"]
+</pre>
+
+<pre class="mermaid">
+flowchart LR
+    subgraph 三维度 Three Dimensions
+    D1["同期相互依赖<br/>contemporaneous"]
+    D2["行动者间相互依赖<br/>interactor"]
+    D3["跨期相互依赖<br/>intertemporal"]
+    end
+    D1 --> T1["资源配置理论<br/>resource allocation"]
+    D2 --> T2["竞争优势理论<br/>competitive advantage"]
+    D3 --> T3["企业理论<br/>theory of the firm"]
+    T1 --> I["理论交界处<br/>= 新研究机会"]
+    T2 --> I
+    T3 --> I
+</pre>
+
+<h2>7. 战略性决策与三大经济学基础理论</h2>
+
+<p>作者把三维判准同战略管理的三大基础理论对接（对应原文 Figure 2）：资源配置（如何分配资源）、竞争优势（如何取胜）、企业理论（如何组织）。这一节是本文对"strategy 的经济学基础"贡献最集中的地方。</p>
+
+<h3>7.1 资源配置（resource allocation）</h3>
+
+<p>资源配置研究强调引导投资机会的组织过程（Bower 1970; Burgelman 1983），把战略决策刻画为受行为因素、目标冲突、不完全信息与权力塑造的一系列承诺。作者把财务学的净现值（NPV）工具作为对照：财务经济学家 Brealey et al. (2010, p. 554) 自己承认，经典 NPV 方法"没有反映管理的价值"，因为它假设组织只是做一次 go/no-go 决策、然后锁定一条固定路径。战略视角则强调跨期主动管理与判断。作者的形式化对比是：</p>
+
+$$\text{classic rule: invest if } NPV > 0 \qquad \text{option-adjusted: invest if } NPV > C_{\text{wait}}$$
+
+<p>人话解释：经典规则要求 $NPV > 0$ 就投资；期权修正后的规则要求净现值还要超过<strong>等待的期权价值</strong> $C_{\text{wait}}$。在需求不确定性下 $C_{\text{wait}} > 0$，阈值被抬高、倾向于等待；在竞争者先占（preemption）侵蚀资产价值的威胁下 $C_{\text{wait}}$ 可能为负，阈值被压低、倾向于提前承诺式进入。这正是"承诺价值与弹性价值"权衡的数学化表达，也是实物期权比静态 NPV 更能容纳跨期与跨行动者相互依赖的原因。</p>
+
+<h3>7.2 竞争优势（competitive advantage）</h3>
+
+<p>作者把竞争优势放回资源基础观（resource-based view）与认知视角。企业因资源禀赋与能力而异（Barney 1991; Peteraf 1993），又因跨期联系而各自面对独特的盈利增长路径。关键命题是：<strong>投资机会集不是外生给定的，而是必须被发现、被认知想象与建模的</strong>——Bowman &amp; Hurry (1993) 称之为"潜在的甚至隐藏的"机会集。于是管理者的注意力稀缺（Penrose 1959）、心智表征与价值理论（Gavetti 2012; Felin &amp; Zenger 2017; Csaszar 2018）成为企业异质性的直接决定因素。作者由此对经典竞争优势观做出一个重要修正：卓越绩效传统上被归因于市场力量或承诺，但<strong>弹性与适应</strong>同样塑造创造优势的决策模式——不过前提是这些期权不为竞争者广泛共享，否则优势潜力被抹平。</p>
+
+<h3>7.3 企业理论（theory of the firm）</h3>
+
+<p>本文对企业理论的贡献，在于揭示<strong>治理选择与投资选择之间并不自动一致</strong>，而整合二者的关键枢纽是<strong>不确定性（uncertainty）</strong>。作者用两组张力说明。</p>
+
+<p>第一组：<strong>交易成本理论（transaction cost economics）对实物期权理论</strong>。交易成本理论说，当需要企业专用性投资且市场不确定性显著时，应把交易内部化——一体化使企业能够对扰动做协调性适应，也避免外部行动者因事后敲竹杠（hold-up）而不愿投资。实物期权理论却说，面对不可逆投资与不确定性，企业应暂缓交易、或采用分期投资而非一次性重承诺。两条处方的冲突落在时间与治理结构上：保持期权开放的代价是承担无一体化下的更高交易成本；选择收购整合的代价是可能做出次优的投资时机决策。国际战略中同样如此——跨国企业的存在理由是<strong>控制</strong>（规避技术跨境转移的侵占风险），而实物期权视角强调的却是它通过跨多国网络<strong>转移生产</strong>的<strong>弹性</strong>。</p>
+
+<p>第二组：<strong>代理理论（agency theory）内部的张力</strong>。以跨国子公司为例，总部对当地环境信息不足、评估当地管理层绩效时存在因果模糊，代理理论的处方是<strong>更多自治、更少监督、高能激励</strong>；但战略弹性又要求总部保留对多地生产调度的监督。再配置机会以更高的代理成本为代价，削减代理成本又以牺牲可再配置性为代价。</p>
+
+<p>作者的总判断是：三套理论共享"不确定性"与"不可逆性"这些核心构念，却用不同的行为假设出发，因此<strong>最有趣的研究机会存在于这些理论的交界处（interstices）</strong>——这既是对碎片化的回应，也是本文"三维相互依赖"判准统一潜力的展示。</p>
+
+<h2>文献位置（position in the literature）</h2>
+<p>本文属于 Strategy Science 特刊，尝试用<strong>经济学属性</strong>给"战略性决策"下一个可形式化的定义。它对话对象是既有判准（决策的重要程度、涉及的取舍），并把它精炼为<strong>相互依赖（interdependence）</strong>，直接接到 <strong>Milgrom &amp; Roberts (1990) 的互补性经济学</strong>与 Athey &amp; Stern 的检验上；同时揭示交易成本（Williamson）与实物期权两种企业理论在"治理选择 vs 投资选择"上的张力。它把 Porter 1996 的"活动契合（fit）"从概念翻译成可检验的经济学属性。</p>
+<h2>8. 局限分析</h2>
+
+<p><strong>作者自述的边界</strong>：作者承认这个定义"既限制又扩张"（p. 559）——它排除了一大批重要但孤立的决策，这等于坦承"重要"与"战略"可以分离。作者也承认博弈论等严格工具因简化假设而对许多战略决策不现实，承认"是否真的生成超加性模式只能事后评估"（p. 561），承认二元选择下互补性测量存在规模效应污染（Postrel 2012）。这些自述把本文定位为"提出判准"而非"完成测量"。</p>
+
+<p><strong>我的独立判断</strong>：</p>
+
+<ul>
+<li><strong>"高度"相互依赖缺少门槛</strong>。判准是连续的——几乎所有决策都与别的决策有某种程度的牵连。本文没有给出"高度"的可操作阈值，也没说明如何在连续谱上切分出战略与非战略。作为划界工具，它仍有"多少依赖才算战略"的模糊地带。</li>
+<li><strong>三个维度并列而未加权</strong>。作者把三维度并列，未回答三者冲突时谁优先：一项跨期高度承诺但同期契合很低的决策（如孤注一掷的不可逆赌注），和一项同期高度契合但跨期无承诺的决策（如短期协调），何者更战略？缺少排序规则，判准在边界案例上可能失语。</li>
+<li><strong>相互依赖与"引导/超加性"之间存在缝隙</strong>。作者聚焦相互依赖这一客观属性，但"引导出超加模式"是规范目标且事后才可验证。一个高度相互依赖却引导出<strong>次加</strong>模式的决策，按定义仍是战略的——于是"战略"被剥离了绩效含义，可能容纳了"坏战略"。这与作者本人"战略决策定义差异化绩效"的初衷之间有一道未缝合的缝。</li>
+<li><strong>划界的社会成本</strong>。把大量"重要但孤立"的决策逐出战略领域，在身份政治上有风险：许多有影响力的战略研究（如某些公司金融、治理议题）会被判为"非战略"，这可能比"重要性判准"的松散更能制造圈地冲突。</li>
+<li><strong>与 Porter 1996 的关系是精炼还是窄化</strong>。本文把 Porter 的"取舍"降格为"相互依赖的一个表现"，把"独特活动"收编为"互补模式"。这个收编优雅，但也丢掉了 Porter 反复强调的"选择不做什么"这一<strong>意志性</strong>维度——相互依赖是客观的，取舍是主观的，二者并不完全等价。</li>
+</ul>
+
+<h2>9. 结论</h2>
+
+<p>本文的贡献是给"什么使决策成为战略"一个可检验、可划界的回答：<strong>相互依赖</strong>。它把战略管理定义为"对体现决策相互依赖三项基本属性之决策的研究"，并用这三个维度把资源配置、竞争优势、企业理论三大基础理论重新串联起来，指出整合机会位于理论交界处。对"strategy 的经济学基础"这门课而言，本文的独特价值在于它完成了从 Porter 1996 的<strong>活动契合</strong>到 Milgrom–Roberts <strong>互补性经济学</strong>、再到<strong>企业理论</strong>的连续接线——它让"战略决策"第一次被锚定在一套经济学可形式化的属性（互补、超加、承诺、期权）之上，而不再依赖"重要""有取舍"这类学科间共享、无法划界的直觉。</p>
+
+<div class="golden">
+一项决策是否战略，不看它有多重要，而看它牵连多少别的决策，并把它们编织成一份超加的价值。
+</div>
+
+<div class="note">
+<strong>AI 辅助说明</strong>：本文由 AI 依据 paper-analyzer 的 academic 风格工作流，对 Leiblein, Reuer &amp; Zenger (2018) 原文全文生成。解读中的概念拆解、对比表与结构图用于辅助理解；所有 blockquote 引用直接取自原文并标注页码。文中两处 KaTeX 公式（超加性、互补性交叉偏导数、NPV 与等待期权价值）是原文所援引的经济学标准形式化（Milgrom–Roberts 互补性、McDonald–Siegel 实物期权），并非原文逐字公式，而是对其"互补性/超加性/期权"论述的数学化重建；"人话解释"为 AI 补充。局限分析中"我的独立判断"部分是 AI 视角，未经同行评审，仅供阅读参考。原文无代码、无数据，故工作流中的代码环节在本例中不适用。
+</div>
+
+<div class="back"><a href="index.html">← 返回课程索引</a> · <a href="../index.html">全部课程</a></div>
+
+</body>
+</html>

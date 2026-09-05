@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Literature Map · Economic Foundations of Strategy</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:900px;margin:0 auto;font-size:17px}
+h1{font-size:1.8rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.25rem;margin:2.4rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+pre{background:#f3f4f6;padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.82rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+p{margin:1rem 0}
+ul{margin:1rem 0 1rem 1.5rem}
+li{margin:.35rem 0}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Literature Map · Economic Foundations of Strategy</h1>
+<div class="meta">
+The 13 course readings (blue boxes — click to open the deep dive) plus the key external works they cite or converse with (gray boxes — click for the DOI or a Google Scholar query). Grouped by the summer reading's four themes plus Week 2 TCE.<br>
+English edition (Chinese original backed up in <code>tmp/en-switch/backup/</code>) · 2026-08-30 · full TCE digests: <a href="tce-literature-review.html">tce-literature-review.html</a>
+</div>
+
+<p><strong>In-course readings</strong> (click → deep-dive page) · <strong>External key works</strong> (click → original / DOI) · <strong>Arrows</strong> = conversation / extension / complementarity.</p>
+
+<pre class="mermaid">
+flowchart TB
+ classDef core fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px
+ classDef ext fill:#ffffff,stroke:#9ca3af,stroke-width:1.2px
+ subgraph F["1 · Strategy as a field"]
+ nag["Nag et al. 2007
+consensus definition"]
+ durand["Durand et al. 2017
+field expansion &amp; integration"]
+ andrews["Andrews 1971
+the SWOT tradition"]
+ chandler["Chandler 1962
+Strategy &amp; Structure"]
+ end
+ subgraph D["2 · Defining strategy"]
+ p96["Porter 1996
+What Is Strategy?"]
+ p91["Porter 1991
+Towards a Dynamic Theory"]
+ lei["Leiblein et al. 2018
+interdependence criterion"]
+ csa["Csaszar 2018
+strategic representations"]
+ milgrom["Milgrom &amp; Roberts 1990
+economics of complementarities"]
+ barney["Barney 1991
+RBV"]
+ werner["Wernerfelt 1984
+RBV"]
+ peteraf["Peteraf 1993
+RBV cornerstone"]
+ prahalad["Prahalad &amp; Hamel 1990
+core competence"]
+ ghem91["Ghemawat 1991
+commitment theory"]
+ shapiro["Shapiro 1989
+game-theoretic strategy"]
+ simon["Simon 1947
+bounded rationality"]
+ athey["Athey &amp; Stern 1998
+testing complementarities"]
+ end
+ subgraph P["3 · Strategy as practice"]
+ whi["Whittington 1996
+Strategy as Practice"]
+ ham["Hambrick &amp; Fredrickson 2001
+the strategy diamond"]
+ mintzberg["Mintzberg 1978
+process school"]
+ bourdieu["Bourdieu 1977
+theory of practice"]
+ schon["Schön 1983
+the reflective practitioner"]
+ end
+ subgraph E["4 · Economics &amp; history"]
+ ghe["Ghemawat 2002
+business-history lens"]
+ penrose["Penrose 1959
+theory of firm growth"]
+ end
+ subgraph T["5 · Week 2 TCE"]
+ tce_coase["Coase 1937
+The Nature of the Firm"]
+ tce_w85["Williamson 1985
+Economic Institutions of Capitalism"]
+ tce_w91["Williamson 1991
+Comparative Economic Organization"]
+ tce_w99["Williamson 1999
+Governance &amp; Competence"]
+ knight["Knight 1921
+risk &amp; uncertainty"]
+ commons["Commons 1934
+transaction = basic unit"]
+ hayek["Hayek 1945
+price mechanism &amp; knowledge"]
+ barnard["Barnard 1938
+cooperative organization"]
+ macneil["Macneil 1974/78
+relational contracts"]
+ kca["Klein, Crawford &amp; Alchian 1978
+appropriable quasi-rents"]
+ masten["Masten 1984
+empirical test of specificity"]
+ end
+ %% — within and around the field —
+ nag ---|complements| durand
+ nag --> andrews
+ durand --> chandler
+ durand --> tce_coase
+ durand --> tce_w85
+ durand --> penrose
+ %% — the two Porters —
+ p91 -->|HBR-ified| p96
+ p91 -->|converses with| ghem91
+ p91 -->|converses with| shapiro
+ p91 -->|converses with| barney
+ p91 -->|converses with| werner
+ p91 -->|converses with| peteraf
+ p91 -->|complementarities| milgrom
+ p96 -->|converses with| prahalad
+ %% — Leiblein / Csaszar —
+ lei -->|formalizes fit| p96
+ lei -->|complementarities| milgrom
+ lei -->|complementarities| athey
+ lei -->|converses with| tce_w85
+ csa -->|responds to| lei
+ csa -->|converses with| simon
+ csa -->|cognitivizes| barney
+ %% — practice —
+ whi -->|converses with| mintzberg
+ whi -->|imports| bourdieu
+ whi -->|imports| schon
+ ham -->|operationalizes| p96
+ whi -->|four-quadrant source| andrews
+ %% — history —
+ ghe -->|converses with| chandler
+ ghe -->|converses with| penrose
+ ghe -->|converses with| p96
+ p91 -->|dynamics/history| ghe
+ %% — Week 2 TCE —
+ tce_w85 -->|operationalizes| tce_coase
+ tce_coase -->|converses with| knight
+ tce_w85 -->|converses with| simon
+ tce_w85 -->|converses with| commons
+ tce_w85 -->|borrows contract classes| macneil
+ tce_w85 -->|specificity/hold-up| kca
+ tce_w91 -->|extends to three forms| tce_w85
+ tce_w91 -->|market adaptation| hayek
+ tce_w91 -->|hierarchical adaptation| barnard
+ tce_w91 -->|empirically tested by| masten
+ tce_w99 -->|governance vs competence| tce_w85
+ tce_w99 -->|converses with| barney
+ tce_w99 -->|converses with| tce_w91
+ class nag,durand,p96,p91,lei,csa,whi,ham,ghe,tce_coase,tce_w85,tce_w91,tce_w99 core
+ class andrews,chandler,milgrom,barney,werner,peteraf,prahalad,ghem91,shapiro,simon,athey,mintzberg,bourdieu,schon,penrose,knight,commons,hayek,barnard,macneil,kca,masten ext
+ click nag "nag2007-strategic-management-really.html"
+ click durand "durand2017-expanding-domain.html"
+ click p96 "porter1996-what-is-strategy.html"
+ click p91 "porter1991-dynamic-theory-strategy.html"
+ click lei "leiblein2018-strategic-decision.html"
+ click csa "csaszar2018-strategic-representations.html"
+ click whi "whittington1996-strategy-as-practice.html"
+ click ham "hambrick-fredrickson2001-strategy-diamond.html"
+ click ghe "ghemawat2002-strategy-history.html"
+ click tce_coase "coase1937-nature-firm.html"
+ click tce_w85 "williamson1985-economic-institutions.html"
+ click tce_w91 "williamson1991-comparative-economic-organization.html"
+ click tce_w99 "williamson1999-strategy-research-governance.html"
+ click andrews "https://scholar.google.com/scholar?q=Andrews+1971+The+Concept+of+Corporate+Strategy"
+ click chandler "https://scholar.google.com/scholar?q=Chandler+1962+Strategy+and+Structure"
+ click milgrom "https://scholar.google.com/scholar?q=Milgrom+Roberts+1990+Economics+of+Modern+Manufacturing"
+ click barney "https://doi.org/10.1177/014920639101700108"
+ click werner "https://doi.org/10.1002/smj.4250050207"
+ click peteraf "https://doi.org/10.1002/smj.4250140302"
+ click prahalad "https://hbr.org/1990/05/the-core-competence-of-the-corporation"
+ click ghem91 "https://scholar.google.com/scholar?q=Ghemawat+1991+Commitment+The+Dynamics+of+Strategy"
+ click shapiro "https://scholar.google.com/scholar?q=Shapiro+1989+The+Theory+of+Business+Strategy"
+ click simon "https://scholar.google.com/scholar?q=Simon+1947+Administrative+Behavior"
+ click athey "https://scholar.google.com/scholar?q=Athey+Stern+1998+complementarity+empirical"
+ click mintzberg "https://scholar.google.com/scholar?q=Mintzberg+1978+Patterns+in+Strategy+Formation"
+ click bourdieu "https://scholar.google.com/scholar?q=Bourdieu+1977+Outline+of+a+Theory+of+Practice"
+ click schon "https://scholar.google.com/scholar?q=Schon+1983+The+Reflective+Practitioner"
+ click penrose "https://scholar.google.com/scholar?q=Penrose+1959+The+Theory+of+the+Growth+of+the+Firm"
+ click knight "https://scholar.google.com/scholar?q=Knight+1921+Risk+Uncertainty+and+Profit"
+ click commons "https://scholar.google.com/scholar?q=Commons+1934+Institutional+Economics"
+ click hayek "https://scholar.google.com/scholar?q=Hayek+1945+The+Use+of+Knowledge+in+Society"
+ click barnard "https://scholar.google.com/scholar?q=Barnard+1938+The+Functions+of+the+Executive"
+ click macneil "https://scholar.google.com/scholar?q=Macneil+1978+Contracts+Adjustment+of+Long-Term+Economic+Relations"
+ click kca "https://doi.org/10.1086/466560"
+ click masten "https://scholar.google.com/scholar?q=Masten+1984+The+Organization+of+Production+Evidence+from+the+Aerospace+Industry"
+</pre>
+
+<h2>How to read this map</h2>
+<p>The graph groups the readings by the summer's four themes plus Week 2 TCE. Edges mark "conversation / extension / complementarity" relations (direction = who points at whom). Blue boxes are in-course readings (click to open the deep dive); gray boxes are the key external works they cite or converse with (click for the DOI or a Google Scholar query; for books without DOIs the link is a Scholar query). External nodes are drawn from the works actually mentioned in the deep-dive pages, not an exhaustive bibliography.</p>
+<p>The TCE cluster connects to the rest of the map through three bridge points: <strong>Simon 1947</strong> (bounded rationality, shared with Porter 1991's conversation partners and Csaszar), <strong>Coase/Williamson</strong> (cited by Durand et al. and Leiblein et al. as the economic-foundations thread), and <strong>Barney/Penrose</strong> (the competence side of Williamson 1999's governance-vs-competence complementarity). For a one-page digest of every TCE paper mentioned here, see the <a href="tce-literature-review.html">TCE literature review</a>.</p>
+
+<div class="note">
+<strong>Note</strong>: this page is an AI-generated map of the course canon; the node selection reflects the deep-dive pages' citations. For formal citations consult the original papers; for class use follow the syllabus.
+</div>
+
+<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
+
+</body>
+</html>

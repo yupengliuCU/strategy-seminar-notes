@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Economic Foundations of Strategy — Reading Notes</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.7;padding:2.5rem 1.5rem;max-width:800px;margin:0 auto;font-size:16px}
+h1{font-size:1.7rem;line-height:1.3;margin-bottom:.4rem}
+.sub{color:var(--muted);font-size:.92rem;margin-bottom:2rem;line-height:1.7}
+h2{font-size:1.15rem;margin:2.4rem 0 .8rem;color:var(--accent);padding-bottom:.35rem;border-bottom:2px solid var(--accent)}
+h3{font-size:.98rem;margin:1.5rem 0 .5rem;color:#1d4ed8;font-weight:600}
+.paper{display:block;text-decoration:none;color:inherit;padding:.75rem 1rem;margin:.5rem 0;border:1px solid var(--border);border-radius:10px;background:#fff;transition:box-shadow .15s}
+.paper:hover{box-shadow:0 2px 10px rgba(37,99,235,.12);border-color:#bcd0f7}
+.paper .t{font-weight:600}
+.paper .a{color:var(--muted);font-size:.85rem;margin-top:.15rem}
+.badge{display:inline-block;font-size:.72rem;padding:.1rem .5rem;border-radius:99px;margin-left:.5rem;vertical-align:middle}
+.badge.done{background:#e6f4ea;color:#1e7d3c;border:1px solid #b7e0c4}
+.badge.synth{background:#eef0ff;color:#3b3f9e;border:1px solid #c7cbf0}
+.badge.video{background:#e6f7f7;color:#0d7377;border:1px solid #a8dfdd}
+.badge.pending{background:#fff3cd;color:#8a6d1a;border:1px solid #ecd98d}
+.badge.skip{background:#f1f3f4;color:#6b7280;border:1px solid #d9dde1}
+.badge.zh{background:#fdf2f8;color:#9d174d;border:1px solid #fbcfe8}
+.disabled{opacity:.55}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.5rem 0;font-size:.85rem;line-height:1.7}
+.week3{background:#f4f6f8;border:1px dashed #c3cbd4;color:#6b7280}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+
+<h1>Economic Foundations of Strategy<br><span style="font-weight:400;font-size:1.05rem;color:var(--muted)">PhD Seminar · Tony · Fall A 2026</span></h1>
+<div class="sub">
+Weekly reading deep dives (AI-assisted) plus synthesis pages. Week 1 = What Is Strategy? · Week 2 = Transaction Cost Economics (TCE) · Week 3 = Property Rights Theory (PRT) — each week is one block with its items inside, so new weeks (Week 4, …) append as new blocks. Pages use relative links, so <code>file://</code> works directly; to serve locally: <code>python3 -m http.server 8000</code> then open <code>http://localhost:8000/</code>.<br>
+Language status: synthesis/integration pages and the TCE literature review are in <strong>English</strong>; the Week 3 PRT per-paper deep dives are <strong>English-first</strong> (badge EN); the Week 1–2 per-paper deep dives are still Chinese-first (badge ZH) pending conversion.
+</div>
+
+<div style="margin:1rem 0;">
+<a href="literature-map.html" style="display:inline-block;padding:.55rem 1rem;background:#2563eb;color:#fff;border-radius:8px;text-decoration:none;font-size:.92rem;">🧭 Open the literature map (course canon + key external works)</a>
+</div>
+
+<!-- ======================= WEEK 1 ======================= -->
+<h2>Week 1 · What Is Strategy?</h2>
+
+<h3>1.1 · Strategy as a field</h3>
+<a class="paper" href="durand2017-expanding-domain.html">
+  <span class="t">The Expanding Domain of Strategic Management Research and the Quest for Integration <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Durand, Grant &amp; Madsen (2017) · Strategic Management Journal 38(1)</div>
+</a>
+<a class="paper" href="nag2007-strategic-management-really.html">
+  <span class="t">What Is Strategic Management, Really? Inductive Derivation of a Consensus Definition of the Field <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Nag, Hambrick &amp; Chen (2007) · Strategic Management Journal 28(9)</div>
+</a>
+
+<h3>1.2 · Defining and reflecting on strategy</h3>
+<a class="paper" href="porter1996-what-is-strategy.html">
+  <span class="t">What Is Strategy? <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Porter (1996) · Harvard Business Review, Nov–Dec</div>
+</a>
+<a class="paper" href="porter1991-dynamic-theory-strategy.html">
+  <span class="t">Towards a Dynamic Theory of Strategy <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Porter (1991) · Strategic Management Journal 12, Special Issue</div>
+</a>
+<a class="paper" href="leiblein2018-strategic-decision.html">
+  <span class="t">What Makes a Decision Strategic? <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Leiblein, Reuer &amp; Zenger (2018) · Strategy Science 3(4)</div>
+</a>
+<a class="paper" href="csaszar2018-strategic-representations.html">
+  <span class="t">Strategic Representations <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Csaszar (2018) · Strategy Science 3(4) · Paired reading with the paper above</div>
+</a>
+
+<h3>1.3 · Strategy as practice</h3>
+<a class="paper" href="whittington1996-strategy-as-practice.html">
+  <span class="t">Strategy as Practice <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Whittington (1996) · Long Range Planning 29(5)</div>
+</a>
+<a class="paper" href="hambrick-fredrickson2001-strategy-diamond.html">
+  <span class="t">Are You Sure You Have a Strategy? <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Hambrick &amp; Fredrickson (2001) · Academy of Management Executive 15(4)</div>
+</a>
+
+<h3>1.4 · Recommended — economics and history</h3>
+<a class="paper" href="ghemawat2002-strategy-history.html">
+  <span class="t">Competition and Business Strategy in Historical Perspective <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Ghemawat (2002) · Business History Review 76(1)</div>
+</a>
+<div class="paper disabled">
+  <span class="t">Economic Analysis and Management Strategy: A Survey <span class="badge skip">No full text</span></span>
+  <div class="a">Spulber (1992) · JEMS 1(3) — PDF not available, no deep dive yet</div>
+</div>
+<div class="paper disabled">
+  <span class="t">Economic Analysis and Management Strategy: A Survey Continued <span class="badge skip">No full text</span></span>
+  <div class="a">Spulber (1994) · JEMS 3(2) — PDF not available, no deep dive yet</div>
+</div>
+
+<!-- ======================= WEEK 2 ======================= -->
+<h2>Week 2 · Transaction Cost Economics (TCE)</h2>
+
+<h3>2.1 · Core TCE readings</h3>
+<a class="paper" href="mahoney2005-economic-foundations-strategy.html">
+  <span class="t">Economic Foundations of Strategy, Ch.2 — Transaction Costs Theory <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Mahoney (2005) · Sage Publications · Textbook overview chapter (Arrow 1974 / Coase 1988 / Williamson 1975·1985·1996 + the bees fable + aerospace + Wal-Mart/P&amp;G appendix)</div>
+</a>
+<a class="paper" href="coase1937-nature-firm.html">
+  <span class="t">The Nature of the Firm <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Coase (1937) · Economica 4(16): 386-405 · Presented by Yupeng</div>
+</a>
+<a class="paper" href="williamson1985-economic-institutions.html">
+  <span class="t">The Economic Institutions of Capitalism, Ch. 1–3 <span class="badge done">Deep dive</span><span class="badge done">EN</span></span>
+  <div class="a">Williamson (1985) · Free Press · Ch.1 = Yupeng, Ch.2 = Chunyang, Ch.3 = Aiden</div>
+</a>
+<a class="paper" href="williamson1991-comparative-economic-organization.html">
+  <span class="t">Comparative Economic Organization: The Analysis of Discrete Structural Alternatives <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Williamson (1991) · Administrative Science Quarterly 36(2): 269-296 · Presented by Chunyang</div>
+</a>
+<a class="paper" href="williamson1999-strategy-research-governance.html">
+  <span class="t">Strategy Research: Governance and Competence Perspectives <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Williamson (1999) · Strategic Management Journal 20(12): 1087-1108 · Presented by Aiden</div>
+</a>
+<a class="paper" href="williamson2005-tce-process-theory-development.html">
+  <span class="t">Transaction Cost Economics: The Process of Theory Development <span class="badge done">Deep dive</span><span class="badge zh">ZH</span></span>
+  <div class="a">Williamson (2005) · in Smith &amp; Hitt (eds.) Great Minds in Management, Ch.23: 485-508 · The author's own account of TCE's development</div>
+</a>
+<a class="paper" href="week2-tce-integration.html">
+  <span class="t">Transaction Cost Economics (TCE): The Four-Reading Integration <span class="badge synth">Integration</span><span class="badge done">EN</span></span>
+  <div class="a">Week 2 cross-paper synthesis · Coase 1937 + Williamson 1985/1991/1999 as one theory-development line (parallel to the per-paper deep dives)</div>
+</a>
+<a class="paper" href="tce-theory-lineage.html">
+  <span class="t">TCE and the Theory Landscape (Lineage Map) <span class="badge synth">Map</span><span class="badge done">EN</span></span>
+  <div class="a">Coase–Williamson lineage · roots / sibling theories / downstream interfaces · layered map (Mahoney's five-theories-of-the-firm frame)</div>
+</a>
+<a class="paper" href="week2-tce-meet-a-theory.html">
+  <span class="t">STR Meet a Theory: Transaction Cost Economics (Video Panel) <span class="badge video">Video</span><span class="badge done">EN</span></span>
+  <div class="a">Silverman / Argyres / Lumineau / Weber on TCE's assumptions, current state, and future · 2022-07-06 · note-style integration</div>
+</a>
+
+<h3>2.2 · TCE in the AI era (extended synthesis)</h3>
+<a class="paper" href="week2-tce-ai-era.html">
+  <span class="t">Transaction Cost Economics in the AI Era: Predictions, Fusion, and Cross-Investments <span class="badge synth">Synthesis</span><span class="badge done">EN</span></span>
+  <div class="a">Are TCE's predictions still accurate · how to fuse TCE with AI-era evidence · AI companies' cross-investments/M&amp;A/acqui-hires/open source read through TCE · codified skills × human asset specificity · evidence from the local RAG + Sen's UTD/FT50 RAG</div>
+</a>
+<a class="paper" href="tce-literature-review.html">
+  <span class="t">Transaction Cost Economics: A Literature Review (1937–2026) <span class="badge synth">Review</span> <span class="badge done">EN</span></span>
+  <div class="a">The full TCE development line with a self-contained digest of every major paper (pitch → question → argument → evidence → findings → position) · the empirical record (David–Han 2004 / Geyskens 2006 etc.) · the last five years and the AI frontier (Cuypers 2021 / Ketokivi–Mahoney 2020 / Hoffreumon 2024 / Wan 2026) · two figures (timeline + streams)</div>
+</a>
+
+<h3>2.3 · TCE review papers in AMA &amp; JoM (2014–2025)</h3>
+<a class="paper" href="tce-reviews-ama-jom.html">
+  <span class="t">TCE Review Papers in AMA &amp; JoM (2014–2025) — The Three Reviews, Analyzed <span class="badge synth">Review</span><span class="badge done">EN</span></span>
+  <div class="a">Cuypers et al. (2021, AMA) · Sørensen et al. (2023, JoM, plural governance) · Schepker et al. (2014, JoM, contracts — flagged just outside the window) · search log (CrossRef + OpenAlex), side-by-side table, and the same analyses stored as Zotero child notes (collection "TCE Reviews (AMA &amp; JoM)")</div>
+</a>
+
+<!-- ======================= WEEK 3 ======================= -->
+<h2>Week 3 · Property Rights Theory (PRT)</h2>
+
+<h3>3.1 · Classical PRT</h3>
+<a class="paper" href="alchian1972-production-information-costs.html">
+  <span class="t">Production, Information Costs, and Economic Organization <span class="badge done">Deep dive</span><span class="badge done">EN</span></span>
+  <div class="a">Alchian &amp; Demsetz (1972) · American Economic Review 62(5): 777-795 · Presented by Yupeng</div>
+</a>
+<a class="paper" href="demsetz1967-toward-theory-property-rights.html">
+  <span class="t">Toward a Theory of Property Rights <span class="badge done">Deep dive</span><span class="badge done">EN</span></span>
+  <div class="a">Demsetz (1967) · American Economic Review 57(2): 347-359 · Optional reading (classical origin)</div>
+</a>
+
+<h3>3.2 · Modern PRT</h3>
+<a class="paper" href="grossman1986-costs-benefits-ownership.html">
+  <span class="t">The Costs and Benefits of Ownership: A Theory of Vertical and Lateral Integration <span class="badge done">Deep dive</span><span class="badge done">EN</span></span>
+  <div class="a">Grossman &amp; Hart (1986) · Journal of Political Economy 94(4): 691-719 · Presented by Chunyang (integrator)</div>
+</a>
+<a class="paper" href="hart1990-property-rights-nature-firm.html">
+  <span class="t">Property Rights and the Nature of the Firm <span class="badge done">Deep dive</span><span class="badge done">EN</span></span>
+  <div class="a">Hart &amp; Moore (1990) · Journal of Political Economy 98(6): 1119-1158 · Optional reading</div>
+</a>
+
+<h3>3.3 · Application to strategy</h3>
+<a class="paper" href="kim2005-property-rights-theory.html">
+  <span class="t">Property Rights Theory, Transaction Costs Theory, and Agency Theory: An Organizational Economics Approach to Strategic Management <span class="badge done">Deep dive</span><span class="badge done">EN</span></span>
+  <div class="a">Kim &amp; Mahoney (2005) · Managerial and Decision Economics 26(4): 223-242 · Presented by Yupeng</div>
+</a>
+
+<h3>3.4 · Ownership: from incentive to competence</h3>
+<a class="paper" href="foss2021-ownership-competence.html">
+  <span class="t">Ownership Competence <span class="badge done">Deep dive</span><span class="badge done">EN</span></span>
+  <div class="a">Foss, Klein, Lien, Zellweger &amp; Zenger (2021) · Strategic Management Journal 42(2): 302-328 · Presented by Aiden</div>
+</a>
+
+<h3>3.5 · Empirical test</h3>
+<a class="paper" href="magelssen2020-allocation-property-rights.html">
+  <span class="t">Allocation of Property Rights and Technological Innovation within Firms <span class="badge done">Deep dive</span><span class="badge done">EN</span></span>
+  <div class="a">Magelssen (2020) · Strategic Management Journal 41(4): 758-787 · Presented by Aiden (empirical — comment on the empirics)</div>
+</a>
+
+<div class="note">
+<strong>Note</strong>: deep dives were AI-generated (paper-analyzer workflow, academic style); synthesis pages and the literature review are English editions generated 2026-08-30 with per-paper digests grounded in Zotero records (grounding notes on each digest). Quotes and numbers: always check against the original papers. Canonical notes live in Obsidian <code>KnowledgeBase/03-Courses/seminar-economic-foundations-of-strategy/</code>.
+</div>
+
+<div class="back"><a href="../index.html">← All courses</a></div>
+
+</body>
+</html>

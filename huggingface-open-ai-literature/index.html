@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hugging Face &amp; the Open-AI Economy — Reading Notes</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.7;padding:2.5rem 1.5rem;max-width:820px;margin:0 auto;font-size:16px}
+h1{font-size:1.7rem;line-height:1.3;margin-bottom:.4rem}
+.sub{color:var(--muted);font-size:.92rem;margin-bottom:2rem;line-height:1.7}
+h2{font-size:1.15rem;margin:2.4rem 0 .8rem;color:var(--accent);padding-bottom:.35rem;border-bottom:2px solid var(--accent)}
+h3{font-size:.98rem;margin:1.5rem 0 .5rem;color:#1d4ed8;font-weight:600}
+.paper{display:block;text-decoration:none;color:inherit;padding:.75rem 1rem;margin:.5rem 0;border:1px solid var(--border);border-radius:10px;background:#fff;transition:box-shadow .15s}
+a.paper:hover{box-shadow:0 2px 10px rgba(37,99,235,.12);border-color:#bcd0f7}
+.paper .t{font-weight:600}
+.paper .a{color:var(--muted);font-size:.85rem;margin-top:.15rem}
+.badge{display:inline-block;font-size:.72rem;padding:.1rem .5rem;border-radius:99px;margin-left:.5rem;vertical-align:middle;white-space:nowrap}
+.badge.done{background:#e6f4ea;color:#1e7d3c;border:1px solid #b7e0c4}
+.badge.plan{background:#fff3cd;color:#8a6d1a;border:1px solid #ecd98d}
+.badge.zh{background:#fdf2f8;color:#9d174d;border:1px solid #fbcfe8}
+.badge.wp{background:#eef0ff;color:#3b3f9e;border:1px solid #c7cbf0}
+.badge.ann{background:#e6f7f7;color:#0d7377;border:1px solid #a8dfdd}
+.badge.case{background:#f4f6f8;color:#6b7280;border:1px solid #d9dde1}
+.legend{font-size:.8rem;color:var(--muted);margin:0 0 1.4rem;line-height:1.8}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.5rem 0;font-size:.85rem;line-height:1.7}
+.readlink{display:inline-block;margin:.6rem .4rem .6rem 0;padding:.5rem .9rem;background:#2563eb;color:#fff;border-radius:8px;text-decoration:none;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+
+<h1>Hugging Face &amp; the Open-AI Economy</h1>
+<div class="sub">
+A <strong>literature topic</strong> (non-course) in the shared Reading Notes site — the reading collection behind a research project on the Hugging Face platform, open-weight models, and the economics of open AI. English throughout. Source library: <code>Dropbox/Hugging face/</code> (merged 2026-09-04): Part&nbsp;I = <code>01_Coauthor_Original_14</code> (14 core papers contributed by the group), Part&nbsp;II = <code>02_Project_Library_Added_21</code> (21 supporting classics pulled from projects, Zotero, and seminars).
+</div>
+
+<div class="legend">
+<b>Badges:</b> <span class="badge done">Deep dive</span> full English reading page exists (linked) ·
+<span class="badge plan">Planned</span> listed on the topic index, deep dive not yet written ·
+<span class="badge ann">Annotated copy</span> the local PDF carries reader annotations ·
+<span class="badge wp">Working paper</span> preprint / in-press / non-archival source — verify before citing ·
+<span class="badge case">Case</span> teaching case ·
+<span class="badge zh">ZH</span> page currently Chinese-first (conversion pending).
+</div>
+
+<div class="note">
+<strong>How this topic is organized.</strong> Part&nbsp;I is the working core: platform-level studies of Hugging Face itself, the economics of open-weight models, and open-AI innovation and competition. Part&nbsp;II is the theoretical and empirical canon the core speaks to — open source and commons governance, platforms and ecosystems, and firm-level effects of open software and generative AI. Each paper deep dive is an AI-assisted reading note grounded in the full text (pdftotext of the local PDF), with quotes and numbers to check against the original; deep dives are being added progressively under Part&nbsp;I first. Pages use relative links (open via <code>file://</code> or a local server). Canonical Obsidian notes are <em>not</em> mirrored for this topic (site only).
+</div>
+
+<a class="readlink" href="overview.html">Overview: reading the two libraries as one conversation</a>
+<a class="readlink" href="literature-map.html">🗺 Literature map</a>
+
+<!-- ========================= PART I ========================= -->
+<h2>Part I · The core library — Hugging Face &amp; open AI (14 papers)</h2>
+
+<h3>I.1 · The platform and its model ecosystem</h3>
+<a class="paper" href="greenstein2022-huggingface-serving-ai-on-a-platform.html">
+  <span class="t">Hugging Face: Serving AI on a Platform <span class="badge done">Deep dive</span><span class="badge case">Case</span></span>
+  <div class="a">Greenstein, Yue, Herman &amp; Gulick (2022, rev. Jan 2023) · Harvard Business School Case 9-623-026 · Teaching case: founding, community-driven platform, open-source ethos, monetization</div>
+</a>
+<a class="paper" href="laufer2025-anatomy-of-a-machine-learning-ecosystem.html">
+  <span class="t">Anatomy of a Machine Learning Ecosystem: 2 Million Models on Hugging Face <span class="badge done">Deep dive</span><span class="badge wp">arXiv</span></span>
+  <div class="a">Laufer, Oderinwale &amp; Kleinberg (2025) · arXiv:2508.06811 · Large-scale network analysis of model adaptation on the Hub</div>
+</a>
+<a class="paper" href="wu2025-learning-from-the-best-huggingface.html">
+  <span class="t">Learning From the Best: What Makes Popular Hugging Face Models? A Registered Report <span class="badge done">Deep dive</span><span class="badge ann">Annotated copy</span><span class="badge wp">RR</span></span>
+  <div class="a">Wu, Yang, Xu, Wang, Le &amp; Lo (2025) · IEEE ICSME 2025 Registered Reports track · <strong>Stage-1 pre-registration protocol only — no results reported in the text</strong> (annotator's margin note: “no results”) · What model/documentation features predict popularity on the Hub · NB: arXiv:2310.01642 is <em>not</em> this paper (that id belongs to a different Hugging Face paper)</div>
+</a>
+<a class="paper" href="longpre2025-economies-of-open-intelligence.html">
+  <span class="t">Economies of Open Intelligence: Tracing Power &amp; Participation in the Model Ecosystem <span class="badge done">Deep dive</span><span class="badge ann">Annotated copy</span><span class="badge wp">arXiv</span></span>
+  <div class="a">Longpre, Akiki, Lund, Kulkarni, Chen, Solaiman, Ghosh, Jernite &amp; Kaffee (2025) · arXiv:2512.03073 · Open-weight hub (2024) traced: contributions, commercialization, corporate control</div>
+</a>
+
+<h3>I.2 · Openness, innovation and competition in AI</h3>
+<a class="paper" href="white2024-model-openness-framework.html">
+  <span class="t">The Model Openness Framework: Promoting Completeness and Openness for Reproducibility, Transparency, and Usability in AI <span class="badge done">Deep dive</span><span class="badge wp">arXiv</span></span>
+  <div class="a">White, Haddad, Osborne, Liu, Abdelmonsef, Varghese &amp; Le Hors (2024) · arXiv:2403.13784 · The MOF taxonomy: 17 components × 3 classes (open/partial/closed) vs. mere open weights</div>
+</a>
+<a class="paper" href="wu2025-foundation-models-and-ai-innovation.html">
+  <span class="t">Foundation Models and AI Innovation: Evidence from the Hugging Face Platform <span class="badge done">Deep dive</span></span>
+  <div class="a">Wu, Lin &amp; Li (2025) · ICIS 2025 Proceedings · Llama 2 release as a commoditization shock: DiD on Hub developers</div>
+</a>
+<a class="paper" href="yeverechyahu2024-llms-open-source-innovation.html">
+  <span class="t">The Impact of Large Language Models on Open-Source Innovation: Evidence from GitHub Copilot <span class="badge done">Deep dive</span><span class="badge wp">WP</span></span>
+  <div class="a">Yeverechyahu, Mayya &amp; Oestreicher-Singer (2024, rev. 2026) · Working paper · LLMs and voluntary open-innovation contributions</div>
+</a>
+<a class="paper" href="yue-nagle2024-igniting-innovation.html">
+  <span class="t">Igniting Innovation: Evidence from PyTorch on Technology Control in Open Collaboration <span class="badge done">Deep dive</span><span class="badge wp">WP</span></span>
+  <div class="a">Yue &amp; Nagle (2024) · Working Paper 25-0 (HBS/Harvard) · PyTorch: relinquishing control of a core technology in open collaboration</div>
+</a>
+<a class="paper" href="azoulay2024-old-moats-new-models.html">
+  <span class="t">Old Moats for New Models: Openness, Control, and Competition in Generative AI <span class="badge done">Deep dive</span><span class="badge ann">Annotated copy</span><span class="badge wp">NBER</span></span>
+  <div class="a">Azoulay, Krieger &amp; Nagaraj (2024) · NBER WP 32474 · Does open-weight publishing erode the proprietary advantages of frontier model builders?</div>
+</a>
+<a class="paper" href="jin2026-us-policies-china-open-ai.html">
+  <span class="t">U.S. Policies Unintentionally Accelerated China’s Open AI Ecosystems <span class="badge done">Deep dive</span><span class="badge wp">WP</span></span>
+  <div class="a">Jin, Kunievsky, Lou, Sun &amp; Evans (2026) · Working paper · Export controls as a driver of open-source AI adoption in China</div>
+</a>
+<a class="paper" href="khoshbash2026-specialization-open-foundation-models.html">
+  <span class="t">Specialization Trade-offs in a General-Purpose Technology: The Case of Open Foundation Models’ Ecosystems <span class="badge done">Deep dive</span><span class="badge wp">WP</span></span>
+  <div class="a">Khoshbash (2026) · Working paper · Provider-driven specialization vs. complementor differentiation in open foundation-model ecosystems</div>
+</a>
+
+<h3>I.3 · Behavioral and measurement foundations carried into the project</h3>
+<a class="paper" href="greve2003-behavioral-theory-rnd.html">
+  <span class="t">A Behavioral Theory of R&amp;D Expenditures and Innovations: Evidence from Shipbuilding <span class="badge done">Deep dive</span></span>
+  <div class="a">Greve (2003) · Academy of Management Journal 46(6) · Problemistic and slack search as drivers of R&amp;D and innovation launches</div>
+</a>
+<a class="paper" href="dell2024-deep-learning-for-economists.html">
+  <span class="t">Deep Learning for Economists <span class="badge done">Deep dive</span><span class="badge wp">NBER</span></span>
+  <div class="a">Dell (2024) · NBER WP 32768 · Review of deep learning methods for measuring economic activity from unstructured text and images</div>
+</a>
+<a class="paper" href="atlan2026-ai-roi-200-b2b.html">
+  <span class="t">AI ROI Analysis: Evidence from 200 B2B Deployments (2022–2025) <span class="badge done">Deep dive</span><span class="badge wp">Industry WP</span></span>
+  <div class="a">Atlan (2026) · Industry working paper v1.1, ENDKOO · ROI, breakeven, and success factors across 200 French B2B AI projects</div>
+</a>
+
+<!-- ========================= PART II ========================= -->
+<h2>Part II · The supporting library — open source, commons, platforms, ecosystems (21 papers)</h2>
+<div class="note"><strong>Status</strong>: listed here so the full canon is on one index; per-paper English deep dives are queued after Part&nbsp;I (see the legend). Citations below were verified against the local PDFs and Crossref where possible.</div>
+
+<h3>II.1 · Open source and the commons: communities, governance, revealing</h3>
+<div class="paper">
+  <span class="t">Guarding the Commons: How Community Managed Software Projects Protect Their Work <span class="badge plan">Planned</span></span>
+  <div class="a">O’Mahony (2003) · Research Policy 32(7) · Legal and normative tactics that protect commons-based software</div>
+</div>
+<div class="paper">
+  <span class="t">Open Source Software and the “Private-Collective” Innovation Model: Issues for Organization Science <span class="badge plan">Planned</span></span>
+  <div class="a">von Hippel &amp; von Krogh (2003) · Organization Science 14(2) · The private-collective model of innovation</div>
+</div>
+<div class="paper">
+  <span class="t">Democratizing Innovation <span class="badge plan">Planned</span></span>
+  <div class="a">von Hippel (2005) · MIT Press (book) · User innovation: lead users, toolkits, and why users freely reveal</div>
+</div>
+<div class="paper">
+  <span class="t">Selective Revealing in Open Innovation Processes: The Case of Embedded Linux <span class="badge plan">Planned</span></span>
+  <div class="a">Henkel (2006) · Research Policy 35(7) · Firms reveal part of their code while protecting the rest</div>
+</div>
+<div class="paper">
+  <span class="t">The Emergence of Governance in an Open Source Community <span class="badge plan">Planned</span></span>
+  <div class="a">O’Mahony &amp; Ferraro (2007) · Academy of Management Journal 50(5) · How a community legitimizes formal authority</div>
+</div>
+<div class="paper">
+  <span class="t">From Proprietary to Collective Governance: How Do Platform Participation Strategies Evolve? <span class="badge plan">Planned</span></span>
+  <div class="a">O’Mahony &amp; Karp (2022) · Strategic Management Journal 43(3) · Responses to platform leaders changing access and control rules</div>
+</div>
+<div class="paper">
+  <span class="t">Degrees of Openness in Open-Source AI: Empirical Insights and Implications for Downstream Innovation <span class="badge plan">Planned</span></span>
+  <div class="a">Fleischmann &amp; Haeussler (2026) · Open and User Innovation Conference 2026 (HBS) · Openness gradations in open-source AI and downstream effects</div>
+</div>
+
+<h3>II.2 · Platforms and ecosystems: structure, governance, complements</h3>
+<div class="paper">
+  <span class="t">Value Creation in Innovation Ecosystems: How the Structure of Technological Interdependence Affects Firm Performance in New Technology Generations <span class="badge plan">Planned</span></span>
+  <div class="a">Adner &amp; Kapoor (2010) · Strategic Management Journal 31(3) · Ecosystem bottlenecks: emergence vs. component challenges</div>
+</div>
+<div class="paper">
+  <span class="t">Ecosystem as Structure: An Actionable Construct for Strategy <span class="badge plan">Planned</span></span>
+  <div class="a">Adner (2017) · Journal of Management 43(1) · Ecosystems as aligned structures of interdependence</div>
+</div>
+<div class="paper">
+  <span class="t">Towards a Theory of Ecosystems <span class="badge plan">Planned</span></span>
+  <div class="a">Jacobides, Cennamo &amp; Gawer (2018) · Strategic Management Journal 39(8) · Complementarities, modularity, and ecosystem architecture</div>
+</div>
+<div class="paper">
+  <span class="t">Technology Ecosystem Governance <span class="badge plan">Planned</span></span>
+  <div class="a">Wareham, Fox &amp; Cano Giner (2014) · Organization Science 25(4) · Three governance tensions of software ecosystems</div>
+</div>
+<div class="paper">
+  <span class="t">Open Platform Strategies and Innovation: Granting Access vs. Devolving Control <span class="badge plan">Planned</span></span>
+  <div class="a">Boudreau (2010) · Management Science 56(10) · Access vs. control as distinct openness mechanisms (handheld computing)</div>
+</div>
+<div class="paper">
+  <span class="t">Platform Strategy: Managing Ecosystem Value Through Selective Promotion of Complements <span class="badge plan">Planned</span></span>
+  <div class="a">Rietveld, Schilling &amp; Bellavitis (2019) · Organization Science 30(6) · Selective promotion in the video-game platform economy</div>
+</div>
+<div class="paper">
+  <span class="t">Threat of Platform-Owner Entry and Complementor Responses: Evidence from the Mobile App Market <span class="badge plan">Planned</span></span>
+  <div class="a">Wen &amp; Zhu (2019) · Strategic Management Journal 40(9) · Complementor responses when the platform owner enters</div>
+</div>
+<div class="paper">
+  <span class="t">Opening Up Intellectual Property Strategy: Implications for Open Source Software Entry by Start-up Firms <span class="badge plan">Planned</span></span>
+  <div class="a">Wen, Ceccagnoli &amp; Forman (2016) · Management Science 62(9) · IP strategy and the timing of OSS entry</div>
+</div>
+
+<h3>II.3 · Open source, entrepreneurship, and generative AI in firms</h3>
+<div class="paper">
+  <span class="t">Creating Something from Nothing: Resource Construction through Entrepreneurial Bricolage <span class="badge plan">Planned</span></span>
+  <div class="a">Baker &amp; Nelson (2005) · Administrative Science Quarterly 50(3) · Bricolage under resource constraints (29-firm field study)</div>
+</div>
+<div class="paper">
+  <span class="t">Open Source Software and Firm Productivity <span class="badge plan">Planned</span></span>
+  <div class="a">Nagle (2019) · Management Science 65(3) · Firms’ OSS use and productivity (Fortune 500 + Census data)</div>
+</div>
+<div class="paper">
+  <span class="t">Open Source Software and Global Entrepreneurship <span class="badge plan">Planned</span></span>
+  <div class="a">Wright, Nagle &amp; Greenstein (2023) · Research Policy 52 · OSS engagement as a channel for entrepreneurial human capital</div>
+</div>
+<div class="paper">
+  <span class="t">Beefing IT Up for Your Investor? Engagement with Open Source Communities, Innovation, and Startup Funding: Evidence from GitHub <span class="badge plan">Planned</span></span>
+  <div class="a">Conti, Peukert &amp; Roche (2025) · Organization Science · Signaling through OSS engagement in startup funding</div>
+</div>
+<div class="paper">
+  <span class="t">Open at the Core: Moving from Proprietary Technology to Building a Product on Open Source Software <span class="badge plan">Planned</span></span>
+  <div class="a">Haese &amp; Peukert (2026) · Management Science (in press) · When and how firms open-source their core technology</div>
+</div>
+<div class="paper">
+  <span class="t">Generative AI at Work <span class="badge plan">Planned</span></span>
+  <div class="a">Brynjolfsson, Li &amp; Raymond (2023) · NBER WP 31161 · AI adoption and productivity in customer support</div>
+</div>
+
+<div class="note">
+<strong>Conventions</strong>. Deep dives are AI-assisted reading notes (paper-analyzer workflow, academic style, English). Grounding line on each page states the source text used and what was verified. Quotes and numbers: check against the original papers before citing in formal writing. The two libraries live in <code>Dropbox/Hugging face/</code>; file renames and provenance records are logged under <code>_literature_admin/2026-09-04_merge/</code> (rename_map / source_manifest / validation CSVs).
+</div>
+
+<div class="back"><a href="../index.html">← All courses &amp; topics</a></div>
+
+</body>
+</html>

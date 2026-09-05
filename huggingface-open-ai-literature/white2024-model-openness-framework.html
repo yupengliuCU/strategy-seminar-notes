@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Model Openness Framework (White et al., 2024) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>The Model Openness Framework: Promoting Completeness and Openness for Reproducibility, Transparency, and Usability in Artificial Intelligence<br>
+<span style="font-size:1.02rem;font-weight:600;color:#6b7280;line-height:1.6">White et al. (2024) &middot; arXiv:2403.13784</span></h1>
+
+<div class="meta">
+<strong>Authors</strong>: Matt White (Linux Foundation), Ibrahim Haddad (Linux Foundation), Cailean Osborne (University of Oxford), Xiao-Yang Yanglet Liu (Columbia University), Ahmed Abdelmonsef (Generative AI Commons), Sachin Mathew Varghese (Generative AI Commons), Arnaud Le Hors (IBM &amp; Generative AI Commons)<br>
+<strong>Source</strong>: arXiv preprint arXiv:2403.13784v6 [cs.LG], 18 October 2024 (position / framework paper of the Linux Foundation&rsquo;s LF AI &amp; Data and its Generative AI Commons community)<br>
+<strong>Year</strong>: 2024<br>
+<strong>Nature</strong>: Framework / taxonomy paper, not an empirical study: it proposes a three-tier classification system (the Model Openness Framework, MOF) plus a reference tool (the Model Openness Tool, MOT); it reports no experiments and collects no new data<br>
+<strong>Data &amp; code status as reported by the paper itself</strong>: no empirical dataset. The artifacts it ships are the <strong>Model Openness Tool</strong> (MOT) web application at isitopen.ai, the <strong>MOF.JSON</strong> machine-readable declaration format (schema and examples on GitHub, cited in the paper as [125]), and a badging program administered by the Generative AI Commons; reviewers acknowledged include members of the Open Source Initiative (Justin Colannino, Stefano Maffulli) and EleutherAI (Stella Biderman)
+</div>
+
+<div class="summary-box">
+<h3>One-sentence take</h3>
+<p><strong>Open weights are not an open model</strong>: under the Model Openness Framework a release may only be called &ldquo;open&rdquo; when every component required for its class is released under an appropriate open license, and the framework operationalizes that test across <strong>17 components</strong> of the model development lifecycle organized into <strong>three ascending classes</strong> — Class III &ldquo;Open Model,&rdquo; Class II &ldquo;Open Tooling,&rdquo; Class I &ldquo;Open Science.&rdquo;</p>
+</div>
+
+<div class="note">
+<strong>Reading guide</strong>: this paper is best read as the <em>vocabulary document</em> of the &ldquo;Hugging Face &amp; the Open-AI Economy&rdquo; topic. Nearly every other reading in the topic wants to talk about &ldquo;open&rdquo; AI — as a business model, a competitive threat, a policy object, or an empirical variable — and the MOF is the taxonomy that lets them say precisely <em>which artifact is open, under which license, and which class of completeness the release reaches</em>. Keep three distinctions from this note in mind when reading the rest of the topic: (i) <em>open weights</em> (downloadable parameters) is not <em>open model</em> (the full, license-compliant artifact set); (ii) <em>openness</em> (permissive licensing) and <em>completeness</em> (how many lifecycle components are released) are separate axes; (iii) MOF classes are cumulative, so &ldquo;open&rdquo; is a ladder, not a binary — although at each rung the license test is still all-or-nothing. The MOF vocabulary implicitly underlies or is extended by the topic readings: <strong>Azoulay, Krieger &amp; Nagaraj (2024)</strong> on openness, control, and competition in generative AI; <strong>Yue &amp; Nagle (2024)</strong> on opening access while keeping control rights in open collaboration; <strong>Longpre et al. (2025)</strong> on open-weight versus truly open models in the evolution of the open-AI ecosystem; and <strong>Fleischmann &amp; Haeussler (2026)</strong>, whose empirical study of &ldquo;degrees of openness&rdquo; across 22,137 Hugging Face base models cites White et al. (2024) explicitly as its conceptual anchor.
+</div>
+
+<h2>1. Motivation: why &ldquo;open-source AI&rdquo; claims mislead</h2>
+
+<p>The paper opens with a diagnosis familiar from the frontier-model debate: the most capable systems are black boxes — hard to audit, hard to explain, hard to reproduce — and although &ldquo;the number of publicly available models has been growing, many of these models are falsely being promoted as &lsquo;open-source,&rsquo; a practice that has been characterized as &lsquo;openwashing&rsquo;&rdquo; (p. 1 of the PDF). The abstract states the core complaint directly:</p>
+
+<blockquote>Most models lack the necessary components for full understanding, auditing, and reproducibility, and some model producers use restrictive licenses whilst claiming that their models are &ldquo;open source.&rdquo; (Abstract, p. 1 of the PDF)</blockquote>
+
+<p>The paper names three interlocking problems behind the misleading claims (Section 2.2, pp. 2&ndash;3):</p>
+
+<ul>
+<li><strong>License mismatch</strong>. Open-source licenses were &ldquo;designed to cover conventional software code and are not appropriate for the intricacies of ML models&rdquo; (p. 3). They cover the model <em>architecture</em>, which is expressed in code; but <em>parameters are data</em>, and the paper argues they are &ldquo;more aptly governed by open-data licenses than by open-source licenses&rdquo; (p. 3). Producers nonetheless release weights under Apache 2.0 or MIT (see &sect;5.2). Some even add conditions — e.g., outputs may not be used to train subsequent models, or trigger conditions that force a consumer to renegotiate the license — and fine-tuned derivatives of restrictively licensed models are sometimes re-released under Apache 2.0 &ldquo;even though altering the original license is not legally permitted&rdquo; (p. 3).</li>
+<li><strong>Missing components</strong>. Most releases contain only architecture plus final trained weights. Pretraining data and human-feedback data are almost never released, and evaluation results often cannot be reproduced because their disclosure is lacking (p. 3).</li>
+<li><strong>Widespread unlicensed sharing</strong>. Citing Osborne, Ding &amp; Kirk&rsquo;s quantitative study of Hugging Face Hub, the paper reports that <strong>64.67% of models and 72.13% of datasets</strong> on the platform are shared without any license (p. 2).</li>
+</ul>
+
+<p>Section 2.1 frames the background debate: openness has documented benefits (distributed auditing, adaptation to diverse domains and languages, scientific advance) and risks (disinformation, illegal content, security vulnerabilities). The paper relays the claim — from Kapoor et al. (2024) — that open foundation models have <em>five distinctive properties</em> that cut both ways: broader access, greater customizability, local adaptation and inference ability, the inability to rescind model access, and the inability to monitor or moderate model usage (p. 2). A systematic review it cites concludes the benefits outweigh the costs in the short, medium, and long terms (p. 2). The MOF is positioned as the response to the <em>measurement</em> gap left by this debate:</p>
+
+<blockquote>There is not yet a formally agreed-upon definition of &ldquo;open source AI.&rdquo; (Section 2.3, p. 3 of the PDF)</blockquote>
+
+<h2>2. Related concepts the MOF builds on and pushes back against</h2>
+
+<p>Section 3 walks through the vocabulary of the &ldquo;open knowledge&rdquo; movement — open science, open access, open collaboration and community, open source software (OSS), source-available, open data, and open licenses — and Section 2.2 contrasts the MOF with adjacent concepts. Only the paper&rsquo;s own definitions are reproduced here.</p>
+
+<p><strong>Openness versus completeness</strong> is the paper&rsquo;s key conceptual move. &ldquo;Openness&rdquo; has become a vague umbrella term covering licensing, availability, and thoroughness at once; the paper splits it: completeness measures <em>which</em> artifacts are released, openness measures <em>under what license</em>. Section 3.2:</p>
+
+<blockquote>&hellip;we use the term &ldquo;completeness&rdquo; to measure the availability of components that are released with models (with the goal of full completeness) and the term &ldquo;openness&rdquo; to describe the usage of permissive licenses for components. (Section 3.2, p. 4 of the PDF)</blockquote>
+
+<p><strong>Open source software (OSS)</strong> (Section 3.7): software published under licenses allowing inspection, modification, and redistribution; OSI-approved licenses such as MIT, Apache 2.0, and 3-Clause BSD are the standard. The paper notes OSS is estimated to be used in 96% of global codebases and to constitute up to 90% of software stacks (p. 5), and it treats open-source AI as building on this tradition while outgrowing it.</p>
+
+<p><strong>Source-available</strong> (Section 3.8, p. 6) &ldquo;should not be confused with open source&rdquo;: the code or model is accessible, but the license imposes restrictions consumers must understand before use. &ldquo;Most open-washed projects are examples of source available due to their restrictive licensing.&rdquo;</p>
+
+<p><strong>Open data and open content</strong> (Section 3.9&ndash;3.10): for datasets the appropriate instruments are open-data and open-content licenses — CC0, CC BY, CC BY-SA, the Linux Foundation&rsquo;s Community Data License Agreement (CDLA-Permissive), and Open Data Commons licenses (PDDL, ODC-By). For papers and documentation, Creative Commons licenses (CC BY, CC BY-SA) are the norm. Crucially, &ldquo;alternative licenses, such as the Llama 2 license, OpenRAIL, and AI2 ImpACT licenses, are not considered open-source licenses due to their restrictions on usage&rdquo; (p. 6).</p>
+
+<p><strong>Open weights</strong> (Section 2.2): models whose &ldquo;weights are made publicly-available for download and downstream use&rdquo; are &ldquo;falsely promoted as &lsquo;open-source&rsquo;&hellip; Such models may more accurately be described as &lsquo;open-weight models&rsquo;&rdquo; (p. 2). Downloadability of parameters is thus the <em>minimum</em>, not the test, of openness.</p>
+
+<p><strong>Adjacent transparency instruments the MOF absorbs</strong> (Sections 1&ndash;2.3): reproducibility checklists (the NeurIPS 2019 reproducibility program of Pineau et al.; the AAAI Reproducibility Checklist), model cards (Mitchell et al., 2019 — &ldquo;model cards for model reporting&rdquo;), data cards following the datasheets-for-datasets tradition (Gebru et al., 2021) and the Data Nutrition Project, ethics guidelines and review boards, and government efforts the paper names: NIST and NTIA in the USA and the AI Safety Institute in the UK, plus the OSI&rsquo;s then-draft Open Source AI Definition. Its complaint against all prior instruments is that none &ldquo;evaluate both the completeness and openness of models&rdquo; (p. 3).</p>
+
+<p>It also explicitly distances itself from a rival classification: the <em>gradient approach to model openness</em> of Solaiman (2023), which treats openness as a continuum and labels BLOOM and GPT-J as open. The MOF instead says:</p>
+
+<blockquote>We would classify GPT-J as open because it was released under the OSI-approved Apache 2.0 license, while BLOOM is source-available due to its restrictive, non-OSI-approved OpenRAIL license. (Section 2.3, p. 3 of the PDF)</blockquote>
+
+<h3>Table 1: Comparison of openness concepts as the paper defines them</h3>
+<table>
+<tr><th>Criterion</th><th>Open-weight model (&sect;2.2)</th><th>Source-available (&sect;3.8)</th><th>MOF &ldquo;open&rdquo; model (&sect;4)</th><th>OSD-compliant open source software (&sect;3.7, 3.10)</th></tr>
+<tr><td>Minimum disclosure</td><td>Trained weights (parameters) downloadable</td><td>Source code or model accessible, typically with the parameters</td><td>All components required for the claimed class (Class III minimum: architecture, final parameters, technical report/research paper, evaluation results, model card, data card) under open licenses</td><td>Source code, under an OSI-approved license</td></tr>
+<tr><td>License test</td><td>Often restrictive (Llama 2-style, OpenRAIL-type conditions)</td><td>Not OSI-approved; restrictions apply</td><td>Each required component under a license acceptable per the MOF&rsquo;s Table 2; any restriction disqualifies</td><td>OSI-approved open source license (e.g., MIT, Apache 2.0, BSD-3)</td></tr>
+<tr><td>Restrictions tolerated</td><td>Yes — e.g., no training on outputs, trigger conditions</td><td>Yes, by definition</td><td>None, at the claimed class</td><td>None (per the Open Source Definition)</td></tr>
+<tr><td>Data &amp; documentation demands</td><td>Typically a model card / technical report at most; training data withheld</td><td>Varies</td><td>Documentation mandatory from Class III; data, code and tooling added at Classes II and I</td><td>Not applicable to data (parameters are data, so OSS licenses do not cleanly cover them)</td></tr>
+<tr><td>Paper&rsquo;s examples</td><td>&ldquo;Open-washed&rdquo; claims (cf. Nolan&rsquo;s &ldquo;Llama and ChatGPT are not open-source&rdquo;)</td><td>BLOOM (OpenRAIL)</td><td>GPT-J (Apache 2.0) as an open release in the paper&rsquo;s own reasoning</td><td>Conventional software projects under MIT / Apache 2.0 / BSD</td></tr>
+</table>
+
+<h2>3. The framework: three classes of completeness</h2>
+
+<p>The MOF (Section 4) is a &ldquo;three-tier ranked classification system&rdquo; over the artifacts of a model&rsquo;s development lifecycle. Each class builds on the previous one: &ldquo;Class III being the least complete and Class I being the most complete,&rdquo; and &ldquo;the higher the class indicates a more complete distribution that promotes more transparency and enables reproducibility, auditing, and downstream use&rdquo; (Section 4.1, p. 7). Qualifying for a class requires <em>every</em> listed component of that class, each under an acceptable open license (&ldquo;Each component must be released using an appropriate open license from Table 2 to qualify the entire project at the specified class level,&rdquo; p. 7).</p>
+
+<h3>Table 2: The three MOF classes (from the paper&rsquo;s Table 1, p. 7, and the class descriptions of &sect;4.2)</h3>
+<table>
+<tr><th>Class</th><th>Components included (paper&rsquo;s Table 1)</th><th>What the class enables / its limits (paper&rsquo;s &sect;4.2)</th></tr>
+<tr><td><strong>Class III &middot; Open Model</strong> (entry point)</td><td>1. Model Architecture; 2. Model Parameters (Final Checkpoints); 3. Technical Report or Research Paper; 4. Evaluation Results; 5. Model Card; 6. Data Card; 7. Sample Model Outputs (Optional)</td><td>Everything needed &ldquo;to study, modify, redistribute, and build upon a model without restrictions, including for commercial and educational purposes&rdquo; &mdash; but &ldquo;lacks completeness and robustness for full reproducibility,&rdquo; and lacks the training data needed to evaluate the model or confirm all producer claims (pp. 7&ndash;8)</td></tr>
+<tr><td><strong>Class II &middot; Open Tooling</strong></td><td>All Class III components, plus: 2. Training, Validation, and Testing Code; 3. Inference Code; 4. Evaluation Code; 5. Evaluation Data; 6. Supporting Libraries &amp; Tools</td><td>&ldquo;An intermediate step between an open model and open science&rdquo;: lets consumers test the producer&rsquo;s assertions, debug, and enhance functionality; still excludes the actual datasets and is &ldquo;lighter on documentation&rdquo; (p. 8)</td></tr>
+<tr><td><strong>Class I &middot; Open Science</strong> (top tier)</td><td>All Class II components, plus: 2. Research Paper; 3. Datasets; 4. Data Preprocessing Code; 5. Model Parameters (Intermediate Checkpoints); 6. Model Metadata (Optional)</td><td>Aligns with open science ideals: a research paper conveying the model&rsquo;s genesis and evolution, raw training datasets (&ldquo;any license or unlicensed&rdquo;), checkpoint weights showing &ldquo;full model evolution,&rdquo; and log files &mdash; &ldquo;the gold standard for completeness and openness rooted in scientific principles&rdquo; (p. 8)</td></tr>
+</table>
+
+<p>On <strong>hybrid releases</strong> (Section 4.3), the MOF deliberately borrows open source&rsquo;s binary license logic, applied rung by rung. &ldquo;When any component is not released using an open license as described in Table 1, that component is not deemed open and does not qualify for an MOF class&rdquo; (p. 8). A producer may drop a component and claim a <em>lesser</em> class if everything remaining is open — but projects using modified open licenses with added restrictions or acceptable-use clauses cannot qualify even for Class III. The authors warn: &ldquo;The reader should not confuse the classification system as being a gradient measure of openness&rdquo; (a dig at Solaiman&rsquo;s gradient) &ldquo;but rather a measurement of the completeness of a release in adherence with open science principles&rdquo; (Section 4.3, p. 8).</p>
+
+<pre class="mermaid">
+flowchart TD
+    A["Class III · Open Model — entry point<br/>Architecture · Final parameters · Technical report or research paper<br/>Evaluation results · Model card · Data card · Sample outputs (optional)"] --> B
+    B["Class II · Open Tooling<br/>= Class III, plus:<br/>Training / validation / testing code · Inference code<br/>Evaluation code · Evaluation data · Supporting libraries and tools"] --> C
+    C["Class I · Open Science — gold standard<br/>= Class II, plus:<br/>Research paper · Datasets · Data preprocessing code<br/>Intermediate checkpoints · Model metadata (optional)"]
+</pre>
+
+<h2>4. The 17 components of the model development lifecycle</h2>
+
+<p>Section 5 defines the components one by one, each tagged with its class membership (e.g., &ldquo;Model Architecture (III.1)&rdquo;), and the definitions use the RFC 2119 keywords (MUST, SHOULD, MAY, OPTIONAL). The paper counts <strong>17 components</strong> (&ldquo;The MOF has 17 components to fulfil completeness of model artifacts, which cover the code, data, and documentation that are part of the model development lifecycle,&rdquo; p. 7), and adds an eighteenth element, the <strong>MOF configuration file</strong>, which &ldquo;MUST be included in any distribution&rdquo; and records which components the release contains and under which licenses (p. 12). Components may be combined in a single artifact — e.g., evaluation results may live inside the technical report or model card — &ldquo;as long as the combined release is covered by the appropriate LICENSE file&rdquo; (my paraphrase of Section 5&rsquo;s combining rule, p. 8). <em>Counting caveat (inference):</em> the paper&rsquo;s own Table 2 and the MOT interface instead speak of &ldquo;16 components,&rdquo; because they merge the two parameter components (final and intermediate checkpoints) into one row and treat the configuration file separately; the text&rsquo;s &ldquo;17&rdquo; counts final and intermediate parameters as two components. The mismatch is the paper&rsquo;s, not an error of this note.</p>
+
+<p>Read by <em>lifecycle layer</em>, the components are:</p>
+
+<ul>
+<li><strong>Model layer</strong> — <em>Model Architecture</em> (III.1): the algorithms, network layout, connectivity, activations; MUST be distributed as open source code under an OSI-approved license and SHOULD be documented in the paper/report/model card. <em>Model Parameters &mdash; Final Checkpoints</em> (III.2) and <em>&mdash; Intermediate Checkpoints</em> (I.5): trained parameters, optimizer state, in a common framework format (TensorFlow, Keras, PyTorch, ONNX); final parameters MUST be open, and for Class I the intermediate checkpoints and log files MUST also be released.</li>
+<li><strong>Data layer</strong> — <em>Datasets</em> (I.3): &ldquo;data is the lifeblood of ML models and is the most often held back element in the release of a model&rdquo; (p. 11); covers pretraining, fine-tuning, alignment data, validation/testing/benchmark data, tokenized datasets and metadata. <em>Data Preprocessing Code</em> (I.4): cleaning, formatting, feature engineering, augmentation, tokenization, RLHF transforms; MUST be OSI-approved. <em>Data Card</em> (III.6): summary statistics and composition following the Data Nutrition Project; MUST be open (CC BY-4.0 preferred).</li>
+<li><strong>Tooling / code layer</strong> — <em>Training, Validation, and Testing Code</em> (II.2), including fine-tuning, reinforcement-learning and adapter code; <em>Inference Code</em> (II.3), which MUST be enough to replicate the model&rsquo;s benchmark results; <em>Evaluation Code</em> (II.4); <em>Evaluation Data</em> (II.5); <em>Supporting Libraries &amp; Tools</em> (II.6) — an enumerated list covering tokenizers, hyperparameter-search code, compute infrastructure, monitoring code, containerization files, frontends, deployment orchestration, SDKs and interactive demos. Code components MUST use OSI-approved licenses; evaluation data uses open-data/open-content licenses.</li>
+<li><strong>Documentation layer</strong> — <em>Technical Report</em> (III.3) or <em>Research Paper</em> (I.2), both under CC BY-4.0/CC0 and linked from the model card; <em>Evaluation Results</em> (III.4) reporting benchmark names and versions (or full custom benchmarks); <em>Model Card</em> (III.5) per Mitchell et al.&rsquo;s reporting standard; <em>Sample Model Outputs</em> (III.7, optional), shared without copyright restriction where legally permitted; <em>Model Metadata</em> (I.6, optional) under an open data license.</li>
+</ul>
+
+<p>The single most consequential licensing argument of the paper sits in &sect;5.2. Because weights are data, not code, slapping an OSS license on them is a legal mismatch:</p>
+
+<blockquote>Since model parameters are in fact data, model parameters SHOULD be distributed under an open data license, like CDLA-Permissive-2.0. (Section 5.2, p. 9 of the PDF)</blockquote>
+
+<p>The paragraph warns of an &ldquo;untested legal gray area&rdquo;: most permissive software licenses do not refer to data directly and do not clearly grant rights to modify and redistribute parameters, which &ldquo;could result in a legal obligation to any model consumer if the model producer were to implement royalties after widespread adoption of their model&rdquo; (p. 9).</p>
+
+<h3>Table 3: The 17 components by class, content type, domain, and license</h3>
+<table>
+<tr><th>Component (paper&rsquo;s ID)</th><th>Class</th><th>Content type (Table 2)</th><th>Domain (Table 2)</th><th>License requirement (paper&rsquo;s Table 2 and &sect;5)</th></tr>
+<tr><td>1. Model Architecture (III.1)</td><td>III</td><td>Code</td><td>Model</td><td>MUST be OSI-approved OSS license; no limits on usage or derivative works</td></tr>
+<tr><td>2. Model Parameters — Final Checkpoints (III.2)</td><td>III</td><td>Data</td><td>Model</td><td>MUST be open; preferred open data license (CDLA-Permissive-2.0); OSS licenses accepted by Table 2 but &ldquo;not compatible&rdquo; per &sect;5.2</td></tr>
+<tr><td>3. Technical Report (III.3)</td><td>III</td><td>Documentation</td><td>Model &amp; Data</td><td>CC BY-4.0 or CC0; hosted on a permanent open-access platform (e.g., arXiv)</td></tr>
+<tr><td>4. Evaluation Results (III.4)</td><td>III</td><td>Documentation</td><td>Model</td><td>CC BY-4.0 (open content); benchmark names/versions reported, custom benchmarks in full</td></tr>
+<tr><td>5. Model Card (III.5)</td><td>III</td><td>Documentation</td><td>Model</td><td>CC BY-4.0 preferred</td></tr>
+<tr><td>6. Data Card (III.6)</td><td>III</td><td>Documentation</td><td>Data</td><td>CC BY-4.0 preferred</td></tr>
+<tr><td>7. Sample Model Outputs (III.7, optional)</td><td>III</td><td>Data or Code</td><td>Model</td><td>Unlicensed — shared without copyright restrictions where legally permitted</td></tr>
+<tr><td>8. Training, Validation &amp; Testing Code (II.2)</td><td>II</td><td>Code</td><td>Model</td><td>OSI-approved; fine-tuning/RL/adapter code MUST be included; logs SHOULD be CC BY-4.0</td></tr>
+<tr><td>9. Inference Code (II.3)</td><td>II</td><td>Code</td><td>Model</td><td>OSI-approved; must permit full replication of benchmark results</td></tr>
+<tr><td>10. Evaluation Code (II.4)</td><td>II</td><td>Code</td><td>Model</td><td>OSI-approved</td></tr>
+<tr><td>11. Evaluation Data (II.5)</td><td>II</td><td>Data</td><td>Model</td><td>CDLA-Permissive-2.0, CC BY-4.0 or CC0; widely used standard benchmarks may be omitted if described with versions</td></tr>
+<tr><td>12. Supporting Libraries &amp; Tools (II.6)</td><td>II</td><td>Code</td><td>Model</td><td>OSI-approved</td></tr>
+<tr><td>13. Research Paper (I.2)</td><td>I</td><td>Documentation</td><td>Model &amp; Data</td><td>CC BY-4.0; open-access platform; may be replaced by a detailed technical report</td></tr>
+<tr><td>14. Datasets (I.3)</td><td>I</td><td>Data</td><td>Data</td><td>MUST be provided (public domain, copyrighted, or under any license); SHOULD be open (CC BY-4.0 or CC0)</td></tr>
+<tr><td>15. Data Preprocessing Code (I.4)</td><td>I</td><td>Code</td><td>Data</td><td>OSI-approved</td></tr>
+<tr><td>16. Model Parameters — Intermediate Checkpoints (I.5)</td><td>I</td><td>Data</td><td>Model</td><td>Open data license (CDLA-Permissive-2.0); log files MUST be included for Class I</td></tr>
+<tr><td>17. Model Metadata (I.6, optional)</td><td>I</td><td>Data</td><td>Model</td><td>Open data license (CDLA-Permissive-2.0)</td></tr>
+<tr><td>+ MOF configuration file (&sect;5.18, all distributions)</td><td>all</td><td>Documentation</td><td>&mdash;</td><td>MUST be open; CC BY-4.0 preferred; lists included components and their licenses</td></tr>
+</table>
+
+<h2>5. Acceptable licenses (Section 6)</h2>
+
+<p>Table 2 of the paper (&ldquo;Model Openness Framework Components and Licenses,&rdquo; p. 13 of the PDF) is the compliance table of the whole system: for every component it fixes the <em>domain</em> (Data, Model, or both), the <em>content type</em> (data, code, or documentation), and the accepted open licenses. The logic, which the paper stresses in Section 3.10 and Section 6, is content-appropriate licensing: <strong>code &rarr; OSI-approved software licenses; data &rarr; open-data/open-content licenses (CDLA-Permissive-2.0, CC0, CC BY); documentation &rarr; Creative Commons licenses (CC BY-4.0 preferred)</strong>. Datasets are the only component where even unlicensed release is acceptable (&ldquo;any including unlicensed&rdquo;), because Class I demands the data be present regardless of its license (see the Table 3 entries above for per-component detail). Licenses named as <em>not</em> open for MOF purposes: the Llama 2 license, OpenRAIL, and the AI2 ImpACT license (p. 6). MOF.JSON license fields must use valid SPDX identifiers (p. 14).</p>
+
+<h2>6. Applying the MOF: process, files, tool, badging, scoring</h2>
+
+<p><strong>The seven-step process</strong> (Section 7.1, pp. 12&ndash;13). Adoption is not prescriptive about how to train — it is an evaluation procedure: (1) <em>inventory</em> all artifacts (data, code, documentation) with names, locations, versions, licenses; (2) <em>map</em> inventory items onto the MOF components (the paper says &ldquo;the 16 components defined in Section 5&rdquo; here — the counting inconsistency flagged above); (3) <em>verify licenses</em> against Table 2 — &ldquo;if licenses are incompatible, the model cannot be classified&rdquo;; (4) <em>determine completeness</em> — classify at the highest tier whose required components all carry open licenses, with Class III as the minimum; (5) <em>generate MOF.JSON</em>; (6) <em>self-assert</em> the class; (7) <em>badging and validation</em>, with the community filing disputes over mislabeled models.</p>
+
+<p><strong>Distribution files</strong> (Section 7.2&ndash;7.3). Every distribution needs a LICENSE file (either all applicable licenses in one file, with headings, or per-component LICENSE files in each component&rsquo;s base directory) and an MOF.JSON file: a root &ldquo;MOF&rdquo; object with three required nested objects — <em>Framework</em> (name, version, date), <em>Release</em> (name, version, date, type, architecture, treatment, origin, producer, contact, mof_class), and <em>Components</em> (per component: description, location, license as SPDX identifier(s), license_path). A component that is released under a non-open or custom license &ldquo;should not be included in the MOF.JSON file&rdquo; — the file references only openly licensed components (p. 13).</p>
+
+<p><strong>Class assignment and the Model Openness Tool</strong> (Sections 7.4&ndash;7.5). Classification &ldquo;relies on self-reporting and projects are not classified by a central authority&rdquo; (p. 15). The MOT — the reference implementation at isitopen.ai — offers three functions: <em>view</em> registered models in a catalogue (each with a component-wise breakdown into &ldquo;released with valid licenses / released with invalid licenses / unreleased,&rdquo; plus a copyable badge), <em>evaluate</em> your own model (license dropdowns for each MOF component, empty fields counted as unreleased), and <em>submit</em> a model to the catalogue. For every model the MOT &ldquo;assesses each criterion from the MOF and generates an openness score based on the degree to which each criterion is fulfilled&rdquo; and returns a classification of 1&ndash;3 (p. 15). <em>Scoring guidance in one line (inference, but directly supported):</em> the class integer is not a continuous score of goodness — it is the highest tier whose full component set clears the open-license bar, so the MOT&rsquo;s &ldquo;score&rdquo; is a completeness-class result plus a per-criterion openness tally.</p>
+
+<p><strong>Badging and disputes</strong> (Sections 7.6&ndash;7.7). Modeled on &ldquo;the OpenSSF Best Practices Badge Program&rdquo; (p. 16), the Generative AI Commons badge lets producers display their class, get license recommendations, generate MOF.JSON, and track their standing on the MOF scoreboard; consumers can validate classes and submit disputes. The authors are candid that everything rests on honesty: &ldquo;Misrepresentations will only harm the reputation of the model producer&rdquo; (p. 16).</p>
+
+<h2>7. Models the paper actually discusses (not a formal MOF grading)</h2>
+
+<p>The paper never publishes a scored model table; its &ldquo;worked examples&rdquo; are scattered judgments used to illustrate the taxonomy. <em>Inference note:</em> the rows below record what the paper says about each model and the MOF-relevant conclusion it draws — they are not independent MOF classifications by this note.</p>
+
+<h3>Table 4: Named models and their treatment in the paper</h3>
+<table>
+<tr><th>Model / release</th><th>What the paper says</th><th>MOF-relevant conclusion in the paper</th></tr>
+<tr><td>GPT-4 (OpenAI)</td><td>A flagship example of opaque models &ldquo;hidden behind cloud-based APIs&rdquo; with &ldquo;no insight into the inner workings&rdquo; (Section 2.1, p. 2)</td><td>No artifacts released at all — outside any open category</td></tr>
+<tr><td>Llama 2 (Meta)</td><td>Its license is named among &ldquo;not open-source licenses due to their restrictions on usage&rdquo; (Section 3.10, p. 6); the press claim that &ldquo;Llama and ChatGPT are not open-source&rdquo; is cited (Section 2.2, p. 2)</td><td>Weights are downloadable but the release is not open under MOF terms</td></tr>
+<tr><td>BLOOM (BigScience)</td><td>Grassroots open collaborative development (Section 2.1, p. 2); released under the &ldquo;restrictive, non-OSI-approved OpenRAIL license&rdquo; (Section 2.3, p. 3)</td><td>Classified <em>source-available</em> by the MOF, though Solaiman&rsquo;s gradient approach calls it open</td></tr>
+<tr><td>GPT-J / GPT-Neo (EleutherAI)</td><td>GPT-J released under Apache 2.0 (Section 2.3, p. 3); GPT-Neo-style grassroots open-weight development named among early leaders (Section 2.1, p. 2)</td><td>GPT-J is treated as an <em>open</em> release under MOF reasoning (Apache 2.0 is OSI-approved)</td></tr>
+<tr><td>SantaCoder (BigCode)</td><td>Named as another early grassroots open collaborative (Section 2.1, p. 2)</td><td>Evidence of the open-development movement the MOF codifies</td></tr>
+</table>
+
+<h2>8. Benefits and limitations as the paper states them</h2>
+
+<p><strong>Benefits claimed</strong> (Section 8, pp. 16&ndash;17): clarity (what is included, under which license), a push toward more complete and open releases, reproducibility, transparency and explainability, data provenance (tracing bias and PII leakage), accountability and fairness via public auditing, continuous improvement, collaboration, education, and regulation (openness making models &ldquo;more amenable to oversight and governance&rdquo;).</p>
+
+<p><strong>Known limitations acknowledged</strong> (Section 9.1, p. 17): the framework is designed for deep-learning artifacts and &ldquo;does not translate entirely to all aspects of reinforcement learning&rdquo;; it depends on producer honesty; it must persuade producers reluctant to share without restrictions; openness must be balanced against privacy, IP, institutional policy, and commercialization; classification ignores model functionality, and bias, safety, and other harms remain concerns (though open artifacts enable external audits); a simple rubric may miss nuances; and the framework does not address the use of copyrighted material in training data, which the authors say is being handled through courts and legislation. <strong>Out of scope</strong> (Section 9.2, p. 17): AI safety (bias, fairness, trustworthiness), performance testing, red-teaming, security and privacy, model-serving components, and model provenance.</p>
+
+<h2>9. Position in the literature</h2>
+
+<p><strong>Within the paper&rsquo;s own citation network.</strong> The MOF is a standards-and-governance intervention as much as a research artifact. Its most direct intellectual debts and targets are: the <em>open source licensing literature and institutions</em> — the Open Source Initiative&rsquo;s Open Source Definition and OSI-approved license list, the draft Open Source AI Definition, and the argument (Lerner &amp; Tirole; von Krogh et al.; the paper&rsquo;s refs. 55&ndash;59, 76) that license choice shapes contribution and adoption; the <em>documentation-of-AI literature</em> — Mitchell et al.&rsquo;s (2019) model cards and Gebru et al.&rsquo;s (2021) datasheets-for-datasets, which the MOF turns from recommendations into class-gated requirements; the <em>reproducibility movement</em> — the NeurIPS 2019 reproducibility program (Pineau et al.) and the AAAI Reproducibility Checklist; the <em>&ldquo;openwashing&rdquo; critique</em> — Widder, West &amp; Whittaker (2023) on the political economy of open AI, Liesenfeld et al. and Liesenfeld &amp; Dingemanse on tracking openness in instruction-tuned models, Maffulli&rsquo;s OSI blog post on the Llama 2 license, and Nolan&rsquo;s IEEE Spectrum piece; the <em>gradient approach</em> of Solaiman (2023), from which it explicitly differentiates itself; the <em>open model movement</em> it wants to codify — EleutherAI, BigScience/BLOOM, BigCode; and <em>policy bodies</em> it engages — NIST and NTIA (US), the UK AI Safety Institute, the EU AI Act debates, and the OSI process (two OSI staff are thanked as reviewers). Empirical anchors it cites include Osborne, Ding &amp; Kirk&rsquo;s Hugging Face Hub analysis and the EleutherAI &ldquo;science in the open&rdquo; program.</p>
+
+<p><strong>Within this topic&rsquo;s library.</strong> The MOF sits upstream of the topic readings as the shared measurement language for &ldquo;how open is that model, really?&rdquo;:</p>
+<ul>
+<li><strong>Azoulay, Krieger &amp; Nagaraj (2024), &ldquo;Old Moats for New Models: Openness, Control, and Competition in Generative AI&rdquo;</strong> (NBER): asks whether the &ldquo;open-source AI ecosystem&rsquo;s green shoots&rdquo; devalue proprietary moats. The MOF&rsquo;s distinction between downloadable weights and fully open, license-clean releases is precisely the granularity needed before that question can be answered empirically.</li>
+<li><strong>Yue &amp; Nagle (2024), &ldquo;Igniting Innovation&rdquo;</strong> (PyTorch / open collaboration): their analytic split between <em>access rights</em> (opening use of the technology) and <em>control rights</em> (retaining governance over its direction) is a sibling vocabulary to the MOF&rsquo;s openness/completeness split — openness is about the rights granted, completeness about what is handed over (interpretive link; the paper does not cite the MOF).</li>
+<li><strong>Longpre et al. (2025), &ldquo;Economies of Open Intelligence&rdquo;</strong>: distinguishes &ldquo;open weight&rdquo; releases from &ldquo;truly open source models&rdquo; and tracks the transparency of training-data disclosure — the empirical analogue of the MOF&rsquo;s completeness ladder applied to the Hugging Face ecosystem.</li>
+<li><strong>Fleischmann &amp; Haeussler (2026), &ldquo;Degrees of Openness in Open-Source AI&rdquo;</strong>: cites White et al. (2024) directly and operationalizes MOF-style openness on three dimensions (weights publication, training-data disclosure, license) across 22,137 Hugging Face base models, asking how openness shapes downstream derivative adaptation — the natural experiment the MOF paper calls for.</li>
+</ul>
+
+<div class="golden">
+The widespread adoption of the MOF promises to establish completeness and openness as core tenets of responsible AI, ultimately promoting a more transparent and trustworthy advancement of AI R&amp;D. (White et al., 2024, Conclusion, p. 18 of the PDF)
+</div>
+
+<h2>10. What to keep</h2>
+
+<p>The MOF&rsquo;s contribution is not a new finding about models — it is a <em>measurement convention</em>, and measurement conventions are what let the empirical papers of this topic count anything at all. Three ideas travel furthest: (1) <strong>licensing is content-specific</strong> — code needs OSI-approved software licenses, parameters are data needing open-data licenses, documentation needs Creative Commons; (2) <strong>openness and completeness are separate axes</strong> — a release can be perfectly open and thin (Class III) or rich but closed (not open at all); (3) <strong>the class ladder is cumulative and license-absolute</strong> — higher classes demand more components, but at any level a single restricted component disqualifies the claim. When a Hugging Face model card, a paper, or a policy document says &ldquo;open,&rdquo; the MOF-trained reader should ask: open weights, open code, open data, or open science — and under which licenses?</p>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI as an English deep-dive for the local reading-notes site, grounded in the pdftotext conversion of the local PDF (arXiv:2403.13784v6). Page numbers given as &ldquo;p. N of the PDF&rdquo; are approximate, computed by counting form-feed page separators before each quoted passage; quoted sentences are verbatim apart from normalizing quotation marks (the extraction mixes straight and curly quotes) and restoring one dropped hyphen (&ldquo;CDLA-Permissive-2.0&rdquo; appears as &ldquo;CDLAPermissive-2.0&rdquo; in the raw text). Table 1/2/3/4 reproduce the paper&rsquo;s own component lists, class criteria, and license table; the 17-versus-16 component count inconsistency and the inferences about how topic-library papers use MOF vocabulary are flagged in the text. Please verify quotations and numbers against the original PDF before citing.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

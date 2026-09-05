@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ownership competence — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Ownership competence</h1>
+<div class="meta">
+<strong>Authors:</strong> Nicolai J. Foss, Peter G. Klein, Lasse B. Lien, Thomas Zellweger, Todd Zenger<br>
+<strong>Journal:</strong> Strategic Management Journal, Vol. 42, No. 2, pp. 302–328<br>
+<strong>Year:</strong> 2021 (first published online 9 August 2020)<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1002/smj.3222">10.1002/smj.3222</a><br>
+<strong>Nature:</strong> conceptual / theory-development paper — a competence (capability) view of ownership: from incentives to the skill of owning<br>
+<strong>Keywords:</strong> assets, economic value creation, ownership, theory of the firm (as printed in the article)
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Owners vary in the skill with which they exercise the property rights of use, appropriation, and transfer, and ownership competence — knowing <em>what</em> to own (matching), <em>how</em> to own (governance), and <em>when</em> to own (timing) — explains value creation better than the incentive alignment stressed by agency and incomplete-contracting theories.</p>
+</div>
+
+<div class="note"><strong>Reading note.</strong> In the Week-3 arc (classical property-rights theory → modern property-rights theory → strategic-management translation → ownership competence → empirical test), this paper supplies the capability view: it defines ownership competence as a construct and decomposes it into matching, governance, and timing competence rooted in the classical triad of use, appropriation, and transfer rights. Where Alchian &amp; Demsetz (1972) diagnose the metering problem and Grossman &amp; Hart (1986) / Hart &amp; Moore (1990) model residual control rights as an ex-ante investment incentive device, Foss, Klein, Lien, Zellweger, and Zenger (2021) argue that ownership also carries heterogeneous <em>skill</em>, linking modern property-rights economics back to classical property-rights economics (Alchian; Barzel) and forward to the judgment-based view of the firm (Knight; Foss &amp; Klein 2012). It prepares the agenda that the arc's empirical test then probes.</div>
+
+<h2>1. Background and motivation</h2>
+
+<p>The paper attacks a shared blind spot in the three economic theories that dominate strategy research on ownership: agency theory, incomplete-contracting theory, and (classical) property-rights economics. In all three, ownership matters because it reshapes <em>incentives</em>. Agency theory ties ownership to residual claimancy — the right to capture what remains after contractually stipulated factor payments — and prescribes ownership stakes and monitoring against divergent owner–manager interests. Incomplete-contracting theory ties ownership to residual <em>control</em> rights — the right to decide asset use in states not described by contract — and allocates ownership to the party whose relationship-specific investments matter most, softening hold-up. Property-rights economics emphasizes the multidimensional structure of rights — use, income, and transfer — and the internalization of externalities through effective control (Table 1 below).</p>
+
+<p>The authors' objection is not that incentives are irrelevant but that this framing is incomplete in a specific way: it treats owners as cognitively homogeneous, so the only question is <em>how much</em> and <em>to whom</em> to give ownership, never <em>how skillfully</em> the owner will own. The incentive view implicitly assumes actors are alike and that whoever occupies the ownership role will exercise it efficiently, managing and investing in ways that maximize value (p. 303). Yet judgment about the best path to value creation is idiosyncratic and inalienable, strategies for value creation are not widely understood, and the efficient owner is not automatically matched with the asset. Their headline intuition:</p>
+
+<blockquote>Building on the notion that ownership affords control in resource deployment, we develop the argument that ownership can be exercised with greater or lesser competence and that this matters to value creation.</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">Foss et al. (2021), p. 303, Introduction</span>
+
+<p>Two framing observations motivate the shift of focus from ownership <em>concentration</em> to ownership <em>identity</em>. First, changing who owns a resource can matter more than changing the concentration of ownership — the value created when Steve Jobs and Apple's owners gained licensed control of resources composed at Xerox, or when Sam Walton's Wal-Mart took over small-town real estate, is hard to attribute to a marginal shift in incentives (p. 304). Second, a footnote presses that agency theory's canonical framing presumes widely dispersed ownership (Jensen &amp; Meckling 1976), whereas the overwhelming majority of firms are sole proprietorships with full owner control and owner involvement in day-to-day management — for such firms "incentive alignment is not really the central challenge" (p. 306, n. 1). Against this backdrop the paper adduces venture-capital research on "smart money": Sorensen (2007) decomposes experienced VCs' value into <em>sorting</em> (investing in better companies) and <em>influence</em> (reconfiguring the resource portfolio), and reads persistence in VC returns as evidence of "heterogeneity in the skills of these investors" (p. 307). Owner identity, the argument runs, has strategic content that incentive-based theories cannot express.</p>
+
+<h2>2. Core argument / framework</h2>
+
+<h3>2.1 The three meanings of ownership and the problem with each</h3>
+
+<p>Section 2 of the paper distinguishes, following the legal and economic literature, three conceptualizations of ownership (the paper's Table 1, p. 305; reproduced below). The critique of all three is that each treats ownership as a tool that, deployed "correctly," aligns incentives and maximizes jointly created value. The missing element is that owners and potential owners hold <em>divergent theories</em> about optimal resource configurations, and which theory is empowered through ownership determines outcomes. Because the owner can partition and delegate use rights to managers, boards, and employees, yet cannot fully delegate the ultimate decision of what an asset is for, which rights are delegated and to whom, and whether and when ownership should change, the owner's cognition — judgment, beliefs, cognitive frames — is a strategic variable that incentive theories ignore.</p>
+
+<table>
+<caption>Table 1. Three economic conceptualizations of ownership (reconstructed from the paper's Table 1, p. 305)</caption>
+<thead>
+<tr><th>Theory</th><th>Representative contributions</th><th>What ownership confers</th><th>Function of ownership</th><th>Blind spot (competence view)</th></tr>
+</thead>
+<tbody>
+<tr><td>Agency theory</td><td>Alchian &amp; Demsetz (1972); Jensen &amp; Meckling (1976); Holmstrom (1979); Fama (1980)</td><td>Residual claimancy — the right to capture what remains after contractual factor payments (profits)</td><td>Allocate title so that value creation in principal–agent relationships is maximized, e.g. via ownership stakes and monitoring</td><td>Presumes dispersed ownership; treats owners as interchangeable, so owner <em>identity</em> and <em>skill</em> drop out</td></tr>
+<tr><td>Incomplete-contracting theory</td><td>Grossman &amp; Hart (1986); Hart &amp; Moore (1990); Hart (1995); building partly on Williamson (1985)</td><td>Residual control rights — the right to make decisions over an asset in situations not described by contract</td><td>Allocate ownership to the party making the most important relationship-specific investments, mitigating hold-up and maximizing team surplus</td><td>Assumes the owner will exercise residual control efficiently; no room for owner judgment or misjudgment about what to own</td></tr>
+<tr><td>Property-rights economics</td><td>Coase (1960); Alchian (1961, 1965); Demsetz (1964, 1967); Barzel (1997)</td><td>Rights to use (<em>usus</em>), to derive income (<em>usus fructus</em>), and to alienate (<em>abusus</em>); effective control over access</td><td>Internalize externalities from asset use (spillovers, depletion, public-good underprovision)</td><td>Provides the multidimensional rights structure the competence view builds on, but underplays heterogeneous skill in exercising each right</td></tr>
+</tbody>
+</table>
+
+<h3>2.2 Four assumptions of the competence perspective</h3>
+
+<p>Section 3.1 states the assumptions on which the framework rests. <em>First</em>, owners operate under Knightian uncertainty and vast complexity: not just outcomes, but the set of possible resources and strategies is unknown ex ante, so owners, like entrepreneurs, project beliefs about means–ends relations onto reality. Under genuine uncertainty, control — not contract — is what lets an owner act on judgment; absent uncertainty ownership would be unnecessary because contractual foresight would suffice. <em>Second</em>, factor markets for judgment are "closed": beliefs about value creation are idiosyncratic, often unpersuadable, and most valuable precisely when unique, so their cost of articulation and verification is prohibitive and no market efficiently prices them. <em>Third</em>, ownership is the only sure route to test one's judgment against reality and to capture the value it creates — contracting cannot do this because others disbelieve the theory; ownership allows entry, exit, and rapid re-bundling of assets. <em>Fourth</em>, ownership functions extend beyond income rights to use and transfer rights, which let an owner change course, learn from prior deployments, liquidate, and make the final assessment of the quality of her own judgment.</p>
+
+<h3>2.3 The definition and its property-rights foundations</h3>
+
+<p>The framework maps classical property-rights economics onto a typology of owner skills. Whenever an individual owns a resource she retains (a) the right to use it, (b) the right to appropriate its returns, and (c) the right to transfer these rights (Alchian 1961; Libecap 1986). Owners vary in the competences with which they deploy each right, giving rise to the paper's central construction:</p>
+
+<blockquote>We call these competences (a) matching competence (knowing what to own), (b) governance competence (knowing how to own), and (c) timing competence (knowing when to own), respectively. We thus define ownership competence as the skills with which asset owners exercise matching, governance, and timing competence (Castanias &amp; Helfat, 1991; Helfat &amp; Peteraf, 2015).</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">Foss et al. (2021), p. 309, Section 3.2</span>
+
+<p>The mapping is one-to-one: the right to <em>use</em> grounds matching competence (what to own); the right to <em>appropriate</em> grounds governance competence (how to own); and the right to <em>transfer</em> grounds timing competence (when to own) — see Figure 1 and Table 2 of the paper (p. 310) and the reconstruction in Table 2 below. Ownership competence generates economic value through superior skill about what, how, and when to own. The authors align with Alchian's (1961: 63) claim that ownership ability "includes attitude toward risk bearing, knowledge of different people's productive abilities, foresight, and, of course, judgment" (p. 309).</p>
+
+<p>A worked example fixes the logic (pp. 310–311): an actor who foresees a taxi business in her neighborhood buys a suitable car (what to own — matching); she decides whether to drive it herself or hire a chauffeur, and if she hires, how to monitor him and split income (how to own — governance); and she may later sell to a competing taxi firm that sees more value in the business than she does (when to own — timing). The chauffeur exercises <em>derived</em> judgment about running operations; the owner retains the inalienable right to decide whether the taxi business exists at all, who runs it, how profits are split, and when ownership passes to someone else.</p>
+
+<h3>2.4 The three competences in detail</h3>
+
+<p><strong>Matching competence (what to own).</strong> Matching competence is the capacity to foresee, judge, or theorize about valuable resource combinations that serve a specific, intended purpose or solve a unique problem. It requires defining the purpose or problem — the owner's prerogative under the use right — and composing mental representations that guide search for valuable (re)combinations of owned and others' resources. Because resources have multiple attributes and the space of combinations is vast, experimentation, thought experiment, and theorizing substitute for ex ante specification (the paper connects this to Demsetz's observation that the set of ownable rights is not fully describable, Demsetz 1988: 19). Matching competence is what lets owners overcome "functional fixedness," recognize underpriced resources, and define the boundary of the firm by deciding what to own. In the VC context it corresponds to picking winners (Sorensen 2007; Baum &amp; Silverman 2004); private-equity investors retain rights over portfolio-company focus, structure, and boundaries precisely to exercise it (p. 312).</p>
+
+<p><strong>Governance competence (how to own).</strong> Governance competence is the capacity to compose an envisioned resource bundle through effective governance and organization design. It is the competence closest to "getting the incentives right," yet it, too, is a skill: selecting managers and aligning managerial skill with resource-configuration requirements; choosing between self-management and delegation under asymmetric information; designing rent-sharing, payout, incentive, and monitoring regimes (behavioral versus outcome-based systems, motivation-crowding awareness); calibrating incentives to the owner's own risk profile; and shaping relations to reassure stakeholders who make relationship-specific investments against hold-up. The paper echoes Williamson (1996: 9) — parties "look ahead, perceive hazards, and factor these back into the contractual relation" — and adds that competent owners also protect <em>themselves</em> against hold-up when they commit resources to partners (p. 313, n. 6).</p>
+
+<p><strong>Timing competence (when to own).</strong> Timing competence is the skill of timing investment into and out of projects, assets, and ownership itself to maximize value creation. It has three components. First, <em>market timing</em>: acquiring undervalued and selling overvalued resources — issuing equity when market values are high and repurchasing when they are low (Baker &amp; Wurgler 2002), taking companies public near market peaks (Lerner 1994). Second, <em>staging</em>: spreading investments across time so that value is progressively revealed, which limits downside risk and generates real-option-style strategic flexibility — the right, not the obligation, to act later. Third, <em>succession and exit planning</em>: judging whether one is still the "best owner" (Dobbs, Huyett &amp; Koller 2009). Because competitive forces and technological change can render a current owner's competences obsolete, a timing-competent owner recognizes when another owner has superior matching competence or complementary resources, accepts a lump-sum price above the asset's value to herself, and plans her own exit (pp. 314–315). Timing competence thus operationalizes the comparative-capabilities logic of firm boundaries (Argyres &amp; Zenger 2012; Jacobides &amp; Winter 2005; Poppo &amp; Zenger 1998).</p>
+
+<table>
+<caption>Table 2. The three dimensions of ownership competence (condensed from the paper's Table 2 and Figure 1, p. 310)</caption>
+<thead>
+<tr><th>Competence (guiding question)</th><th>Rooted property right</th><th>Skill content (as defined in the paper)</th><th>Illustrative tasks / sub-skills</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Matching competence</strong><br>"what to own"</td><td>Right to use — freely determine the usage of an owned resource</td><td>The skill to foresee valuable resource combinations toward achieving a purpose</td><td>Defining a valued purpose; foresight and creativity about valuable resource (re)configurations; attitude toward risk bearing; overcoming "functional fixedness"</td></tr>
+<tr><td><strong>Governance competence</strong><br>"how to own"</td><td>Right to appropriate — capture the benefits from the deployed resource</td><td>The skill to set the appropriate incentives for maximized value creation</td><td>Manager selection; rent-sharing regime (incentive and stock-ownership plans, payout policy); monitoring regime (budget and reporting policy)</td></tr>
+<tr><td><strong>Timing competence</strong><br>"when to own"</td><td>Right to transfer — delegate or alienate the other two rights</td><td>The skill to time investments into resources for maximized value creation</td><td>Market timing (acquiring undervalued and selling overvalued resources); staging of investments (risk reduction, strategic flexibility); succession planning (assessing whether one is still the best owner)</td></tr>
+</tbody>
+</table>
+
+<h3>2.5 Distinctiveness, learning, and context</h3>
+
+<p>The three competences are distinct and separable: owners can be strong in one and weak in others. Founder-owners with brilliant matching competence often stay at the helm too long (weak timing); family firms may suffer in governance (attracting nonfamily managers) and timing (transgenerational control intentions bias subjective valuation upward) while excelling in matching through industry knowledge and networks (p. 315); corporate raiders (T. Boone Pickens, KKR) and activist investors (Nelson Peltz) monetize timing and matching competences respectively; Warren Buffett is presented as an exemplar especially strong in timing (p. 316). Ownership competences also appear learnable: experience within industries, through governing, and from repeated asset transfers improves them, and serial entrepreneurs improve with each firm founded and owned (Gompers et al. 2006; Lafontaine &amp; Shaw 2016, p. 316).</p>
+
+<p>The value of ownership competence is contextual. Ownership <em>concentration</em> is recast as a moderator, not a cause: concentrated ownership amplifies the effects of competent owners and dampens incompetent ones, and concentration's real role is granting control to owners selected for competence (Feldman &amp; Montgomery 2015 find that directors who own large shareholdings but lack top-level experience are negatively associated with firm value, p. 316). Over the firm <em>life cycle</em>, matching competence dominates at start-up (assembling the initial resource configuration that fits the founder's vision), governance competence moves to the foreground with growth and professionalization, and timing competence matters most as the firm matures and must shed, acquire, and re-time assets. Under <em>environmental uncertainty</em>, ownership competence becomes more valuable than incentive alignment: optimal owner–asset matches are hard to discern ex ante, controlled experiments are impossible, and idiosyncratic judgment substitutes for rule-based search — "the competence view should dominate the incentive view of ownership when the boundary choice about what to own and not to own takes place in an uncertain environment where efficiency is less germane" (p. 318). Finally, <em>factor-market efficiency</em> bounds the theory: if asset markets perfectly priced resources at their best conceivable use, ownership competence could add no value; it creates value precisely in disequilibrium, where resources sit in the wrong hands (p. 318).</p>
+
+<div class="mermaid">
+flowchart TD
+    A["Incentive-based views of ownership<br/>(agency theory · incomplete contracting ·<br/>property-rights economics)"] --> B["Ownership as an incentive device;<br/>owners treated as cognitively homogeneous"]
+    B --> C["Critique: owners differ in skill —<br/>matching assets to efficient owners is not automatic"]
+    C --> D["Ownership competence<br/>(ownership: from incentive to competence)"]
+    D --> E["Matching competence<br/>what to own"]
+    D --> F["Governance competence<br/>how to own"]
+    D --> G["Timing competence<br/>when to own"]
+    E --> H["Rooted in the right to USE"]
+    F --> I["Rooted in the right to APPROPRIATE"]
+    G --> J["Rooted in the right to TRANSFER"]
+    H --> K["Economic value creation"]
+    I --> K
+    J --> K
+    L["Knightian uncertainty & judgment<br/>(Foss & Klein 2012; Knight 1921)"] -.-> D
+    M["Contextual moderators:<br/>ownership concentration · life cycle ·<br/>environmental uncertainty · factor-market efficiency"] -.-> K
+</div>
+
+<h2>3. Evidence / examples</h2>
+
+<p>This is a conceptual paper, so its "evidence" consists of thought examples, worked cases, and empirical results adduced from prior research to illustrate rather than to test the framework. Three devices carry the argument.</p>
+
+<p><strong>Worked example.</strong> The taxi-business example (pp. 310–311) walks through all three competences in a single decision sequence — buying the car (matching), hiring and monitoring a chauffeur and splitting income (governance), selling the business to a competitor who values it more (timing) — and uses it to separate the owner's original judgment from the manager's derived judgment.</p>
+
+<p><strong>Historical and biographical cases.</strong> The paper uses ownership changes whose value effects resist an incentive-only reading: the Xerox resources composed by Steve Jobs and Apple's owners; Sam Walton's Wal-Mart acquiring small-town real estate (p. 304); the unbundling and redistribution of "inefficient corporate portfolios" by corporate raiders; activist investors taking minority stakes to impose superior matching judgments; and Warren Buffett as the archetype of timing competence (pp. 315–316). These are presented as plausibility cases, not systematic evidence.</p>
+
+<p><strong>Empirical results borrowed from adjacent literatures.</strong> The paper leans on several bodies of findings: (i) VC "smart money" research — Sorensen's (2007) distinction between sorting and influence and the persistence of VC returns as evidence of investor-skill heterogeneity, plus Hsu's (2004) finding that high-reputation VCs acquire start-up equity at a 10–14% discount (p. 312, n. 5); (ii) corporate-governance and ownership-structure studies — Thomsen &amp; Pedersen (2000) showing that owner identity (founding family, banks, institutions, other companies, governments) affects profit goals, dividends, capital structure, and growth over and above ownership concentration (p. 307), and Feldman &amp; Montgomery (2015) on large shareholdings held by directors lacking top-level experience (p. 316); (iii) finance results on timing — Baker &amp; Wurgler (2002) on equity issuance and repurchase around market values, Lerner (1994) on seasoned VCs taking companies public near market peaks (p. 314); (iv) family-business research on governance and timing weaknesses and matching strengths (Neckebrouck et al. 2018; Zellweger et al. 2012); and (v) serial-entrepreneurship evidence that ownership competence is learnable through repeated founding and owning (Gompers et al. 2006; Lafontaine &amp; Shaw 2016, p. 316).</p>
+
+<p><strong>Testable predictions instead of tests.</strong> The Discussion converts the framework into new predictions (Section 5.2): two owners with identical stakes in otherwise identical firms will make different decisions because they differ in competence; ownership concentration moderates the competence–performance relationship; incompetent owners are a distinct source of value destruction (misallocating well-intentioned projects, keeping assets that should be sold) beyond poor incentives or minority-shareholder expropriation; incompetent owners invite managerial mischief and can demotivate competent managers into withholding effort or exiting — moral hazard "not a consequence of opportunism as predicted by agency theory, but a consequence of frustration and demotivation enabled by low levels of ownership competence" (p. 321); and the market for corporate control sorts assets to their most competent <em>owners</em>, not merely to the best <em>managers</em>. These are stated as hypotheses to be tested, and Section 5.3 sketches measurement paths (competence-measurement techniques à la Danneels 2016; refined measures of ownership change such as asset purchases and sales, acquisitions and divestitures, reorganizations and restructurings). No original data are presented.</p>
+
+<h2>4. Position in the literature</h2>
+
+<p>Within the Week-3 property-rights arc, the paper sits at the fourth node — the capability/competence view — between the strategic-management translation of property-rights economics (Kim &amp; Mahoney 2005; Foss &amp; Foss 2005) and the empirical test that closes the arc. Its distinctive move is to relocate the action of modern property-rights theory. Grossman &amp; Hart (1986) and Hart &amp; Moore (1990) treat residual control rights as an ex-ante investment-incentive device: ownership is allocated to the party whose relationship-specific investment matters most, and complementarity of assets justifies common ownership. Foss et al. accept the machinery of residual rights but reject the implicit assumption that whoever owns will exercise control skillfully. Ownership matters, in their hands, not only because it protects incentives but because it empowers <em>judgment</em>: the right to compose resources according to idiosyncratic, inalienable beliefs about value creation. The paper is thus a deliberate critique-and-extension of Grossman &amp; Hart (1986), Hart &amp; Moore (1990), and Hart (1995) — the formal residual-control-rights branch — in the direction of classical property-rights economics (Alchian 1961, 1965; Demsetz 1964, 1967; Barzel 1997) and of the Austrian/judgment tradition (Knight 1921; Foss &amp; Klein 2012; Foss, Klein &amp; Bjørnskov 2019).</p>
+
+<p>The paper also integrates several non-PRT strategy lines rather than rebutting them. From Penrose (1959) and the resource-based view it takes the idea that resource combinations and capabilities are central to value creation, but argues that most RBV and dynamic-capability work says little about when ownership (rather than renting or contracting) is required to assemble such bundles — ownership competence "can be understood as a set of higher-level competences situated at the level of the owner" (p. 320). From managerial-capability research (Castanias &amp; Helfat 1991; Helfat &amp; Peteraf 2015; Sirmon, Hitt &amp; Ireland 2007) it borrows the skill vocabulary and the notion that competences are heterogeneous, learnable, and seated in individuals; from the entrepreneurial-judgment and theory-based-view literature (Felin &amp; Zenger 2009, 2017; Benner &amp; Zenger 2016) it takes the claim that actors are "theorists" whose divergent beliefs about value creation are the real scarce resource. Positioning, transaction-cost economics, strategic factor markets, and added-value logic (Porter 1985; Williamson 1985; Barney 1986; Brandenburger &amp; Stuart 1996) are each revisited in Section 5.1 and shown to presuppose — without articulating — an actor with matching, governance, or timing competence. The construct is also distinguished from board competence, and the market for corporate control is reinterpreted as a sorting device for owners.</p>
+
+<p>The paper names its own lineage explicitly: it follows Alchian's (1961: 63) dictum that "people differ in their talents as owners" and credits Pelikan (1993) with having likely first coined "ownership competence" in the context of comparative political systems — free markets are needed precisely because a central planner cannot assess or allocate such competence (p. 309, n. 2). Foss and Lien (2010) and Foss &amp; Klein (2012) supply the judgment-based groundwork. Where Foss &amp; Klein (2012) treat entrepreneurial judgment as decision-making about resource allocation under uncertainty, the present paper sharpens the unit of analysis: matching competence is "the accuracy with which entrepreneurial judgment is exercised" (p. 312, n. 4). In the course arc this note is the theoretical bridge from modern PRT to the empirical test of ownership-related hypotheses that follows.</p>
+
+<h2>5. Limitations</h2>
+
+<h3>5(a) The authors' own stated limitations</h3>
+<ul>
+<li>The paper says little about the <em>antecedents</em> of ownership competence: "We have said little about the antecedents of ownership competence" (p. 322). Evidence from serial entrepreneurs suggests experience and decision frequency matter, but the paper offers no theory of where competence comes from or how it develops.</li>
+<li>Measurement is acknowledged as open. The authors propose using techniques developed for other competences (Danneels 2016; Grant &amp; Verona 2015; Stadler, Helfat &amp; Verona 2013) and refined ownership-change measures, but no instrument exists yet, and the contingency effects (concentration, life cycle, uncertainty, factor-market efficiency) "are worth studying" rather than established (p. 322).</li>
+<li>Ownership competence sits at the level of the <em>owner</em>, not the asset, so owners may be good owners of some assets and poor owners of others (effective entrepreneurs can be poor investors in financial assets; Zellweger 2017). How competence aggregates across a portfolio of assets is left open.</li>
+<li>The predictions about the market for corporate control (sorting assets to best owners) and about the relative importance of the three competences are stated as hypotheses "rife for empirical testing" without direct measures (p. 322).</li>
+<li>The framework brackets purpose: owners may hold assets for purposes beyond value creation for owners, so assessing competence should be filtered through the purpose for which assets are held (Henderson &amp; Serafeim 2020) — noted, not developed.</li>
+</ul>
+
+<h3>5(b) Independent judgment</h3>
+<ul>
+<li><strong>[paper claim]</strong> The central premise — that agency, incomplete-contracting, and property-rights theories treat owners as homogeneous and thus miss skill — is the paper's own characterization (pp. 303–304). The claim is fair to the formal GHM tradition but somewhat less fair to classical property-rights economics, which already contains the competence seed in Alchian's "talents as owners" remark that the paper itself quotes.</li>
+<li><strong>[evidence]</strong> The supporting empirical material (VC persistence, Thomsen &amp; Pedersen 2000, Feldman &amp; Montgomery 2015, serial-entrepreneur results) is borrowed from adjacent fields and is illustrative. Feldman &amp; Montgomery (2015) concerns directors with large shareholdings but limited top-level experience — an indirect proxy for ownership competence, not a direct measure.</li>
+<li><strong>[inference]</strong> There is a latent circularity risk: if ownership competence is inferred from realized value creation, then "competent owners create value" risks becoming definitionally true. The authors' proposed measures (ownership changes, serial success) mitigate but do not eliminate this, since competence and favorable selection into opportunities are hard to separate ex ante. This concern is not addressed in the paper.</li>
+<li><strong>[inference]</strong> The boundary between governance competence and ordinary managerial capability is thinner than the paper suggests. Because the owner can delegate governance design to hired managers and boards, much of what the paper calls governance competence may be an owner-level judgment about <em>whom</em> to delegate to, which then shades back into matching and timing — the three dimensions may be less separable operationally than they are conceptually.</li>
+<li><strong>[open question]</strong> Whether ownership competence is an individual trait, an owner-group property, or a firm-level organizational capability is unresolved; the paper fluctuates between "the owner," founding teams, and ownership groups, and Section 5.3 concedes that aggregation across portfolios is unstudied.</li>
+<li><strong>[open question]</strong> The theory's predictive content depends on competences being scarce, heterogeneous, and non-contractible. Where factor markets are (nearly) efficient — large public firms with liquid markets, powerful intermediaries, and sophisticated boards — the domain where ownership competence adds value may be much narrower than the paper's rhetoric suggests; the paper itself concedes the efficiency bound but does not quantify where real economies sit on it.</li>
+<li><strong>[inference]</strong> If timing competence includes selling to a superior owner and matching competence includes recognizing undervalued bundles, the framework implies that owners who lack competence should often be unable to recognize that fact — the authors acknowledge this ("ownership incompetence often engenders persistent foregone opportunities," p. 321) but the implication for how markets correct the problem (the takeover mechanism depends on someone competent buying, not on the incompetent seller noticing) deserves sharper treatment.</li>
+</ul>
+
+<h2>6. Conclusion</h2>
+
+<p>The paper establishes a competence view of ownership as a complement — and partial corrective — to the incentive view that dominates agency and incomplete-contracting theory. Its durable contributions are the construct of ownership competence, defined as the skill with which ownership is exercised to create value; its decomposition into matching (what to own), governance (how to own), and timing (when to own) competence, each rooted in one of the three classical property rights; the demonstration that heterogeneous owner skill — not just ownership concentration or incentive intensity — drives value creation; and a research agenda spanning measurement, moderators, life-cycle dynamics, and the reinterpretation of the market for corporate control as a market sorting assets to their most competent owners. The closing statement of the paper carries the one-line normative takeaway:</p>
+
+<blockquote>We stress that value is created when those who possess competence also assume ownership.</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">Foss et al. (2021), p. 323, Conclusion</span>
+
+<p>The strategic takeaway for managers and investors is direct: ownership is a job with skill requirements, so build governance around selecting and retaining owners who are competent to own — and change who owns when the competence match deteriorates, as much as you would change managers when their skills no longer fit.</p>
+
+<div class="golden">
+"People differ in their talents as owners." (Alchian, 1961: 63, as quoted in Foss et al., 2021, p. 304)<br>
+Foss and colleagues turn Alchian's aside into a theory: the scarce resource in value creation is not only effort under incentives but the judgment of who owns, what is owned, and when ownership should change.
+</div>
+
+<div class="note"><strong>AI-assistance disclosure.</strong> This reading-note page was drafted by AI from the full text of the article (pdftotext-extracted from Foss et al., "Ownership competence," <em>Strategic Management Journal</em> 42(2): 302–328, DOI 10.1002/smj.3222). All verbatim blockquotes carry page references taken from the running headers of the extracted text; tables (reconstructions of the paper's Tables 1 and 2) and the Mermaid diagram were AI-organized from the article's content. Readers should verify page numbers, quotations, and table content against the original PDF before citing.</div>
+
+<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
+
+</body>
+</html>

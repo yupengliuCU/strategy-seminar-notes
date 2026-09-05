@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Rights and the Nature of the Firm (Hart &amp; Moore 1990) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Property Rights and the Nature of the Firm</h1>
+
+<div class="meta">
+<strong>Authors:</strong> Oliver Hart (MIT) and John Moore (London School of Economics)<br>
+<strong>Journal:</strong> <em>Journal of Political Economy</em>, Vol. 98, No. 6 (December 1990), pp. 1119–1158<br>
+<strong>Year:</strong> 1990<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1086/261729">10.1086/261729</a><br>
+<strong>Nature:</strong> formal economic model — modern property-rights theory of the firm (incomplete contracts), generalizing Grossman &amp; Hart (1986) to many agents and many assets<br>
+<strong>Keywords:</strong> property rights, residual control rights, theory of the firm, ownership, vertical integration, hold-up, incomplete contracts, Shapley value, asset complementarity, employment relationship
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>A firm is the set of non-human assets its owners control; because ownership is ultimately the power to exclude others from an asset, allocating strictly complementary assets to common ownership — and economically independent assets to separate owners — best protects the ex ante investment incentives of both owner-managers and employees.</p>
+</div>
+
+<div class="note">
+<strong>Reading note.</strong> In the Week-3 arc (classical PRT → modern PRT → application to strategy → ownership competence → empirical test), this paper <em>is</em> the formal residual-control-rights model: it takes the Grossman–Hart (1986) engine and extends it from two top managers and one asset to many agents (including non-owner employees), many assets, and general control structures (partnerships and worker and consumer cooperatives as special cases). It is the canonical statement of the modern PRT results — who should own, which assets should be grouped — that later strategic-management translations (Kim &amp; Mahoney 2005), the ownership-competence view, and empirical tests (e.g., Magelssen 2020) build on. Coase (1937) poses the question; Alchian &amp; Demsetz (1972) attack the answer; Grossman &amp; Hart (1986) formalize it; Hart &amp; Moore (1990) complete the formal baseline.
+</div>
+
+<h2>1. Background and motivation</h2>
+
+<p>Hart and Moore attack a question Coase (1937) posed half a century earlier and that formal economics had not yet answered: What is a firm, and how do transactions carried out within a firm differ from transactions carried out through the market? Their target is not only the absence of a model but two specific positions they regard as incomplete. Williamson (1975, 1985) and Klein, Crawford, and Alchian (1978) had located the firm in the hold-up problem: when parties make specific investments and detailed long-term contracts are impossible, the quasi-rents from those investments cannot be divided in advance, and integration appears as a way to curb opportunistic renegotiation. Grossman and Hart (1986) sharpened this into a two-sided logic: transferring ownership of an asset raises the new owner's freedom of action and therefore her ex ante incentive to invest, while it lowers the seller's incentive. The cost and benefit of integration are the two sides of one coin.</p>
+
+<p>Grossman–Hart left two gaps that this paper closes. First, their analysis viewed the costs and benefits of integration "solely in terms of the incentive effects on top management" (p. 1121): a firm is typically worked on by many people, only some of whom own it, and nothing was said about how integration changes the incentives of employees. Second, the framework was essentially bilateral, with one asset and one acquiring party; it could not speak to which of several assets should be grouped under one owner, nor to control structures such as partnerships, worker cooperatives, and consumer cooperatives. Hart and Moore build a multi-individual, multi-asset economy and ask how the allocation of asset ownership affects the incentives of non-owners as well as owner-managers (p. 1120).</p>
+
+<p>The paper also gives the earlier debate over "authority" a precise content. Alchian and Demsetz (1972) had argued that an employer's power is illusory — he can only fire an employee, exactly as a customer can stop buying from his grocer. Hart and Moore respond that ownership of the assets an employee needs is what makes his future livelihood depend on the owner, which is precisely why employment shapes behavior where arm's-length contracting does not. This reconciliation with Alchian and Demsetz, developed in footnote 29, is one of the paper's most cited moves.</p>
+
+<h2>2. Core argument / framework</h2>
+
+<h3>2.1 Ownership as exclusion, and why assets give power over people</h3>
+
+<p>The paper inherits the Grossman–Hart definition of a firm as the set of assets its owners control, and ownership as residual control rights over those assets. It then specializes what residual control means, in a way that does decisive analytical work:</p>
+
+<blockquote>
+Following Grossman and Hart (1986), we identify a firm with the assets it possesses and take the position that ownership confers residual rights of control over the firm's assets: the right to decide how these assets are to be used except to the extent that particular usages have been specified in an initial contract.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">Hart &amp; Moore (1990), p. 1120, Sec. I (Introduction)</span>
+</blockquote>
+
+<blockquote>
+In addition, we specialize the meaning of residual control rights relative to Grossman and Hart. We suppose that the sole right possessed by the owner of an asset is his ability to exclude others from the use of that asset. That is, the owner of a machine can decide who can and who cannot work on that machine, the owner of a building can decide who can and who cannot enter the building, the owner of an insurance company's client list can decide who has and who does not have access to the list, and so forth.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">Hart &amp; Moore (1990), p. 1121, Sec. I</span>
+</blockquote>
+
+<p>Control over a physical asset then leads indirectly to control over human assets. A worker whose skill pays off only if he can use a particular machine must keep the owner willing to admit him; to strengthen his future bargaining position with that owner he acts partly in the owner's interest today. Who "the owner" is therefore determines whose interest the workers serve. The sharp implication is the paper's employment-versus-independent-contractor framing: a person has more control over a worker he employs — that is, when he owns the asset the worker uses — than over the employee of an outside firm with which he holds an arm's-length contract, because in the first case the workers bargain with <em>him</em> in the future. A footnote keeps the property-rights logic honest: ownership of control rights is distinct from entitlement to an (verifiable) profit stream; if firm 1 merely wants part of firm 2's profits it can contract for them, and it needs to integrate only to acquire control over firm 2's assets (p. 1121, n. 3).</p>
+
+<h3>2.2 The model: investments today, Shapley bargaining tomorrow</h3>
+
+<p>The formal model (Sec. II, pp. 1125–30) has a set S of $I$ risk-neutral agents, a set A of $N$ assets, and two dates. At date 0 each agent $i$ chooses a scalar human-capital investment $x_i\in[0,\bar{x}]$ with convex cost $C_i(x_i)$ (Assumption 1). Three incompleteness assumptions drive everything: investment levels are too complex to contract on; date-1 production and trade plans cannot be written at date 0 (contingent statements are prohibitively expensive), so a fresh contract is negotiated at date 1; and profit-sharing agreements at date 0 are ruled out because costs and revenues are unverifiable (n. 7). Investment becomes observable to trading partners by date 1, so date-1 bargaining proceeds under symmetric information.</p>
+
+<p>Coalition values are the primitive. If coalition $S$ of agents controls asset set $A'$, it can exclude everyone else, hire replacements on the spot market, and achieve some maximum dollar value $v(S,A'\mid x)$ (assumed superadditive and increasing at the margin in coalition size and assets — Assumptions 2–6). Assumption 3 encodes that investments are human-capital investments: agent $i$'s marginal investment raises only the value of coalitions of which $i$ is a member. Assumption 6, that marginal returns rise with the number of other agents and assets in the coalition, guarantees the results are about underinvestment.</p>
+
+<p>A <em>control structure</em> is a mapping $\alpha$ from agent coalitions to the asset sets they control, satisfying monotonicity ($S'\subseteq S \Rightarrow \alpha(S')\subseteq\alpha(S)$) and the requirement that across any partition of the agents, each asset is controlled by at most one side. Sole ownership, voting with shares under majority rule, and stochastic (randomized) ownership all fit inside this object; option-to-own contracts such as debt are deliberately set aside (n. 10). Given $\alpha$, agent $i$'s share of date-1 surplus is his Shapley value</p>
+
+<p>$$B_i(\alpha\mid x)=\sum_{S\ni i} p(S)\big[v(S,\alpha(S)\mid x)-v(S\setminus\{i\},\alpha(S\setminus\{i\})\mid x)\big],$$</p>
+
+<p>where $p(S)$ weights each coalition by the probability that $i$ joins it in a uniformly random ordering of the $I$ agents. The random-ordering interpretation is the whole game in miniature: agent $i$ captures his full marginal product only when he is first in the ordering; whenever anyone precedes him, part of the return to his date-0 investment is dissipated in bargaining with that person.</p>
+
+<h3>2.3 Underinvestment and the design of ownership (Proposition 1)</h3>
+
+<p>At date 0 agents choose investments noncooperatively, anticipating the Shapley split. Proposition 1 delivers the paper's baseline result: for any control structure there is underinvestment — the unique Nash equilibrium satisfies $x_i^e(\alpha) &lt; x_i^*$ for every investing agent — and welfare rises monotonically with any change of control structure that raises every agent's marginal return on investment. The externality is transparent: part of the return to investing is bargained away at date 1, so private returns fall short of social returns. A footnote records a difference from Grossman–Hart: underinvestment here is guaranteed by Assumption 6, whereas Grossman–Hart's weaker structure also admitted overinvestment (n. 13).</p>
+
+<p>Because any control structure that improves marginal incentives raises welfare, date-0 bargaining among the parties is assumed to select the control structure that maximizes $W(x^e(\alpha))$ — efficient ex ante contracting over who owns what (p. 1131). Ownership design then becomes an incentive-design problem, and the rest of the paper characterizes its solution.</p>
+
+<h3>2.4 Who should own (Sec. III)</h3>
+
+<ul>
+<li><strong>Proposition 2 (p. 1131).</strong> If only one agent invests, he should own all the assets: giving him access to every asset in every coalition maximizes his marginal return and partially cures his hold-up problem.</li>
+<li><strong>Proposition 3 (p. 1132).</strong> For any coalition, each asset should be controlled by either the coalition or its complement. Splitting control across both sides wastes incentive value; a corollary (Proposition 4) is that at most one agent should hold veto power over an asset — some joint-ownership arrangements are strictly dominated. Footnote 16 notes this presumes human-capital investment; when agents jointly build a physical asset for resale, shared ownership can be optimal.</li>
+<li><strong>Propositions 5 and 6 (pp. 1133–34).</strong> An asset idiosyncratic to an agent (irrelevant to everyone else's marginal benefit) should be owned by him; and an agent <em>indispensable</em> to an asset — without whom the asset adds nothing to anyone's marginal product — should own it even if he makes no investment at all. The second result is the paper's central "who" statement: ownership follows not only from the importance of one's own action but from one's importance as a trading partner.</li>
+<li><strong>Proposition 7 (p. 1135).</strong> If a <em>key group</em> G (more than half of whose members are needed to make an asset productive) exists, control should be decided by simple majority voting among G — which yields partnerships (G a subset of workers), worker cooperatives (G = all workers), and consumer cooperatives (G = consumers) as special cases.</li>
+<li><strong>Propositions 9–10 (pp. 1136–38).</strong> A dispensable agent with no investment should hold no control rights when stochastic control is possible; an <em>outside party</em> — one economically independent of the others — should hold none either, because his control only dilutes the returns to investment across a larger bargaining set. Where two groups and their assets are economically independent, control should be independent: ownership should not extend across unrelated businesses.</li>
+<li><strong>Propositions 11–12 (pp. 1138–39).</strong> If the asset essential to an investing agent is owned by someone else, that owner should own all the assets (so that every coalition containing the owner also carries every asset the investor needs). And a hybrid structure in which a worker group's essential asset and its boss's own essential asset sit in different firms is dominated — the boundary should be redrawn to one boss at the top of one firm.</li>
+</ul>
+
+<h3>2.5 Which assets should be grouped (Sec. III, cont.)</h3>
+
+<p>Assets <em>(strictly) complementary</em> — unproductive unless used together, like a galley and its hull — should be owned or controlled together (Proposition 8, pp. 1135–36): separate owners force every third party to bargain with two people instead of one, and the marginal return to complementary assets vanishes unless one coalition controls both. At the opposite extreme, assets with no synergies between them should not be owned together, and ownership should not extend across economically independent agents (Proposition 10, p. 1138) — common ownership of unrelated assets is equivalent to handing control to an outside party, which only dilutes incentives (Proposition 9). The two propositions bracket the firm: complementary assets pull toward common ownership, independent assets push toward separation, and the efficient boundary sits where these forces balance.</p>
+
+<div class="mermaid">
+flowchart TD
+    A["Date 0: incomplete contracts; a control structure alpha allocates each asset to a coalition"] --> B["Agents choose noncontractible human-capital investments x_i"]
+    B --> C["Date 1: coalition S controlling assets alpha(S) generates value v(S, alpha(S), x); surplus split by Shapley value"]
+    C --> D["Private marginal return falls short of the social return: underinvestment (Prop. 1)"]
+    D --> E["Date 0 ownership design: choose alpha maximizing W(x^e(alpha))"]
+    E --> F["Who should own: sole investor (P2), indispensable trading partner (P6), key group by majority rule (P7); never dispensable outsiders (P9, P10)"]
+    E --> G["How assets group: strictly complementary assets jointly owned (P8); economically independent assets separately owned (P10)"]
+    F --> H["Boundary of the firm = the set of assets under common ownership"]
+    G --> H
+    H --> I["Ownership = right to exclude others from non-human assets"]
+    I --> J["Exclusion over assets becomes authority over people: employees act in the interest of the owner of their essential asset"]
+    J --> K["Employment vs. independent contractor: integration lets one owner selectively fire; nonintegration lets him fire only the whole firm"]
+</div>
+
+<h2>3. Evidence / examples</h2>
+
+<p>As a theory paper, the evidence comes in two forms: worked examples that carry the intuition, and application sections that derive the propositions' practical content. The yacht example of the Introduction (pp. 1122–24) does the first job. A chef and a skipper jointly supply gourmet seafare to a tycoon from a luxury yacht. The chef can take an asset-specific action at cost 100 that creates value 240; the skipper has many substitutes at date 1; the tycoon is the only consumer. If the <em>skipper</em> owns the yacht, the chef foresees a three-way split and receives $1/3(240)=80 &lt; 100$ — he does not invest. If the <em>tycoon</em> owns the yacht, the skipper can be replaced, the split is two-way, and $1/2(240)=120 &gt; 100$ — the chef invests. Add a second date-0 action for the skipper worth another 240 to the tycoon, and the comparison flips in a clean way: when both workers invest in ways specific to the tycoon, tycoon ownership dominates ownership by either worker — "it may be efficient to give ownership of assets to agents who are indispensable even though they may not make important investment or effort decisions" (pp. 1123–24), the intuition behind Proposition 6.</p>
+
+<p>A second modification of the example (p. 1124) delivers complementarity. Suppose the yacht is two pieces, a galley and a hull, useless apart, and each of the three agents has a date-0 action worth 240. Under separate ownership — chef owns the galley, skipper the hull — the incentive conditions are $1/2(240) &gt; c_1$, $1/2(240) &gt; c_2$, and $1/3(240) &gt; c_3$: each worker must bargain with the other for access to the whole yacht, and the tycoon must bargain with both. Give the chef the entire yacht, and the tycoon bargains with one person instead of two while the skipper's position is unchanged; fewer holdups, higher welfare — the statement of Proposition 8 in miniature.</p>
+
+<h3>3.1 One asset: ownership regimes and organizational forms (Sec. IV.A)</h3>
+
+<p>With a single asset essential to a set of workers who supply consumers, the model generates an ownership taxonomy. If some key group must be present for any worker's investment to pay, majority rule among that group is optimal — and the interpretation of the group determines the organization: a <em>partnership</em> when the key group is a subset of the workers, a <em>worker cooperative</em> when it is all the workers, a <em>consumer cooperative</em> when it is the consumers (p. 1140). When every agent is dispensable, optimal control reduces to allocating probabilities $p_i$ — the chance that agent $i$ belongs to the coalition controlling the asset — across the investing set $H$, subject to the fixed-sum constraint $\sum_{i\in H} p_i = 1/2 + 1/(2|H|)$ (eq. [6], pp. 1140–41). With symmetric investments, equal $p_i$ are best (achievable by majority rule when $|H|$ is odd); with one "big" worker whose investment dominates, all control rights go to him, because the small workers' aggregate investment barely changes whether they own or not.</p>
+
+<h3>3.2 Two assets: the boundary of the firm (Sec. IV.B)</h3>
+
+<p>The two-asset case (pp. 1141–45) is where the paper's employment analysis lives. Each asset $a_i$ has one big worker $i$ and many dispensable small workers; the question is whether 1 owns $a_1$ and 2 owns $a_2$ (nonintegration), 1 owns both (integration), 2 owns both, or the never-optimal "reverse nonintegration" (1 owns $a_2$, 2 owns $a_1$). Writing the first-order conditions under each regime (eqq. [7a]–[7h]) and comparing them gives a complete incentive ledger for integration, summarized in the table below. The headline results: boss 1's incentive rises under integration because he then always has both assets; boss 2's falls because he must bargain with 1 for $a_2$; a typical worker $w_1$ of the acquiring firm has unambiguously higher incentives under integration (whenever he is in a coalition with his boss 1 he now also reaches $a_2$ — Proposition 11); and a worker $w_2$ of the acquired firm faces two offsetting forces. On the positive side, $w_2$ now negotiates with one person to reach both assets; on the negative side, he is less often in a coalition that combines his old boss 2 with $a_2$ — and if 2 is indispensable to $a_2$, $w_2$'s incentive to invest strictly falls (p. 1144). The paper summarizes: "there are two effects from integration on employees. On the one hand, there is a positive effect due to increased coordination … On the other hand, there is a negative effect due to the fact that an employee of the acquired firm now has to negotiate with two people to have access to both his essential asset and his old boss" (p. 1144).</p>
+
+<table>
+<caption>Table 1 — Two-asset model: who gains and who loses from integration (agent 1 owns both assets)</caption>
+<thead>
+<tr><th>Agent</th><th>Under nonintegration (1 owns a<sub>1</sub>, 2 owns a<sub>2</sub>)</th><th>Under integration (1 owns both)</th><th>Effect on investment incentives</th></tr>
+</thead>
+<tbody>
+<tr><td>Boss 1 (acquirer)</td><td>Must reach agreement with 2 to use a<sub>2</sub></td><td>Always controls both assets</td><td>Rises — FOC (7e) &gt; (7a); the classic Grossman–Hart gain</td></tr>
+<tr><td>Boss 2 (acquired)</td><td>Always has access to his own a<sub>2</sub></td><td>Needs 1's cooperation for a<sub>2</sub></td><td>Falls — FOC (7g) &lt; (7c)</td></tr>
+<tr><td>Worker w<sub>1</sub> (acquiring firm's employee)</td><td>Productive only in coalitions with 1; access to a<sub>1</sub> alone</td><td>Every coalition with 1 also carries a<sub>2</sub></td><td>Rises unambiguously (Proposition 11)</td></tr>
+<tr><td>Worker w<sub>2</sub> (acquired firm's employee)</td><td>Needs coalition with both 1 and 2 to reach both assets</td><td>Coordination gain (one boss for both assets) vs. loss of the {2, a<sub>2</sub>} combination</td><td>Ambiguous; falls if 2 is indispensable to a<sub>2</sub></td></tr>
+</tbody>
+</table>
+
+<p>Three special cases resolve the ambiguity. If agent 2 is dispensable, the negative employee effect disappears and the only cost of integration is 2's own lost incentive. If the assets are economically independent, nonintegration dominates integration outright (Proposition 10): owning $a_2$ alongside $a_1$ makes agent 1 a pure outside party to business 2, diluting incentives without adding coordination value. If the assets are strictly complementary, integration dominates (Proposition 8): 2 and $w_2$ had to reach agreement with 1 anyway, so they lose nothing, while third parties now negotiate with one owner instead of two (p. 1145).</p>
+
+<table>
+<caption>Table 2 — When a move to common ownership of two assets raises or lowers efficiency (Sec. V summary, p. 1149)</caption>
+<thead>
+<tr><th>Condition</th><th>Common ownership likely increases efficiency when …</th><th>Common ownership likely decreases efficiency when …</th></tr>
+</thead>
+<tbody>
+<tr><td>Relationship between the assets</td><td>Assets are strongly complementary (Prop. 8)</td><td>Assets are economically independent (Prop. 10)</td></tr>
+<tr><td>Target owner-manager (agent 2)</td><td>2 is dispensable or his investment is not particularly important</td><td>2 has an important investment, or a<sub>2</sub> is idiosyncratic to him</td></tr>
+<tr><td>Acquiring owner (agent 1)</td><td>1 is an important trading partner for 2 and the workers {w<sub>2</sub>}, and 1 (or {w<sub>1</sub>} in aggregate) has an important investment</td><td>1's investment is not particularly important</td></tr>
+<tr><td>Employees of the target ({w<sub>2</sub>})</td><td>Gain: negotiate with a single boss for access to both assets</td><td>Lose: coalitions pairing their old boss 2 with a<sub>2</sub> become rarer</td></tr>
+</tbody>
+</table>
+
+<h3>3.3 Three assets: mergers have spillovers (Sec. IV.C)</h3>
+
+<p>With three single-owner assets, the new control structure is <em>partial integration</em> — 1 owns $a_1$ and $a_2$, 3 owns $a_3$ — and the distinctive result is that 1's acquisition of $a_2$ changes outsider 3's incentives. Comparing 3's first-order conditions across regimes, 3 invests more under partial integration than under nonintegration provided $v_3(a_1,a_2,a_3)+v_3(a_3) &gt; v_3(a_1,a_3)+v_3(a_2,a_3)$ (eq. [8], p. 1147), which holds when 3's synergies with 1 and 2 are limited without the third party. The result inverts when $a_1$ and $a_2$ are close substitutes for 3's business — then nonintegration serves 3 better, because separate owners 1 and 2 must compete against each other for access to $a_3$. As the paper puts it,</p>
+
+<blockquote>
+… as one might expect, if two competing traders merge, this will worsen the incentives of the owner-manager of a firm that trades with them.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">Hart &amp; Moore (1990), p. 1148, Sec. IV.C</span>
+</blockquote>
+
+<h3>3.4 Many assets: the pipeline case (Sec. IV.D)</h3>
+
+<p>The multi-asset application takes the Klein–Crawford–Alchian oil-pipeline example: one pipeline $a_1$ serves many refineries $a_2,\dots,a_N$; the only synergies are bilateral between the pipeline and each refinery, and refineries are useless without the pipeline. If the pipeline's investment matters, downstream integration — pipeline owner owns everything — is the answer. If the pipeline owner's investment is negligible and the refiners' investments matter, the refiners should share control rights in the pipeline through shares or votes under majority rule, with an agent's ownership probability increasing in his votes — "Arrangements like these are in fact observed in the case of oil pipelines, with an agent's share being linked to his use of the pipeline" (p. 1149, citing Klein et al. 1978; cf. joint ownership of bridges by railroads, Chandler 1977, p. 124).</p>
+
+<h2>4. Position in the literature</h2>
+
+<p>The paper sits at the hinge of the property-rights line the course tracks. Against <strong>Coase (1937)</strong>, it takes over the two founding questions and the idea that the employment relation is the distinctively firm-like transaction, but it refuses Coase's own answer — that authority consists in the employer "telling" the employee what to do. Against <strong>Alchian and Demsetz (1972)</strong>, it concedes their critique (an employer cannot command; he can only fire, exactly as a customer stops buying from a grocer) while restoring authority through assets: the owner of the assets an employee works with controls the employee's future livelihood, so the employee serves the owner's interest without ever being told. Footnote 2 credits Alchian and Demsetz with the exclusion idea; footnote 29 reconciles the two camps explicitly, citing Simon (1951) and Arrow (1974) along the way. Against <strong>Williamson (1975, 1985)</strong> and <strong>Klein, Crawford, and Alchian (1978)</strong>, it accepts the asset-specificity/hold-up diagnosis — and reuses their oil-pipeline case as its own Sec. IV.D application — but replaces their diffuse notion of integration-as-opportunism-reduction with a formal, two-sided account in which integration also destroys the target's incentives.</p>
+
+<p>Its immediate predecessor is <strong>Grossman and Hart (1986)</strong>, which the authors extend in four documented directions: from top management to employees; from a single transacting pair to many agents and many assets; from one asset to asset groupings; and from simple ownership to partnerships, cooperatives, and majority-rule and stochastic control structures. The paper also specializes Grossman–Hart's residual control rights to the single right of exclusion, and its Assumption 6 converts Grossman–Hart's possible overinvestment into a clean universal-underinvestment baseline (n. 13). Self-references anchor the research program: the working-paper version Hart and Moore (1988), their companion paper on debt and renegotiation (Hart and Moore 1989, cited for option-to-own contracts), Hart's survey of the theory of the firm (O. Hart 1989), and the then-forthcoming Holmstrom and Tirole handbook chapter (1989).</p>
+
+<p>Within the modern PRT sequence that the seminar reads as classical PRT → modern PRT → strategy application → ownership competence → empirical test, Hart and Moore (1990) is the canonical formal statement of the second stage: <strong>Hart (1995)</strong> later consolidates Grossman–Hart–Moore into book form; <strong>Kim and Mahoney (2005)</strong> and the ownership-competence literature translate the who-owns and which-assets-grouped results into strategic management; and empirical work such as <strong>Magelssen (2020)</strong> tests the resulting boundary predictions against observed ownership. The paper itself does not cite these later works — it is their foundation.</p>
+
+<h2>5. Limitations</h2>
+
+<h3>5(a) The authors' own stated limitations</h3>
+
+<p>Hart and Moore are unusually explicit about what their framework cannot do. The division of date-1 surplus by the Shapley value is "obviously strong," though they argue the qualitative results survive any bargaining solution in which a party's share of a fixed surplus falls with the number of people whose agreement he needs (pp. 1150–51). The assumption that ex post bargaining is efficient is likewise strong: inefficiencies arise only from ex ante actions, and a proper treatment of ex post inefficiency via asymmetric information is left for future work (p. 1152). Beyond the zero-one investment case, underinvestment is not guaranteed: if Assumption 6 fails, some agents may overinvest relative to the first-best, and "holdups may be good, not bad" — it may then be desirable to keep assets away from indispensable trading partners or to split complementary assets (p. 1151). When agents choose the <em>type</em> as well as the level of action, ownership may optimally go to a non-indispensable agent (pp. 1151–52). The model ignores payoff uncertainty, risk aversion, and wealth constraints, so the allocation of ownership between financiers and managers is outside it (p. 1152); it ignores information dissemination and coordination, and "in our model an employer never has to tell an employee what to do" (pp. 1152–53); investment is assumed human-capital-specific (Assumption 3), so asset-enhancing investment is excluded (p. 1153); and, most consequentially for a theory of the firm, "the model in its present state cannot explain the delegation of control or the determination of hierarchical structure within a firm" (p. 1153). Profit-sharing and revelation mechanisms are ruled out (n. 7), secret asset transfers are assumed away (n. 14), and ex ante uncertainty is not modeled (n. 5).</p>
+
+<h3>5(b) Independent judgment</h3>
+
+<ul>
+<li><strong>[paper claim]</strong> The firm is identified exclusively with its non-human assets. The authors state this squarely — "in the absence of any nonhuman assets, it is unclear what authority or control means" (p. 1150) — and they suspect the logic extends to intangibles such as goodwill. For human-capital-intensive organizations (consultancies, research labs, platform firms whose "assets" are reputations and code), the boundary statement therefore has less bite than for machine-intensive firms.</li>
+<li><strong>[evidence]</strong> The support offered is analytic and anecdotal: worked examples (the yacht), special-case propositions, and institutional illustrations (oil pipelines, nineteenth-century railroad bridge consortia, cited to Klein et al. 1978 and Chandler 1977). The paper contains no systematic empirical test of its ownership predictions; the authors point to Joskow (1988) and express the hope that "the model or its extensions will throw light on integration decisions in particular empirical contexts" (p. 1153), which later work such as Magelssen (2020) took up.</li>
+<li><strong>[inference]</strong> Propositions 8 and 10 draw a sharp line between complementary and independent assets, but interdependence is a continuum in practice. The model offers no metric or comparative statics for intermediate degrees of complementarity, so its applied counsel — "own together versus own apart" — is binary where real integration decisions are graded.</li>
+<li><strong>[inference]</strong> Assets are given and "already in place" (p. 1122); the model never asks who created the asset or why. Questions of entrepreneurship — who should own an asset that does not yet exist, or whose value depends on unverifiable ideas — are outside the framework, which weakens its direct applicability to start-up and knowledge-intensive settings where the asset and its first owner are chosen jointly.</li>
+<li><strong>[inference]</strong> The coordination benefit of integration is modeled only as a bargaining artifact — fewer agreements to reach — not as the real-time direction, information flow, or task assignment that motivates most managerial accounts of the firm. The authors concede the employer never directs the employee in their model (p. 1153); reading that as a strength requires believing ex ante incentives are the whole story of why firms exist.</li>
+<li><strong>[open question]</strong> The three-asset result that a merger of close substitutes worsens an outsider's incentives hints at competitive effects, but the framework has no market structure, prices, or consumer welfare. Whether property-rights integration, chosen to maximize private surplus, raises or lowers social welfare once the rivals' reactions and final-good prices enter is left open — as is the antitrust reading of "competing traders merge."</li>
+<li><strong>[open question]</strong> Efficient ex ante selection of the control structure presumes date-0 bargaining works (p. 1131) while date-1 contracting fails. If the same incompleteness that blocks detailed date-1 contracts also blocks costless date-0 reallocation of ownership, initial endowments and wealth constraints would bind the ownership pattern — an issue the paper flags when it sets financing aside (p. 1152) but does not resolve.</li>
+</ul>
+
+<h2>6. Conclusion</h2>
+
+<p>The paper establishes a complete framework for the optimal assignment of assets and shows that the boundary of the firm is an equilibrium of incentive design rather than a technological fact. Ownership is the residual right to exclude others from non-human assets; because employees must reach the owner to realize the returns on their human capital, asset ownership translates into authority over people, and the firm is precisely the set of assets that one control structure holds together. The normative core is Proposition 6 (indispensable trading partners should own), Proposition 8 (strictly complementary assets should be owned together), Proposition 10 (economically independent assets should be owned separately), and the two-asset ledger showing when integration raises or lowers the incentives of each employee class. In the paper's own closing words,</p>
+
+<blockquote>
+In spite of its restrictive assumptions, we believe that our analysis has identified some of the forces determining the boundaries of the firm. For example, it can explain why a firm faces first increasing and then decreasing returns to scale (increasing returns due to the positive benefits of coordinating complementary assets [proposition 8] and decreasing returns due to the inefficiencies of centralized control as new managers with economically independent roles must be brought in [proposition 10]).
+<span style="display:block;margin-top:.6rem;color:var(--muted)">Hart &amp; Moore (1990), p. 1153, Sec. V (Concluding Remarks)</span>
+</blockquote>
+
+<div class="golden">
+“We have argued that this authority over assets translates into authority over people: an employee will tend to act in the interest of his boss.” (Hart &amp; Moore 1990, p. 1150)<br>
+<span style="font-size:.9rem;font-weight:400;color:var(--text)">One-line takeaway: give ownership to those whose investments matter or whose cooperation is indispensable, keep strictly complementary assets under a single owner, leave economically independent assets and outside parties out of the ownership structure — and the firm's boundary follows from who must hold which assets to invest well.</span>
+</div>
+
+<div class="note">
+<strong>AI-assistance disclosure.</strong> This page was written by an AI assistant from the full text of Hart &amp; Moore (1990), extracted with pdftotext from the JSTOR scan of <em>Journal of Political Economy</em> 98(6): 1119–1158. All verbatim quotations carry page references as cited above; tables and the diagram are AI-organized syntheses of the paper's propositions and Section IV comparisons, not reproductions of the journal's own Table 1. Readers should verify page numbers and formulas against the original PDF before citing.
+</div>
+
+<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
+
+</body>
+</html>

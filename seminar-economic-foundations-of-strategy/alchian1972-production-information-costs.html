@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production, Information Costs, and Economic Organization — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Production, Information Costs, and Economic Organization</h1>
+
+<div class="meta">
+<strong>Authors:</strong> Armen A. Alchian and Harold Demsetz<br>
+<strong>Journal:</strong> American Economic Review, Vol. 62, No. 5, pp. 777–795<br>
+<strong>Year:</strong> 1972<br>
+<strong>DOI:</strong> none — <a href="http://www.jstor.org/stable/1815199">JSTOR stable URL: http://www.jstor.org/stable/1815199</a><br>
+<strong>Nature:</strong> theoretical economics essay (classical property-rights theory of the firm; verbal model with illustrative cases, no data)<br>
+<strong>Keywords:</strong> team production, metering/monitoring, shirking, residual claimant, classical capitalist firm
+</div>
+
+<p><strong>Contents:</strong> <a href="#s1">1. Background and motivation</a> · <a href="#s2">2. Core argument</a> · <a href="#s3">3. Evidence / examples</a> · <a href="#s4">4. Position in the literature</a> · <a href="#s5">5. Limitations</a> · <a href="#s6">6. Conclusion</a></p>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>The firm is a contractual device for solving the <em>metering problem</em> of team production: a residual-claimant central agent who monitors cooperating inputs and curbs the shirking that arises when joint output hides each member's marginal product — not an island of authority inside a sea of markets.</p>
+</div>
+
+<div class="note">
+<p><strong>Reading note.</strong> Alchian and Demsetz (1972) open the classical stage of the Week-3 arc: this paper <em>defines</em> the monitoring/metering problem and the residual-claimant solution that every later station of the arc presupposes. Demsetz (1967) had argued that property rights emerge to internalize externalities; this paper carries that logic inside the firm, treating shirking in team production as an externality that a bundle of residual rights internalizes. Modern PRT (Grossman and Hart 1986; Hart and Moore 1990), the ownership-competence agenda (Foss, Klein, and co-authors), and the arc's empirical applications (e.g., Magelssen 2020) all inherit its question — who owns what, and why — even where they replace its monitoring mechanism with formal residual control rights over assets.</p>
+</div>
+
+<h2 id="s1">1. Background and motivation</h2>
+
+<p>Alchian and Demsetz open by stating the task of a theory of economic organization. It must do two things: "explain the conditions that determine whether the gains from specialization and cooperative production can better be obtained within an organization like the firm, or across markets, and to explain the structure of the organization" (p. 777). The two problems are deliberately joined. A theory that only tells you when firms beat markets is silent about the internal architecture of firms — who hires whom, who owns what, who monitors whom — and it is precisely those facts the authors want to derive.</p>
+
+<p>The target of the essay is the then-standard, Coasean picture of the firm as a zone of <em>authority</em>. Against that picture the paper levels its most famous paragraph (p. 777):</p>
+
+<blockquote>
+It is common to see the firm characterized by the power to settle issues by fiat, by authority, or by disciplinary action superior to that available in the conventional market. This is delusion. The firm does not own all its inputs. It has no power of fiat, no authority, no disciplinary action any different in the slightest degree from ordinary market contracting between any two people.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Alchian and Demsetz (1972), p. 777</span>
+</blockquote>
+
+<p>The "delusion" claim is argued by analogy. An employer can "punish" an employee only by withholding future business or by suing — exactly the sanctions available against a grocer. "Telling an employee to type this letter rather than to file that document is like my telling a grocer to sell me this brand of tuna rather than that brand of bread" (p. 777). Neither side is bound to continue; "long-term contracts between employer and employee are not the essence of the organization we call a firm" (p. 777). The employer–employee relation is a sequence of renegotiations that must be acceptable to both parties, not the exercise of a managerial prerogative.</p>
+
+<p>If fiat is not the differentia of the firm, what is? The grocer question supplies the answer (pp. 777–778):</p>
+
+<blockquote>
+Wherein then is the relationship between a grocer and his employee different from that between a grocer and his customers? It is in a team use of inputs and a centralized position of some party in the contractual arrangements of all other inputs. It is the centralized contractual agent in a team productive process not some superior authoritarian directive or disciplinary power.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Alchian and Demsetz (1972), pp. 777–778</span>
+</blockquote>
+
+<p>A second, subtler adversary is classical price theory itself. The marginal-productivity theory of distribution quietly assumes that some organization already meters rewards in accord with productivity. Alchian and Demsetz reverse the causation: "the specific system of rewarding which is relied upon stimulates a particular productivity response" (pp. 778–779). An organization that meters poorly delivers low productivity; one that meters well delivers high productivity. The economics of organization is therefore, in their hands, the economics of <em>metering</em> — of measuring and rewarding — carried out at positive information cost.</p>
+
+<h2 id="s2">2. Core argument and framework</h2>
+
+<p>The argument runs in seven moves that track the paper's own section structure (I–VIII). Table 1 fixes the vocabulary before the mechanism is built.</p>
+
+<table>
+<caption>Table 1. Core concepts as Alchian and Demsetz define them, and where each enters the argument</caption>
+<thead>
+<tr><th>Concept</th><th>Definition used in the paper</th><th>Role in the argument (pages)</th></tr>
+</thead>
+<tbody>
+<tr><td>Metering</td><td>"To measure and also to apportion" (fn. 1): metering input productivity and metering rewards</td><td>§I — the two demands placed on every economic organization (p. 778)</td></tr>
+<tr><td>Team production</td><td>Joint use of inputs whose output is not a sum of separable outputs; cross-partial ∂²Z/∂X<sub>i</sub>∂X<sub>j</sub> ≠ 0</td><td>§II — the source of the costly metering problem (p. 779)</td></tr>
+<tr><td>Shirking</td><td>Shifting effort into leisure when the realized cost of leisure falls below its true cost; viable because detection is costly</td><td>§II — the inefficiency the firm must control (pp. 780–781)</td></tr>
+<tr><td>Monitoring</td><td>Measuring output performance, apportioning rewards, observing input behavior, giving assignments, revising contracts</td><td>§III — the specialized activity that reduces shirking (pp. 781–782)</td></tr>
+<tr><td>Residual claimant</td><td>The party with title to the team's net earnings after contracted payments to other inputs</td><td>§III — the incentive that disciplines the monitor (p. 782)</td></tr>
+<tr><td>Classical firm</td><td>Contractual structure: one common party, residual claim, membership-revision rights, salable central status</td><td>§III and §VIII — the organizational answer (pp. 783, 794)</td></tr>
+</tbody>
+</table>
+
+<h3>2.1 The metering problem (paper §I)</h3>
+
+<p>"Two key demands are placed on an economic organization—metering input productivity and metering rewards" (p. 778). If rewards are random with respect to effort, no productive effort is supplied; if rewards are negatively correlated with productivity, the organization invites sabotage. Markets solve this problem cheaply whenever output is separable and directly observable: a farmer who raises wheat output by 10 percent at the prevailing price sees receipts rise 10 percent, so the market "meters the output directly, reveals the marginal product and apportions the rewards" (p. 778). The entire classical apparatus of production and distribution presumes such zero-cost metering exists. Team production breaks that presumption, because there the link between individual effort and observable output is severed.</p>
+
+<h3>2.2 Team production and shirking (paper §II)</h3>
+
+<p>The benchmark example is two men lifting cargo into trucks: watching only the total weight loaded per day, no one can determine each man's marginal product. Alchian and Demsetz formalize the point with the production function: team production of Z uses at least two inputs X<sub>i</sub> and X<sub>j</sub> with a positive cross partial, ∂²Z/∂X<sub>i</sub>∂X<sub>j</sub> ≠ 0, so Z cannot be written as the sum of two separable functions. Three conditions define the team-organization problem: (1) several types of resources are used, (2) the product is not a sum of separable outputs of each cooperating resource, and (3) not all resources used in team production belong to one person (pp. 779–780).</p>
+
+<blockquote>
+With team production it is difficult, solely by observing total output, to either define or determine each individual's contribution to this output of the cooperating inputs. The output is yielded by a team, by definition, and it is not a sum of separable outputs of each of its members.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Alchian and Demsetz (1972), p. 779</span>
+</blockquote>
+
+<p>Non-separability raises the cost of metering "by an order of magnitude" (p. 779) relative to separable production. The consequence is shirking. Leisure and income both enter utility, so each person adjusts effort to equate the marginal rate of substitution between leisure and output with his <em>realized</em> rate — and because relaxation is imperfectly detectable, part of its cost is borne by teammates. "The difficulty of detecting such actions permits the private costs of his actions to be less than their full costs" (p. 780). Detection expenditure is pushed only to where its marginal gain equals its marginal cost, so some shirking survives in equilibrium; detection cost "acts like a tax on work rewards" and "viable shirking is the result" (p. 781). The authors' university example makes the point concrete: faculty use office telephones and stationery for personal ends, and administrators tolerate it because identifying each offender would cost more than the saving — pay is simply lower in pecuniary terms and higher in "privileges, perquisites, or fringe benefits" (p. 780).</p>
+
+<blockquote>
+But since costs must be incurred to monitor each other, each input owner will have more incentive to shirk when he works as part of a team, than if his performance could be monitored easily or if he did not work as a team.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Alchian and Demsetz (1972), p. 780</span>
+</blockquote>
+
+<p>Why not solve this by having everyone own everything, or by letting the market police teams? The one-owner route is bracketed quickly: slavery is prohibited, people are risk averse about borrowing to buy all assets, and purchase–resale spreads can exceed rental costs (p. 779). The market route fails for two stated reasons (p. 781): first, outsiders who might bid to replace shirking members must themselves detect shirking, which by definition is costly when only team output is observable; second, a challenger who accepts a smaller reward share still bears less than the full output loss his shirking causes, so his incentive to shirk is at least as large as the incumbent's.</p>
+
+<h3>2.3 The monitoring solution: who monitors the monitor? (paper §III)</h3>
+
+<p>The constructive move is specialization in monitoring. One person specializes in checking the input performance of team members — measuring output, apportioning rewards, observing input behavior as clues to marginal productivity, and giving assignments (the coach-and-captain contrast: the coach sends in plays, the captain observes and reports at close hand, p. 782). But specialization recreates the incentive problem one level up: who monitors the monitor? Market competition among would-be monitors is a constraint but, for the reasons just given, an imperfect one. The decisive second constraint is to "give him title to the net earnings of the team, net of payments to other inputs" (p. 782). The residual claimant disciplines himself because shirking as a monitor now costs him directly, and he earns his residual by reducing shirking — both through the prices he pays input owners and through observing and directing how inputs are used (p. 782).</p>
+
+<p>To discipline others he must also be able to revise individual contracts without renegotiating the whole team, which is why the residual-claimant position is fused with membership rights (p. 783):</p>
+
+<blockquote>
+It is this entire bundle of rights: 1) to be a residual claimant; 2) to observe input behavior; 3) to be the central party common to all contracts with inputs; 4) to alter the membership of the team; and 5) to sell these rights, that defines the ownership (or the employer) of the classical (capitalist, free-enterprise) firm.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Alchian and Demsetz (1972), p. 783</span>
+</blockquote>
+
+<p>The emergence of this structure requires two necessary conditions: (1) productivity can be raised through team production whose marginal outputs are costly to measure directly, and (2) it is economical to estimate marginal productivity by observing or specifying input behavior (p. 783). Where input activity is a good clue to output — dock workers, assembly lines — detailed direction works; where it is not — lawyers, advertising specialists, doctors — monitoring by watching is ineffective and freer rein plus profit sharing appears instead (p. 786). The relation between each member and the owner is, on this reading, simply a "quid pro quo" contract; the employee can terminate as readily as the employer, so long-term contracts "are not an essential attribute of the firm," and "authoritarian," "dictational," or "fiat" attributes are not relevant to its conception or efficiency (p. 783). Figure 1 maps the full causal chain.</p>
+
+<div class="mermaid">
+flowchart TD
+    A["Team production: joint inputs, output not the sum of separable outputs (cross partial ∂2Z/∂Xi∂Xj ≠ 0)"] --> B["Costly metering: each member's marginal product is hard to observe from team output"]
+    B --> C["Shirking: realized cost of leisure falls below true cost, since detection is costly"]
+    C --> D{"Can market competition police shirking?"}
+    D -- "No: outsiders cannot detect shirking cheaply; entrants still under-bear their own shirking" --> E["Specialized monitor: observes input behavior, meters output, apportions rewards, assigns tasks"]
+    E --> F["Who monitors the monitor?"]
+    F --> G["Residual claimant: title to net team earnings disciplines the monitor; right to revise any input's contract"]
+    G --> H["Classical capitalist firm = bundle of rights: residual claim, observe inputs, central contracting party, alter membership, sell the position"]
+    H --> I["Predictions: profit sharing only in small teams; corporate devices (limited liability, salable shares, takeovers); more shirking in nonprofits; input-ownership patterns; firm as surrogate market"]
+    D -- "Partially: small teams, partnerships, artistic and professional work" --> I
+    J["Coase 1937: firm = authority and direction that saves market transaction costs"] -.->|"Rebutted: no fiat — only renegotiation and exit, plus metering"| A
+</div>
+
+<h3>2.4 Organizational variety as metering variety (paper §IV–V)</h3>
+
+<p>The framework is then run across alternative organizational forms, each read as a different answer to the same shirking problem. <em>Profit-sharing firms</em> work only for small teams: equal division leaves each member bearing a larger share of his own shirking losses, and incentives to shirk are "positively related to the optimal size of the team under an equal profit-sharing scheme" (p. 786); for unequal sharing the incentive to avoid shirking can be measured by the Herfindahl index (fn. 10). <em>Socialist firms</em> (Yugoslavia) illustrate political constraints: where all employees share the residual by law, losses from enhanced monitor shirking exceed gains from reduced employee shirking, so workers' committees arise to monitor the monitor — recommending termination of a manager's contract (pp. 786–787). <em>The corporation</em> confronts the diffusion of residual claims across many stockholders: limited liability protects small investors, freely salable shares let dissenters exit ("the right to sale of corporate shares without approval of any other stockholders," p. 788), and the policing of managerial shirking comes from outside competition by would-be managers and from takeover or proxy battles that concentrate votes into decisive blocs (pp. 788–789). In a celebrated footnote the authors recast stockholders as "merely the less risk-averse or the more optimistic member of the group that finances the firm" — investors whose residual claim does not primarily serve a monitoring function (fn. 14, pp. 788–789). <em>Mutual and nonprofit firms</em> cannot capitalize improved management into share prices, so competition among would-be monitors is weaker and "one should, therefore, find greater shirking in nonprofit, mutually owned enterprises" (p. 790). <em>Partnerships</em> suit artistic and professional teams — small, self-monitoring, and likelier among relatives or long-standing acquaintances who know each other's work habits (p. 790) — and <em>employee unions</em> appear as specialist monitors hired by employees to police hard-to-meter employer performance such as contingent fringe benefits (p. 790). Section V adds that "team spirit" and loyalty are economically rational: every member prefers a team in which no one, not even himself, shirks, and loyalty is a cheap way to move realized rates of substitution toward true ones (p. 790).</p>
+
+<h3>2.5 Which inputs does the firm own? (paper §VI–VII)</h3>
+
+<p>Because the residual-claimant monitor must be able to pay promised amounts in losses, he commits wealth; "residual claimants owners of the firm will be investors of resalable capital equipment in the firm" — inputs with high resale value relative to initial cost and long expected use within the firm (p. 791). Ownership, rather than rental, is predicted where user cost and depreciation are cheapest to detect by watching use: the destructible hammer is owned rather than rented because careless use in the owner's absence is hard to meter from the hammer afterward, while trucks tend to be driver-owned because "it is relatively cheap for the driver to police the care taken in using a truck" (p. 792). Finally, Section VII generalizes the firm into "a highly specialized surrogate market" (p. 793): by monitoring many inputs, the employer accumulates superior knowledge of their productive talents, "sells" that information to employees by placing them in good input combinations, and can recombine heterogeneous resources more cheaply than a general market search — the basis of Alchian and Demsetz's prediction that Japanese-style lifetime employment should breed large conglomerate firms (pp. 793–794).</p>
+
+<h2 id="s3">3. Evidence and examples</h2>
+
+<p>The paper is a theory essay with no dataset, so its "evidence" is a battery of worked examples and comparative-institutional observations, each engineered to isolate one margin of the metering problem. Table 3 collects the main cases.</p>
+
+<table>
+<caption>Table 3. Worked examples in the paper and the theoretical point each carries</caption>
+<thead>
+<tr><th>Example (page)</th><th>Situation</th><th>Point demonstrated</th></tr>
+</thead>
+<tbody>
+<tr><td>Two men loading cargo (p. 779)</td><td>Only total weight per day is observable</td><td>Team production: each man's marginal product is undefined from team output</td></tr>
+<tr><td>Cigarette breaks, tilted load (p. 780)</td><td>Watching how a man works while loading</td><td>Input-behavior observation is a cheaper clue to marginal productivity than metering output</td></tr>
+<tr><td>Faculty telephones and stationery (p. 780)</td><td>University tolerates personal use of office supplies</td><td>Detection is pursued only to the point where marginal gain equals marginal cost; perks substitute for pecuniary pay</td></tr>
+<tr><td>Putting-out weavers and central power (p. 784)</td><td>Factory weaving after cheap central power</td><td>Transaction costs of forming contracts <em>fell</em>, yet the factory expanded — team-production metering, not market contracting costs, explains the shift</td></tr>
+<tr><td>Dock workers vs. lawyers (p. 786)</td><td>Visible activity vs. invisible mental work</td><td>Detailed direction works where activity reveals output; professional work needs profit sharing or partnerships</td></tr>
+<tr><td>Yugoslavian residual-sharing firms (p. 787)</td><td>All employees share the residual by law</td><td>Workers' committees arise to police the manager's enhanced shirking incentive</td></tr>
+<tr><td>Corporate governance devices (pp. 788–789)</td><td>Dispersed stockholders</td><td>Limited liability, salable shares, proxy battles and takeovers police manager-monitors when residual claims are diffuse</td></tr>
+<tr><td>Hammer, trucks, tools of the trade (p. 792)</td><td>User cost of destructible equipment</td><td>Inputs whose depreciation is best detected by the user tend to be owned rather than rented</td></tr>
+<tr><td>Sports leagues (fn. 15, p. 791)</td><td>Teams compete in relative skill</td><td>"Reverse shirking": overinvestment in training when skill gains spill to opponents; league restraints curb it</td></tr>
+<tr><td>Japan's lifetime employment (p. 794)</td><td>Employees stay with one firm by custom</td><td>Broad scope for input revision makes large conglomerate firms the efficient form</td></tr>
+</tbody>
+</table>
+
+<p>Three examples deserve closer attention because they carry the heaviest argumentative weight. The <em>putting-out system</em> is aimed squarely at transaction-cost theories: bringing weavers to a central power source reduced the cost of negotiating contracts, yet what emerged was the factory — an expansion of the firm. The reason, the authors insist, is that "team production in the joint use of equipment became more important": interactions among workers through shared machines made marginal-productivity measurement harder even as contract formation got cheaper, while centralized activity made managing input behavior easier (p. 784). The example is deliberately chosen as a case where a market-transaction-cost theory and their metering theory predict different organizational responses.</p>
+
+<p>The <em>hammer</em> example (p. 792) demonstrates the input-ownership logic. An indestructible hammer with a readily detectable marginal product has zero user cost and can be rented; a destructible hammer whose careless use causes extra depreciation is more cheaply monitored by watching the use than by inspecting the hammer afterward. An absentee owner therefore charges a higher rental for the expected abuse, making owner-use cheaper than renting — "the valid content of the misleading expressions about ownership being more economical than renting" (p. 792). The professional-athlete footnote (fn. 16) pushes the same principle to its limit: when a team owner holds the athlete's future services, the athlete bears less of the wealth loss from declining performance, so the owner must monitor his physical condition — which is why, the authors conjecture, athletes' future services are owned rather than hired (p. 792).</p>
+
+<p>The <em>comparative-institutional</em> observations — Yugoslavia's worker-managed firms, nonprofit shirking, unions as employee monitors, partnerships among relatives — all function as crude natural experiments: political or legal constraints force a particular residual-claim arrangement, and the theory predicts the compensating control device that appears (workers' committees vetoing managers, greater shirking in nonprofits, union specialists policing fringe benefits). The authors are candid about the evidentiary status of these cases. Of the voting-versus-nonvoting-share evidence they write that "our casual evidence deserves no more than interest-initiating weight" (fn. 14, p. 789), and of the sports-league interpretation they admit no empirical test exists to separate the overinvestment rationale from plain monopoly restriction (fn. 15, p. 791). The paper's own testable implications are listed as qualitative predictions — about which kinds of inputs firms own, where profit sharing is viable, and where more shirking should be observed — rather than quantified hypotheses.</p>
+
+<h2 id="s4">4. Position in the literature</h2>
+
+<p>The paper's chief interlocutor is Ronald Coase (1937), and its relation to "The Nature of the Firm" is both deferential and corrective. Alchian and Demsetz accept the transaction-cost orientation while stripping out the authority story (p. 783):</p>
+
+<blockquote>
+Our view of the firm is not necessarily inconsistent with Coase's; we attempt to go further and identify refutable implications. Coase's penetrating insight is to make more of the fact that markets do not operate costlessly, and he relies on the cost of using markets to form contracts as his basic explanation for the existence of firms. We do not disagree with the proposition that, ceteris paribus, the higher is the cost of transacting across markets the greater will be the comparative advantage of organizing resources within the firm; it is a difficult proposition to disagree with or to refute.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Alchian and Demsetz (1972), p. 783</span>
+</blockquote>
+
+<p>The complaint is that Coase's framework, "insofar as it had heretofore been developed," stops too early (p. 784):</p>
+
+<blockquote>
+Coase's analysis insofar as it had heretofore been developed would suggest open-ended contracts but does not appear to imply anything more—neither the residual claimant status nor the distinction between employee and subcontractor status (nor any of the implications indicated below). And it is not true that employees are generally employed on the basis of long-term contractual arrangements any more than on a series of short-term or indefinite length contracts.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Alchian and Demsetz (1972), p. 784</span>
+</blockquote>
+
+<p>Frank Knight (1921) is the second ancestor to be challenged. Knight's risk-distribution rationale — the entrepreneur as the bearer of uncertainty — is treated as an afterthought that does not explain the residual claimant's monitoring role (p. 785):</p>
+
+<blockquote>
+We deduce the system of paying the manager with a residual claim (the equity) from the desire to have efficient means to reduce shirking so as to make team production economical and not from the smaller aversion to the risks of enterprise in a dynamic economy. We conjecture that "distribution-of-risk" is not a valid rationale for the existence and organization of the classical firm.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Alchian and Demsetz (1972), p. 785</span>
+</blockquote>
+
+<p>Within the paper the authors position themselves against and alongside a tight circle of contemporaries: they credit Stewart Macaulay's (1963) account of non-contractual relations for why open-ended contracts work, invoke S. N. Cheung's (1969) theory of share tenancy as built "squarely on the same factors" of detecting output performance and user cost (fn. 17, p. 793), draw on Henry Manne (1967) for the investor view of stockholders (fn. 14), and acknowledge Morris Silver and Richard Auster (1969), H. B. Malmgren (1961), Eirik Furubotn and Svetozar Pejovich (1970), Earl A. Thompson (1970), and Michael Canes (1970) — the UCLA property-rights circle in which the paper was written (the acknowledgments thank the Lilly Endowment grant to UCLA "for research in the behavioral effects of property rights," p. 777).</p>
+
+<p>The relation to Harold Demsetz's own earlier paper, "Toward a Theory of Property Rights" (1967), is interpretive rather than textual: Alchian and Demsetz (1972) do not cite it, but the two papers form one program. Demsetz (1967) argued that property rights emerge to internalize externalities when the gains from internalization exceed its costs — his Labrador fur-trade case shows intensified beaver hunting generating private land rights. Alchian and Demsetz (1972) apply exactly that internalization logic <em>inside</em> the firm: shirking in team production is an externality that team members impose on one another, and assigning a residual claim to a central monitor is the institutional device that internalizes it. This is the classical PRT line that the Week-3 arc then formalizes and extends: Williamson (1975, 1985) recasts the same contracting problems through opportunism and asset specificity, but restores a hierarchical governance role that Alchian and Demsetz had denied; Grossman and Hart (1986) and Hart and Moore (1990) formalize ownership as residual <em>control rights</em> over assets, shifting the central friction from monitoring to ex-ante investment and hold-up (see Hart 1995); Kim and Mahoney (2005) read property-rights theory as a systems view of economic organization feeding strategic management; the ownership-competence agenda (Foss, Klein, and co-authors) revives a Knightian emphasis on judgment in asset ownership; and Magelssen (2020) supplies the arc's empirical application of PRT ownership predictions. Table 2 sets the classical papers against each other.</p>
+
+<table>
+<caption>Table 2. Three organizational-economics theories compared: what defines the firm and why it exists</caption>
+<thead>
+<tr><th>Dimension</th><th>Coase (1937)</th><th>Alchian and Demsetz (1972)</th><th>Grossman and Hart (1986); Hart and Moore (1990)</th></tr>
+</thead>
+<tbody>
+<tr><td>Core friction</td><td>Positive costs of using the price mechanism (market transaction costs)</td><td>Costly metering of marginal products inside team production</td><td>Incomplete contracts and non-contractible ex-ante investments</td></tr>
+<tr><td>What defines the firm</td><td>The entrepreneur "directs" resources; authority replaces the price mechanism</td><td>Central residual-claimant party common to all input contracts; no fiat</td><td>The owner of an asset holds residual control rights over its non-contracted uses</td></tr>
+<tr><td>Why a boss / central agent</td><td>Direction economizes on market contracting costs</td><td>The monitor must himself be disciplined by the residual claim ("who monitors the monitor?")</td><td>Allocating control rights protects relationship-specific investments from hold-up</td></tr>
+<tr><td>Meaning of ownership</td><td>Not central to the argument</td><td>Bundle: residual claim, input observation, membership revision, resale of the position</td><td>Residual rights of control over physical assets</td></tr>
+<tr><td>Boundary prediction</td><td>Firm expands until internal organization costs equal market transaction costs at the margin</td><td>Team-production viability and the metering cost of each input determine the ownership mix; large scope of input revision favors conglomerates</td><td>Integration is optimal when complementary assets require non-contractible investments; 1/N ownership results for joint assets</td></tr>
+<tr><td>Stance on authority</td><td>Authority/direction is the essence of the firm</td><td>Rejects fiat: "no power of fiat, no authority" (p. 777)</td><td>Authority is delegated from residual control rights over assets</td></tr>
+</tbody>
+</table>
+
+<h2 id="s5">5. Limitations</h2>
+
+<h3>5(a) The authors' own stated limitations</h3>
+
+<ul>
+<li>They treat team production as "an essential (necessary?) condition" for the firm and flag their own uncertainty with the question mark; the wheat-quality example shows that non-team sources of high policing cost might call forth similar arrangements, and they concede they "have not intensively analyzed other sources" — their preferred interpretation is "current and readily revisable conjecture" (pp. 784–785).</li>
+<li>They do not explain why jointly used resources are not all owned by one person; the question is bracketed with three quick reasons — slavery is prohibited, risk aversion may block borrowing to buy all assets, and purchase–resale spreads may exceed rental costs (p. 779).</li>
+<li>Team size is treated as exogenous even though the degree of residual-claim centralization affects it; this is admitted as an approximation (fn. 10, p. 786).</li>
+<li>The rejection of the risk-distribution rationale is itself labeled a conjecture ("distribution-of-risk is not a valid rationale," p. 785), and the final "firm as private market" interpretation is introduced as "highly conjectural but possibly significant" (p. 794).</li>
+<li>The definition is deliberately narrow: the common usage of "firm" is "so turgid of meaning that we can not hope to explain every entity" to which the name attaches; conglomerates and holding companies may be investment devices along Knightian lines rather than firms in their sense (p. 785).</li>
+<li>Several empirical observations are offered with explicit caveats: the voting-versus-nonvoting-share evidence "deserves no more than interest-initiating weight" (fn. 14, p. 789), and no empirical test separates the overinvestment from the monopoly account of sports leagues (fn. 15, p. 791).</li>
+</ul>
+
+<h3>5(b) Independent judgment</h3>
+
+<ul>
+<li><strong>[paper claim]</strong> The firm exists because it meters team production more cheaply than market exchange. This claim is asserted as the paper's central result and is conditional on the two necessary conditions stated at p. 783.</li>
+<li><strong>[evidence]</strong> The supporting material is uniformly illustrative — cargo loading, faculty perks, hammers, Japan, Yugoslavia — with no systematic data; the authors themselves grade parts of it "casual" (fn. 14, p. 789). The paper's own testable implications (which inputs are owned, where profit sharing survives, where shirking concentrates) are qualitative and were not operationalized here.</li>
+<li><strong>[inference]</strong> The monitoring theory does not by itself pin down the firm's <em>boundary</em> — why this particular set of inputs forms a team, and at what scale the team stops growing. The authors treat team size as exogenous (fn. 10) and locate the firm's advantage in cheaper recombination of inputs already inside (pp. 793–794), which explains internal scope better than it explains why a given asset is owned rather than contracted. Modern PRT supplies the boundary account through asset-level residual control rights (Grossman and Hart 1986), a complement Alchian and Demsetz did not attempt.</li>
+<li><strong>[open question]</strong> In the large public corporation the residual claim is dispersed across many stockholders who, by the paper's own footnote 14, are investors rather than monitors. The residual-claimant discipline that closes the "who monitors the monitor" chain at p. 782 is then effectively absent, and Alchian and Demsetz fall back on takeover contests and outside management competition. Whether those devices are strong enough to substitute for a concentrated residual claim is asserted rather than shown.</li>
+<li><strong>[paper claim]</strong> Shirking, not opportunistic hold-up, is the friction that matters, and it arises specifically from the non-separability of team output. Modern PRT relocates the friction to ex-ante investments and ex-post bargaining over quasi-rents (Grossman and Hart 1986; Hart and Moore 1990); nothing in this paper reconciles the two mechanisms or says when each dominates.</li>
+<li><strong>[open question]</strong> "Metering cost" is never measured independently of the organizational outcomes it is used to explain, which creates a risk of circularity: firms are observed, therefore metering must have been costly. The paper gestures at testable implications (kinds of inputs owned; more shirking in nonprofits) but provides no metric for detection cost that an outside researcher could take to data — the gap the arc's empirical applications try to fill.</li>
+</ul>
+
+<h2 id="s6">6. Conclusion</h2>
+
+<p>What the paper establishes is a definition and a mechanism. The classical capitalist firm is a contractual structure — joint input production; several input owners; one party common to all input contracts; rights to renegotiate any input's contract independently; the residual claim; and the right to sell the whole central position — and the mechanism that explains it is the reduction of shirking through specialized, residual-claimant monitoring of team production. The summary restates the anti-Coasean thesis in its strongest form (p. 794):</p>
+
+<blockquote>
+The essence of the classical firm is identified here as a contractual structure with: 1) joint input production; 2) several input owners; 3) one party who is common to all the contracts of the joint inputs; 4) who has rights to renegotiate any input's contract independently of contracts with other input owners; 5) who holds the residual claim; and 6) who has the right to sell his central contractual residual status. The central agent is called the firm's owner and the employer. No authoritarian control is involved; the arrangement is simply a contractual structure subject to continuous renegotiation with the central agent.
+<span style="display:block;margin-top:.6rem;color:var(--muted)">— Alchian and Demsetz (1972), p. 794</span>
+</blockquote>
+
+<p>From this single mechanism the authors derive a surprising amount of structure: when profit sharing is viable, how corporations, nonprofits, unions, and partnerships each respond to the shirking problem, which inputs firms own rather than rent, and why the firm can be read as a privately owned market that collates knowledge of heterogeneous inputs. For a reader of the Week-3 arc, the strategic takeaway is one line: <em>the party who must be trusted to police others is the party given the claim — and the membership rights — that make policing worthwhile.</em> Design the residual-claim and renegotiation rights to match the metering problem of the team, and ownership structure follows; try to run the team on authority, and the authority turns out to be an illusion.</p>
+
+<div class="golden">
+"Could it be that the market suffers from the defects of communal property rights in organizing and influencing uses of valuable resources?"<br>
+<span style="display:block;font-size:.95rem;font-weight:400;color:var(--muted);margin-top:1rem">The paper ends by inverting Coase's question: where Coase asked why markets fail and firms succeed, Alchian and Demsetz close by asking whether markets — not firms — carry the property-rights defects that internal organization corrects. — Alchian and Demsetz (1972), p. 795</span>
+</div>
+
+<div class="note">
+<p><strong>AI-assistance disclosure.</strong> This reading-note page was written by AI from the paper's full text (pdftotext-extracted from the JSTOR scan). All verbatim blockquotes carry page references to the original AER pagination (pp. 777–795); minor line-break hyphenation was silently removed. Tables and the diagram were AI-organized from the paper's argument. Readers should verify page numbers and wording against the original before citing.</p>
+</div>
+
+<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI ROI Analysis: Evidence from 200 B2B Deployments (2022–2025) (Atlan, 2026) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>AI ROI Analysis: Evidence from 200 B2B Deployments (2022–2025)</h1>
+<div class="meta">
+Denis Atlan (2026) · Industry working paper v1.1, ENDKOO (Lyon, France) · Data DOI 10.5281/zenodo.17795133<br>
+<strong>Author</strong>: Denis Atlan (ENDKOO, Lyon; ORCID 0009-0007-0785-7305; author also acted as consultant to the sampled companies)<br>
+<strong>Source</strong>: "AI ROI Analysis: Evidence from 200 B2B Deployments (2022–2025)," working paper v1.1, January 2026, ENDKOO, Lyon, France. Full anonymized dataset (n = 200) released under CC BY 4.0 at <a href="https://doi.org/10.5281/zenodo.17795133">10.5281/zenodo.17795133</a><br>
+<strong>Year</strong>: 2026 (v1.1, January 2026)<br>
+<strong>Nature</strong>: <strong>Non-peer-reviewed practitioner/industry working paper</strong> — a longitudinal observational study of 200 AI deployments in French B2B firms, not an archival academic study; treat its estimates as field benchmarks with self-collected data, not as causal evidence<br>
+<strong>Data &amp; code status</strong>: Dataset (n = 200) publicly available via Zenodo DOI (CC BY 4.0); codebook, statistical appendices, and case summaries deferred to "supplementary materials" that are not yet described in the body (Appendix A–C are placeholders)
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Tracking 200 AI deployments in French B2B companies between 2022 and 2025 with CRM exports, quarterly interviews, and financial audits, this working paper reports a median ROI of <strong>+159.8% over a 24-month horizon</strong> (unadjusted mean +347%, driven by outliers), an 8-month breakeven, a 27% failure rate, and an inverse budget–ROI relationship in which small projects (&lt;€15K) outperformed large ones, with success attributed to human-in-the-loop governance, heavy training investment, and rapid iteration rather than to scale of spend.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide</strong>: Most papers in this topic library examine the <em>supply side</em> of the open-AI economy — who builds and shares models, how platforms such as Hugging Face coordinate contributors, which licenses govern openness, and how openness reshapes competition (Greenstein et al. 2022; Laufer et al. 2025; Longpre et al. 2025; White et al. 2024; Azoulay et al. 2024; Wu, Lin &amp; Li 2025; Khoshbash 2026). Atlan (2026) is the library's <em>demand-side</em> outlier: it asks what a mid-sized firm actually gets back, in euros, from deploying off-the-shelf AI (ChatGPT, Claude, custom models, open-source options such as Mistral). Two links to the course theme matter. First, the headline economics echo the hypothesis that when model supply is commoditized (cheap APIs, open weights), value accrues to <em>firm-specific complements</em> — here, human validation workflows and employee training — rather than to the model itself; the paper's own appeal to Barney's resource-based view states this explicitly. Second, the study is a useful cautionary artifact: it is exactly the kind of non-archival, author-collected, consulting-adjacent evidence that an academic reader must read with different rules than the peer-reviewed papers in this set. Read it once for the practitioner benchmarks, and once more to practice auditing data quality: several headline figures do not reconcile with the paper's own tables (detailed in the Limitations section).
+</div>
+
+<h2>1. Background and motivation: the missing ROI evidence for mid-sized B2B</h2>
+
+<p>The paper opens from a gap between adoption and measurement. Since late 2022, generative tools (ChatGPT, Claude, and similar LLMs) spread rapidly through enterprises, yet, the author argues, "comprehensive field data on actual ROI remains scarce." He cites Gartner (2024) reporting that 73% of AI projects fail to deliver expected business value, and characterizes existing evidence as mostly self-reported surveys (McKinsey 2023; MIT Sloan 2024) or studies of large enterprises (Brynjolfsson &amp; McElheran 2023). The neglected population is mid-sized B2B companies — precisely where consulting engagements of the author's firm (ENDKOO, Lyon) gave access to primary records (p. 1 of the PDF).</p>
+
+<p>The paper frames its contribution around three questions: what the realistic ROI distribution for B2B AI projects is "beyond vendor marketing claims"; which factors reliably predict success or failure "beyond anecdotal evidence"; and how implementation choices (budget size, governance models, training investment) affect outcomes. The stated ambition is modest and practical — evidence-based benchmarks for practitioners plus a contribution to "the emerging literature on AI adoption in mid-sized enterprises" — rather than a claim to academic novelty (p. 1 of the PDF).</p>
+
+<p>Two features of the design deserve early flagging because they shape everything that follows. The sample frame is companies in the Rhône-Alpes region that <em>engaged consulting services</em> for AI deployment — the author's own industry is the channel, and the author acknowledges providing consulting to sample companies. Second, the study was run prospectively (January 2022 to October 2025) with post-deployment observation of six to 36 months (mean 14 months), and ROI figures are annualized and projected onto a standard 24-month horizon for comparability (pp. 2, 5, 14 of the PDF). The 24-month headline is therefore partly a projection, not purely an observation.</p>
+
+<h2>2. Core concepts and argument structure</h2>
+
+<h3>2.1 The ROI definition</h3>
+
+<p>ROI is the dependent variable, computed identically across all 200 projects from gains minus costs:</p>
+
+<p>$$ROI = \frac{Total\ Gains - Total\ Costs}{Total\ Costs} \times 100$$</p>
+
+<p>Total gains comprise four monetized components: time saved (hours per week × hourly rate × 52 weeks), additional revenue (new leads × conversion rate × average deal size), cost avoided (errors prevented × cost per error), and efficiency gains (process acceleration × monetary value). Total costs comprise AI tool licenses, training expenses (internal and external), consulting fees, and internal team time at fully loaded hourly rates (p. 3–4 of the PDF). The formula is transparent, but note what it embeds: gains require defensible unit values (an hourly rate for saved time, a cost per prevented error), which is where self-reporting and auditor judgment enter.</p>
+
+<h3>2.2 The sample and the comparison logic</h3>
+
+<p>The final sample is N = 200 projects meeting inclusion criteria (minimum 10 employees, budget above €4,000, willingness to share anonymized financial data, minimum six months of post-deployment observation), with exclusions for pilots never put in production, government and non-profit organizations, and firms that ceased operations during the study (p. 2 of the PDF). The argument throughout is comparative: ROI is contrasted across budget tiers, industries, technologies, implementation durations, governance modes (human-in-the-loop or not), training intensities, use cases, and company sizes.</p>
+
+<p>The paper's rhetorical engine is a set of three "conventional assumptions" that its data claim to overturn: bigger budgets produce better outcomes; AI autonomy maximizes efficiency; and training is optional because modern tools are intuitive. Each assumption is tested with a group comparison and a proposed mechanism (Section 5 of the paper). This structure is sensible for a practitioner audience, and it also makes the paper easy to audit, because each headline claim reduces to a two-group or multi-group contrast with stated statistics.</p>
+
+<h3>2.3 Sample composition</h3>
+
+<p>Industry mix: SaaS B2B 40% (n = 80), B2B services 25% (n = 50), manufacturing 20% (n = 40), e-commerce 10% (n = 20), healthcare 5% (n = 10). Company size: SMEs of 10–50 employees 45% (n = 90), mid-market 50–250 employees 35% (n = 70), enterprises of 250+ employees 20% (n = 40). Technology: ChatGPT (API/Team/Enterprise) 67% (n = 134), Claude (Pro/API) 18% (n = 36), custom ML models 8% (n = 16), other (Gemini, Mistral, open-source) 7% (n = 14) (p. 3 of the PDF). The design is thus a single-country (France, Rhône-Alpes), single-consultant-channel study of predominantly LLM-based, mostly generative-AI deployments in small and mid-sized firms — the population the paper wants to speak for, and also the source of its external-validity limits.</p>
+
+<h2>3. Evidence and methods</h2>
+
+<h3>3.1 Design and data sources</h3>
+
+<p>The study is a longitudinal observational design — projects were tracked "in real-time rather than retrospectively" to capture process dynamics that post-hoc analyses obscure. Four primary data sources are used: (1) CRM/ERP exports with budget allocations, time logs, license costs, and implementation timelines; (2) structured quarterly interviews covering adoption rates, 5-point Likert user satisfaction, and qualitative challenges; (3) financial audits covering revenue attribution, cost savings, and actual versus projected ROI; and (4) project management tools with task completion rates, sprint velocity, and incident logs (pp. 2–3 of the PDF). Data collection runs on a fixed schedule: T0 pre-deployment baselines and success criteria, T1 at month 3 (adoption, early wins), T2 at month 6 (initial ROI, incident analysis), T3 at month 12 (full-year ROI, adoption sustainability) (p. 3 of the PDF).</p>
+
+<h3>3.2 Quality controls</h3>
+
+<p>Four controls are described, and they are the strongest part of the methodology:</p>
+
+<ul>
+<li><strong>Outlier auditing</strong>: projects claiming ROI above 1,000% were flagged for enhanced audit; twelve (6%) lacking sufficient financial evidence were removed, while confirmed high performers were retained, including the maximum of +1,888%, to keep genuine "black swan" successes in the data (p. 4 of the PDF).</li>
+<li><strong>Survivorship-bias mitigation</strong>: failed projects (n = 23, 11.5%) were actively solicited through post-mortem interviews, and negative-ROI cases are included (the paper claims this mitigates the survivorship bias "prevalent in case study research") (pp. 1, 4 of the PDF).</li>
+<li><strong>Self-reporting correction</strong>: 30% of the sample (n = 60) was cross-validated against direct financial data access, with a reported discrepancy rate of 8% (p. 4 of the PDF).</li>
+<li><strong>Missing data handling</strong>: projects with more than 20% missing data points (n = 7) were excluded from multivariate analyses but retained for descriptive statistics (p. 4 of the PDF).</li>
+</ul>
+
+<p>Ethical provisions are stated (GDPR-compliant anonymization, written informed consent, encrypted storage with access limited to the principal investigator), and the central conflict of interest is disclosed rather than hidden: the author provided consulting services to sample companies, "potential bias acknowledged and mitigated through third-party financial audits for 30% subset" (p. 4 of the PDF).</p>
+
+<h3>3.3 Author-stated methodological limitations</h3>
+
+<p>The paper concedes four limits in its own Section 2.7 and repeats them in Section 6.1 of the paper: a 100% French (Rhône-Alpes) sample; selection bias from the consultant channel; a mean observation horizon of 14 months with figures "annualized ... to a standard 24-month horizon"; and an attribution challenge in separating AI's contribution from concurrent organizational changes. On the last point the paper is unusually candid for an industry document:</p>
+
+<blockquote>Attribution challenge: Isolating AI contribution from concurrent changes (new hires, process improvements) remains methodologically complex. Controlled experiments (randomized trials) needed for causal claims. <em>(p. 14 of the PDF)</em></blockquote>
+
+<h2>4. Findings</h2>
+
+<h3>4.1 ROI distribution and headline statistics</h3>
+
+<p>The headline numbers, all from the abstract and the paper's Section 3.1: conservative median ROI of <strong>+159.8%</strong> over 24 months; unadjusted mean of <strong>+347%</strong>; an <strong>8-month breakeven</strong>; and a <strong>27% failure rate</strong>. The distribution is strongly right-skewed (skewness = 1.8), with a minimum of −42% and a verified maximum of +1,888%.</p>
+
+<blockquote>Using structured data collection methods including CRM exports, quarterly interviews, and financial audits, we document a conservative Median ROI of +159.8% over 24 months (while unadjusted Mean reached +347% driven by outliers), with an 8-month breakeven period and a 27% failure rate. <em>(p. 1 of the PDF)</em></blockquote>
+
+<h3>Table 1: ROI distribution summary (source: paper Table 1)</h3>
+<table>
+<tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Mean ROI (unadjusted)</td><td>+347%</td></tr>
+<tr><td>Median ROI (final)</td><td>+159.8%</td></tr>
+<tr><td>Standard deviation</td><td>312%</td></tr>
+<tr><td>Minimum ROI</td><td>−42% (failed project)</td></tr>
+<tr><td>Maximum ROI</td><td>+1,888% (verified outlier retained)</td></tr>
+<tr><td>25th percentile (Q1)</td><td>+78%</td></tr>
+<tr><td>75th percentile (Q3)</td><td>+278%</td></tr>
+<tr><td>Interquartile range (IQR)</td><td>200%</td></tr>
+<tr><td>Distribution shape</td><td>Positively skewed (skewness = 1.8), "concentration in 200–500% range with extended right tail of exceptional performers"</td></tr>
+</table>
+
+<p>By performance tier (paper Table 2): 23 projects (11.5%) had negative ROI; 52 (26.0%) were marginal at 0–100%; 45 (22.5%) decent at 100–200%; 38 (19.0%) good at 200–300%; 28 (14.0%) excellent at 300–500%; and 14 (7.0%) exceptional above 500%. Median ROI differs across industries (paper Table 3): manufacturing +210% (n = 40, 10-month breakeven), SaaS B2B +175% (n = 80, 7 months), healthcare +160% (n = 10, 9 months), B2B services +145% (n = 50, 8 months), e-commerce +135% (n = 20, 7 months), with ANOVA F(4,195) = 3.24, p = 0.013 and a Tukey post-hoc contrast of manufacturing over e-commerce (p = 0.009) (p. 6 of the PDF). Two summary sentences in the paper — that "40.5% of projects achieved 300%+ ROI" and that 19.5% delivered marginal or negative returns — do not reconcile with the tier table's own cumulative column (see Section 7).</p>
+
+<h3>4.2 The small-budget paradox</h3>
+
+<p>The paper's most memorable result is an inverse correlation between initial budget and ROI (r = −0.34, p &lt; 0.001; Kruskal–Wallis H(4) = 18.7, p = 0.001). Median ROI declines monotonically from +245% for projects under €10K to +85% for projects over €100K.</p>
+
+<h3>Table 2: ROI by initial budget tier (source: paper Table 4)</h3>
+<table>
+<tr><th>Budget range</th><th>Projects (n)</th><th>Median ROI</th><th>Mean ROI</th></tr>
+<tr><td>&lt; €10K</td><td>52</td><td>+245%</td><td>+456%</td></tr>
+<tr><td>€10K–€20K</td><td>67</td><td>+195%</td><td>+391%</td></tr>
+<tr><td>€20K–€50K</td><td>48</td><td>+155%</td><td>+312%</td></tr>
+<tr><td>€50K–€100K</td><td>22</td><td>+110%</td><td>+268%</td></tr>
+<tr><td>&gt; €100K</td><td>11</td><td>+85%</td><td>+234%</td></tr>
+</table>
+
+<p>The proposed mechanism, from the Discussion, is the paper's central managerial argument:</p>
+
+<blockquote>Small-budget projects (&lt;€15K) achieved +428% median ROI vs. +198% for &gt;€100K projects. Proposed mechanism: Large budgets trigger scope creep (expanding objectives mid-project), political complexity (multiple stakeholders with conflicting interests), and expectation inflation (unrealistic ROI targets). Small budgets enforce focus on single use case, rapid iteration, and realistic expectations. <em>(p. 11 of the PDF)</em></blockquote>
+
+<p>Company size effects line up with the budget story: SME (10–50 employees) median ROI +185% with 7-month breakeven, mid-market (50–250) +155% at 8 months, enterprise (250+) +120% at 10 months, though the test is only marginally significant (Kruskal–Wallis H(2) = 5.8, p = 0.055). The author attributes the SME advantage to organizational agility, less bureaucracy, faster decision-making, and smaller budgets (p. 11 of the PDF).</p>
+
+<h3>4.3 Technology and implementation speed</h3>
+
+<p>By technology (paper Table 5): ChatGPT (n = 134) median ROI +352% with the highest adoption rate at month 3 (72%) and 8.2% critical incidents; Claude (n = 36) +318%, 68% adoption, and the lowest incident rate at 4.1%, "particularly in regulated industries: banking, healthcare, legal"; custom ML models (n = 16) the highest median ROI at +425% but the lowest adoption (54%) due to a "complexity barrier," and the highest incident share (12.5%); other tools (n = 14) +265% (pp. 7–8 of the PDF). Implementation duration is strongly predictive: median ROI falls from +398% for deployments under 6 weeks (5% failure rate) to +245% for deployments over 24 weeks (31% failure rate); duration correlates negatively with ROI (r = −0.28, p &lt; 0.001) and positively with failure (r = +0.41, p &lt; 0.001), which the paper reads as evidence for agile, MVP-style delivery over lengthy waterfall planning (p. 8 of the PDF).</p>
+
+<h3>4.4 The five critical success factors</h3>
+
+<p>The abstract promises that the paper "identif[ies] five critical success factors including Human-in-the-Loop governance ... and training investment." No numbered five-item list appears anywhere in the body — the closest enumerations are five failure root causes (Section 4.4 of the paper) and a seven-point optimization framework (Section 5.2 of the paper). Reconstructing the five success factors from the paper's own evidence sections, with their support, gives the list in Table 3. My reconstruction, not a list printed in the paper: factor 1 comes from paper Sections 4.2 and 5.1 (small initial budget, single use case), factors 2 and 3 from paper Sections 4.1–4.2, factor 4 from paper Sections 4.3–4.4 (use-case selection and executive sponsorship), and factor 5 from paper Sections 3.4 and 5.2 (rapid deployment with disciplined measurement).</p>
+
+<h3>Table 3: Success-factor evidence, reconstructed from the paper's group comparisons</h3>
+<table>
+<tr><th>Success factor</th><th>Paper's evidence</th><th>Magnitude reported</th></tr>
+<tr><td>1. Small initial budget, single use case</td><td>Budget–ROI inverse correlation (r = −0.34, p &lt; 0.001); monotone decline in median ROI across budget tiers</td><td>&lt;€10K median +245% vs. &gt;€100K +85% (paper Table 4); abstract cites 2.1× for &lt;€15K</td></tr>
+<tr><td>2. Human-in-the-Loop (HitL) governance</td><td>Median ROI +372% (n = 142, with HitL) vs. +268% (n = 58, without), difference +104 pp; t(198) = 4.67, p &lt; 0.001</td><td>Critical incidents 2.9 vs. 12.4 per 100 users/year, "4.3× fewer"; adoption at month 6, 81% vs. 58% (+23 pp); satisfaction 96% vs. 67% (+29 pp)</td></tr>
+<tr><td>3. Training investment ≥ 25% of budget</td><td>Training share predicts ROI (r = +0.52, p &lt; 0.001); ANOVA F(3,196) = 21.4, p &lt; 0.001, linear trend confirmed</td><td>25%+ cohort median +442% and 87% autonomous users vs. +185% and 24% for no training ("2.4× median ROI")</td></tr>
+<tr><td>4. Right use case and executive sponsorship</td><td>Five failure root causes: wrong use case 38%, no executive sponsor 24%, tool-first thinking 19%, no change management 12%, unrealistic timeline 7% (n = 39 projects with ROI &lt; 50% or negative)</td><td>Sponsor-less projects killed at month 6 by CEO/CFO budget decisions; quick-win use cases (content, email) reach breakeven in 3–4 months</td></tr>
+<tr><td>5. Rapid deployment (&lt; 8 weeks) with rigorous measurement</td><td>Duration–ROI correlation r = −0.28; duration–failure correlation r = +0.41 (p &lt; 0.001)</td><td>&lt;6-week deployments +398% median ROI, 5% failure vs. 24+ weeks +245%, 31% failure</td></tr>
+</table>
+
+<p>The two starred factors carry the paper's most quotable evidence. On HitL, the definition is "human validation checkpoints where AI outputs require human approval before action" (p. 8 of the PDF), and the flagship illustration is a fintech anecdote: an autonomous chatbot gave incorrect financial advice in week 3 (a GPT-4 hallucination), a customer invested €50K and lost €10K, the company settled for €8K, and total cost reached €18K plus reputational damage; after adding a human advisor validation step with a &lt;2-hour SLA, the firm recorded zero incidents in 18 months (p. 9 of the PDF). On training:</p>
+
+<blockquote>Interpretation: Training is not a cost; it's the #1 ROI multiplier. Companies with 25%+ training investment achieve 2.4× median ROI vs. zero-training cohort. <em>(p. 9 of the PDF)</em></blockquote>
+
+<p>Supporting case: a B2B services firm with a €60K AI budget spent €15K (25%) on a two-day, 40-employee workshop and reported 94% autonomous users, a 40% cut in administrative task time, and +380% ROI from the training alone at month 6 (p. 9 of the PDF). Use-case rankings (paper Table 9, top 10) complete the picture: predictive maintenance (+465%), quality control by computer vision (+425%), and inventory optimization (+385%) offer the highest returns but the slowest breakevens (9–11 months); content marketing (+225%, 4 months), email automation (+168%, 3 months), and sales proposal generation (+285%, 5 months) pay back fastest. The paper's strategic reading: "Start with quick win (build credibility), then scale to complex use cases" (p. 10 of the PDF).</p>
+
+<h3>4.5 Human-in-the-loop versus autonomy, and the failure anatomy</h3>
+
+<p>The HitL result doubles as the paper's answer to the automation-maximalism assumption. Full autonomy is presented as costlier than supervised use: the modest human overhead ("&lt;2h/day human validation," per the paper's proposed mechanism) is far smaller than incident costs, and perceived reliability beats perceived ease of use for sustained adoption. The failure analysis adds texture: among 39 projects with ROI below 50% or negative, the largest category (38%, n = 15) was attempting to automate tasks requiring deep expertise or judgment that AI cannot replicate; 24% (n = 9) died when a mid-level champion lost budget to the CEO/CFO; 19% (n = 7) bought ChatGPT Enterprise without defined strategy, use cases, or KPIs; 12% (n = 5) deployed without explaining the "why," producing fear-based resistance and 8% adoption; and 7% (n = 3) rushed a three-week deployment into bugs, incidents, and cancellation (pp. 10–11 of the PDF). The worked example of the wrong-use-case failure — a startup that let AI "write entire sales proposals from scratch," saw generic output rejected by clients at ROI −18%, then switched to "AI drafts outline → Human adds expertise → AI polishes language" and reached +240% — is the paper's cleanest demonstration of its division-of-labor thesis (p. 11 of the PDF).</p>
+
+<h3>4.6 How the mechanisms connect</h3>
+
+<pre class="mermaid">
+flowchart TD
+    P["AI deployment<br/>(n = 200; French B2B, 2022–2025)"] --> B{Initial budget}
+    B -- "&lt; €10K (n = 52)" --> C["Single use case, rapid iteration,<br/>realistic expectations"]
+    B -- "&gt; €100K (n = 11)" --> D["Scope creep, political complexity,<br/>expectation inflation"]
+    C --> E["Median ROI +245%"]
+    D --> F["Median ROI +85%"]
+    P --> G{Human-in-the-Loop?}
+    G -- "Yes (n = 142)" --> H["Median ROI +372%<br/>2.9 critical incidents / 100 users-yr"]
+    G -- "No (n = 58)" --> I["Median ROI +268%<br/>12.4 critical incidents"]
+    P --> J{Training ≥ 25% of budget?}
+    J -- "Yes (n = 32)" --> K["Median ROI +442%<br/>87% autonomous users (M6)"]
+    J -- "None (n = 48)" --> L["Median ROI +185%<br/>24% autonomous users (M6)"]
+</pre>
+
+<p class="note" style="background:#f0f4ff;border-color:#c7d7f5"><em>Figure 1 (reconstruction, not in the paper): the paper's three central contrasts — budget, governance, and training — and their reported median-ROI consequences, assembled from paper Tables 4, 7, and 8.</em></p>
+
+<h2>5. Discussion: the seven-point framework and external benchmarks</h2>
+
+<p>Section 5 of the paper converts the three challenged assumptions into a seven-point "AI ROI Optimization Framework": start small (&lt;€15K initial budget, single use case, prove ROI in 6–8 weeks); implement human-in-the-loop validation checkpoints with a &lt;2-hour review SLA and quarterly incident tracking; invest 25%+ of budget in training (minimum two-day intensive workshop, 8+ hours of hands-on practice, quarterly refreshers); choose the right use case (quick wins first, measurable KPIs); secure a C-level executive sponsor with budget-protection authority and quarterly board updates; deploy rapidly in two-week agile sprints under 8 weeks; and measure ROI rigorously from day one, recalculating quarterly and publishing results internally (pp. 12–13 of the PDF).</p>
+
+<p>The paper positions its numbers against three external benchmarks (paper Section 5.4, p. 14 of the PDF):</p>
+
+<h3>Table 4: The paper's results vs. the external benchmarks it cites</h3>
+<table>
+<tr><th>Source cited by the paper</th><th>Their reported figure</th><th>Paper's comparison figure</th><th>Paper's reconciliation</th></tr>
+<tr><td>McKinsey (2023), State of AI</td><td>23% of companies achieve "significant financial benefit" from AI</td><td>40.5% (paper's claim of projects at 300%+ ROI)</td><td>McKinsey surveys all adopters including self-implementers; this sample has external consulting support, a selection bias toward higher success</td></tr>
+<tr><td>MIT Sloan (2024)</td><td>Median AI ROI estimate +150–200%</td><td>+159.8% median (final adjusted)</td><td>Aligned "when removing outliers"; differences from geography (US vs. France), firm size (Fortune 500 vs. SME/mid-market), and era (pre- vs. post-ChatGPT)</td></tr>
+<tr><td>Brynjolfsson &amp; McElheran (2023)</td><td>AI adoption correlates with "AI readiness" (data infrastructure, skills)</td><td>Training investment, not pre-existing readiness, predicts ROI (r = +0.52)</td><td>"Readiness can be built rapidly (2-day workshop sufficient for 87% autonomous users)"</td></tr>
+</table>
+
+<p>Two theoretical frames are invoked in the Discussion: the Technology Acceptance Model (Davis, 1989), extended by the claim that perceived reliability (enabled by HitL) matters more than perceived ease of use (enabled by autonomy) for sustained adoption; and Barney's (1991) resource-based view, applied as "AI tools are resources, but employee skills to exploit them are capabilities. Competitive advantage derives from capabilities, not resources" (p. 12 of the PDF). These are light-touch citations of academic theory by a practitioner document — directionally sensible, not rigorous extensions.</p>
+
+<h2>6. Position in the literature</h2>
+
+<p>Within this topic library, Atlan (2026) is the odd paper out by epistemic status, and that is precisely its role in the set. The library's empirical core studies open-AI ecosystems and platforms — Laufer, Oderinwale &amp; Kleinberg's anatomy of two million Hugging Face models (2025); Longpre et al.'s tracing of power and participation in the model ecosystem (2025); Wu, Lin &amp; Li's difference-in-differences around the Llama 2 release on Hugging Face developers (2025); Wu et al.'s registered report on what makes Hugging Face models popular (2025); Khoshbash's specialization trade-offs across open foundation-model families (2026); Yue &amp; Nagle on PyTorch's open-sourcing as a control-relinquishing shock (2024); and Azoulay, Krieger &amp; Nagaraj on openness, control, and competition in generative AI (2024). All of these ask how the <em>supply</em> of open models is produced, governed, and competed over. Atlan supplies the neglected downstream term: what mid-sized buyers get back when they deploy that supply. The technologies studied — ChatGPT and Claude APIs, and a tail of "Gemini, Mistral, open-source" options — are precisely the consumption side of the ecosystem those papers describe, and the small-budget finding is the demand-side corollary of commoditized model access: if frontier capability is cheaply available, the residual source of advantage is the firm's own complements (validation workflow, trained users), not the model license.</p>
+
+<p>The paper also dialogues with the productivity-and-AI measurement literature that surrounds this course. It cites Brynjolfsson &amp; McElheran (2023) directly and takes an implicit position in the productivity-paradox debate that Brynjolfsson, Li &amp; Raymond (2023) reopened for generative AI: realized gains exist and are measurable at the deployment level, but they are unequally distributed (the +1,888% tail vs. the −42% failures) and contingent on organizational complements — the same "capabilities, not resources" logic that resource-based and dynamic-capability strategy frames teach. Its mean/median gap (mean +347% vs. median +159.8%) is itself a miniature productivity-paradox: the average hides enormous dispersion. Methodologically, the paper is an extreme case of the evidence-quality gradient running through the library — Dell's (2024) survey of deep learning for economists is a reminder that credible measurement requires transparent sampling, pre-registered analysis, and causal identification, all of which this paper approximates only weakly; and the reading-notes standard applied to Greve (2003) or Jin et al. (2026) is why an academic reader should not treat Atlan's tables as comparable evidence. The honest summary: as a practitioner benchmark source it is useful and unusually transparent for its genre (data released, failures solicited, conflict disclosed); as a scientific claim about what drives AI ROI, it is hypothesis-generating.</p>
+
+<p>For strategy audiences, the paper is best read as raw material for the complementarity argument that already runs through this topic set — value in AI ecosystems accrues to complements (Adner &amp; Kapoor 2010's ecosystem framing, and the course's supporting literature on selective revealing and private-collective innovation, von Hippel &amp; von Krogh 2003) — with the twist that here the "complement" is inside the adopting firm (human oversight, trained users) rather than inside the platform ecosystem.</p>
+
+<h2>7. Limitations</h2>
+
+<h3>7.1 What the paper itself says</h3>
+
+<p>The author states the geography limit (100% French, Rhône-Alpes), the consultant-channel selection bias, the 14-month mean observation horizon with annualized 24-month projections, and the attribution problem (quoted in Section 3.3). The conflict of interest is disclosed. These are the boundaries the author acknowledges; they are real and should be quoted when the paper is used.</p>
+
+<h3>7.2 Internal inconsistencies found by close reading (my independent check, verifiable in the text)</h3>
+
+<p>This is a v1.1 working paper and several headline figures do not survive confrontation with the paper's own tables. All items below are observable by comparing passages in the source, not inferences:</p>
+
+<ul>
+<li><strong>HitL incident multiplier</strong>: the abstract says "Human-in-the-Loop governance (4.2× fewer critical incidents)"; the body (paper Table 7 and Section 5.1) says 4.3× (12.4 vs. 2.9 per 100 users/year).</li>
+<li><strong>Training multiplier</strong>: the abstract attributes "2.1× ROI multiplier" to a 25%+ training share; the body (paper Table 8-derived 442/185 ≈ 2.4, stated in paper Section 5.2 and the paper's Conclusion) says 2.4×. The abstract's 2.1× is in fact the paper's own figure for the budget paradox (&lt;€15K vs. &gt;€100K), suggesting the abstract mislabeled the two multipliers.</li>
+<li><strong>Budget-paradox magnitudes</strong>: paper Table 4 gives &lt;€10K median +245% and &gt;€100K median +85% (a 2.9× gap), while paper Section 5.1 states "&lt;€15K achieved +428% median ROI vs. +198% for &gt;€100K" (a 2.2× gap). The qualitative inverse relationship is stable, but the headline ratio cited (2.1×, abstract and Conclusion) matches neither table exactly and the section text's levels (+428%/+198%) do not appear in the budget-tier table.</li>
+<li><strong>"40.5% achieved 300%+ ROI"</strong>: the tier table's own cumulative column puts 79.0% of projects below 300% (i.e., 21% at 300%+, from 14% + 7%), so 40.5% at 300%+ is arithmetically inconsistent with the same table; 40.5% is close to the share at 200%+ (19% + 14% + 7% = 40%). The claim recurs in paper Section 5.4 as the contrast to McKinsey's 23%.</li>
+<li><strong>"27% failure rate"</strong>: asserted in the abstract and Conclusion, but never defined or derived in the body. Candidate in-text definitions give different numbers: negative-ROI projects are 23 of 200 (11.5%); the failure-pattern analysis covers 39 projects with ROI &lt; 50% or negative (19.5%); the duration table's failure shares average to roughly 13% of the sample. 27% equals the complement of the Gartner 73% figure the paper cites (100 − 73), which may or may not be coincidence. The paper does not say.</li>
+<li><strong>"Five critical success factors"</strong>: announced in the abstract, never enumerated as five anywhere in the body (the paper's Section 4.4 lists five failure root causes; its Section 5.2 gives a seven-point framework). The five-factor table in my Section 4.4 above is a reconstruction, clearly labeled as such.</li>
+<li><strong>Appendices</strong>: Appendix A (codebook), B (statistical outputs), and C (ten case studies) are declared "available in supplementary materials," but no URL or repository pointer for them appears in the text; only the main dataset DOI is given.</li>
+</ul>
+
+<h3>7.3 Paper claims vs. evidence vs. inference (layered reading)</h3>
+
+<ul>
+<li><strong>Paper claims</strong>: median ROI +159.8% over 24 months; 8-month breakeven; 27% failure rate; small budgets beat large; HitL and 25%+ training raise ROI. These are the paper's own assertions.</li>
+<li><strong>Evidence in the text</strong>: self-collected CRM/interview/audit data on 200 projects through one consultant channel; 30% cross-validated against primary financial records with an 8% self-report discrepancy; no randomization, no control group, no pre-registration, and (by the author's own words) no basis for causal claims. The distribution tables and group contrasts are the paper's data as reported; the external-audit subset is the strongest layer.</li>
+<li><strong>My inferences</strong>: the small-budget result is best read as selection on use-case simplicity and organizational context rather than as a treatment effect of budget size (small projects are likely simpler projects; large ones may be complex by nature); the training result plausibly proxies general change-management quality; the reported +347% mean and +1,888% maximum make all mean-based comparisons fragile. These are my readings, not statements in the paper.</li>
+<li><strong>Open questions</strong>: how the 24-month ROI projection performs against realized outcomes at 36+ months; whether breakeven and ROI claims would survive an independent audit of the remaining 70% of projects; whether the failure rate is identifiable at all given the exclusion of firms that ceased operations during the study (which truncates the worst outcomes by design); and whether the Rhône-Alpes consultant-channel sample generalizes beyond France or beyond consulting-assisted adoption.</li>
+</ul>
+
+<h2>8. Conclusion and takeaways</h2>
+
+<p>As a benchmark document, the paper's contribution is real and compact: a field dataset showing that in 200 mid-sized French B2B AI deployments the median project roughly paid for itself 1.6 times over a 24-month horizon, that the mean is far above the median, that roughly one deployment in four to five failed outright, and that the correlates of success (small scope, human oversight, trained users, speed) are managerial rather than technological. As evidence about AI ROI in general, it is bounded by its own disclosed limits — one country, one consultant channel, no controls, self-collected financials, and several internally inconsistent headline figures. The consistent core that survives my cross-checks is qualitative: adoption outcomes varied enormously; supervision and training beat autonomy and zero-training; and bigger budgets did not buy better returns. Those three regularities, not the precise percentages, are what a careful reader should carry into the open-AI economy debate — they are the firm-level counterpart to the claim, familiar elsewhere in this library, that in an ecosystem where models are cheap and open, the scarce assets are the complements around them.</p>
+
+<div class="golden">
+contrary to conventional wisdom, projects with smaller initial budgets (&lt;€15K) achieved 2.1× higher ROI than large-scale deployments. — Atlan, 2026, p. 1 of the PDF
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the academic-style workflow of the reading-notes skill, grounded in pdftotext of the local PDF of Atlan (2026), industry working paper v1.1. Blockquote locations are given as "(p. N of the PDF)" and were computed by counting form-feed characters in the pdftotext output; please verify quotations and figures against the original. All quantitative claims above are transcribed from the source text; the internal-inconsistency checks in Section 7.2 compare passages within the same document and are independently verifiable. The "five critical success factors" table and the mermaid figure are reconstructions, labeled as such, and are not printed in the paper. The paper is non-peer-reviewed and practitioner-authored, with a disclosed consulting relationship to the sampled firms; it should not be cited as academic evidence. This page is an AI-assisted reading aid, not a peer review or an endorsement of the paper's methods.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

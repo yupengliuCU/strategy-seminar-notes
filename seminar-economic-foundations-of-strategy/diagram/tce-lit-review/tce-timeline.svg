@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 2150">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Noto Sans SC', 'PingFang SC', monospace; }
+</style>
+<defs>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+  </pattern>
+</defs>
+
+<rect width="1100" height="2150" fill="#0f172a"/>
+<rect width="1100" height="2150" fill="url(#grid)"/>
+
+<!-- Title block -->
+<text x="40" y="36" fill="#f1f5f9" font-size="16" font-weight="700">TCE TIMELINE · 1937–2026</text>
+<text x="40" y="54" fill="#94a3b8" font-size="10">Transaction cost economics — key papers, empirical assessments, and the AI-era frontier</text>
+
+<!-- Timeline spine -->
+<line x1="550" y1="95" x2="550" y2="2020" stroke="#334155" stroke-width="2"/>
+
+<!-- ================= ERA 1 : GENESIS (1937) ================= -->
+<rect x="30" y="80" width="1040" height="130" rx="12" fill="none" stroke="#22d3ee" stroke-width="1" stroke-dasharray="8,4" opacity="0.55"/>
+<text x="40" y="100" fill="#22d3ee" font-size="9" font-weight="700">ERA 1 · GENESIS</text>
+<circle cx="550" cy="145" r="5" fill="#22d3ee"/>
+<text x="538" y="141" fill="#22d3ee" font-size="10" font-weight="700" text-anchor="end">1937</text>
+
+<rect x="590" y="100" width="440" height="96" rx="6" fill="#0f172a"/>
+<rect x="590" y="100" width="440" height="96" rx="6" fill="rgba(8,51,68,0.35)" stroke="#22d3ee" stroke-width="1.2"/>
+<text x="604" y="120" fill="#22d3ee" font-size="10" font-weight="700">GENESIS</text>
+<text x="604" y="140" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Coase — The Nature of the Firm (1937)</tspan></text>
+<text x="604" y="156" fill="#94a3b8" font-size="8.5">Why do firms exist? The price mechanism has costs:</text>
+<text x="604" y="171" fill="#94a3b8" font-size="8.5">search, negotiation, enforcement. The boundary lies where</text>
+<text x="604" y="186" fill="#94a3b8" font-size="8.5">internal organizing cost equals market transaction cost.</text>
+
+<!-- ================= ERA 2 : WILLIAMSON SYNTHESIS (1971-85) ================= -->
+<rect x="30" y="210" width="1040" height="350" rx="12" fill="none" stroke="#a78bfa" stroke-width="1" stroke-dasharray="8,4" opacity="0.55"/>
+<text x="40" y="230" fill="#a78bfa" font-size="9" font-weight="700">ERA 2 · WILLIAMSON'S SYNTHESIS</text>
+<circle cx="550" cy="385" r="5" fill="#a78bfa"/>
+<text x="538" y="381" fill="#a78bfa" font-size="10" font-weight="700" text-anchor="end">1971–85</text>
+
+<rect x="70" y="240" width="440" height="128" rx="6" fill="#0f172a"/>
+<rect x="70" y="240" width="440" height="128" rx="6" fill="rgba(76,29,149,0.30)" stroke="#a78bfa" stroke-width="1.2"/>
+<text x="84" y="260" fill="#a78bfa" font-size="10" font-weight="700">WILLIAMSON'S SYNTHESIS</text>
+<text x="84" y="280" font-size="9"><tspan fill="#e2e8f0" font-weight="600">1971</tspan><tspan fill="#94a3b8"> · vertical integration of production — market failures</tspan></text>
+<text x="84" y="296" font-size="9"><tspan fill="#e2e8f0" font-weight="600">1975</tspan><tspan fill="#94a3b8"> · Markets and Hierarchies — the research program</tspan></text>
+<text x="84" y="312" font-size="9"><tspan fill="#e2e8f0" font-weight="600">1979</tspan><tspan fill="#94a3b8"> · discriminating alignment: asset specificity ×</tspan></text>
+<text x="84" y="328" fill="#94a3b8" font-size="8.5">uncertainty × frequency → governance structure</text>
+<text x="84" y="344" font-size="9"><tspan fill="#e2e8f0" font-weight="600">1985</tspan><tspan fill="#94a3b8"> · Economic Institutions of Capitalism — bounded</tspan></text>
+<text x="84" y="360" fill="#94a3b8" font-size="8.5">rationality + opportunism; 4 asset-specificity types</text>
+
+<rect x="590" y="380" width="440" height="128" rx="6" fill="#0f172a"/>
+<rect x="590" y="380" width="440" height="128" rx="6" fill="rgba(76,29,149,0.30)" stroke="#a78bfa" stroke-width="1.2"/>
+<text x="604" y="400" fill="#a78bfa" font-size="10" font-weight="700">HOLD-UP &amp; EARLY TESTS</text>
+<text x="604" y="420" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Klein-Crawford-Alchian 1978</tspan><tspan fill="#94a3b8"> — appropriable</tspan></text>
+<text x="604" y="436" fill="#94a3b8" font-size="8.5">quasi-rents → ex post hold-up → vertical integration</text>
+<text x="604" y="452" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Monteverde-Teece 1982 · Masten 1984</tspan><tspan fill="#94a3b8"> — make-or-buy</tspan></text>
+<text x="604" y="468" fill="#94a3b8" font-size="8.5">(automotive, aerospace): specificity predicts internal</text>
+<text x="604" y="484" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Anderson-Schmittlein 1984</tspan><tspan fill="#94a3b8"> — sales-force integration:</tspan></text>
+<text x="604" y="500" fill="#94a3b8" font-size="8.5">firm-specific human capital · Walker-Weber 1984</text>
+
+<!-- ================= ERA 3 : PROPERTY RIGHTS (1986-90) ================= -->
+<rect x="30" y="560" width="1040" height="180" rx="12" fill="none" stroke="#34d399" stroke-width="1" stroke-dasharray="8,4" opacity="0.55"/>
+<text x="40" y="580" fill="#34d399" font-size="9" font-weight="700">ERA 3 · PROPERTY RIGHTS BRANCH</text>
+<circle cx="550" cy="650" r="5" fill="#34d399"/>
+<text x="538" y="646" fill="#34d399" font-size="10" font-weight="700" text-anchor="end">1986–90</text>
+
+<rect x="70" y="590" width="440" height="112" rx="6" fill="#0f172a"/>
+<rect x="70" y="590" width="440" height="112" rx="6" fill="rgba(6,78,59,0.35)" stroke="#34d399" stroke-width="1.2"/>
+<text x="84" y="610" fill="#34d399" font-size="10" font-weight="700">PROPERTY RIGHTS BRANCH</text>
+<text x="84" y="630" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Grossman-Hart 1986</tspan><tspan fill="#94a3b8"> — ownership = residual control</tspan></text>
+<text x="84" y="646" fill="#94a3b8" font-size="8.5">rights; ex ante investment incentives; incomplete contracts</text>
+<text x="84" y="662" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Hart-Moore 1990</tspan><tspan fill="#94a3b8"> — inalienable human capital: you</tspan></text>
+<text x="84" y="678" fill="#94a3b8" font-size="8.5">cannot buy talent, only contract around it</text>
+<text x="84" y="694" fill="#94a3b8" font-size="8.5">(→ why AI labs are invested in, not acquired)</text>
+
+<!-- ================= ERA 4 : REFINEMENT & DEBATE (1991-99) ================= -->
+<rect x="30" y="740" width="1040" height="340" rx="12" fill="none" stroke="#fbbf24" stroke-width="1" stroke-dasharray="8,4" opacity="0.55"/>
+<text x="40" y="760" fill="#fbbf24" font-size="9" font-weight="700">ERA 4 · REFINEMENT &amp; DEBATE</text>
+<circle cx="550" cy="910" r="5" fill="#fbbf24"/>
+<text x="538" y="906" fill="#fbbf24" font-size="10" font-weight="700" text-anchor="end">1991–99</text>
+
+<rect x="70" y="770" width="440" height="128" rx="6" fill="#0f172a"/>
+<rect x="70" y="770" width="440" height="128" rx="6" fill="rgba(120,53,15,0.25)" stroke="#fbbf24" stroke-width="1.2"/>
+<text x="84" y="790" fill="#fbbf24" font-size="10" font-weight="700">REFINEMENT</text>
+<text x="84" y="810" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Williamson 1991</tspan><tspan fill="#94a3b8"> — comparative economic organization:</tspan></text>
+<text x="84" y="826" fill="#94a3b8" font-size="8.5">discrete alternatives (market / hybrid / hierarchy)</text>
+<text x="84" y="842" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Holmstrom-Roberts 1998</tspan><tspan fill="#94a3b8"> — boundaries revisited: firms</tspan></text>
+<text x="84" y="858" fill="#94a3b8" font-size="8.5">as bundles of multiple mechanisms</text>
+<text x="84" y="874" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Henisz-Williamson 1999 · Oxley 1999</tspan><tspan fill="#94a3b8"> — institutional</tspan></text>
+<text x="84" y="890" fill="#94a3b8" font-size="8.5">environment shapes feasible governance</text>
+
+<rect x="590" y="900" width="440" height="144" rx="6" fill="#0f172a"/>
+<rect x="590" y="900" width="440" height="144" rx="6" fill="rgba(120,53,15,0.25)" stroke="#fbbf24" stroke-width="1.2"/>
+<text x="604" y="920" fill="#fbbf24" font-size="10" font-weight="700">CRITIQUE &amp; ALTERNATIVES</text>
+<text x="604" y="940" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Ghoshal-Moran 1996</tspan><tspan fill="#94a3b8"> — "bad for practice": opportunism</tspan></text>
+<text x="604" y="956" fill="#94a3b8" font-size="8.5">assumption critique</text>
+<text x="604" y="972" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Kogut-Zander 1992</tspan><tspan fill="#94a3b8"> — KBV: tacit knowledge; firm as</tspan></text>
+<text x="604" y="988" fill="#94a3b8" font-size="8.5">social community</text>
+<text x="604" y="1004" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Poppo-Zenger 2002</tspan><tspan fill="#94a3b8"> — relational + formal:</tspan></text>
+<text x="604" y="1020" fill="#94a3b8" font-size="8.5">complements, not substitutes</text>
+<text x="604" y="1036" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Oxley 1997</tspan><tspan fill="#94a3b8"> — appropriability hazards</tspan></text>
+<text x="604" y="1052" fill="#94a3b8" font-size="8.5">→ equity structures</text>
+
+<!-- ================= ERA 5 : EMPIRICAL ASSESSMENT (2000-14) ================= -->
+<rect x="30" y="1080" width="1040" height="420" rx="12" fill="none" stroke="#fb7185" stroke-width="1" stroke-dasharray="8,4" opacity="0.55"/>
+<text x="40" y="1100" fill="#fb7185" font-size="9" font-weight="700">ERA 5 · EMPIRICAL ASSESSMENT</text>
+<circle cx="550" cy="1290" r="5" fill="#fb7185"/>
+<text x="538" y="1286" fill="#fb7185" font-size="10" font-weight="700" text-anchor="end">2000–14</text>
+
+<rect x="70" y="1110" width="440" height="160" rx="6" fill="#0f172a"/>
+<rect x="70" y="1110" width="440" height="160" rx="6" fill="rgba(136,19,55,0.30)" stroke="#fb7185" stroke-width="1.2"/>
+<text x="84" y="1130" fill="#fb7185" font-size="10" font-weight="700">EMPIRICAL ASSESSMENT</text>
+<text x="84" y="1150" font-size="9"><tspan fill="#e2e8f0" font-weight="600">David-Han 2004</tspan><tspan fill="#94a3b8"> — systematic assessment: support</tspan></text>
+<text x="84" y="1166" fill="#94a3b8" font-size="8.5">strongest for asset specificity → hierarchy</text>
+<text x="84" y="1182" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Geyskens et al 2006</tspan><tspan fill="#94a3b8"> — meta-analysis: specificity →</tspan></text>
+<text x="84" y="1198" fill="#94a3b8" font-size="8.5">make; uncertainty → ally</text>
+<text x="84" y="1214" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Macher-Richman 2008</tspan><tspan fill="#94a3b8"> — assessment across the social</tspan></text>
+<text x="84" y="1230" fill="#94a3b8" font-size="8.5">sciences</text>
+<text x="84" y="1246" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Lafontaine-Slade 2007</tspan><tspan fill="#94a3b8"> — survey: core predictions</tspan></text>
+<text x="84" y="1262" fill="#94a3b8" font-size="8.5">largely hold</text>
+
+<rect x="590" y="1280" width="440" height="176" rx="6" fill="#0f172a"/>
+<rect x="590" y="1280" width="440" height="176" rx="6" fill="rgba(136,19,55,0.30)" stroke="#fb7185" stroke-width="1.2"/>
+<text x="604" y="1300" fill="#fb7185" font-size="10" font-weight="700">GOVERNANCE EXTENSIONS</text>
+<text x="604" y="1320" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Nickerson-Zenger 2004</tspan><tspan fill="#94a3b8"> — KBV: problem-solving,</tspan></text>
+<text x="604" y="1336" fill="#94a3b8" font-size="8.5">knowledge transfer costs</text>
+<text x="604" y="1352" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Jacobides-Winter 2005</tspan><tspan fill="#94a3b8"> — capabilities &amp; transaction</tspan></text>
+<text x="604" y="1368" fill="#94a3b8" font-size="8.5">costs co-evolve</text>
+<text x="604" y="1384" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Mayer-Salomon 2006</tspan><tspan fill="#94a3b8"> — capabilities mediate hazards</tspan></text>
+<text x="604" y="1400" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Parmigiani 2007</tspan><tspan fill="#94a3b8"> — plural sourcing: make AND buy</tspan></text>
+<text x="604" y="1416" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Argyres-Zenger 2012</tspan><tspan fill="#94a3b8"> — capabilities + TCE conditions</tspan></text>
+<text x="604" y="1432" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Schepker et al 2014</tspan><tspan fill="#94a3b8"> — contracts: safeguarding,</tspan></text>
+<text x="604" y="1448" fill="#94a3b8" font-size="8.5">coordination, adaptation</text>
+
+<!-- ================= ERA 6 : DIGITAL TURN (2016-22) ================= -->
+<rect x="30" y="1500" width="1040" height="220" rx="12" fill="none" stroke="#60a5fa" stroke-width="1" stroke-dasharray="8,4" opacity="0.55"/>
+<text x="40" y="1520" fill="#60a5fa" font-size="9" font-weight="700">ERA 6 · DIGITAL TURN</text>
+<circle cx="550" cy="1610" r="5" fill="#60a5fa"/>
+<text x="538" y="1606" fill="#60a5fa" font-size="10" font-weight="700" text-anchor="end">2016–22</text>
+
+<rect x="590" y="1530" width="440" height="128" rx="6" fill="#0f172a"/>
+<rect x="590" y="1530" width="440" height="128" rx="6" fill="rgba(59,130,246,0.25)" stroke="#60a5fa" stroke-width="1.2"/>
+<text x="604" y="1550" fill="#60a5fa" font-size="10" font-weight="700">DIGITAL TURN</text>
+<text x="604" y="1570" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Nagle 2024</tspan><tspan fill="#94a3b8"> — TCE in the digital economy: a research</tspan></text>
+<text x="604" y="1586" fill="#94a3b8" font-size="8.5">agenda (zero marginal cost, reputation systems)</text>
+<text x="604" y="1602" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Banalieva-Dhanaraj 2019</tspan><tspan fill="#94a3b8"> — digital internalization:</tspan></text>
+<text x="604" y="1618" fill="#94a3b8" font-size="8.5">codification commoditizes skills</text>
+<text x="604" y="1634" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Kretschmer et al 2022</tspan><tspan fill="#94a3b8"> — platforms as meta-orgs;</tspan></text>
+<text x="604" y="1650" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Chen-Tong 2022</tspan><tspan fill="#94a3b8"> — platform governance design</tspan></text>
+
+<!-- ================= ERA 7 : AI ERA & FRONTIER (2020-26) ================= -->
+<rect x="30" y="1720" width="1040" height="340" rx="12" fill="none" stroke="#fb923c" stroke-width="1" stroke-dasharray="8,4" opacity="0.55"/>
+<text x="40" y="1740" fill="#fb923c" font-size="9" font-weight="700">ERA 7 · AI ERA &amp; NEW FRONTIER</text>
+<circle cx="550" cy="1890" r="5" fill="#fb923c"/>
+<text x="538" y="1886" fill="#fb923c" font-size="10" font-weight="700" text-anchor="end">2020–26</text>
+
+<rect x="70" y="1750" width="440" height="112" rx="6" fill="#0f172a"/>
+<rect x="70" y="1750" width="440" height="112" rx="6" fill="rgba(251,146,60,0.20)" stroke="#fb923c" stroke-width="1.2"/>
+<text x="84" y="1770" fill="#fb923c" font-size="10" font-weight="700">RECENT REVIEWS (2020–21)</text>
+<text x="84" y="1790" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Cuypers-Hennart-Silverman-Ertug 2021</tspan></text>
+<text x="84" y="1806" fill="#94a3b8" font-size="8.5">(Academy of Management Annals) — past progress,</text>
+<text x="84" y="1822" fill="#94a3b8" font-size="8.5">current challenges, future suggestions</text>
+<text x="84" y="1838" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Ketokivi-Mahoney 2020</tspan><tspan fill="#94a3b8"> (Oxford) — TCE as a theory of</tspan></text>
+<text x="84" y="1854" fill="#94a3b8" font-size="8.5">the firm, management, governance · Rindfleisch 2020 (AMS Review)</text>
+
+<rect x="590" y="1870" width="440" height="160" rx="6" fill="#0f172a"/>
+<rect x="590" y="1870" width="440" height="160" rx="6" fill="rgba(251,146,60,0.20)" stroke="#fb923c" stroke-width="1.2"/>
+<text x="604" y="1890" fill="#fb923c" font-size="10" font-weight="700">AI-ERA EVIDENCE &amp; FRONTIER (2023–26)</text>
+<text x="604" y="1910" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Hoffreumon et al 2024</tspan><tspan fill="#94a3b8"> — make-or-buy AI: complements</tspan></text>
+<text x="604" y="1926" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Forman-McElheran 2025</tspan><tspan fill="#94a3b8"> — internet → downstream dis-integration</tspan></text>
+<text x="604" y="1942" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Kim 2026</tspan><tspan fill="#94a3b8"> — insourcing without reshoring</tspan></text>
+<text x="604" y="1958" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Stevens 2026</tspan><tspan fill="#94a3b8"> — AI replaces market labor (20–25×)</tspan></text>
+<text x="604" y="1974" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Warin 2025</tspan><tspan fill="#94a3b8"> — Coase → AI agents, platform lock-in</tspan></text>
+<text x="604" y="1990" font-size="9"><tspan fill="#e2e8f0" font-weight="600">Wan 2026</tspan><tspan fill="#94a3b8"> — beyond markets &amp; hierarchies ·</tspan><tspan fill="#e2e8f0" font-weight="600">Klein-Wieczorek</tspan></text>
+<text x="604" y="2006" fill="#94a3b8" font-size="8.5">— the Headless Firm: O(n) coordination, Great Unbundling</text>
+<text x="604" y="2022" fill="#94a3b8" font-size="8.5">· Kanazawa et al 2026 — AI, skill, productivity (taxi drivers)</text>
+
+<!-- Legend -->
+<g>
+  <rect x="40" y="2090" width="10" height="10" rx="2" fill="rgba(8,51,68,0.4)" stroke="#22d3ee"/>
+  <text x="58" y="2099" fill="#94a3b8" font-size="8.5">Genesis</text>
+  <rect x="130" y="2090" width="10" height="10" rx="2" fill="rgba(76,29,149,0.4)" stroke="#a78bfa"/>
+  <text x="148" y="2099" fill="#94a3b8" font-size="8.5">Synthesis</text>
+  <rect x="230" y="2090" width="10" height="10" rx="2" fill="rgba(6,78,59,0.4)" stroke="#34d399"/>
+  <text x="248" y="2099" fill="#94a3b8" font-size="8.5">Property rights</text>
+  <rect x="360" y="2090" width="10" height="10" rx="2" fill="rgba(120,53,15,0.3)" stroke="#fbbf24"/>
+  <text x="378" y="2099" fill="#94a3b8" font-size="8.5">Refinement &amp; debate</text>
+  <rect x="520" y="2090" width="10" height="10" rx="2" fill="rgba(136,19,55,0.4)" stroke="#fb7185"/>
+  <text x="538" y="2099" fill="#94a3b8" font-size="8.5">Empirical assessment</text>
+  <rect x="690" y="2090" width="10" height="10" rx="2" fill="rgba(59,130,246,0.3)" stroke="#60a5fa"/>
+  <text x="708" y="2099" fill="#94a3b8" font-size="8.5">Digital turn</text>
+  <rect x="810" y="2090" width="10" height="10" rx="2" fill="rgba(251,146,60,0.3)" stroke="#fb923c"/>
+  <text x="828" y="2099" fill="#94a3b8" font-size="8.5">AI era &amp; frontier</text>
+</g>
+<text x="40" y="2125" fill="#64748b" font-size="8">Nodes on the spine mark era milestones · bands = research periods · AI-era entries (2023–26) include working papers — verify final versions before citing</text>
+</svg>

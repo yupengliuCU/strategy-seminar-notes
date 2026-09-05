@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transaction Cost Economics in the AI Era</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:820px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Transaction Cost Economics in the AI Era<br><span style="font-size:1.05rem;font-weight:400;color:var(--muted)">Are the predictions still accurate · how to fuse TCE with AI-era evidence · what AI companies' cross-investments and M&amp;A say back to TCE</span></h1>
+<div class="meta">
+Synthesis notes · transaction cost economics (TCE) × AI · Fall A 2026 · parallel to the Week 2 per-paper deep dives<br>
+Evidence base: the course canon (<code>firm-boundary-review</code> tag, 44 papers in Zotero) + 2024–2026 AI×TCE papers + the local PaperQA2 RAG (477 papers) + Sen's UTD/FT50 RAG<br>
+Related pages: <a href="week2-tce-integration.html">Week 2 four-reading integration</a> · <a href="week2-tce-meet-a-theory.html">STR Meet a Theory panel</a> · <a href="literature-map.html">Literature map</a> · <a href="tce-literature-review.html">Full TCE literature review (1937–2026)</a><br>
+English edition (Chinese original backed up in <code>tmp/en-switch/backup/</code>) · enriched 2026-08-30. Working papers from 2025–2026 are flagged — verify final versions before citing.
+</div>
+
+<div class="summary-box">
+<h3>In one sentence</h3>
+<p>TCE's <em>grammar</em> — discriminating alignment, matching governance to transaction attributes — is sharper than ever in the AI era; but its two-term <em>vocabulary</em> (market ↔ hierarchy) and its assumption that specificity and bounded rationality are fixed exogenous inputs are being rewritten in the field by AI companies' cross-investments, acqui-hires, and open-sourcing.</p>
+</div>
+
+<div class="note"><strong>How to read this page</strong>: three threads woven into one — ① are TCE's predictions still accurate (§1–2); ② how to understand and fuse TCE in this era (§3); ③ what AI companies' cross-investments and M&amp;A say back to TCE (§4–6); plus one emerging extension: codified skills × human asset specificity (§7). Every paper named has a full digest in the <a href="tce-literature-review.html">TCE literature review</a> — follow the links.</div>
+
+<h2>1 · The core judgment</h2>
+<p>AI simultaneously changes both sides of transaction costs, relaxes cognitive constraints, and turns the core assets into non-rival and modular ones — thereby producing governance forms beyond market and hierarchy. The right statement is: TCE's <strong>diagnostic framework remains reliable</strong>, but its <strong>specific predictions need layer-by-layer revision</strong>, and it must be fused with the knowledge-based view, platform theory, and the cognitive perspective to explain organizational boundaries in the AI era.</p>
+
+<h2>2 · Are TCE's predictions still accurate? A layered answer</h2>
+<p><strong>Conclusion</strong>: the master proposition of discriminating alignment holds; the specific mapping "high specificity → hierarchy" frequently fails in the AI era.</p>
+
+<h3>2.1 What still holds (the core logic is not obsolete)</h3>
+<ul>
+<li><strong>Specificity → hold-up → governance</strong> is everywhere in the AI stack: chips (NVIDIA's CUDA ecosystem), data pipelines, RLHF alignment, and fine-tuned models tied to a specific business are all highly specific, hard to specify in contracts, and hold-up-prone assets.</li>
+<li><strong>Incomplete contracts + residual control rights</strong> (Grossman–Hart–Moore: <a href="tce-literature-review.html#p1986grossman">GH 1986</a>, <a href="tce-literature-review.html#p1990hart">HM 1990</a>) play out live in AI alliances — the OpenAI–Microsoft equity/compute/IP structure is essentially "quasi-ownership" solving a transaction that cannot be written down ex ante.</li>
+<li><strong>TCE's diagnostic function is amplified</strong>: AI raises the cost of drawing the boundary in the wrong place (platform lock-in, digital cruft), which makes careful diagnosis of transaction attributes more valuable, not less.</li>
+</ul>
+
+<h3>2.2 Predictions that frequently fail</h3>
+<table>
+<tr><th>Classic prediction</th><th>Why it fails in the AI era</th></tr>
+<tr><td>High specificity → hierarchy (integration/M&amp;A)</td><td>Hold-up requires two premises that the AI era's most valuable assets both violate. <strong>Premise A — the asset is ownable</strong>: integration protects by transferring ownership, but ① <strong>inalienable human capital</strong> (Hart–Moore) — researchers, mission, culture — cannot be owned, only employed, so acquisition buys nothing and destroys the asset (it is why acqui-hires buy "weights + employment" instead). <strong>Premise B — the asset's value is locked into the bilateral relation</strong>: ② digital assets' <strong>non-rivalry + modularity</strong> keep even specific investments reusable through standard interfaces, so the outside option stays good and there is little quasi-rent to expropriate. Where both premises hold — chips, compute, CUDA ecosystems — the classic prediction still runs (labs backward-integrate into compute, §5.5); where they fail, governance shifts to minority equity, quasi-integration, or market/API</td></tr>
+<tr><td>IT lowers transaction costs → everything moves to the market</td><td>The direction is <strong>two-way and heterogeneous</strong>: the internet pushed dis-integration in manufacturing (<a href="tce-literature-review.html#p2025forman">Forman &amp; McElheran 2025</a>), but data-driven technologies push "insourcing without reshoring" (<a href="tce-literature-review.html#p2026kim">Kim 2026</a>); AI even internalizes tasks previously governed by the market (<a href="tce-literature-review.html#p2026stevens">Stevens 2026</a>)</td></tr>
+<tr><td>Make-or-buy is a binary choice</td><td>Empirically, <strong>plural sourcing</strong> is the norm (<a href="tce-literature-review.html#p2007parmigiani">Parmigiani 2007</a>; <a href="tce-literature-review.html#p2024hoffreumon">Hoffreumon et al. 2024</a>), and AI makes complementary sourcing even more common</td></tr>
+<tr><td>The governance menu is "market–hybrid–hierarchy"</td><td>Forms <strong>beyond</strong> market and hierarchy appeared: open-source commons (Benkler), platforms/ecosystems (<a href="tce-literature-review.html#p2022kretschmer">Kretschmer et al. 2022</a>), algorithmic governance (Uber), protocol-coordinated "headless firms" (<a href="tce-literature-review.html#p2026kleinwieczorek">Klein &amp; Wieczorek</a>), cognitive-fusion networks (<a href="tce-literature-review.html#p2026wan">Wan 2026</a>)</td></tr>
+<tr><td>Bounded rationality is a fixed constraint</td><td>GenAI directly <strong>relaxes bounded rationality</strong> (<a href="tce-literature-review.html#p2026wan">Wan 2026</a>) — the foundation of TCE's behavioral assumptions is being shaken</td></tr>
+</table>
+<p><strong>In one line</strong>: TCE's <em>sense of direction</em> is still right, but its <em>coordinate system</em> (the one-dimensional market↔hierarchy spectrum) and its <em>engine</em> (only "economize on transaction costs," never "create/learn") need replacing. It remains the best <strong>debugging tool</strong> (where will hold-up occur, where should we integrate), but it is no longer a complete <strong>design tool</strong> (what capabilities to build, which ecosystem to enter).</p>
+
+<h2>3 · How to understand and fuse TCE in this era</h2>
+<h3>3.1 Treat TCE as a diagnostic layer, not a verdict layer</h3>
+<table>
+<tr><th>TCE anchor</th><th>Translation into the AI era</th></tr>
+<tr><td><strong>Transaction cost</strong></td><td>Becomes a composite of coordination cost + governance cost + lock-in cost. AI changes internal coordination costs (agents make internal coordination cheaper <em>and</em> messier) and external transaction costs (APIs make market procurement cheaper; platform lock-in makes exit more expensive)</td></tr>
+<tr><td><strong>Asset specificity</strong></td><td>Distinguish two specificities: traditional <strong>relational specificity</strong> (site/physical/human/dedicated — hold-up-prone) vs the digital era's <strong>within-module specificity + standard cross-module interfaces</strong> (specific, yet reusable inside the ecosystem; hold-up weakened)</td></tr>
+<tr><td><strong>Governance structure</strong></td><td>The menu expands from "market–hybrid–hierarchy" to a multi-dimensional space: market — contracts/alliances — hierarchy — platform — ecosystem — commons — algorithmic governance</td></tr>
+</table>
+
+<h3>3.2 What TCE answers and what it does not (the precondition for fusion)</h3>
+<p><strong>TCE answers</strong>: given a transaction, market or internalization, so as to avoid hold-up and minimize governance costs (the "value protection / economizing" lens).</p>
+<p><strong>TCE does not answer</strong>: ① which capabilities to accumulate and how to learn and innovate (→ knowledge-based view: <a href="tce-literature-review.html#p2004nickerson">Nickerson &amp; Zenger 2004</a>; <a href="tce-literature-review.html#p2012argyres">Argyres &amp; Zenger 2012</a>); ② how much value to capture and through which complementary assets (→ Teece 1986); ③ which ecosystem to enter and how to dance with the platform owner / complementors (→ <a href="tce-literature-review.html#p2022kretschmer">Kretschmer et al. 2022</a>; <a href="tce-literature-review.html#p2022chen">Chen et al. 2022</a>; Zhu &amp; Liu 2018); ④ what organizations become once cognitive constraints relax (→ <a href="tce-literature-review.html#p2026wan">Wan 2026</a>; <a href="tce-literature-review.html#p2026kleinwieczorek">Klein &amp; Wieczorek</a>).</p>
+
+<h3>3.3 An operational fusion framework: four questions in order</h3>
+<p>When an AI-related activity faces a boundary decision, ask in sequence: ① <strong>the TCE layer</strong> — what are the transaction attributes, where is the hold-up risk? (should we internalize to protect?) ② <strong>the capabilities layer</strong> — is this a hard-to-imitate core capability to accumulate over time? (should we internalize to learn?) ③ <strong>the complementary-assets layer</strong> — are there co-specialized assets (data, channels, trust, ecosystem position) for value capture? (Teece 1986) ④ <strong>the ecosystem layer</strong> — is industry architecture evolving toward platforms/ecosystems/commons? (<a href="tce-literature-review.html#p2021jacobides">Jacobides et al. 2021</a>)</p>
+
+<h2>4 · AI companies' cross-investments and M&amp;A: a live experiment map for TCE</h2>
+<p>The cross-investments, acquisitions, acqui-hires, and compute-for-equity deals among AI companies are almost literally TCE's governance menu (market–alliance–quasi-integration–hierarchy) run as a field experiment in 2024–2026.</p>
+
+<h3>4.1 Three organizational forms</h3>
+<table>
+<tr><th>Form</th><th>Representative deals</th><th>Structural features</th></tr>
+<tr><td><strong>Cross-investment web</strong> (quasi-integration / hybrid)</td><td>Microsoft ~$13B / 27% of OpenAI; Amazon ~$8B in Anthropic; Google's early Anthropic stake; Microsoft+NVIDIA co-investing $15B in Anthropic plus $30B Azure in 2025-11</td><td>Cloud vendors and chipmakers hold equity in labs simultaneously, paired with "compute-for-equity"; 2026-04 Microsoft and OpenAI ended exclusivity, switching to "compute + procurement capped at $38B"; producing <strong>circular deals</strong> — OpenAI buys cloud → Oracle buys GPUs → NVIDIA reinvests in OpenAI</td></tr>
+<tr><td><strong>Acqui-hire / stealth merger</strong></td><td>Microsoft–Inflection (~$650M license + hires); Google–Character.AI (~$2.7B); Amazon–Adept (~$330M)</td><td>No equity purchased — only "buy the team (employment) + buy the model weights (license)," sidestepping antitrust review: the alienable and inalienable assets are unbundled</td></tr>
+<tr><td><strong>Open / closed source</strong> (a third choice off the menu)</td><td>Closed: OpenAI / Anthropic / Google; open weights: Meta Llama / DeepSeek / Mistral / Qwen</td><td>Meta open-sourcing Llama and NVIDIA giving away software = "give away one layer, sell another": free models destroy rivals' pricing power while protecting your own distribution/data layer and chips</td></tr>
+</table>
+
+<h3>4.2 The AI-stack cross-investment network</h3>
+<pre class="mermaid">
+flowchart TD
+  subgraph L1["chip layer / semiconductors"]
+    NVDA["NVIDIA (CUDA lock-in)"]
+    TSM["TSMC foundry"]
+    BRCM["Broadcom co-design"]
+  end
+  subgraph L2["compute / cloud layer"]
+    AWS["AWS"]
+    AZURE["Azure"]
+    GCP["GCP"]
+    ORCL["Oracle"]
+  end
+  subgraph L3["foundation model layer"]
+    OAI["OpenAI (closed)"]
+    ANTH["Anthropic (closed)"]
+    GOOG["Google Gemini (closed)"]
+    META["Meta Llama (open weights)"]
+  end
+  subgraph L4["application layer: apps / agents"]
+    CHAT["ChatGPT"]
+    COP["Copilot"]
+    APPS["enterprise agent ecosystem"]
+  end
+
+  MSFT["Microsoft"] -->|27% equity| OAI
+  MSFT -->|$15B co-investment| ANTH
+  AMZN["Amazon"] -->|$8B| ANTH
+  GOOG -->|early investment| ANTH
+  NVDA -->|chips/compute for equity| OAI
+  NVDA -->|Vera Rubin chips| ANTH
+  OAI -->|$300B cloud purchase| ORCL
+  OAI -->|co-design chips| BRCM
+  ORCL -->|buys GPUs| NVDA
+  NVDA -->|reinvests| OAI
+  ANTH -->|multi-homing| AWS
+  ANTH -->|multi-homing| AZURE
+  META -->|open-sources Llama, commoditizing the model layer| L3
+  L4 -->|API calls to models (market governance)| L3
+  L1 --> L2 --> L3 --> L4
+</pre>
+
+<h2>5 · How TCE reads these deals</h2>
+
+<h3>5.1 Cross-investment = quasi-integration through mutual hostages</h3>
+<p>Compute-for-equity is a <strong>co-specialized exchange</strong>: the lab's training needs are assets specialized to a particular cloud architecture, and the cloud's compute commitments to the lab are equally specific investments — a bilateral dependency. Equity + compute commitments = <strong>symmetric credible commitments</strong> (Williamson 1983): each side's specific investment is a hostage that curbs opportunism. This is exactly the core prediction of <a href="tce-literature-review.html#p1997oxley">Oxley (1997)</a>: when <strong>appropriability hazards</strong> are severe (frontier weights would leak under a pure market contract), governance shifts toward equity alliances.</p>
+<blockquote>
+transaction cost economics regards vertical integration that is not attended by transaction cost economies as a source, not of power, but of weakness. That is because internal organization always experiences a loss of incentive intensity and added bureaucratic costs as compared with markets and hybrids.<br>
+<span style="color:var(--muted)">Williamson (1991, SMJ, p. 79) — the warning label on every AI mega-acquisition that is not clearly transaction-cost-economizing.</span>
+</blockquote>
+
+<h3>5.2 Why minority equity + licenses, not full acquisition?</h3>
+<ul>
+<li><strong>Inalienable human capital</strong> (<a href="tce-literature-review.html#p1990hart">Hart &amp; Moore 1990</a>): the core asset is researchers' tacit frontier knowledge — unbuyable. Acquisition would destroy the equity upside and mission that attract talent. So Microsoft takes only a minority stake; acqui-hires unbundle the transaction: the alienable part (weights) is bought via license, the inalienable part (talent) is ring-fenced with employment contracts, and no equity changes hands.</li>
+<li><strong>High uncertainty → real option</strong>: the technology trajectory is unknown; a minority stake is an option on an unknown technology rather than an all-in bet (TCE's adaptation argument).</li>
+<li><strong>Institutional constraints</strong> (North): full acquisitions trigger antitrust review; minority equity + licenses + hiring is the "stealth merger."</li>
+</ul>
+
+<h3>5.3 Circular deals = a new form TCE can analyze but never presupposed</h3>
+<p>"I invest in you → you buy his chips → he buys my cloud" is a <strong>bundled, multi-party, quasi-barter</strong> transaction whose price is not cash but symmetric specific commitments. TCE's market↔hierarchy menu has no clean cell for it — <strong>asset specificity is distributed across a network rather than a bilateral pair</strong>, and systemic risk follows: each party's "asset" is another party's revenue; the whole web holds itself hostage.</p>
+
+<h3>5.4 Open/closed source = deliberately de-specifying one layer to protect another (Teece 1986)</h3>
+<p>TCE predicts firms will <em>protect</em> specific assets (integrate to prevent expropriation); but Meta open-sourcing Llama and NVIDIA giving away software is <em>deliberately abandoning</em> appropriability at one layer — to commoditize rivals' core layer (free Llama destroys Anthropic/OpenAI's pricing power) and to protect one's own complementary-asset layer. This is Teece (1986) "profiting from innovation" played across a multi-layer AI stack. The implication: <strong>open source is a specificity-destroying weapon</strong> that turns a rival's specific model into a commodity — TCE takes specificity as exogenously given; here it is a manipulated strategic variable. (This is outlook point #1 in the <a href="tce-literature-review.html">literature review</a>'s research agenda.)</p>
+
+<h3>5.5 Layered vertical integration = discriminating alignment at the industry-architecture level</h3>
+<table>
+<tr><th>Layer</th><th>Move</th><th>TCE logic</th></tr>
+<tr><td><strong>Labs</strong> (OpenAI/Anthropic)</td><td>Backward integration into compute/chips (Stargate, Broadcom, in-house silicon, Oracle)</td><td>Escaping the "compute cartel" hold-up — compute is highly specific and the cloud can opportunistically renegotiate → backward integration</td></tr>
+<tr><td><strong>Cloud</strong> (MSFT/AMZN/GOOG)</td><td>Upward into models <em>and</em> downward into chips</td><td>Avoid being commoditized into a "dumb pipe"</td></tr>
+<tr><td><strong>Chips</strong> (NVIDIA)</td><td>Forward into software (CUDA), cloud (DGX Cloud) + investing in labs</td><td>Locking in demand for the specific chip asset (CUDA lock-in)</td></tr>
+<tr><td><strong>Applications</strong></td><td>Stay modular, call models via API</td><td>The model layer is being commoditized (low specificity for any given app); market/API governance suffices</td></tr>
+</table>
+
+<h2>6 · Confirmed vs stretched</h2>
+<table>
+<tr><th>Confirmed (the grammar is still the sharpest tool)</th><th>Stretched (needs upgrading)</th></tr>
+<tr><td>The equity-alliance vs contract discrimination (Oxley 1997) corresponds line-by-line to "why frontier models use equity alliances rather than API contracts"</td><td><strong>Multi-homing</strong>: Anthropic binds simultaneously to AWS+Google+Azure, violating "specific assets lock into bilateral governance" — models become compute-agnostic; co-specialization is deliberately dialed down</td></tr>
+<tr><td>Backward integration to escape hold-up (Klein–Crawford–Alchian 1978) = labs building their own compute, live</td><td><strong>Non-rival assets</strong>: weights can be copied/licensed simultaneously; the bilateral-monopoly hold-up (which presupposes scarcity) no longer bites</td></tr>
+<tr><td>Inalienable human capital (Hart–Moore) = the acqui-hire playbook "buy weights + hire people + touch no equity"</td><td><strong>Coopetitive multi-party networks</strong>: Microsoft invests in OpenAI <em>and</em> Anthropic while building MAI and competing — beyond TCE's dyadic transaction unit</td></tr>
+<tr><td>—</td><td><strong>Network-level hold-up</strong>: hold-up shifts from "A squeezes B" to "the whole web holds itself hostage" — needs a systemic dimension</td></tr>
+</table>
+
+<h2>7 · AI layers &amp; the one-person company</h2>
+
+<h3>7.1 The AI stack is a specificity gradient, not a uniform wall</h3>
+<p>One clean way to read the AI industry through TCE is to treat the stack's four layers — <strong>hardware, infrastructure, data/cloud, software</strong> — as a <strong>gradient of asset specificity</strong>, each with its own hold-up hazard and therefore its own predicted governance.</p>
+<table>
+<tr><th>Layer</th><th>Asset specificity</th><th>Hold-up hazard</th><th>TCE predicts</th><th>Observed 2024–26</th></tr>
+<tr><td><strong>Hardware</strong> (chips/silicon)</td><td>Highest — co-specialized with software (CUDA), fab-specific, massive dedicated investment</td><td>Highest</td><td>Hierarchy / deep control</td><td>NVIDIA forward-integrates into CUDA &amp; DGX Cloud; labs backward-integrate (Broadcom, in-house silicon, Stargate); TSMC as a bilateral foundry</td></tr>
+<tr><td><strong>Infrastructure</strong> (compute/datacenters)</td><td>High — capacity dedicated to training, huge sunk capital</td><td>High</td><td>Long-term contracts / quasi-integration</td><td>compute-for-equity (Microsoft–OpenAI; Amazon–Anthropic), the $300B Oracle deal, the circular "perfect loop"</td></tr>
+<tr><td><strong>Data / cloud</strong></td><td>The new key asset — proprietary data is non-contractible, non-replicable, accumulated rather than bought</td><td>Rising — data is the new source of hold-up</td><td>Internalize hardest</td><td>Data is the moat nobody shares; the cloud is the "compute cartel" gatekeeper</td></tr>
+<tr><td><strong>Software</strong> (models/apps)</td><td>Low at the generic level (foundation models commoditizing); app-layer specificity lives in data + domain + distribution, not the code</td><td>Low for generic models; shifts to ecosystem lock-in</td><td>Market / API</td><td>Models bought via API; app/agent layer internalized with proprietary data; open weights (Llama) commoditize the model layer</td></tr>
+</table>
+<p><strong>The takeaway</strong>: specificity is not uniformly high across the stack — it has <strong>two peaks</strong> (hardware at the bottom, proprietary data at the top) and a <strong>commoditizing middle</strong> (generic models). Firms integrate where the peaks are; the modern firm is increasingly the hardware-adjacent control bundle or the <strong>data + orchestration + judgment</strong> bundle. This is exactly the pattern the cross-investment map in §4 shows — every layer integrates toward its own peak and contracts across the trough.</p>
+
+<h3>7.2 The one-person company (OPC) is TCE's limit case</h3>
+<p>By 2026 the "one-person company" is no longer a thought experiment — it is a policy-recognized form. Media and reports describe <strong>"1 person + N agents"</strong> startups in which a solo founder plus AI agents runs what used to take a whole firm, with profit margins reportedly up 20%+ and the four-stage lifecycle compressing from ~3 years to ~10 months (Anthropic × Tsinghua report); Beijing has made OPCs an official policy category. <a href="tce-literature-review.html#p2026wan">Wan (2026)</a> opens with the canonical anecdote:</p>
+<blockquote>
+A solo entrepreneur armed with ChatGPT, Claude, and Midjourney recently delivered a comprehensive brand strategy, complete with market analysis, creative assets, and implementation roadmap, outcompeting a traditional 20-person agency in both speed and quality.<br>
+<span style="color:var(--muted)">Wan (2026), "Beyond markets and hierarchies," Electronic Markets 36:41, opening illustration.</span>
+</blockquote>
+<p>The TCE reading has three moves. <strong>(1) Why the firm existed — and why it shrinks</strong>: Coase's firm economized on the costs of using the price mechanism (discovery, negotiation, enforcement); agents collapse those costs from inside, so the minimal governance unit shrinks toward one person. <strong>(2) What remains specific</strong>: the OPC keeps in-house exactly the peaks from §7.1 — proprietary data, domain judgment, orchestration — and contracts everything else through APIs and agents (market governance). <strong>(3) Where TCE struggles</strong>: with zero employees there is no employment relation to safeguard, no bilateral dependency to hold up, and no internal hierarchy to be the "firm" — the OPC is a bundle of one person's inalienable human capital wrapped in algorithmic governance, which is precisely the "beyond markets and hierarchies" form the literature review's outlook flags as an open frontier.</p>
+
+<h2>8 · Extension: agent/skills and human asset specificity</h2>
+<p>The frontier question the stack raises for the Week 2 readings: <strong>human asset specificity is endogenous to technology</strong>. When a task is codified into a model, the human capital specialized to that task loses its specificity — and with it its hold-up protection (<a href="tce-literature-review.html#p2026kanazawa">Kanazawa, Kawaguchi &amp; Shigeoka 2026</a> shows technology changing skill returns among taxi drivers; <a href="tce-literature-review.html#p2026stevens">Stevens 2026</a> shows firms swapping market-contracted labor for AI at a steep discount). Williamson's four types of specificity were static; in the AI era the interesting variable is the <em>rate at which technology de-specifies human capital</em> — which determines whether the income that used to flow to firm-specific skills flows to the platform, the model owner, or the orchestrator. This is the "codified skills × human asset specificity" extension named in the page's original title line, and it connects directly to <a href="tce-literature-review.html#p2025warin">Warin (2025)</a>'s platform-gatekeeper argument and the headless-firm hypothesis of <a href="tce-literature-review.html#p2026kleinwieczorek">Klein &amp; Wieczorek</a>.</p>
+
+<h2>9 · Research hooks worth writing up</h2>
+<ol>
+<li><strong>Network-level TCE</strong>: formalize hold-up when hostages are distributed across a circular web (the OpenAI–Oracle–NVIDIA loop) rather than a dyad. What are the comparative statics of "mutual hostage" in an N-party network?</li>
+<li><strong>Specificity as a choice</strong>: model open-sourcing as deliberate de-specification (Teece 1986 across layers) — when does destroying your own layer's appropriability maximize the stack's total capture?</li>
+<li><strong>Endogenous human-asset specificity</strong>: measure how AI codification changes the quasi-rents of specific human capital (a natural experiment in the gig economy, extending Kanazawa et al. and Stevens).</li>
+<li><strong>Governance of the one-person company</strong>: what does "discriminating alignment" predict when the firm has no employees — and what replaces the employment relation as the safeguard?</li>
+</ol>
+
+<div class="golden">TCE's grammar — "match governance to the hazards of the transaction" — has outlived every technology that was supposed to kill it.<br>What AI changes is not the grammar; it is the vocabulary:<br>new assets (non-rival weights), new hazards (network-level hold-up),<br>and a governance menu that no longer fits on one line.</div>
+
+<div class="note">
+<strong>AI assistance disclosure</strong>: this synthesis was AI-generated from the course canon (Zotero <code>firm-boundary-review</code> tag), the 2024–2026 AI×TCE literature retrieved via the local PaperQA2 RAG and Sen's UTD/FT50 RAG, and the verified digests in the <a href="tce-literature-review.html">TCE literature review</a>. Deal figures (dollar amounts, dates) come from the original notes' compilation and public reporting — re-verify before citing. 2025–2026 working papers (Stevens, Kim, Klein &amp; Wieczorek, Wan) are unrefereed; check final versions. Interpretive claims in §8–9 are the synthesizer's inferences.
+</div>
+
+<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
+
+</body>
+</html>

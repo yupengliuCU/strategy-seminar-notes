@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Old Moats for New Models: Openness, Control, and Competition in Generative AI (Azoulay et al., 2024) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Old Moats for New Models: Openness, Control, and Competition in Generative AI</h1>
+<div class="meta">
+<strong>Azoulay, Pierre; Krieger, Joshua L.; Nagaraj, Abhishek (2024)</strong> · NBER Working Paper No. 32474 · <em>May 2024, revised July 2024</em><br>
+<strong>Authors</strong>: Pierre Azoulay (MIT Sloan School of Management and NBER); Joshua L. Krieger (Harvard Business School); Abhishek Nagaraj (Haas School of Business, UC Berkeley, and NBER)<br>
+<strong>Source</strong>: National Bureau of Economic Research Working Paper 32474 (<a href="http://www.nber.org/papers/w32474">nber.org/papers/w32474</a>); JEL codes L17, L86, O32, O38<br>
+<strong>Year</strong>: 2024 (posted May, revised July)<br>
+<strong>Nature</strong>: Interpretive essay and policy analysis in the economics of innovation. It builds a Teece-style framework (appropriability + complementary assets) and applies it to generative AI; it contains no econometric estimation. The closest thing to original data work is one descriptive tabulation by the authors from third-party data (the share of Llama-derived models); all other evidence is illustrative, documentary, or cited from other studies<br>
+<strong>Data &amp; code status</strong>: None released; not applicable (no analysis code). Source text: pdftotext of the local annotated copy, 32 PDF pages; reader margin notes in the annotated copy were ignored
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Azoulay, Krieger, and Nagaraj argue that the "moats" that will decide competition in generative AI are old ones: just as in earlier technology industries, what durably entrenches a few frontier firms is not the secrecy of the model itself but tight control over specialized <strong>complementary assets</strong> (compute, model serving, safety and governance, benchmarks, non-public training data, and data network effects), so open-weight publishing will not by itself restore competition at the foundation layer; the best hopes lie with a "rogue" technology giant that embraces openness strategically and with targeted, light-touch policy.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide (topic: Hugging Face &amp; the Open-AI Economy)</strong>: This essay is the closest the topic library comes to a "theory of the frontier" — an economics-of-innovation argument about <em>why</em> the open-weight economy around platforms like Hugging Face may or may not translate into downstream competition and innovation. It should be read alongside the platform empirics in this collection: the paper itself cites the Hugging Face case (Greenstein et al. 2022) as the amplifier of Llama-based innovation, and it is the natural dialogue partner for the later empirical studies — Wu, Lin &amp; Li (2025) on the Llama 2 release shock on the Hub, Laufer et al. (2025) on the anatomy of the Hub's 2-million-model ecosystem, Longpre et al. (2025) on power and participation in the open-weight ecosystem, and Khoshbash (2026) on specialization in open foundation-model ecosystems. As you read, keep two questions open: which of the essay's claims are <em>predictions about the future</em> (and therefore untestable as of 2024), and which are <em>descriptions of historical regularities</em> (and therefore checkable against the record of past GPTs)?
+</div>
+
+<h2>1. Background and motivation: the moat question in generative AI</h2>
+
+<p>The paper opens by treating generative AI as a candidate "transformative technology" in the lineage of steam engines, airplanes, antibiotics, semiconductors, and the internet. The trigger was OpenAI's releases of ChatGPT and DALL-E in the second half of 2022. The authors report the adoption facts that framed the debate: ChatGPT reportedly passed 100 million monthly active users by January 2023 and 100 million weekly active users by November 2023, with more than 2 million developers on its API; and by early 2024 GPT-4 could pass the bar exam, score above the 93rd percentile on the SAT and above the 99th percentile on the GRE verbal exam.</p>
+
+<p>The paper's question is not whether generative AI will matter, but who will control it: "we do not yet understand whether or to what extent one or a few firm(s) will dominate the supply of foundational generative AI technologies." Two positions framed the debate in 2023. On one side stood a leaked internal Google memo (May 2023), "We have no moat, and neither does OpenAI," arguing that proprietary frontier leaders would lose to faster-moving open-source developers as the cost of fine-tuning open models collapsed. On the other side stood the early adoption record, which showed OpenAI converting technological lead into product dominance. The paper's framing device is the "moat": industry predictions, the authors note, "hinge on whether early leaders can establish a competitive 'moat.'"</p>
+
+<p>The title's pun states the thesis. The "new models" are foundation models — the generative AI models themselves. The "old moats" are the sources of durable advantage that have entrenched incumbents in past technology industries: not control of the core technology (which is frequently understood, copied, or even openly published) but execution, network effects, distribution, brands, and — above all, in the Teece (1986) framework the paper adopts — control of the complementary assets needed to turn an innovation into profit. The central claim appears early in the introduction:</p>
+
+<blockquote>Our central claim is that while formal intellectual property and secrecy are unlikely to durably prevent innovative firm entry, incumbent firms’ tight control over key complementary assets will likely usher in a highly concentrated market structure. (Azoulay, Krieger &amp; Nagaraj 2024, p. 3 of the PDF = printed p. 1)</blockquote>
+
+<p>Because the essay argues that an oligopolistic foundation layer is likely, the fate of the ecosystem below it is its second theme: entrants will be confined to the "application layer" of the stack, "in a pattern reminiscent of the smartphone industry." The remaining question, taken up at the end, is what could avert that outcome — a "rogue" technology giant choosing openness, and four "low-hanging fruit" policy interventions.</p>
+
+<h2>2. Core concept 1: the technology stack and foundation models (paper §2)</h2>
+
+<p>Section 2 is a technical primer that fixes the object of analysis. Foundation models are "large-scale AI models that serve as the basis for a wide range of downstream applications," built largely on the transformer architecture introduced by Google researchers in 2017 (Vaswani et al. 2017). They are distinctive because they are pre-trained and generic: GPT-4 is "extremely flexible" across translation, summarization, question answering, and creative writing "with very little additional instruction." The authors emphasize model scale as a competitive fact: GPT-3 has 175 billion parameters, GPT-4 is estimated at over a trillion, and Meta's Llama 3.1 has a version with over 405 billion parameters.</p>
+
+<p>The primer's key move is to describe a four-layer technology stack (their Figure 1) and to locate competition within it. Foundation models sit in the middle of the stack, and the paper calls them a potential "chokepoint":</p>
+
+<h3>Table 1: The generative AI technology stack as described in the paper (Figure 1 and §2.1)</h3>
+<table>
+<tr><th>Layer</th><th>What sits there (per the paper)</th><th>Examples in the text</th><th>Role for competition</th></tr>
+<tr><td>Application</td><td>Specialized services that let end users query the model in a domain-specific format</td><td>ChatGPT as the chatbot application on top of the GPT-4 foundation model</td><td>Where the paper expects startup entry ("fine-tuned" models and apps); analogized to smartphone app stores</td></tr>
+<tr><td>Foundation model</td><td>The general-purpose, pre-trained model; an interface on which applications run</td><td>GPT-4, Google Gemini, Meta Llama, Anthropic Claude; image and audio models (DALL-E, AudioLM)</td><td>A chokepoint for application-layer innovation; the paper's central concern is control here</td></tr>
+<tr><td>Data and storage</td><td>Massive datasets and the cloud infrastructure to host them</td><td>Web text, Protein Data Bank, ImageNet, Project Gutenberg (public); social media and forum content ("semi-public")</td><td>Source of the training-data complementary asset; copyright status unsettled</td></tr>
+<tr><td>Compute</td><td>GPUs and supporting hardware, software, and networking infrastructure</td><td>NVIDIA H100s; cloud services; Meta's reported 350,000-GPU build-out for Llama 3</td><td>Source of the compute complementary asset; capex scales with model size ("scaling laws")</td></tr>
+</table>
+
+<p>Two clarifications structure everything that follows. First, model and application are separable in principle but mostly merged at the time of writing — "most models and applications have identical owners, so that the distinction between the two layers appears mostly semantic" (footnote 5). Second, the paper discusses openness at the level of the model (weights, architecture, data), which computer scientists debate, and contrasts it with the level of the assets that surround the model, which the authors think matter more.</p>
+
+<h2>3. Core concept 2: the "openness" debate, and why the paper calls it a fetish (paper §2.4)</h2>
+
+<p>Section 2.4 ("The 'openness' fetish") surveys how the computer-science community has framed the competition problem. The framing runs: if the elements of a model's "secret sauce" are made available through code, data, or description, then it should be technically feasible to recreate it, build on it, and compete against it. The paper quotes one definition of openness — open systems provide "transparency, reusability, and extensibility — they can be scrutinized, reused, and built on" (Widder et al. 2023) — and notes the ambiguity of "open source" in AI: OpenAI exposes only APIs to GPT-4, while Meta's Llama 2 and Google's BERT are called open, yet "the term 'open source' does not yet have a precise meaning in AI," and even purportedly open models remain black boxes. Llama 2's bespoke license does not conform to conventional open-source licenses; community efforts such as BLOOM (BigScience) and GPT-J (EleutherAI) are treated as more genuinely open.</p>
+
+<p>Standardization efforts are described and quantified: the Stanford Foundation Model Transparency Index (Bommasani et al. 2023) scored ten leading foundation models against one hundred indicators (compute, data, weights, and so on), with the 2023 results showing "limited transparency, with a top score of 54% and a median of 37%," and the "open" models Llama 2 and BLOOMZ as top scorers. Liesenfeld et al. (2023) categorize openness across thirteen dimensions; Schrepel and Pentland (2023) propose an openness taxonomy for policy. These efforts, the authors concede, "reveal the technical factors that might hinder the reverse engineering of foundation models."</p>
+
+<p>The essay's disagreement is with the inference drawn from such taxonomies — that more technical openness will "necessarily beget entry and competition." The historical record, the authors argue, shows only a weak relationship between openness of key ingredients and competition in product markets. Their two pharmaceutical examples make the point from opposite directions: in drug development, firms protect discoveries with secrecy and patents, yet several incumbents can commercialize within a therapeutic class; in synthetic insulin, generics entered after key patents expired, yet Eli Lilly and Novo Nordisk retained dominance for over two decades through brand, distribution, and related assets.</p>
+
+<h3>Table 2: Two logics for the future of the foundation layer (my synthesis of §1, §2.4, and §3; labels are the paper's or the literature's)</h3>
+<table>
+<tr><th>Question</th><th>Technical-openness view<br>(computer-science literature; the leaked Google memo)</th><th>"Old moats" view<br>(this essay, following Teece 1986)</th></tr>
+<tr><td>What makes a frontier position durable?</td><td>The secrecy of the model itself; open the ingredients and rivals can replicate and leapfrog ("we have no moat")</td><td>Control of complementary assets and the ability to keep raising rivals' reverse-engineering costs; the model itself is rarely the binding constraint</td></tr>
+<tr><td>What does open-weight publishing deliver?</td><td>Entry, competition, and a vibrant open ecosystem (the "spawns of Llama")</td><td>Adoption and downstream innovation, but not necessarily foundation-layer competition; entrants are pushed to the application layer</td></tr>
+<tr><td>Historical precedent cited</td><td>Open-source software: scrutiny and reuse enable building on code</td><td>Pharmaceuticals (synthetic insulin), typesetting, aerospace, personal computers, disk drives: diffusion of technology coexisted with concentrated structures; Android/iOS in smartphones</td></tr>
+<tr><td>Policy implication</td><td>Measure openness; standardize transparency</td><td>Fractionalize or share complementary assets; credible benchmarks; legal clarity; platform governance</td></tr>
+</table>
+
+<p>The paper's bluntest statement of this position comes at the start of the framework section (§3), where it also anticipates the objection that it is dismissing a sincere movement:</p>
+
+<blockquote>We contend that philosophical discussions about the true meaning of openness constitute a distraction if one’s goal is to elucidate the conditions that will enable ongoing competition in the emerging generative AI sector. Rather, as we will argue, the more important factors driving foundation model competition are incumbents’ ability to endogenously raise the costs of reverse engineering over time, thus strengthening their grip on key complementary assets required to effectively compete. (Azoulay, Krieger &amp; Nagaraj 2024, p. 12 of the PDF = printed p. 10)</blockquote>
+
+<h2>4. Core concept 3: appropriability — formal IP versus secrecy and craft (paper §3.1)</h2>
+
+<p>The framework section, titled "Economic Moat-ivation," imports Teece (1986): whether a pioneer durably appropriates returns depends on two forces — <strong>appropriability</strong> (control over the knowledge at the core of the innovation) and <strong>complementary assets</strong> (control over the assets needed to convert know-how into a product customers will pay for). The authors describe these as "the twin scissors of appropriability and complementary assets" cutting across the sector.</p>
+
+<p>On appropriability, their conclusion is that formal intellectual property plays a weak role in foundation models. There are plenty of AI-related patents (they cite Giczy et al. 2022), but patents "do not appear to be especially valuable for protecting foundation models from imitation": the transformer architecture was disclosed openly on arXiv, much AI/ML research falls into the "abstract concept" category that fails the patentability standard, and the pace of the field sits awkwardly against the pace of patent examination. Patents adjacent to foundation models function, in the Lemley-Shapiro (2005) spirit, as "lottery tickets... worth purchasing even if the expected value of such a patent is likely to be very low."</p>
+
+<p>What protects models instead, the authors argue, is a combination of secrecy and tacit, craft-like knowledge: proprietary weights (without them "others cannot modify the pre-trained model without having access to the original training data or computational resources"), the specifics of the training corpus, infrastructure and scaling details, fine-tuning methods, and the user-interface layer. Training frontier models also requires judgment that "seldom [is] found in textbooks" — choosing architectures, preprocessing, hyperparameters, and RLHF programs — knowledge that stays tacit, "deeply embedded and hard to unbundle." The analogy is to recombinant DNA research, whose scientific basis was broadly accessible but whose practice long required craft apprenticeship with the pioneer researchers (Zucker et al. 1998). The authors' interim conclusion is guarded: appropriability rests on "the many avenues to keep critical knowledge proprietary or tacit, rather than the assertion of formal intellectual property," and it could weaken as AI talent becomes less scarce and knowledge circulates through job mobility.</p>
+
+<h2>5. Core concept 4: complementary assets — the six candidates for durable moats (paper §3.2)</h2>
+
+<p>Complementary assets, in Teece's sense, are "the set of assets or capabilities required to effectively commercialize and extract value from an innovation." Some are generic; others are specialized, with few substitutes, and can be deployed as "potent barriers to entry and imitation." The paper identifies six complementary assets as the most salient in generative AI — the heart of the "old moats" argument. The opening claim is:</p>
+
+<blockquote>We argue that tight control over specialized complementary assets is the most likely source of “moats” that would enable pioneering firms to durably entrench their dominant positions. (Azoulay, Krieger &amp; Nagaraj 2024, p. 5 of the PDF = printed p. 3)</blockquote>
+
+<h3>Table 3: The six complementary assets (paper §3.2.1–3.2.7)</h3>
+<table>
+<tr><th>Complementary asset</th><th>What it consists of (paper's description)</th><th>Moat mechanism the paper stresses</th><th>Erosion risk the paper itself notes</th></tr>
+<tr><td>1. Compute environment</td><td>GPU hardware, software stack, networking, cloud integration, monitoring tools; "scaling laws" tie model quality to compute</td><td>Capex grows with model size; even an open model leaves the sponsor controlling the compute to train the next iteration. Meta reportedly building ~350,000 NVIDIA H100 GPUs (≈ $10 billion) by end-2024 for Llama 3</td><td>Chinchilla-style findings, LoRA fine-tuning, and distillation may reduce the compute needed to contribute at the frontier ("a level playing field... the tantalizing possibility")</td></tr>
+<tr><td>2. Model serving and inference</td><td>Deployment infrastructure, APIs, uptime and updating; integration into browsers, apps, ecosystems (Google, Microsoft Edge, WhatsApp)</td><td>Inference costs can rival training: an informal analysis suggests running ChatGPT may cost more per week than training GPT-4; GPU scarcity shapes product design (Altman's congressional testimony)</td><td>Case-by-case: in structural biology (footnote 15), sophisticated users and public data lessen the importance of serving capabilities</td></tr>
+<tr><td>3. Safety and governance</td><td>Ethical principles, oversight boards, alignment and robustness research, privacy and copyright protections</td><td>Safety systems give incumbents efficiency and credibility advantages with regulators and the public; strict safety requirements could entrench leaders (analogy: GDPR raised concentration in web services, per Peukert et al. 2022)</td><td>Costs are real but undisclosed; whether safety regimes tilt competition is contested</td></tr>
+<tr><td>4. Benchmarks and metrics</td><td>Evaluation datasets and contests (ImageNet; GLUE, SuperGLUE, MMLU; OpenAI's Safety Gym)</td><td>Whoever controls credible evaluation sets the terms on which models are compared and adoption decisions are made</td><td>Benchmarks age quickly; leaderboard claims can mislead (see §7 below)</td></tr>
+<tr><td>5. Non-public training data</td><td>Semi-public corpora (social media, forums, code repositories, reviews, news) plus curation, cleaning, and updating</td><td>Copyright law is unsettled; if licensing becomes necessary, only well-resourced firms can assemble corpora of sufficient breadth and depth</td><td>Some key corpora are public (Protein Data Bank, ImageNet, Project Gutenberg); fair-use litigation outcome is uncertain</td></tr>
+<tr><td>6. Data network effects</td><td>User feedback refining model performance (e.g., RLHF corrections improving outputs for all users)</td><td>Early success could cumulate: more users generate more feedback data, improving the model and attracting more users</td><td>"Probably too early to assert" they will arise: RLHF trades off generalization against diversity (Kirk et al. 2024)</td></tr>
+</table>
+
+<p>Section 3.2.7 hedges the whole list. Complementary assets matter only if they stay relevant, and their value can appreciate or depreciate as technology moves (Tripsas 1997). The research frontier "is perpetually shifting outward," which can let laggards leapfrog; but there is "likely no model training 'free lunch,'" because follow-on innovators need their own infrastructure. The essay therefore leaves open who the oligopolists will be — today's incumbents, or entrants "including some not yet founded at the time we write these lines."</p>
+
+<h2>6. The argument in action: the Llama leak as a "natural experiment in appropriability" (paper §3.3)</h2>
+
+<p>The essay's one sustained case study is Meta's experience with open models. In April 2022 Meta released OPT (Open Pre-trained Transformer) with unusually full documentation — architecture, training data, methodology, performance, even near-complete training log books — but withheld the weights of the 175-billion-parameter OPT-175B. One year later Meta followed the same pattern with Llama:</p>
+
+<blockquote>Merely a week after Meta began accepting inquiries for Llama access, the model found its way online. On March 3rd, 2023, a downloadable version of the system (including the model’s weights) appeared as a torrent on 4chan, and quickly disseminated through numerous AI forums. (Azoulay, Krieger &amp; Nagaraj 2024, p. 20 of the PDF = printed p. 18)</blockquote>
+
+<p>The accidental leak became what the authors call "a natural experiment in appropriability." With pre-trained weights in the open, researchers who could not train large models from scratch could experiment with a state-of-the-art LLM, benchmark it, and fine-tune it. A cascade of Llama-based models followed — Stanford's Alpaca, Vicuna (UC Berkeley, CMU, Stanford, UC San Diego), BAIR's Koala, Nebuly's ChatLLama, FreedomGPT, and UC Berkeley's ColossalChat — and within a month the "spawns of Llama" included instruction-tuned, quantized, and RLHF variants. The authors attach a number to the cascade, and they flag it as their own tabulation:</p>
+
+<blockquote>Based on our tabulation of the data gathered by the Center for Research on Foundation Models, by the end of 2023, 30% of large language models introduced by startups and academic groups were built on Llama or its direct descendants, Alpaca and Vicuna. (Azoulay, Krieger &amp; Nagaraj 2024, p. 21 of the PDF = printed p. 19)</blockquote>
+
+<p>The open-source wave unsettled frontier labs. The essay quotes the leaked internal Google document at length — a passage central to the "no moat" thesis the paper is arguing against:</p>
+
+<blockquote>while our models still hold a slight edge in terms of quality, the gap is closing astonishingly quickly. Open-source models are faster, more customizable, more private, and pound-for-pound more capable. They are doing things with $100 and 13B params that we struggle with at $10M and 540B. And they are doing so in weeks, not months. (Leaked internal Google memo, quoted in Azoulay, Krieger &amp; Nagaraj 2024, p. 21 of the PDF = printed p. 19)</blockquote>
+
+<p>Two further points complete the case. First, the open ecosystem was amplified by a platform: the paper credits Hugging Face — "whose vibrant developer community has catalyzed open-source innovation by democratizing access to pre-trained models" and by hosting benchmark datasets and leaderboards — and cites the HBS case on Hugging Face (Greenstein et al. 2022). Second, the authors immediately qualify what the leak proves. The episode shows that attempts to "titrate access" by keeping implementation details secret can fail — "leaks are hard to prevent and police, and once a model's inner workings are exposed... incumbent firms may not be able to wind the openness clock back." But it does not show that the complementary assets have been devalued:</p>
+
+<p>Llama's availability "catalyzed cumulative innovation in the open source developer community, but it did not hinder the widespread adoption [of] proprietary models released by leading firms such as OpenAI, Anthropic, and Google." Even if the compute environment fades in importance, other assets — AI safety investments, unique training data — "might still result in an industry with an oligopolistic structure, albeit one with a highly variegated fringe of smaller actors." This is the essay's answer to the question in this reading topic's framing: open-weight publishing erodes the secrecy part of appropriability, but the durable barriers sit in complementary assets that open weights do not touch.</p>
+
+<h2>7. Scenarios and policy: the rogue firm and four low-hanging fruits (paper §§3.4–4)</h2>
+
+<p>Section 3.4 ("LLAMA in the ointment") asks what would happen if one large firm deviated from the closing script — the scenario the essay names explicitly with Meta in mind, since Mark Zuckerberg had declared an open-source strategy on the path to "General Artificial Intelligence." The authors speculate about four motives for such a "rogue" strategy: indirect gains from an ecosystem that improves the open model (third-party innovations integrated back at minimal cost); a business model selling value-added services on top of a standardized model; reputational leadership that influences industry standards and practices; and becoming "a magnet for top AI talent." The smartphone analogy is Android versus iOS: an open-access foundation model could "democratize access to powerful AI tools," lower experimentation costs for startups and academics, and "catalyze a surge in AI applications."</p>
+
+<p>The counterweights are stated plainly. Android's nominally open license "has not resulted in a flurry of entry into the smartphone OS market," because complementary assets still gate who can build a viable model; by compressing profits at the foundation layer, a rogue firm might simply divert innovation downstream to the application layer; and the openness "crusade" may not persist — "Meta could potentially alter the terms of access" if the economics change, as Google periodically tightened control of Android. A Mermaid diagram summarizes the whole argumentative structure:</p>
+
+<pre class="mermaid">
+flowchart TB
+    A["Frontier model sponsors: OpenAI, Google, Anthropic, Meta"] --> B["Appropriability via secrecy, weights, and craft knowledge, not formal IP (patents are 'lottery tickets')"]
+    B --> C["Open-weight publishing and leaks erode the secrecy moat (Llama leak, 2023: 30% of startup/academic LLMs are Llama-derived)"]
+    C --> D{"Does openness at the model layer beget entry and competition at the foundation layer?"}
+    D -- "Open-source view: Google memo, 'we have no moat'" --> E["Open models catch up fast; vibrant ecosystem"]
+    D -- "This essay, Teece (1986):" --> F["No. Durable moats are old moats: control of specialized complementary assets"]
+    F --> G["Six assets: compute; serving and inference; safety and governance; benchmarks; non-public training data; data network effects"]
+    G --> H["Concentrated, oligopolistic foundation layer; entrants confined to the application layer"]
+    H --> I["Two escape valves"]
+    I --> J1["'Rogue' technology giant opens models (Meta/Llama) - Android versus iOS dynamic"]
+    I --> J2["Light-touch policy: credible benchmarks; legal clarity; fractionalizing infrastructure; platform governance"]
+    J1 --> K["Caveats: complements still rationed; openness may shift innovation downstream; strategy may reverse"]
+    J2 --> K
+</pre>
+
+<p>The policy section (§4) argues for restraint. Four "low-hanging fruits" are proposed. First, <em>credible performance benchmarks</em>: the government could coordinate well-validated evaluation of models and safety, with a body like NIST — the essay invokes the National Renewable Energy Lab model of a government-owned, contractor-operated testing authority — because comparing models is genuinely hard. The supporting evidence is cautionary: a nephrology exam study found "large performance gaps" between open-source models and GPT-4 and Claude 2, "casting doubt on the reliability of unvalidated leaderboards such as those used by the leading open source repository Hugging Face"; and in another comparison, more than 200 open-source models against the six leading closed models, the top closed models (GPT-4 and Claude 3) beat everything else "by a significant margin." Second, <em>legal clarification</em>: a Supreme Court ruling on fair use for training data and agency guidance (the FTC on consumer protection, the FDA on medical AI) would resolve investment uncertainty without new legislation. Third, <em>fractionalization of infrastructure</em>: unbundling compute, training data, and safety systems so smaller firms and academics can experiment — precedents include the NIH-brokered late-1990s memorandum of understanding that made DuPont's genetically modified mice available to academics (Murray et al. 2016), and the NSF-supported National Deep Inference Fabric for access to frontier open models such as Llama 3; the government could also co-finance milestone-based "infrastructure" tools (model compression, fine-tuning systems, benchmarking, energy efficiency). Fourth, <em>platform policy</em>: because application-layer competition is the most promising, authorities should watch how proprietary the APIs are, whether sponsors can use third-party developers' fine-tuning data, and how royalty rates are set, "lest these app stores of the future end up resembling gated communities rather than community gardens."</p>
+
+<h2>8. Evidence and methods: what the paper actually does</h2>
+
+<p>It is worth being precise about the evidentiary character of this paper, because its NBER format and JEL codes can suggest an empirical study. <strong>The paper conducts no econometric analysis.</strong> There is no estimation of patents, paper abstracts, model releases, or any other dataset; §3.1's discussion of patents is conceptual and cites the AI-patent dataset literature (Giczy et al. 2022) rather than analyzing patents itself. The paper is best classified as an interpretive essay: a framework (appropriability plus complementary assets) applied to a new technology, with historical analogy, documentary episodes, and third-party measurements as evidence, and with policy recommendations drawn from the framework.</p>
+
+<h3>Table 4: Inventory of the evidence the paper actually marshals</h3>
+<table>
+<tr><th>Kind of evidence</th><th>Examples in the paper</th><th>Role in the argument</th></tr>
+<tr><td>Original tabulation</td><td>The authors' count from Center for Research on Foundation Models data: 30% of startup/academic LLMs by end-2023 built on Llama/Alpaca/Vicuna</td><td>The one quantitative estimate the authors generate themselves; supports the "spawns of Llama" claim</td></tr>
+<tr><td>Third-party measurements cited</td><td>Foundation Model Transparency Index (top score 54%, median 37% of 100 indicators); nephrology exam comparison (open models vs GPT-4 and Claude 2); a 200+ open-model versus six closed-model comparison</td><td>Supports both sides of the openness debate and motivates the benchmarks policy</td></tr>
+<tr><td>Documented episodes and adoption facts</td><td>ChatGPT adoption (100M monthly / 100M weekly users, 2M developers); OPT release and withheld weights; the Llama leak on 4chan (March 3, 2023); Meta's ~350,000 H100 build-out (≈$10 billion); the NIH–DuPont oncomouse memorandum; GDPR and web-service concentration</td><td>Anchors claims about appropriability, complementary assets, and policy in observable events</td></tr>
+<tr><td>Analogy and historical regularity</td><td>Smartphone app stores and Android/iOS; synthetic insulin (Eli Lilly, Novo Nordisk); typesetting, aerospace, PCs, disk drives; recombinant-DNA apprenticeship; S-curves and dominant designs; inverted-U competition–innovation relationship (Aghion et al. 2005)</td><td>Transfers lessons from prior GPTs to generative AI; the core "old moats" logic</td></tr>
+</table>
+
+<p>The "natural experiment" language in §3.3 is descriptive, not econometric: the Llama leak is treated as a natural experiment in the sense that it was an exogenous, unintended exposure of weights, and the paper narrates its consequences rather than estimating a counterfactual. The authors flag their own epistemic limits throughout — the prediction is made "with some trepidation and many caveats," and policy claims are hedged ("we believe it to be more fruitful to first envision...").</p>
+
+<h2>9. Findings: the essay's headline claims, with the numbers from the text</h2>
+
+<p>Because the paper is an essay, its "findings" are conclusions and predictions rather than estimates. The headline claims, each with the supporting figures the text gives, are:</p>
+
+<ul>
+<li><strong>Formal IP will not block entry; secrecy and tacit knowledge do the work of appropriability.</strong> Patents are "lottery tickets"; the transformer architecture was openly disclosed on arXiv; craft knowledge travels slowly (recombinant-DNA apprenticeship analogy).</li>
+<li><strong>Technical openness is weakly related to competition in product markets.</strong> The transparency scoreboard is low across the board — top score 54%, median 37% — and the "open" models (Llama 2, BLOOMZ) score highest, yet pharmaceutical and insulin history shows concentrated incumbents coexisting with expired patents and open knowledge.</li>
+<li><strong>The durable moats are complementary assets, and incumbents already hold the salient ones.</strong> Compute capex is enormous (≈$10 billion for Meta's reported 350,000 H100s); inference can cost more per week than training; safety and governance regimes may entrench incumbents; benchmark control shapes comparison; non-public data depends on unsettled copyright law; data network effects may compound early leads.</li>
+<li><strong>Open-weight publishing is real but so far bounded in its competitive effect.</strong> The Llama leak produced a documented ecosystem (30% of startup/academic LLMs by end-2023; instruction tuning, quantization, and RLHF within a month) yet "did not hinder the widespread adoption" of proprietary frontier models.</li>
+<li><strong>The most plausible future is an oligopolistic foundation layer with a variegated application-layer fringe.</strong> The smartphone pattern — few at the foundation, many in apps — is the essay's default scenario; innovation policy should aim to keep the application layer open.</li>
+<li><strong>The best pro-competition hopes are a rogue giant and light-touch policy.</strong> Meta is the candidate rogue firm; the policy menu is credible benchmarks, legal clarification, fractionalization of infrastructure, and platform governance.</li>
+<li><strong>The meta-claim: generative AI is a "normal" industry for competition policy.</strong> The framework that applied to past technologies applies here; the inverted-U relationship between competition and innovation (Aghion et al. 2005; Segal and Whinston 2007) warns against both complacency and heavy-handed intervention.</li>
+</ul>
+
+<h2>10. Position in the literature</h2>
+
+<p><strong>Within the economics of innovation,</strong> the essay is a direct application of Teece's (1986) "Profiting from Innovation" framework — the paper's two analytic pillars, appropriability and complementary assets, are Teece's — and it sits in the general-purpose-technology tradition it cites (Bresnahan and Trajtenberg 1995; David 1990; Rosenberg and Trajtenberg 2004), alongside the technology-cycle literature it uses for the S-curve and dominant-design arguments (Utterback 1994; Dosi 1982; Foster 1986; Henderson 1995). Its treatment of complementary-asset dynamics extends Tripsas (1997) on how complementary assets appreciate and depreciate; its patent discussion engages Lemley and Shapiro's (2005) probabilistic-patents view and the AI-patent dataset work of Giczy et al. (2022); its competition-policy stance draws on the inverted-U literature (Aghion et al. 2005; Segal and Whinston 2007) and on empirical work showing regulation can raise concentration (Peukert et al. 2022 on GDPR); and its oncomouse example comes from Murray et al. (2016) on openness and research tools. For a strategy audience the essay is a compact, current restatement of the PIA logic: the firm that wins is the one that owns the scarce complements, and opening the core technology can itself be a deliberate, self-interested competitive move.</p>
+
+<p><strong>What the essay answers and competes with.</strong> Its principal target is the position, associated with the leaked Google memo and with parts of the computer-science community, that open models will overtake closed ones. It argues directly against the assumption behind openness and transparency measurement that openness "will necessarily beget entry and competition," naming the transparency literature it disputes: Widder et al. (2023) (whose definition of open systems it quotes), Bommasani et al.'s (2023) Foundation Model Transparency Index, Liesenfeld et al. (2023), and Schrepel and Pentland (2023). It also pushes back, in its conclusion, on "the fevered claims and policy proposals advanced by industry insiders, as well as their detractors." Note that within this topic library, the Model Openness Framework of White et al. (2024) is a contemporaneous example of exactly the taxonomy-building the essay treats skeptically — the MOF distinguishes genuine openness (17 components in three classes) from mere open weights, refining the measurement the essay doubts is the bottleneck.</p>
+
+<p><strong>Within this topic library.</strong> The essay is the theoretical anchor that several later, empirical papers in the collection test or refine. Wu, Lin &amp; Li (2025) study the Llama 2 release as a shock to developers on the Hugging Face platform — effectively testing whether the "spawns of Llama" pattern of §3.3 shows up as downstream innovation on the Hub. Yue &amp; Nagle (2024), on PyTorch, supply a case where a firm relinquished control of a core technology and downstream innovation ignited — relevant counter-evidence to the essay's caution that open weights alone do not equalize opportunity. Laufer et al. (2025) map the actual Hub ecosystem (2 million models), Longpre et al. (2025) trace power and participation — including corporate control — in the open-weight ecosystem, and Khoshbash (2026) studies specialization trade-offs among sponsors of open foundation models, a direct empirical probe of who profits from openness. Jin et al. (2026) examine how U.S. export controls accelerated China's open AI ecosystems — a policy-driven openness shock the essay's framework would predict matters mainly through its effect on access to complementary assets. Greenstein et al. (2022), the Hugging Face case, is the only one of these that the essay itself cites (as the amplifier of Llama-based innovation). Among the Part II supporting classics, the essay's picture of Meta's selective openness connects to Henkel's (2006) selective revealing and to Boudreau's (2010) distinction between granting access and devolving control — open weights devolve control of the model while sponsors still ration access to complements; O'Mahony and Karp (2022) and Wen and Zhu (2019) supply the platform-governance vocabulary for its "gated communities" worry; von Hippel and von Krogh (2003) frame the private-collective logic that makes a "rogue" firm's self-interested openness credible.</p>
+
+<h2>11. Limitations</h2>
+
+<p><strong>Limits the authors state.</strong> The paper is deliberately speculative about the future: the prediction is offered "with some trepidation and many caveats," and the framework section concedes the field is young. The appropriability conclusion "must remain guarded... since the field is still at an early stage of development" and talent mobility could circulate knowledge. The data-network-effects asset is "probably too early to assert"; the essay merely lists it among complementary technologies that "might" magnify early leads. The gatekeeping force of complementary assets "needs to be ascertained on a case by case basis" (footnote 15 uses structural biology, where public data and sophisticated users weaken the moats). The authors also concede that leaderboard-based parity claims should not be taken at face value, and that safety-motivated restrictions are a live argument against open competition whose cost to openness is not settled.</p>
+
+<p><strong>Independent assessment</strong> (layered and labeled):</p>
+
+<ul>
+<li><strong>Author claims</strong>: (a) formal IP and secrecy will not durably prevent entry; (b) tight control of specialized complementary assets will produce a concentrated foundation layer; (c) open-weight publishing, while real, has not dislodged proprietary leaders; (d) a rogue-firm strategy and the four policy fruits are the main escape valves. All are asserted in the text as reasoned conclusions, with (d) explicitly speculative.</li>
+<li><strong>Evidence</strong>: the support is analogical, documentary, and episodic. The single original quantitative datum is the 30% Llama-descendant tabulation. The historical "regularities" (typesetting, disk drives, insulin) are asserted in one or two sentences each, without the systematic comparative analysis that would establish them as regularities; the "natural experiment" of §3.3 is narrative, with no counterfactual. Nothing in the paper measures a moat or an entry barrier directly.</li>
+<li><strong>Inferences (mine, not the authors')</strong>: I read the title as claiming that the <em>locus</em> of moats is old (complements, not the model), and therefore that open-weight publishing — including fully open pipelines in the Model Openness Framework sense — is neither necessary nor sufficient for foundation-layer competition; the authors argue the "not sufficient" direction strongly and barely discuss the "necessary" direction. I also infer that the essay implies a conditional forecast: if data network effects do materialize, the six-asset story becomes more binding; if compute costs fall faster than expected (Chinchilla, LoRA, distillation), it becomes less binding. The essay does not weight these scenarios.</li>
+<li><strong>Open questions the essay leaves</strong>: whether Meta's openness survives competitive pressure (its July-2024 revision quotes Meta's own July 2024 open-source essay but does not resolve sustainability); whether the fair-use litigation resolves toward licensing and entrenches incumbents or toward free use and democratizes training data; whether safety regulation raises or lowers entry barriers (the GDPR analogy is itself contested); and whether application-layer governance can actually prevent "gated communities" when platform owners control APIs, data, and fee schedules. As a 2024 essay it also cannot see the 2025–2026 empirical record that this topic library partly supplies.</li>
+</ul>
+
+<p>One textual caveat: quotes and page numbers here come from pdftotext of the local annotated copy; reader margin notes were ignored, and the extraction may contain minor spacing or character artifacts. Page numbers follow the PDF pagination (cover = p. 1; abstract = p. 2; printed pages 1–27 = PDF pp. 3–29; references = PDF pp. 30–32).</p>
+
+<h2>12. Conclusion and takeaways</h2>
+
+<p>The essay's lasting contribution to this reading topic is to sharpen the question. Openness debates in AI tend to ask how much of a model is visible; the essay redirects attention to who controls the assets around the model. Its analytical skeleton: appropriability in generative AI rests mainly on secrecy and tacit knowledge, with formal patents playing a small role; durable "moats" form around complementary assets, and the model itself is rarely the binding constraint; open-weight publishing therefore changes the ecosystem without necessarily changing the market structure; concentration at the foundation layer is the default, and both the hopeful scenarios (a rogue giant, an open application layer) and the policy agenda (benchmarks, legal clarity, fractionalization, platform rules) follow from that diagnosis. For readers of the platform studies in this collection, the essay is the caution against inferring competitive vibrancy from ecosystem vibrancy: the Hub can teem with 2 million models while the frontier that anchors it remains a chokepoint in few hands.</p>
+
+<p>Its normative bottom line is unusually moderate for the debate it enters. The authors invoke the inverted-U to argue that many competitors are not required for innovation and that heavy-handed intervention risks dulling incentives; and they close by insisting the sector is analytically "normal."</p>
+
+<blockquote>Rather than reinventing the competition policy wheel for the AI age, we have argued that there is nothing inherently special about this domain. (Azoulay, Krieger &amp; Nagaraj 2024, p. 29 of the PDF = printed p. 27)</blockquote>
+
+<div class="golden">
+The moats are old, the models are new: what will entrench the winners of generative AI is not the secrecy of the algorithm but control of the assets around it.
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the reading-notes deep-dive workflow, in English, grounded in the running text of the local PDF (NBER Working Paper 32474, annotated copy, extracted with pdftotext; reader margin notes and highlights in the copy were ignored). Page labels for blockquotes were computed by counting form-feed page breaks ("\f") before each quoted passage in the source text and are given as pages of the PDF, with the printed page number in parentheses; PDF pagination is cover = 1, abstract = 2, body printed pp. 1–27 = PDF pp. 3–29, references = PDF pp. 30–32. All quotations are verbatim from the extraction (whitespace collapsed across line breaks); numbers and facts are reported as they appear in the text and should be checked against the original before citation. The four labels in the limitations section — author claims / evidence / inference / open questions — distinguish textual assertions from the reader's extensions; the "independent assessment" is an AI perspective, not peer review. No Obsidian canonical note is mirrored for this topic (site only).
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

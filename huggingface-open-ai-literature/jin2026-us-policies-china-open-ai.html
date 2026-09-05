@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U.S. Policies Unintentionally Accelerated China's Open AI Ecosystems (Jin et al., 2026) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>U.S. Policies Unintentionally Accelerated China's Open AI Ecosystems</h1>
+<div class="meta">
+<strong>Authors</strong>: Wang Jin (Chapman University), Nadav Kunievsky (University of Chicago), Bowen Lou (University of Southern California), Tianshu Sun (Cheung Kong Graduate School of Business), James Evans (University of Chicago; Santa Fe Institute)<br>
+<strong>Source</strong>: Working paper, 2026; Science-format manuscript (title page and abstract, 25 numbered references and notes, two multi-panel main figures, and a Supplementary Materials section with Materials &amp; Methods and Figs. S1–S7). Correspondence: Tianshu Sun (tianshusun@ckgsb.edu.cn) and James Evans (jevans@uchicago.edu)<br>
+<strong>Year</strong>: 2026<br>
+<strong>Nature</strong>: Policy-plus-ecosystem empirical study; combines policy-document analysis with GitHub event data, arXiv/OpenAlex publication data, USPTO patent full text, and open-model release records. The authors label the analyses "descriptive and quasi-experimental evidence about timing and relative response, not as a structural model" (p. 15 of the PDF). Not peer-reviewed — preprint/working paper<br>
+<strong>Data &amp; code status</strong>: No data-availability or code statement appears in the extracted text; the paper describes six underlying data sources in the Supplementary Materials (policy documents; a curated database of open/open-weight model releases; GitHub event records; arXiv metadata linked to author countries; company-affiliation evidence; USPTO patent records)
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>U.S. export controls and technology-policy shocks, designed to slow China's advance to the AI frontier, unintentionally accelerated China's shift toward open AI ecosystems: containment made frontier compute scarcer and more politically contingent, raised the strategic value of open, locally deployable, compute-efficient systems, and produced measurable responses in Chinese policy, developer behavior (LLM-repository forking), research orientation (compute-efficiency topics), and the diffusion of Chinese-origin open models through open-source communities and science — diffusion that stops at the boundary of formal commercialization channels such as U.S. patents.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide (Hugging Face &amp; the Open-AI Economy topic)</strong>: this paper studies the open-AI ecosystem through GitHub, arXiv/OpenAlex, and USPTO records — it never names Hugging Face, whose hub is the empirical center of most other papers in this topic collection. Read it as the geopolitical shock side of the same phenomenon those papers measure on the platform side: Laufer et al. (2025) map 2 million models and their adaptation network on the Hub; Longpre et al. (2025) trace who contributes to and commercializes open-weight models; Wu, Lin &amp; Li (2025) treat Meta's Llama 2 release as a supply-side shock to Hub developers; and Azoulay, Krieger &amp; Nagaraj (2024) ask whether open weights erode the moats of frontier builders. Jin et al. supply the counterfactual trigger: national-security export controls raise the value of exactly the open-weight, self-hostable artifacts that platforms like Hugging Face distribute. The paper's sharpest analytic move for this topic is its <em>two-domain</em> measurement of diffusion — decentralized domains (open-source communities, preprints) versus institutionalized commercialization (patents) — a reminder that "open" outcomes are domain-specific and that hub statistics alone understate segmentation.
+</div>
+
+<h2>1. Background and motivation: containment as an innovation-policy experiment</h2>
+
+<p>The paper opens by treating AI as "strategic infrastructure" — an input to economic competitiveness, scientific leadership, and geopolitical influence. Because frontier AI now depends on advanced semiconductors and large-scale compute, governments have moved beyond regulating models to contesting the technological infrastructures underneath them. The framing sentence of the paper is worth quoting in full:</p>
+
+<blockquote>In this context, competition over AI has expanded beyond algorithms and firms into broader struggles over supply chains, standards, compute access, and innovation ecosystems. (p. 2 of the PDF)</blockquote>
+
+<p>The United States, in the authors' account, pursued a "dual AI strategy": accelerating domestic innovation while restricting China's access to frontier AI infrastructure. Export controls on advanced semiconductors and related technologies were the principal containment instrument, escalating from firm-level restrictions to broad semiconductor controls. The October 2022 Bureau of Industry and Security (BIS) controls marked "a decisive shift" because they targeted the compute infrastructure underlying frontier AI; further tightening followed in 2023 and 2024. The motivating puzzle is the possibility that containment generated an unintended response:</p>
+
+<blockquote>By increasing uncertainty surrounding access to foreign-controlled platforms and technological chokepoints, technological containment may have increased the strategic attractiveness of an open and locally adaptable AI ecosystem. (p. 2 of the PDF)</blockquote>
+
+<p>The abstract states the paper's conclusion compactly: these measures "raised the cost of Chinese AI development, but they also increased the strategic value of open and locally adaptable AI systems," and the assembled evidence "suggest[s] that technological containment policies may unintentionally accelerate open innovation ecosystems as a competitive response" (p. 1 of the PDF). The paper is thus an empirical study of an unintended consequence: it asks whether a policy aimed at a technological rival reshaped the <em>organizational architecture</em> of AI innovation — pushing both China and, through open diffusion, the global ecosystem toward open, distributed models.</p>
+
+<h2>2. Core concepts and argument</h2>
+
+<p>The paper's argument follows its own section headings: it first characterizes U.S. containment policy, then documents China's turn toward open AI ecosystems, then interprets openness as resilience infrastructure under geopolitical constraint, and finally shows that the resulting diffusion is uneven across institutional domains.</p>
+
+<h3>2.1 U.S. AI policy and technological containment (the shock side)</h3>
+
+<p>Domestically, the United States sought leadership through institutional investment rather than restraint: the American AI Initiative, the CHIPS and Science Act, and subsequent executive and agency actions aimed to strengthen the U.S. innovation ecosystem "while avoiding regulatory approaches that could slow commercialization or deployment." Even governance-oriented instruments — the Blueprint for an AI Bill of Rights, NIST's AI Risk Management Framework, and Executive Order 14110 — the authors argue, "largely functioned to legitimize and stabilize rapid diffusion of AI across government and industry rather than fundamentally constrain development." The external side framed China as the principal strategic competitor, shifting attention to chokepoints: advanced semiconductors, computing infrastructure, and the supply chains needed for frontier model development.</p>
+
+<p>The material consequence for China is documented with two examples. First, U.S. licensing requirements on NVIDIA's H20 chip (a China-oriented accelerator) generated "a multibillion-dollar inventory charge" (p. 3 of the PDF). Second, DeepSeek's V3 and R1 systems relied on the NVIDIA H800 — an export-compliant accelerator designed for the Chinese market after earlier restrictions — illustrating "China's need and ability to innovate under constraint, but increasingly through export-compliant hardware, efficiency-oriented architectures, and software optimization rather than unconstrained access to frontier compute" (pp. 3–4 of the PDF). The causal claim embedded here is that making frontier infrastructure "more scarce, costly, and politically contingent" increased the strategic vulnerability of dependence on foreign-controlled chokepoints and thereby strengthened incentives for open, locally deployable, compute-efficient AI.</p>
+
+<h3>2.2 China's turn toward open AI ecosystems (the response side)</h3>
+
+<p>China's response, the authors stress, went beyond import substitution or state support for proprietary national champions. It included the deliberate expansion of open AI ecosystems designed to broaden participation, accelerate downstream adoption, and reduce dependence on foreign-controlled infrastructure. Two policy anchors are cited: the 14th Five-Year Plan, which "elevated open source into a national digital strategy," and the 2025 Global AI Governance Action Plan, which emphasized cross-border open-source collaboration, open AI resources, and lower barriers to innovation and deployment. Organizational output matched policy: Alibaba released more than 100 open-source models from its Qwen 2.5 family in 2024, and DeepSeek's open-weight releases expanded Chinese-origin open AI ecosystems (p. 4 of the PDF). A scientific base underlies this: China's funded AI and machine-learning publications and its citation-weighted AI output rose sharply between 2015 and 2024 relative to the United States (Supplementary Fig. S7).</p>
+
+<p>The strategic appeal of openness is tied to the changing economics of AI deployment: as competition shifts from frontier model development toward large-scale inference and application, the ability to run, fine-tune, compress, and adapt models in diverse local environments becomes more valuable. The paper generalizes from platform competition and open innovation — citing standards and developer participation, Android as the canonical example of openness coordinating an ecosystem around an alternative platform, and Huawei's OpenHarmony as a response to restrictions on parts of the Android ecosystem (p. 4 of the PDF):</p>
+
+<blockquote>When access to dominant proprietary systems or frontier infrastructure becomes uncertain, open and locally adaptable systems become strategically valuable. (p. 4 of the PDF)</blockquote>
+
+<h3>2.3 Openness as resilience under geopolitical constraint</h3>
+
+<p>The paper's central concept is that containment changes the relative value of innovation architectures: under geopolitical uncertainty, architectures that can be independently modified, locally deployed, and broadly distributed become more attractive. Its "further analysis of Chinese policy documents" (the coding details of which are not given in the extracted text) identifies three recurring objectives framing openness:</p>
+
+<ul>
+<li><strong>Ecosystem expansion</strong>: from the 2015 "Internet Plus" strategy, which encouraged open and collaborative innovation, to the 2025 "AI Plus" Opinions, which "explicitly called for promoting 'a thriving open-source ecosystem'" (p. 5 of the PDF).</li>
+<li><strong>Governance and standards coordination</strong>: policies repeatedly connect open AI ecosystems to technical standards, interfaces, compliance frameworks, and intellectual-property rules intended to stabilize large-scale adoption.</li>
+<li><strong>Resilience</strong> (described as "the most strategically important"): the 13th and 14th Five-Year Plans make technological self-reliance an explicit national priority, and open models serve that end by enabling local deployment and adaptation, reducing reliance on foreign-controlled technology, centralized proprietary systems, and vulnerable upstream supply chains.</li>
+</ul>
+
+<p>This framing generates a falsifiable prediction: if open AI ecosystems function as resilience infrastructure, then geopolitical shocks that threaten access to frontier AI inputs should increase engagement with open and locally deployable systems — developers facing uncertainty about compute access or proprietary platforms should shift toward models they can run, modify, and maintain independently (p. 5 of the PDF). The evidence sections test exactly this prediction.</p>
+
+<h3>2.4 Uneven diffusion across institutional domains (the boundary concept)</h3>
+
+<p>The last conceptual piece is institutional. The paper distinguishes decentralized domains — open-source communities and scientific preprints, which "operate through relatively decentralized norms that facilitate rapid experimentation, recombination, and distributed participation" — from institutionalized commercialization systems such as patents, "embedded within legal review, compliance obligations, procurement considerations, and strategic disclosure incentives" (p. 6 of the PDF). Its organizing claim is that openness diffuses freely through the first set of domains and meets segmentation at the second, summarized in a single sentence the authors themselves use as a result statement:</p>
+
+<blockquote>As innovation becomes institutionalized, national boundaries reassert themselves. (p. 7 of the PDF)</blockquote>
+
+<h3>2.5 The paper's argument at a glance</h3>
+<p>The diagram below reconstructs the causal chain the paper assembles, from U.S. containment policy to uneven cross-domain diffusion; shaded boxes correspond to its main empirical results.</p>
+
+<pre class="mermaid">
+flowchart TB
+    A["U.S. dual AI strategy<br/>accelerate domestic innovation + contain China"] --> B["Export-control shocks<br/>CHIPS Aug 2022 · BIS Oct 2022<br/>AI-chip rules Oct 2023 · EAR Dec 2024"]
+    B --> C["Frontier compute in China becomes<br/>more scarce, costly, politically contingent"]
+    C --> D["Strategic value of open, locally deployable,<br/>compute-efficient AI systems rises"]
+    D --> E["Chinese policy embeds open source<br/>ecosystem expansion · standards · resilience<br/>14th FYP · AI+ Opinions 2025"]
+    D --> F["Developer behavior shifts<br/>LLM-repo forking after shocks: China +0.143<br/>vs U.S. +0.012 forks per repo-week"]
+    D --> G["Research redirects to compute efficiency<br/>PEFT · inference · compression · edge AI"]
+    E --> H["Supply of Chinese-origin open models<br/>Qwen 2.5 (100+ models) · DeepSeek V3/R1"]
+    F --> H
+    G --> H
+    H --> I1["Open-source communities and science<br/>broad cross-border diffusion, slight home bias<br/>GitHub fork curves · arXiv mentions"]
+    H --> I2["Formal commercialization<br/>U.S. patents: Chinese models nearly absent<br/>while LLaMA, ChatGPT, Claude are cited"]
+    I1 --> J["Open AI ecosystem acts as resilience<br/>infrastructure under geopolitical constraint"]
+    I2 --> J
+    J --> K["Implication for policy: containment can<br/>accelerate open ecosystems it aims to slow"]
+</pre>
+<p>Legend: white boxes are the paper's narrative steps; the two results boxes (F and G) carry the quantitative findings of Fig. 1B and 1C; the branching of H into I1 and I2 is the "uneven diffusion across institutional domains" result of Fig. 2A–2E. This diagram is this reader's reconstruction of the paper's own structure, not a figure in the original.</p>
+
+<h2>3. Evidence and methods</h2>
+
+<p>The Supplementary Materials (pp. 15–18 of the PDF) combine six data sources: Chinese AI and open-source policy documents; a curated database of open or open-weight model releases; GitHub event records; arXiv metadata linked to author-country information; company-affiliation evidence for arXiv papers; and U.S. patent full-text records from the USPTO. The analyses "are designed to compare observable supply, demand, and diffusion patterns across policy, open-source, scientific, company-affiliated, and patent domains" and are explicitly "descriptive and quasi-experimental evidence about timing and relative response, not as a structural model of Chinese AI development" (p. 15 of the PDF).</p>
+
+<h3>3.1 GitHub event-study design</h3>
+
+<p>The headline identification strategy measures repository forking around four U.S. policy shocks (Table 3 below): the CHIPS and Science Act (9 August 2022), the Commerce advanced-computing export controls (7 October 2022), the expanded AI chip controls (17 October 2023), and the 2 December 2024 Export Administration Regulations revision. Activity is organized into an event-time panel indexed by repository <em>i</em>, shock <em>e</em>, and relative week <em>t</em>, with <em>t</em> = −1 as the omitted pre-shock baseline and the number of ForkEvent records per repository-week as the outcome. Repositories are classified as LLM-related if they appear in the paper's generative-AI repository list; all others form the non-LLM comparison group. For group <em>g</em> and week <em>t</em>, the plotted quantity is the mean outcome difference relative to the baseline, Δ<em>gt</em> = mean(<em>y<sub>gt</sub></em>) − mean(<em>y<sub>g,−1</sub></em>), computed separately for China- and U.S.-associated LLM and non-LLM repositories, with confidence intervals on the week-versus-baseline difference and standard errors clustered by repository (p. 15 of the PDF).</p>
+
+<p>A notable design choice is regional attribution: regional series are based on <em>event-hour timing</em> — GitHub events with hour ≤ 17 are assigned to the China-associated series and later events to the U.S.-associated series — which the paper itself calls "a time-zone proxy for regional activity" (p. 15 of the PDF). The same proxy is used for the repository-diffusion curves.</p>
+
+<h3>3.2 Efficiency and compute-restriction topics</h3>
+
+<p>To test whether research redirected toward using scarce compute more efficiently, the authors build an arXiv panel of first-version papers from 2022 through the December 2025 metadata snapshot, restricted to eight AI categories (cs.AI, cs.CL, cs.CV, cs.LG, cs.NE, cs.RO, cs.IR, stat.ML). Papers are linked to author-institution countries at the author-paper-country level, and a paper with both U.S. and Chinese affiliations contributes to both series. Titles and abstracts are classified by term dictionaries into six categories: compression or size reduction; parameter-efficient fine-tuning; inference efficiency; training-compute efficiency; memory efficiency; and edge or on-device deployment. The figure estimand is the China-minus-U.S. count gap relative to the 2022Q3 baseline, (CN<sub>kq</sub> − US<sub>kq</sub>) − (CN<sub>k,2022Q3</sub> − US<sub>k,2022Q3</sub>), with the baseline normalized to zero and the series running through 2025Q4 (pp. 15–16 of the PDF).</p>
+
+<h3>3.3 Diffusion measurement: arXiv/OpenAlex, patents, companies, repositories</h3>
+
+<p>Scientific model use is measured by matching focal model-family names — LLaMA, Mistral or Mixtral, Gemma, Qwen, and DeepSeek — in arXiv titles and abstracts, dated by first-version timestamp and attributed to the country with the largest number of distinct authors (United States, China, other). Patent diffusion counts unique USPTO applications and granted patents mentioning each model term after the model's release date, compared against arXiv mention counts for the same families. Company-affiliated use restricts arXiv papers to a universe of 46 parent-origin company groups — 35 assigned to the United States and 11 to China (p. 17 of the PDF) — identified from OpenAlex affiliation strings, arXiv source snippets, and author-profile affiliations. Repository diffusion is measured from GitHub ForkEvent records for canonical repositories associated with DeepSeek-R1, Qwen 2.5, Qwen 3, Gemma, Llama, Llama 3, and Mistral; events are deduplicated by event type, actor, and repository, and cumulative fork curves are built by country from each model's release date. Main-text panels show 31-day curves for DeepSeek-R1 and Llama 3; supplementary panels show 31-day and 361-day curves for all tracked repositories (pp. 17–18 of the PDF).</p>
+
+<h3>Table 1: The two national strategies as characterized by the paper</h3>
+<table>
+<tr><th>Dimension</th><th>U.S. posture (per the paper)</th><th>Chinese posture (per the paper)</th></tr>
+<tr><td>Core strategic problem</td><td>Preserve AI leadership; slow China's advance to the frontier</td><td>Continue AI development under restricted access to frontier compute</td></tr>
+<tr><td>Principal instrument</td><td>Export controls on advanced semiconductors and related technology (2022–2024); domestic investment (CHIPS and Science Act)</td><td>Industrial policy plus open AI ecosystems; efficiency-oriented architectures and software optimization</td></tr>
+<tr><td>Stance toward open-source AI before the chip controls</td><td>Policies that included support for open-source AI</td><td>Policies that included support for open-source AI</td></tr>
+<tr><td>Stance toward openness afterward</td><td>Domestic governance efforts "legitimize and stabilize" diffusion; external policy restricts access</td><td>Open source embedded in national strategy: ecosystem building, standards coordination, resilience</td></tr>
+<tr><td>Representative documents cited</td><td>American AI Initiative; CHIPS and Science Act; EO 14110; BIS rules (Oct 2022, 2023, 2024)</td><td>14th Five-Year Plan; "Internet Plus" (2015); "AI Plus" Opinions (2025); Global AI Governance Action Plan (2025); 13th/14th Five-Year Plans on self-reliance</td></tr>
+<tr><td>Consequence identified by the paper</td><td>Higher cost and uncertainty of Chinese access to frontier compute</td><td>Shift toward open, locally deployable, compute-efficient AI as resilience infrastructure</td></tr>
+</table>
+
+<h3>Table 2: The four U.S. policy shocks in the GitHub event study</h3>
+<table>
+<tr><th>Date</th><th>Policy event</th><th>Characterization in the paper</th></tr>
+<tr><td>9 August 2022</td><td>CHIPS and Science Act</td><td>U.S. domestic semiconductor investment and competitiveness legislation; first shock in the event study</td></tr>
+<tr><td>7 October 2022</td><td>Commerce advanced-computing export controls (BIS)</td><td>"Decisive shift" targeting the compute infrastructure underlying frontier AI; advanced chips, chipmaking equipment, technical support</td></tr>
+<tr><td>17 October 2023</td><td>Expanded AI chip controls</td><td>Further restriction of advanced semiconductor pathways to China</td></tr>
+<tr><td>2 December 2024</td><td>Export Administration Regulations revision</td><td>Additional controls; increased uncertainty surrounding lawful Chinese access to frontier compute</td></tr>
+</table>
+
+<h2>4. Findings</h2>
+
+<p>The findings are organized as a chain from policy, to developer behavior, to research orientation, to diffusion across domains. Figure numbers below refer to the paper's main figures (Fig. 1A–C, Fig. 2A–E), whose captions are in the extracted text even though the figure graphics themselves are not.</p>
+
+<h3>4.1 Policy: open-source support became strategic embedding</h3>
+
+<p>Before the chip export controls, both the United States and China "promoted policies that included support for open-source AI." After the major export-control shocks, Chinese policy increasingly embedded open-source AI in national technology strategy — through proposed ecosystem building, standards coordination, and resilience-oriented deployment (the three objectives of Section 2.3). Chinese-origin open models increased rapidly after 2022, alongside policy initiatives emphasizing open-source communities, standards, interoperability, and platform coordination (Fig. 1A).</p>
+
+<h3>4.2 Behavior: Chinese developers forked LLM repositories far more after shocks</h3>
+
+<p>Figure 1B reports the event-study estimates, and the text gives the headline magnitude precisely:</p>
+
+<blockquote>Across the pooled shock window, mean weekly forks for China-associated LLM repositories rise by 0.143 forks per repository-week, compared with 0.012 for U.S.-associated LLM repositories; the China-associated rise is therefore 0.131 forks per repository-week larger. (p. 5 of the PDF)</blockquote>
+
+<p>The paper adds that the pattern is "most pronounced following export-control episodes that directly affect access to advanced computing and the supply of frontier models, consistent with a resilience mechanism," and interprets the results as "behavioral evidence that open-source AI functions as a robustness strategy under geopolitical constraint" (p. 5 of the PDF). Note that the point estimates are raw mean differences with clustered standard errors, not regression coefficients; the text reports no pre-trend test statistics, though a log1p-transformed robustness specification appears as Supplementary Fig. S1.</p>
+
+<h3>4.3 Research orientation: redirection toward compute efficiency</h3>
+
+<p>Consistent with the resilience mechanism, Figure 1C shows that following the 2022 export controls, China's relative research emphasis increased in areas associated with compute efficiency and distributed deployment — parameter-efficient fine-tuning, inference optimization, compression, and edge AI. The authors read this as evidence that "geopolitical constraints not only increased engagement with open AI ecosystems but also redirected innovation toward technologies that reduce dependence on scarce computational resources" (pp. 5–6 of the PDF).</p>
+
+<h3>4.4 Diffusion: broad in open-source communities and science, filtered in patents</h3>
+
+<p>Open-source uptake was rapid on both sides of the Pacific. Figures 2C and 2D (with Supplementary Figs. S3 and S4) track 31-day and 361-day fork curves for canonical repositories: Chinese-origin models such as Qwen and DeepSeek "diffused rapidly through developer ecosystems," while Chinese developers also showed strong engagement with U.S.-origin open models — "open AI ecosystems facilitate cross-border experimentation and recombination even under intensifying geopolitical competition" (p. 6 of the PDF).</p>
+
+<p>Scientific diffusion was similarly broad. Figure 2A shows Chinese-origin open models adopted by Chinese and American researchers "at broadly comparable rates across scientific domains," with no substantial difference between U.S.- and China-dominated institutions — in open-science settings, adoption "appears driven primarily by research utility and accessibility rather than national origin alone" (p. 6 of the PDF). Company-affiliated research (Fig. 2E) shows highly similar LLM-usage distributions between Chinese and U.S. companies, with only slight home bias: Chinese companies rely somewhat more on Chinese models and U.S. companies show a modest preference for U.S. models.</p>
+
+<p>The contrast comes at the formal commercialization boundary. In U.S. patent applications and granted patents, the pattern is asymmetric:</p>
+
+<blockquote>In contrast to open-source repositories and scientific publications, the U.S. patent system displays a striking asymmetry. Patents frequently reference U.S.-origin and proprietary models such as LLaMA, ChatGPT, and Claude, yet references to Chinese-origin models such as Qwen or DeepSeek are nearly absent. (p. 6 of the PDF)</blockquote>
+
+<p>Because patent documents routinely reference external technologies when doing so is useful and uncontroversial, the paper reads the selective absence as evidence of filtering at the institutional boundary:</p>
+
+<blockquote>The selective absence of Chinese-origin models therefore suggests that diffusion becomes increasingly filtered as innovation moves into institutionalized commercialization channels. (p. 6 of the PDF)</blockquote>
+
+<p>The same boundary reasoning supports a striking secondary observation: although Chinese-origin models are nearly absent from U.S. patent disclosures, U.S. company-affiliated researchers actively use them in open-access research (Fig. 2E), "suggesting their undermeasured importance within the foundation of U.S. commercial activity" (p. 1 of the PDF, abstract).</p>
+
+<h2>5. Position in the literature</h2>
+
+<p>Within this topic's core library, the paper sits on the geopolitical flank of the Hugging Face–centered empirical program and speaks to the openness-and-competition debate from the demand side. Where <strong>Azoulay, Krieger &amp; Nagaraj (2024)</strong> ask whether open-weight publishing by frontier firms erodes proprietary moats, Jin et al. study the state-level analog: whether restricting access to frontier inputs makes openness a rational competitive response — containment as an (unintended) openness subsidy. Where <strong>Yue &amp; Nagle (2024)</strong> show that PyTorch's controller relinquishing control of a core technology ignited downstream innovation, Jin et al. show a country-level version of the same mechanism: U.S. policy relinquishes access to the frontier, and Chinese developers substitute toward open infrastructure; Huawei's OpenHarmony is the paper's own Android-analog example. The paper extends the platform-shock studies in this library — <strong>Wu, Lin &amp; Li (2025)</strong>, who treat Llama 2's open release as a commoditization shock to Hugging Face developers, and <strong>Wu, Yang et al. (2025)</strong> on model popularity — by adding export-control shocks as a second, policy-generated source of variation in the value of open models.</p>
+
+<p>It also connects the ecosystem-measurement papers — <strong>Laufer et al. (2025)</strong> on the 2-million-model Hub network and <strong>Longpre et al. (2025)</strong> on tracing power and participation in the open-weight ecosystem — to a policy question those papers bracket: who supplies the open models that the Hub distributes, and why. Its dual-domain diffusion design (GitHub and arXiv versus USPTO) is a methodological complement to <strong>White et al.'s (2024)</strong> Model Openness Framework, which decomposes "open" into 17 components: Jin et al. show empirically that the same open artifact diffuses differently depending on the institutional domain of downstream use. Its behavioral premise — that uncertainty redirects organizations toward self-controlled, locally deployable alternatives — connects to the platform-ecosystem and open-source canon in Part II of this topic: <strong>Boudreau (2010)</strong> on granting access versus devolving control, <strong>Wen &amp; Zhu (2019)</strong> and <strong>O'Mahony &amp; Karp (2022)</strong> on responses to platform-owner control changes, <strong>Henkel (2006)</strong> on selective revealing, and <strong>Nagle (2019)</strong> and <strong>Wright, Nagle &amp; Greenstein (2023)</strong> on firms' use of open software. The paper itself anchors its economics in <strong>Lerner &amp; Tirole (2002)</strong> on the economics of open source and <strong>Besen &amp; Farrell (1994)</strong> on standards competition — its two references on ecosystem, standards, and developer participation.</p>
+
+<p>Within the course's own question set ("economic foundations of strategy"), the paper is a reminder that openness is a strategic variable in rivalry, not just a governance preference: when the environment makes externally controlled complements unreliable, openness converts an ecosystem into resilience infrastructure. That logic runs parallel to the behavioral-theory tradition in this library — <strong>Greve (2003)</strong> on search under performance shortfall — at the level of national innovation systems: scarcity and threat redirect search toward alternative architectures.</p>
+
+<h2>6. Limitations</h2>
+
+<p><strong>Boundaries the authors state.</strong> The paper is explicit that its analyses are "descriptive and quasi-experimental evidence about timing and relative response, not as a structural model of Chinese AI development" (p. 15 of the PDF), and that the GitHub regional series rest on an event-hour time-zone proxy it calls out as a proxy (p. 15 of the PDF). It frames the patent result as an inference from selective absence ("suggests that diffusion becomes increasingly filtered"), not as direct observation of blocked adoption.</p>
+
+<p><strong>Author claims vs. evidence vs. my inferences — layered:</strong></p>
+
+<ul>
+<li><strong>Author's claim</strong>: export-control shocks increased Chinese developers' engagement with open LLM infrastructure more than U.S. developers' engagement, redirecting research toward compute efficiency and fueling diffusion of Chinese-origin open models.</li>
+<li><strong>Evidence</strong>: pooled event-window mean differences in repository forking (0.143 vs. 0.012 forks per repository-week), event-time plots around four shocks, arXiv topic-share shifts relative to a 2022Q3 baseline, mention counts in arXiv and USPTO records, and cumulative fork curves for canonical repositories (Figs. 1B, 1C, 2A–2E).</li>
+<li><strong>My inferences</strong> (not stated in the text): (i) the forking response is engagement behavior, and I read it as evidence of adoption intent only loosely — forking is not deployment, use, or capability; (ii) the China-versus-U.S. gap conflates two margins the design cannot fully separate — a genuine resilience response and a mechanical reallocation of where Chinese developers can engage (open repos are among the few frontier-adjacent resources still accessible to them); (iii) the paper's leap from company-affiliated arXiv papers to "undermeasured importance within the foundation of U.S. commercial activity" is an inference of mine to flag: open-access research use by company researchers is not evidence of commercial product use, which the paper does not measure.</li>
+<li><strong>Open questions</strong>: the coding protocol behind the "three objectives" policy-document analysis is not detailed in the extracted supplementary text; only four shocks are used, one of which (CHIPS) is domestic and non-restrictive; the hour-based two-bucket proxy (≤17 vs. &gt;17) ignores all non-U.S./non-China regions and can misattribute European or other traffic; no formal pre-trend tests or regression tables appear in the extracted main text; and the near-absence of Chinese models in patents is consistent with strategic disclosure avoidance (compliance and legal risk) as well as with genuine non-incorporation — the text cannot distinguish these.</li>
+</ul>
+
+<p><strong>Independent judgment on the paper's own interpretive frame.</strong> The "patents filter diffusion" reading is plausible and internally consistent, but it rests on a single contrast (GitHub/arXiv vs. USPTO) with strong alternative explanations — U.S. patent practice rewards citing well-known, uncontroversial prior art, and citing a Chinese open model may invite examination risk that citing LLaMA does not. A skeptic could read the same data as showing that the patent system reflects legal-strategic citation norms rather than the real locus of commercial incorporation. The paper's two-domain design is its strength, but the domain comparison is confounded with the identity of the citing organization (patentees face obligations that preprint authors do not), so the cleanest causal reading is limited to the event-study forking results.</p>
+
+<p><strong>Textual caveat.</strong> This note is grounded in pdftotext of the local PDF; figure graphics are absent from the text layer, so all figure-dependent quantities cited here come from the prose and captions. The paper's reference list is present in the extracted text but the working-paper version carries no journal, DOI, or publication venue, and it is not peer-reviewed; treat its claims accordingly.</p>
+
+<h2>7. Conclusion and takeaways</h2>
+
+<p>The paper's conclusion generalizes beyond China: "Efforts to restrict access to frontier AI capabilities may not simply slow technological rivals. They may also reshape the organizational architecture of innovation itself by increasing the strategic value of open, distributed, and locally adaptable ecosystems" (p. 7 of the PDF). The final sentence of the main text fixes the paper's place in the open-AI governance debate:</p>
+
+<blockquote>The future of AI competition may consequently depend not only on who controls the technological frontier, but also on how openness, governance, and resilience interact across different institutional domains. (p. 7 of the PDF)</blockquote>
+
+<p>For the "Hugging Face &amp; the Open-AI Economy" reading, four takeaways stand out. First, containment policy and open-weight distribution are causally entangled: export-control shocks appear to have increased demand for exactly the artifacts — downloadable, modifiable, locally deployable models — that open-AI hubs intermediate. Second, the response was not confined to firms: it shows up in developer behavior (forking), national research portfolios (efficiency topics), and policy documents (standards, self-reliance). Third, diffusion is domain-dependent — decentralized science and developer communities stayed open and cross-border even as institutionalized commercialization (U.S. patents) showed sharp segmentation; hub-level statistics will miss this boundary. Fourth, the paper quietly documents U.S. dependence on Chinese-origin open models in open-access research — evidence, in the authors' phrase, of their "undermeasured importance within the foundation of U.S. commercial activity" — a datum that complicates any simple story of technological decoupling.</p>
+
+<div class="golden">
+Technological containment can therefore generate unintended forms of substitution and ecosystem development, even while institutional boundaries continue to segment commercialization and formal adoption. — Jin et al., 2026, p. 7 of the PDF
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: this reading note was generated by AI following the academic-style workflow of the reading-notes skill, grounded in the pdftotext extraction of the local PDF ("U.S. Policies Unintentionally Accelerated China's Open AI Ecosystems", working paper, ~35 pp.), an untitled working-paper manuscript in Science-format layout with references and a supplementary section. Page numbers for quotations were computed by counting form-feed characters in the text layer before each passage. All blockquotes are verbatim; figures are not present in the text layer, so figure-dependent quantities come only from the prose and captions. The paper is a non-peer-reviewed working paper with no DOI in the extracted text. The "my inferences" items in the limitations section are the AI reader's judgment, not the authors'; claims, evidence, and inferences are labeled as such. Verify quotes, numbers, and figure captions against the original PDF before citing in formal writing.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

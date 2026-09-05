@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transaction Cost Economics: The Four-Reading Integration</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:820px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Transaction Cost Economics (TCE): The Four-Reading Integration<br><span style="font-size:1.05rem;font-weight:400;color:var(--muted)">From Coase's Question to Williamson's Strategy Claim</span></h1>
+<div class="meta">
+Cross-paper integration · Week 2 TCE · covers Coase (1937), Williamson (1985 / 1991 / 1999)<br>
+This page is the "horizontal integration"; the per-paper pages are the "vertical deep dives":
+<a href="coase1937-nature-firm.html">Coase 1937</a> · <a href="williamson1985-economic-institutions.html">Williamson 1985</a> · <a href="williamson1991-comparative-economic-organization.html">Williamson 1991</a> · <a href="williamson1999-strategy-research-governance.html">Williamson 1999</a> · <a href="tce-literature-review.html">Full TCE literature review (1937–2026)</a><br>
+English edition (Chinese original backed up in <code>tmp/en-switch/backup/</code>) · enriched 2026-08-30 · per-paper digests: <a href="tce-literature-review.html">tce-literature-review.html</a>
+</div>
+
+<div class="summary-box">
+<h3>The integration in one sentence</h3>
+<p>The four readings form one theory-development line: Coase (1937) asks <em>why firms exist</em> and gives a directional answer (using the price mechanism is costly); Williamson spends four decades operationalizing that answer — 1985: behavioral assumptions + transaction dimensions → governance structures; 1991: the formal discrete-structure analysis; 1999: the argument that "governance" is one of the economic foundations of strategy research.</p>
+</div>
+
+<div class="note"><strong>How this page relates to the per-paper pages</strong>: the single-paper HTMLs are vertical deep dives — one paper's argument unfolded section by section. This page is the horizontal integration: how the four readings form one line, which concepts they share, and what gap each step fills. Read this page first for the map, then return to the single-paper pages for detail. The four through-lines (unit of analysis, behavioral engine, asset specificity, remediableness) are the real substance of the "integration."</div>
+
+<h2>1 · The integration spine: one theory-development line</h2>
+<p>The four readings are not four parallel topics but four nodes in one <strong>theory development</strong> sequence: first the question, then the operationalization, then the comparative statics, and finally the entry into strategy. Each step is triggered by a gap the previous step left open.</p>
+<pre class="mermaid">
+graph LR
+ A["Coase 1937
+Question: why do firms exist?
+Answer: using the price mechanism is costly"] --> B["Williamson 1985
+Operationalization: behavioral assumptions + transaction dimensions
+→ governance structures (discriminating alignment)"]
+ B --> C["Williamson 1991
+Formalization: discrete structures
+market / hybrid / hierarchy"]
+ C --> D["Williamson 1999
+The strategy claim: economizing > strategizing
+governance and competence complement each other"]
+ A -. "Gap: what are transaction costs? why do they differ?" .-> B
+ style A fill:#f0f4ff
+ style D fill:#faf5ff
+</pre>
+<p><strong>The one-line memory hook</strong>: Coase asked "why?"; Williamson turned it into a theory that predicts <em>which transaction should use which governance</em>, and then argued that this theory is one of the economic foundations of strategy.</p>
+
+<h2>2 · The four readings' division of labor</h2>
+<table>
+<tr><th>Stage</th><th>Reading</th><th>What it does</th><th>Gap it leaves</th></tr>
+<tr><td><strong>The question</strong></td><td>Coase (1937)</td><td>The firm as a substitute for the price mechanism; firms exist because using the price mechanism is costly</td><td>Transaction costs are unclassified and unmeasured; why they differ across transactions and over time is unexplained</td></tr>
+<tr><td><strong>Operationalization</strong></td><td>Williamson (1985)</td><td>Behavioral assumptions (bounded rationality + opportunism) + transaction dimensions (asset specificity etc.) → governance structures; discriminating alignment</td><td>Are governance structures a continuum or discrete alternatives? What is the efficiency criterion?</td></tr>
+<tr><td><strong>Comparative statics</strong></td><td>Williamson (1991)</td><td>Market / hybrid / hierarchy as discrete structural alternatives, each with its own "syndrome of attributes," ordered by asset specificity</td><td>How does this logic speak to strategy research, and how does it complement the competence perspective?</td></tr>
+<tr><td><strong>The strategy claim</strong></td><td>Williamson (1999)</td><td>Economizing takes priority over strategizing; the governance and competence perspectives are complements</td><td>How the competence view's "learning" and "foresight" fold into TCE remains open</td></tr>
+</table>
+
+<h2>3 · Five conceptual through-lines (the substance of the integration)</h2>
+<p>"Integration" does not mean laying four summaries side by side; it means finding the concepts the four readings <em>share and progressively develop</em>. There are five.</p>
+
+<h3>3.1 The unit of analysis: the transaction</h3>
+<p>All four readings share one unit of analysis — the <strong>transaction</strong> — inherited from Commons (1934). Williamson (1985) defines it: a transaction occurs when a good or service is transferred across a technologically separable interface. Dropping the unit of analysis from "firm" or "industry" down to the transaction is what makes TCE's <strong>microanalytic</strong> method possible: the macro question of the firm's boundary becomes a question of comparing transactions one by one.</p>
+<blockquote>
+A transaction occurs when a good or service is transferred across a technologically separable interface.<br>
+<span style="color:var(--muted)">Williamson (1985: 1).</span>
+</blockquote>
+
+<h3>3.2 The behavioral engine: bounded rationality + opportunism (the pairing logic)</h3>
+<p>The four readings share two behavioral assumptions: <strong>bounded rationality</strong> and <strong>opportunism</strong> (self-interest seeking with guile). The key is the <em>pairing</em> — neither assumption is a problem on its own. Bounded rationality only "bites" when it meets uncertainty/complexity; opportunism only creates risk when it meets small numbers. Williamson (1985) welds the two assumptions together in his programmatic sentence:</p>
+<blockquote>
+Organize transactions so as to economize on bounded rationality while simultaneously safeguarding them against the hazards of opportunism.<br>
+<span style="color:var(--muted)">Williamson (1985: 32).</span>
+</blockquote>
+<p>This through-line explains why, in all four readings, markets cannot always be relied upon: markets coordinate through prices and competition, but prices are no longer sufficient statistics in the face of uncertainty and small numbers, and promises cannot contain self-interest with guile.</p>
+
+<h3>3.3 The pivotal dimension: asset specificity</h3>
+<p>The 1985 book puts <strong>asset specificity</strong> at center stage — the hardest variable in all four readings. It comes in four types: site, physical, human, and dedicated. Its companion device is the <strong>fundamental transformation</strong>: a large-numbers bidding situation at the outset is transformed, after idiosyncratic investment, into a bilateral dependency. The 1991 article is essentially this: asset specificity on the horizontal axis, governance structures arranged along it. This through-line is the engine of discriminating alignment: the higher the specificity, the more hierarchical safeguarding is needed.</p>
+
+<h3>3.4 Discriminating alignment</h3>
+<p>This is TCE's testable proposition: <em>transactions, which differ in their attributes, are assigned to governance structures, which differ in their costs and competencies, in a discriminating, transaction-cost-economizing way</em>. The 1985 book offers a governance menu keyed to specificity × frequency × uncertainty; the 1991 article compresses it into a supply rule along the specificity axis. Discriminating alignment is the shared "output" of all four readings — the full landing point from Coase's question to Williamson's testable proposition. Its forty-year empirical record is assessed in <a href="tce-literature-review.html#p2004david">David &amp; Han (2004)</a> and the other assessments in the literature review.</p>
+
+<h3>3.5 The efficiency criterion: remediableness</h3>
+<p>Added in 1991/1996 and restated in 1999, the remediableness criterion answers "what counts as efficient": not comparison against a hypothetical ideal, but comparison against <em>feasible, equally imperfect alternatives</em>.</p>
+<blockquote>
+The remediableness criterion holds that an extant condition for which no feasible superior alternative can be described and implemented with expected net gains is presumed to be efficient.<br>
+<span style="color:var(--muted)">Williamson (1999: 1103).</span>
+</blockquote>
+
+<h2>4 · Coase's two loose ends, and how Williamson filled them</h2>
+<p>The engine of the integration is two loose ends in Coase (1937). First, <em>what exactly are transaction costs?</em> Coase lists three costs of using the price mechanism (discovering prices, negotiating and concluding contracts, substituting employment contracts) but gives no taxonomy and no operational definition. Second, <em>why do these costs differ across transactions and over time?</em> Without that, "minimize transaction costs" is unfalsifiable — a theory of everything and nothing.</p>
+<p>Williamson fills the gaps in two steps. The 1985 book fills the first: behavioral assumptions (bounded rationality + opportunism) and transaction dimensions (asset specificity, uncertainty, frequency) become the <em>sources</em> of transaction-cost differences — transaction costs stop being a black box and become quantities explained by transaction attributes. The 1991 article fills the second: discrete governance alternatives (market / hybrid / hierarchy) with their differing cost structures. The 1999 article then imports the whole apparatus into strategy research.</p>
+<table>
+<tr><th>Coase 1937's loose end</th><th>Williamson's fill</th><th>Where</th></tr>
+<tr><td>Transaction costs unclassified, unmeasured</td><td>Behavioral assumptions + transaction dimensions as the sources of transaction costs</td><td>Williamson 1985, Ch. 1–2</td></tr>
+<tr><td>Why costs differ across transactions / over time</td><td>Asset specificity + the fundamental transformation (large numbers → small numbers)</td><td>Williamson 1985, Ch. 3</td></tr>
+<tr><td>Continuum or discrete governance alternatives?</td><td>Discrete structural analysis: the syndrome of attributes of market / hybrid / hierarchy</td><td>Williamson 1991</td></tr>
+<tr><td>How this logic relates to strategy research</td><td>Economizing vs strategizing; governance and competence as complements; the "affinity" claim</td><td>Williamson 1999</td></tr>
+</table>
+
+<h2>5 · Behavioral assumptions: the foresight–myopia tension</h2>
+<p>The readings' behavioral kit has three pieces: <strong>bounded rationality, foresight, and opportunism</strong>. "Foresight" must be understood precisely: it is <em>bounded but nonzero</em> anticipation — enough to see contractual hazards, not enough to write a complete contract (bounded rationality rules that out). Williamson borrows Machiavelli's imagery to contrast two views of contracting: the myopic prince gains from reneging; the far-sighted prince designs mutual sunk-cost safeguards in advance, giving and accepting credible commitments.</p>
+<p>This foresight collides head-on with the competence view in 1999. The capabilities/evolutionary line stresses <strong>myopia</strong> — search is local, trial-and-error, trapped by routines (Levinthal &amp; March 1993, "the myopia of learning"). The disagreement is about where the rationality left over from bounded rationality gets spent: TCE spends it looking forward at contractual hazards; the competence view argues it is trapped by local learning. Both stand on the same bounded-rationality premise and speak about different domains and time scales — one actor can perfectly well foresee that a trading partner will hold him up while simultaneously being blind to technological opportunities outside his routines. Williamson 1999's compromise demotes "foresight" to "necessary discernment, as supplied by experience" and lands on the complementarity claim: both are needed.</p>
+
+<h2>6 · From "governance" to "strategy": the 1999 landing point</h2>
+<p>The 1999 article completes the final step: moving TCE from organizational economics into strategy research. The core distinction is <strong>economizing vs strategizing</strong> — TCE claims that economizing on transaction costs is the <em>main case</em> of performance differences, not the only case. The second claim is that the <strong>governance and competence perspectives are complements</strong>: governance asks how exchange is organized; competence asks what the firm is best at doing. One is more micro (the transaction as unit); the other more composite (routines as unit). The closing move is the "affinity" assertion:</p>
+<blockquote>
+Of all the new fields of economics, the transaction cost branch of organizational economics has the greatest affinity with strategic management.<br>
+<span style="color:var(--muted)">Rumelt, Schendel &amp; Teece (1991: 14), quoted in Williamson (1999: 1102).</span>
+</blockquote>
+
+<h2>7 · The four readings compressed into one paragraph, plus discussion questions</h2>
+<p>Firms exist because using the price mechanism is costly (Coase 1937); how costly depends on the attributes of transactions (above all asset specificity) and the attributes of people (bounded rationality, opportunism) (Williamson 1985); governance structures should therefore be chosen and discriminatingly matched among market / hybrid / hierarchy (Williamson 1991); and doing this economizing well is one of the economic foundations of strategy research, complementary to the competence view (Williamson 1999).</p>
+<p>Three questions to carry back into the single-paper pages:</p>
+<ol>
+<li>Is "economizing is the best strategy" falsifiable in dynamic markets? Is strategizing merely "economizing under interdependence" (Ghemawat 1991)?</li>
+<li>Can the remediableness criterion survive innovation races, where no equilibrium yet exists? How do TCE's equilibrium logic and strategy's disequilibrium logic connect?</li>
+<li>Where does measurement stop? If transaction costs are never directly measured, is the theory only as good as its proxies?</li>
+</ol>
+
+<div class="golden">Coase asked why firms exist.<br>Williamson turned it into "which transaction should use which governance."<br>Then he said: doing that well is one of the economic foundations of strategy.</div>
+
+<div class="note">
+<strong>AI assistance disclosure</strong>: this page was AI-generated from the four readings and the Week 2 integrator research dossier, as a horizontal integration rather than a per-paper deep dive. Quotations are verbatim with page numbers (from the dossier's verified quote bank). This page is a teaching aid — for specific arguments and citations, consult the four originals; for class presentations and discussion, follow the instructor's syllabus.
+</div>
+
+<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
+
+</body>
+</html>

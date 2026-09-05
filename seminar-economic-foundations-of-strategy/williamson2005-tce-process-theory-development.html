@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transaction Cost Economics: The Process of Theory Development — 深度解读</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Transaction Cost Economics: The Process of Theory Development<br><span style="font-size:1.05rem;font-weight:400">Williamson 亲述：这套理论是怎么被造出来的</span></h1>
+<div class="meta">
+Oliver E. Williamson（2005）· 收入 K. G. Smith &amp; M. A. Hitt（编），<em>Great Minds in Management: The Process of Theory Development</em>（Oxford University Press），第 23 章，pp. 485–508<br>
+性质：自传式方法论章（theory development 自述）· 无 DOI · 定位：Week 2 TCE 的「作者亲述版」<br>
+Zotero：<code>zotero://select/library/items/TVPR8SQR</code>（整书；本章为其第 23 章）
+</div>
+
+<div class="summary-box">
+<h3>一句话总结</h3>
+<p>Williamson 用第一人称回顾 TCE 的「制造过程」：1930 年代四个彼此独立的洞见（Commons、Coase、Barnard/Hayek、Llewellyn）先各埋一颗种子，1960 年代的 Carnegie 跨学科与市场失灵文献把它们催熟，再经他自己的训练、教学与反垄断经历，最终在 1971 年的范式论文里凝结成「判别对齐」（discriminating alignment）假说——这是一份「理论如何诞生」的第一手档案。</p>
+</div>
+
+<div class="note">
+<strong>阅读提示</strong>：Week 2 的四篇 assigned reading（Coase 1937、Williamson 1985/1991/1999）是 TCE 的「成品」，本章是它的「制作过程 + 方法论」。它直接回答两个对讨论最有帮助的问题：①TCE 的各个零件（交易单位、有限理性、机会主义、资产专用性、可修复性）分别来自谁、如何被装配；②一个理论要「站起来被检验」，需要怎样的学科纪律。建议与 <a href="mahoney2005-economic-foundations-strategy.html">Mahoney 2005 第二章</a> 对照——Mahoney 是「第三方写的教科书地图」，本章是「作者本人写的诞生记」。
+</div>
+
+<h2>一、这一章是什么：七部分的「理论诞生记」</h2>
+
+<p>这本书的主题是「theory development」（理论发展），邀请一批「Great Minds」各自写自己的理论是怎么发展出来的。Williamson 的这一章因此不是综述、也不是教科书，而是一份<strong>自传式方法论</strong>。他开宗明义：TCE 是一个「把法律、经济学与组织理论接在一起」的跨学科项目；关键思想源自 1930 年代的几个开创性贡献，但当时「这些想法之间有什么关系、更不用说怎么有益地组合起来，都不明显」，需要 1960 年代的两个后续发展来「搭台」。</p>
+
+<p>全章七部分，是一条严格的时间线：<strong>1930 年代的关键贡献（23.1）→ 1960 年代的后续发展（23.2）→ 他自己的 1960 年代经历（23.3）→ 范式问题「纵向一体化」（23.4，即 1971 论文）→ 此后的一些反思（23.5）→ Carnegie 三重训（23.6）→ 结论（23.7）</strong>。</p>
+
+<pre class="mermaid">
+graph LR
+    A["1930s 四颗种子<br/>Commons · Coase · Barnard/Hayek · Llewellyn"] --> B["1960s 催熟<br/>Carnegie 跨学科 + 市场失灵文献"]
+    B --> C["Williamson 的 1960s<br/>训练 · 教学 · 反垄断"]
+    C --> D["1971 范式论文<br/>五个关键概念"]
+    D --> E["判别对齐假说<br/>discriminating alignment"]
+    E --> F["应用扩散<br/>劳动力 / 特许 / 管制 / 公司治理…"]
+    style A fill:#f0f4ff
+    style E fill:#faf5ff
+</pre>
+
+<h2>二、1930 年代的种子：四个彼此独立的洞见</h2>
+
+<p>Williamson 反复强调一个判断：这四个洞见「各自独立地运作，互补性没有被注意到」。它们分别是：</p>
+
+<table>
+<tr><th>来源 / Source</th><th>洞见 / Insight</th><th>TCE 后来取走的那一块 / What TCE took</th></tr>
+<tr><td>Commons（1932）</td><td>交易是分析单位，内含「冲突、互惠、秩序」三原则</td><td>交易单位 + 「治理」概念的雏形（Commons Triple）</td></tr>
+<tr><td>Coase（1937）</td><td>企业／市场是「协调生产的两种备选方法」，交易成本是填缺口的那个概念</td><td>企业边界问题 + 交易成本的中心地位</td></tr>
+<tr><td>Barnard（1938）＋Hayek（1945）</td><td>适应（adaptation）是经济组织的中心问题；Barnard 讲「有意识的、蓄意的」合作适应，Hayek 讲价格引导的自发适应</td><td>两种适应 → 市场与科层各占一席</td></tr>
+<tr><td>Llewellyn（1931）</td><td>「契约作为框架」（contract as framework），反对法律中心主义虚构</td><td>契约法（复数）差异 → 区分治理模式</td></tr>
+</table>
+
+<p>最被点名表扬的是 Commons。他比 Coase 更早、视野更宽，但「因为操作层次太高、信息对同情的读者都晦涩」，影响力反而不如「聚焦于正统理论一处关键逻辑漏洞」的 Coase。Williamson 原样引用了 Commons 那句奠定分析单位的话：</p>
+
+<blockquote>the ultimate unit of activity ... must contain in itself the three principles of conflict, mutuality, and order. This unit is a transaction.（Commons 1932: 4，转引自 Williamson 2005, p. 487）<br><span style="color:var(--muted)）活动的终极单位……必须自身内含冲突、互惠与秩序三原则。这个单位就是交易。</span></blockquote>
+
+<p>Williamson 特别指出：Commons 的「冲突—互惠—秩序」三元组，预演（prefigure）了「治理」这个概念——治理正是「注入秩序、从而缓解冲突、实现互惠」的手段。法学的贡献来自 Llewellyn：法律契约的重要性不在精确刻画真实关系，而在提供一个「粗略指示、存疑时的偶发指引、关系事实上失效时的最终上诉规范」。由此「一种万能的契约法（单数）」让位于「契约法（复数）」，而契约法差异正是区分治理模式的关键（Williamson 1991）。</p>
+
+<h2>三、1960 年代的两次「催熟」：Carnegie 与市场失灵文献</h2>
+
+<p>这四个好想法「在接下来三十五年里大体闲置」——Coase 自己也承认，1937 那篇「引用很多、用得很少」（Coase 1972: 69）。要激活它们，需要两件事。</p>
+
+<p>第一件是 <strong>Carnegie（GSIA）的跨学科社会科学</strong>。Williamson 用 Samuelson 与 Duesenberry 的两句俏皮话勾勒旧格局——经济学管理性、社会学管非理性；经济学关注人如何选择、社会学认为人没有选择可做——然后说「Herbert Simon 另眼相看」。Simon 的贡献清单里有<strong>有限理性（bounded rationality）</strong>，而他给所有社会科学家的那句忠告，Williamson 原样引用并视为行为假设的宣言：</p>
+
+<blockquote>Nothing is more fundamental in setting our research agenda and informing our research methods than our view of the nature of the human beings whose behavior we are studying.（Simon 1985: 303，转引自 Williamson 2005, p. 490）<br><span style="color:var(--muted)）在设定研究议程、指引研究方法上，没有什么比「我们如何看待所研究之人的本性」更根本。</span></blockquote>
+
+<p>第二件是 <strong>市场失灵文献的新进展</strong>，Williamson 点名 Coase (1960) 与 Arrow (1969)。Coase 1960 说明：把零交易成本逻辑推到极致，外部性问题就消失了——因此必须为正交易成本留出位置。Arrow 1969 则把交易成本放到市场／非市场选择的中心：</p>
+
+<blockquote>[T]ransaction costs are the costs of running the economic system.（Arrow 1969: 48，转引自 Williamson 2005, p. 492）<br><span style="color:var(--muted)）交易成本是运转经济系统的成本。</span></blockquote>
+
+<p>到这里，「舞台已经搭好」：1930 年代的好想法 + Carnegie 的跨学科 + Coase/Arrow 对市场失灵的正交易成本重释。</p>
+
+<h2>四、Williamson 的私人轨迹：训练 → 教学 → 反垄断</h2>
+
+<p>23.3 是全书最「传记」的一节，Williamson 说他「严重怀疑，若不是 GSIA 的博士训练（1960–1963），自己根本不会察觉 TCE 的研究机会」。他把 1960 年代的四个关键节点讲成一段「如何攒出一个 prepared mind（有准备的头脑）」的历程：</p>
+
+<ul>
+<li><strong>训练（Carnegie）</strong>：研究方法是「Carnegie 三重训」——be disciplined（纪律）；be interdisciplinary（跨学科）；have an active mind（活跃的心智）。遇到研究机会，不是把它塞进正统框架，而是问「What is going on here?」。</li>
+<li><strong>Berkeley 教学与研究</strong>：早期研究多用新古典工具（反倒「把他认证成一个 journeyman 熟手」，为日后偏离正统铺了路）；读 Chandler (1962) 关于 M 型组织的书，加深了他「组织重要、可被分析」的倾向。</li>
+<li><strong>反垄断经历</strong>：1966–67 任司法部反垄断局 Donald Turner 的特助。这段最关键——他亲历 Schwinn 案等三十多个案件，亲眼看见「新古典生产函数视角下，芝加哥学派（价格歧视）与哈佛学派（进入壁垒）都把偏离简单市场交换的东西归结为垄断」，即「不友好传统（inhospitality tradition）」。他引用 Coase (1972: 67) 那句名言：「如果一个经济学家发现某种他不懂的商业实践，他就去找一个垄断解释」。</li>
+<li><strong>Penn 教学与研究</strong>：1967–70 的过渡期。他组织「纵向企业与市场关系」研讨班，把经济学文献「穷尽」后发现——全部工作都在价格理论框架内，契约/组织的效率收益被忽略或压制。但「当批评者不够，得有理论才能打败理论」，他还没看透。转机是 Margolis 请他去 SPUP 教组织理论，两个学期的激烈讨论里反复出现三个有希望的东西：<strong>人的属性、差异化的交易成本、契约方法</strong>。</li>
+</ul>
+
+<h2>五、范式问题：1971 论文的五个关键概念</h2>
+
+<p>纵向一体化是「把交易成本推理落到实处的显然项目」——因为它是 Coase 1937 的问题、新古典无能为力、Arrow 已点明、公共政策又深陷混乱，而 Williamson 恰好「带来了一个有准备的头脑」。1971 年 AER 的《生产的纵向一体化：市场失灵之考量》就是结果。它「从资源分配传统（选择的科学）移向后来被称作契约的科学（science of contract，Buchanan 2001）」，一举引入五个关键概念：</p>
+
+<table>
+<tr><th>1971 论文的概念 / Concept</th><th>一句话内容 / In one line</th></tr>
+<tr><td>① 人类行动者 Human actors</td><td>有限理性 → 复杂契约不可避免不完备；机会主义 → 道德风险、逆向选择与违约风险</td></tr>
+<tr><td>② 适应与治理 Adaptation/governance</td><td>企业不止是生产函数，更是治理结构，拥有市场没有的「命令（fiat）」来裁决争议</td></tr>
+<tr><td>③ 资产专用性 Asset specificity</td><td>专用设备或先发优势 → 双边依赖 → 根本性转变（大数目变小数）</td></tr>
+<tr><td>④ 离散结构差异 Discrete structural differences</td><td>企业／市场不止程度之别，更有类别之别（激励、控制、结构优势）</td></tr>
+<tr><td>⑤ 可修复性 Remediableness</td><td>不与假设的理想比较，只与「都有瑕疵的可行备选」比较</td></tr>
+</table>
+
+<p>这里有一个对课程讨论极有用、但常被忽略的细节：Williamson 明确说，1971 年论文里「可修复性」只是「预演」（prefigure），正式的可修复性判据要到 1996 年才命名。也就是说，<strong>TCE 的关键概念不是一次到位，而是分步「发芽」</strong>——这也正是本章标题「process」的要义。</p>
+
+<h2>六、还原到底：判别对齐假说</h2>
+
+<p>把 TCE 还原到最简，Williamson 给出三步，并称这是「essence of simplicity」（简到不能再简）：①交易有简单有复杂，要说出负责差异的属性——TCE 命名<strong>资产专用性、不确定性、频率</strong>；②不同组织模式（市场、混合、科层、公共部门）的比较效力不同，要说出它们各自「内部一致的属性症候群（syndromes）」；③于是得到一个预测性理论——</p>
+
+<blockquote>transactions, which differ in their attributes, are aligned with governance structures, which differ in their costs and competencies, so as to effect a (mainly) transaction cost economizing result.（Williamson 2005, p. 500）<br><span style="color:var(--muted)）属性各异的交易，与成本与能力各异的治理结构相匹配，以产生（主要是）交易成本节约的结果。</span></blockquote>
+
+<p>后续发展（23.5.2）他讲得很快但信息量大：这一逻辑可以原样搬到劳动力市场（工会作为双边依赖下的治理装置，既有垄断目的、也有治理目的）、纵向市场限制、寡头、特许经营、管制、公司治理、金融、公共部门；公共政策上「打开黑箱」；经验上「TCE 是经验成功故事」——到 2000 年已发表 600 多项实证研究，1980–2000 年间指数增长（Boerner &amp; Macher 2002）。</p>
+
+<h2>七、误解澄清：NIE 不是「标准理论 + 制度」</h2>
+
+<p>23.5.3 是整章最锋利的一段，Williamson 对 Nee &amp; Ingram (1998) 给新制度经济学（NIE）的定位「部分同意、部分异议」，逐条拆：</p>
+
+<ol>
+<li>同意 Coase 两篇是奠基，但<strong>Commons、Barnard、Llewellyn、Simon、Arrow 都没被提到</strong>——尤其 Commons Triple 预演了治理，是「最基本、最反复出现的主题」。</li>
+<li>「融入微观经济学的行为假设」<strong>不是</strong> NIE/TCE 的要点——恰恰相反，最大化与简单自利是理解不完全契约与策略行为的<strong>障碍</strong>；「但为有限理性与机会主义，治理问题就蒸发了」。</li>
+<li>「用标准经济理论」这一说法他「不能理解」——TCE 大体是从「选择的镜头（资源配置范式）」换到「契约的镜头」，Arrow 说这是「答新问题」而非「给老问题新答案」，是「nanoeconomic（纳米经济）式」的更细推理。</li>
+<li>同意「理解制度及其作用」是 NIE 的核心。</li>
+</ol>
+
+<p>这一段的价值在于：它把「TCE 到底是不是新古典的一支」这个课堂常问的问题，由作者本人给了一个明确、带火气的答案。</p>
+
+<h2>八、Carnegie 三重训：给后来者的方法论遗嘱</h2>
+
+<p>23.6 是 Williamson 给「愿意加入的年轻学者」的邀请函兼方法论遗嘱，三条各有出处：</p>
+
+<ul>
+<li><strong>Be disciplined（要守纪律）</strong>：采纳 Robert Solow 的三训——</li>
+</ul>
+
+<blockquote>keep it simple; get it right; make it plausible.（Solow 2001: 111，转引自 Williamson 2005, p. 503）<br><span style="color:var(--muted)）保持简单；做对；使之可信。</span></blockquote>
+
+<p>并在三条之外加一条他自己的：<strong>要求一切「自称的组织理论」推出可证伪预测、交给数据检验</strong>——引 Georgescu-Roegen 说「科学的目的是知识本身，但预测是科学知识的试金石」，「让所有理论都站起来被点验（stand up and be counted）」。对那些用「相关性」「动态」「Knightian」当挡箭牌的理论，他的态度是：「晚点也行，但早晚得亮牌，否则弃牌」。</p>
+
+<ul>
+<li><strong>Be interdisciplinary（要跨学科）</strong>：问题本身跨学科时，就该跨学科边界；最不能容忍的是「通过压制关键的跨学科特征，把一个本质跨学科的问题阉割掉」。</li>
+<li><strong>Have an active mind（要有活跃的心智）</strong>：引 D'Andrade 的「权威取向 vs 探究取向」——后者更试探、更多元、更探索，问的是「What is going on here?」；再引 John McMillan「你得去看事物实际上怎么运作」。他给的最生动一句是：活跃的心智意味着愿意承认——<strong>「皇帝该时不时去拜访一下他的裁缝」（the emperor should periodically visit his tailor）</strong>，即理论家该偶尔回到现象面前量一量。</li>
+</ul>
+
+<h2>九、文献位置（position in the literature）</h2>
+
+<p>这一章的文献位置很独特：它是<strong>TCE 作者本人对自己学术谱系的「自我定位」</strong>，因此和第三方综述（如 Mahoney 2005）形成互证。它把 TCE 钉在四个源头之间：<strong>Commons 的老制度经济学</strong>（给了交易单位与治理雏形，但「跑进沙子里」）、<strong>Coase 1937/1960</strong>（给了问题与正交易成本重释）、<strong>Barnard/Hayek 的组织理论与市场理论</strong>（给了两种适应）、<strong>Llewellyn 的法律现实主义</strong>（给了「契约作为框架」与契约法复数）。它同时明确 TCE 与两个「近邻」的分界：与 <strong>Grossman–Hart (1986) 产权理论</strong>（「把企业／市场的激励、控制、结构差异全都假设掉了」）、与 <strong>Nee–Ingram 所描述的新制度经济学</strong>（「用标准理论分析制度」的定位被作者本人反驳）。它「填补」的理解缺口是：TCE 常被当成凭空出现的口号，而本章证明它是一套<strong>有明确谱系、有装配顺序、有方法纪律</strong>的装置。</p>
+
+<h2>十、局限：作者自述与独立判断</h2>
+
+<p>这一节按「作者主张／证据／推断／开放问题」四层区分，凡推断处显式标注。</p>
+
+<h3>作者自述的边界</h3>
+<p><strong>作者主张</strong>：TCE 是「一个 demanding 而 rewarding 的研究事业」，是「work-in-progress」，会以「modest, slow, molecular, definitive（谦逊、缓慢、分子式、确定的）」方式继续发展（p. 506）。<strong>证据</strong>：经验上他引 Boerner &amp; Macher (2002) 的 600+ 研究与指数增长，作为「经验成功故事」的依据。<strong>推断</strong>：把「modest, slow, molecular, definitive」作为未来路径，是作者的预期而非已证事实。<strong>开放问题</strong>：他明说 TCE「并不说明一切」，还有很多领域「尚未造访」——这是作者自留的开放地带。</p>
+
+<h3>我的独立判断</h3>
+<p>其一，<strong>自传的「事后重构」风险</strong>：本章是 Kaplan (1964) 意义上的「重构逻辑」（reconstructed logic），未必等于当年真实的「使用中逻辑」（logic-in-use）——Williamson 自己也在这本书的姊妹处用过这个区分，但本章没有对这个风险做声明。其二，<strong>谱系的选择性</strong>：他把 Commons、Barnard、Llewellyn 抬得很高，但对同期的 Knight、Alchian 等人着墨较少，谱系「谁被点名、谁被略过」本身就是一种叙事立场。其三，<strong>「让理论站起来被点验」的判据</strong>，落到 TCE 自己头上恰恰是它的软肋——交易成本从不被直接度量，只能靠代理变量，因此「交给数据检验」的纪律在 TCE 内部执行得并不彻底。其四，<strong>「process」视角的贡献与代价并存</strong>：它极好地解释了「概念从哪来」，但几乎不解释「为什么这个理论赢了、别的输了」——竞争性解释（如产权理论、能力理论）为何落败，本章只一笔带过。</p>
+
+<p>这些局限不削弱本章的价值——作为「作者亲述的诞生记」，它本来就该读作一份立场鲜明的档案，而不是中立的教科书。</p>
+
+<h2>十一、结论</h2>
+
+<p>这一章把 TCE 的「过程」讲成了四个动作：<strong>四个 1930 年代的独立洞见各自埋种 → 1960 年代的 Carnegie 与市场失灵文献催熟 → Williamson 用训练、教学、反垄断经历攒出「有准备的头脑」→ 1971 论文把种子装配成五个可操作的概念，最终凝结为判别对齐假说</strong>。它给 Week 2 的讨论补上了一个四篇 reading 都给不了的东西：一套理论<strong>不是从天上掉下来的，而是有谱系、有顺序、有纪律地「造」出来的</strong>。而它留给后来者最重的一句话，是把「纪律」与「跨学科」和「活跃心智」绑在一起——做一个能「站起来被点验」的理论。</p>
+
+<div class="golden">1930 年代埋下四颗种子，<br>1960 年代把它们催熟，<br>1971 年装成一部机器，<br>而纪律、跨学科与活跃的心智，是这部机器继续转动的润滑剂。</div>
+
+<div class="note">
+<strong>AI 辅助说明</strong>：本页由 AI 依据 Williamson (2005)「Transaction Cost Economics: The Process of Theory Development」（<em>Great Minds in Management</em>, pp. 485–508）全文生成，学术解读风格；引用为逐字摘录并标注书页（原文在 PDF 中以「W」代替「f」，如「Wrm = firm」「eVect = effect」，本页已还原为规范拼写）。局限一节已区分「作者主张／证据／推断／开放问题」，标注为「推断」与「独立判断」的内容是解读者的延伸，非原文主张。引用以原书为准，课堂讨论请以原文为最终依据。
+</div>
+
+<div class="back"><a href="index.html">← 返回课程索引</a> · <a href="../index.html">全部课程</a></div>
+
+</body>
+</html>

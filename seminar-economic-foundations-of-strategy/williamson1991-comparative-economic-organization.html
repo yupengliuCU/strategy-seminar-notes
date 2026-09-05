@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparative Economic Organization（Williamson, 1991）— 深度解读</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Comparative Economic Organization: The Analysis of Discrete Structural Alternatives</h1>
+<div class="meta">
+<strong>作者</strong>：Oliver E. Williamson（加州大学伯克利分校，Transamerica 商学、经济学与法学讲席教授）<br>
+<strong>出处</strong>：<em>Administrative Science Quarterly</em>, Vol. 36, No. 2（June 1991）, pp. 269–296<br>
+<strong>DOI</strong>：<a href="https://doi.org/10.2307/2393356">10.2307/2393356</a><br>
+<strong>性质</strong>：概念/理论论文；提出框架并给出形式化约化形式与比较静态命题，但以文字论证为主，无计量数据<br>
+<strong>代码状态</strong>：不适用 —— 纯理论文献，无代码实现
+</div>
+
+<div class="summary-box">
+<h3>一句话总结</h3>
+<p>Williamson 把制度分析从"理想型对比"转向<strong>离散结构选择（discrete structural alternatives）</strong>：市场、混合、科层三种通用治理形式各是一组属性（syndrome）——激励强度、行政控制、契约法制度、两类适应性——的集合，效率要求按资产专用性（asset specificity）把这些属性不同的交易"区别性匹配（discriminating alignment）"到成本最低的治理形式，并用"制度环境作为参数位点"的统一框架把此前分立的治理制度与制度环境研究接起来。</p>
+</div>
+
+<div class="note">
+<strong>阅读提示</strong>：这是一篇"把理论推向可检验"的方法论转折论文。它回答的不是"某个企业该不该一体化"的具体问题，而是"交易成本经济学（transaction cost economics, TCE）该用什么方式做比较、比较哪些维度、产出什么命题"。对"Economic Foundations of Strategy"这门课，它的价值在三点：①它把 Coase (1937) 的"企业为何存在"推进为"哪些交易该用哪种治理形式"的可操作判据，是 theories of the firm 作为战略研究经济学基础的核心文本；②它用"属性簇 / syndrome"与"区别性匹配"两个概念，为后来的能力观、联盟、特许经营等战略议题提供了治理侧的语言；③它示范了理论如何通过"维度化 + 约化形式 + 比较静态"生成一串可证伪的命题，是制度经济学从启发式走向科学化的样板。
+</div>
+
+<h3>全文论证结构（概览）</h3>
+<pre class="mermaid">
+flowchart TB
+    A["交易 Transactions<br/>资产专用性 k / 频率 / 不确定性"] --> B{"区别性匹配<br/>Discriminating Alignment<br/>k* 落在哪一区间？"}
+    B -->|k* 小于 k1| C["市场 Market<br/>古典契约法 / 高强度激励 / 适应A"]
+    B -->|k1 小于 k* 小于 k2| D["混合 Hybrid<br/>新古典契约法 / 半强激励 / 适应A+C"]
+    B -->|k* 大于 k2| E["科层 Hierarchy<br/>自制法 / 弱激励+行政控制 / 适应C"]
+    F["制度环境 Institutional Environment<br/>财产权 / 契约法 / 声誉 / 不确定性"] -. "作为参数位点，移动 k1、k2" .-> B
+    C --> G["治理形式 = 属性簇 Syndrome<br/>激励强度 · 行政控制 · 契约法 · 两类适应"]
+    D --> G
+    E --> G
+</pre>
+
+<h2>1. 背景与动机：回应针对 TCE 的四项批评</h2>
+
+<p>Williamson 开篇把自己的位置说得清楚：本文从<strong>比较制度（comparative institutional）</strong>视角研究经济组织，把<strong>交易成本节约（transaction-cost economizing）</strong>放在核心。交易成本，借用 Arrow (1969) 的说法，是"运行经济体系的成本"。比较经济组织（comparative economic organization）从不单独考察某一种组织形式，而总是把它与替代形式相对照来考察。</p>
+
+<p>本文的直接目的，是"扩展并细化交易成本经济学赖以运作的装置（apparatus），从而回应若干主要批评"。他列出四项针对既往 TCE 工作的批评，这四项批评构成全文的议程：</p>
+
+<ol>
+<li><strong>两阶段分立（disjunction）</strong>：新制度经济学（new institutional economics）的两块研究纲领——制度环境（institutional environment，如 North 1986 关注的习俗、法律、政治等"游戏规则"）与治理制度（institutions of governance，关注市场/混合/科层如何节约交易成本）——彼此分立地发展。二者能否统一？</li>
+<li><strong>两极偏向</strong>：TCE 只顾市场与科层这两个极端，忽视了中间或混合形式（hybrid forms）。尽管长期契约研究已开始处理双边依赖下的各类专门治理特征（抵押品 hostages、仲裁 arbitration、照付不议 take-or-pay、互惠销售、规制等），但"界定替代治理形式的抽象属性仍然模糊"。</li>
+<li><strong>交易维度化与治理维度化不对称</strong>：TCE 对"交易"的抽象描述投入过多，对"治理"的抽象描述投入过少，需要把二者都维度化。</li>
+<li><strong>嵌入性（embeddedness）问题</strong>：TCE 号称有普遍适用性，却几乎完全参照西方资本主义经济建立（Hamilton &amp; Biggart 1988）。对西方与非西方、资本主义与非资本主义经济的统一处理是否可行？</li>
+</ol>
+
+<p>四项目标的共同解法，是把组织问题表述为一个<strong>离散结构分析（discrete structural analysis）</strong>问题。</p>
+
+<h2>2. 离散结构分析：为何"离散"而不是"边际"</h2>
+
+<p>"离散结构分析"一词由 Simon (1978) 引入比较经济组织研究。Simon 观察到，当经济学超出价格理论的核心——商品与货币的数量——之后，我们看到从高度量化的分析（以边际均衡为中心）向更定性的制度分析（比较离散结构替代方案）的转变；这类分析常常无需复杂的数学装置或边际计算就能完成。Williamson 接过这个概念，追问：离散结构分析究竟只是因为"目前没有令人满意的方式用连续谱系刻画组织"（Ward 1967 的说法），还是有更深的理由？</p>
+
+<p>他给出三个支撑离散结构分析的理由，这三点也预告了全文的三块核心内容：</p>
+
+<ol>
+<li><strong>企业采用不同的手段（different means）</strong>：企业并非市场的延伸，而是采用不同手段。借克劳塞维茨（von Clausewitz）论战争的说法，Williamson 主张科层不仅是一种契约行动，也是一种契约工具——"以其他手段继续市场关系"。比较契约分析的任务就是识别并阐明这些不同的手段。</li>
+<li><strong>离散的契约法差异</strong>：三种通用治理形式各由一种不同的契约法支撑和界定。</li>
+<li><strong>边际分析只是二阶精化</strong>：边际分析关注的是二阶精化，却忽视了一阶节约（first-order economizing）——有效适应与消除浪费。</li>
+</ol>
+
+<p>关于第一点，全文最凝练的一句表述出现在这里：</p>
+
+<blockquote>As developed below, each viable form of governance—market, hybrid, and hierarchy—is defined by a syndrome of attributes that bear a supporting relation to one another. Many hypothetical forms of organization never arise, or quickly die out, because they combine inconsistent features.
+</blockquote>
+
+<p>（译文：下文将展开：每一种可行的治理形式——市场、混合、科层——都由一组相互支撑的属性（syndrome）界定。许多假想的组织形式从不出现，或迅速消亡，因为它们组合了相互不一致的特征。）（p. 270）</p>
+
+<p>这里的关键词是<strong>属性簇（syndrome）</strong>：治理形式不是单个可调节旋钮，而是一组彼此锁定的属性。这一"互补性"（complementarity）思想——不一致的特征组合无法存活——是本文与后来 Milgrom-Roberts、Holmstrom-Milgrom 互补性理论之间的隐性接口。</p>
+
+<h2>3. 三种契约法制度：古典、新古典与自制法</h2>
+
+<p>Williamson 把契约法映射到经济组织上，提出一个核心假设：每一种通用治理形式都需要由一种不同的契约法支撑；而支撑科层的是<strong>自制法（forbearance）</strong>。三种契约法制度的分界，是全文法律维度上的主轴。</p>
+
+<h3>表 1：三种契约法制度</h3>
+<table>
+<tr><th>契约法制度<br>Contract law regime</th><th>适用交易<br>Governance form</th><th>核心特征<br>Key features</th><th>争议解决<br>Dispute resolution</th></tr>
+<tr><td>古典契约法<br>Classical contract law</td><td>市场<br>Market</td><td>"清楚协议进入、清楚履行退出"（sharp in by clear agreement; sharp out by clear performance），当事人身份无关</td><td>法院，法律主义式（legalistic）严格适用</td></tr>
+<tr><td>新古典契约法<br>Neoclassical contract law</td><td>混合<br>Hybrid</td><td>当事人保持自主但双边依赖，用弹性机制（excuse doctrine、仲裁）维持连续性与适应</td><td>仲裁（arbitration）为主，法院为最后手段</td></tr>
+<tr><td>自制法<br>Forbearance</td><td>科层<br>Hierarchy</td><td>法院拒绝对企业内部技术性争议行使管辖权，企业成为自己的终审法院</td><td>内部层级命令（fiat），法院退出</td></tr>
+</table>
+
+<p><strong>古典契约法（classical contract law）</strong>适用于法与经济学中的理想交易——当事人身份无关的"厚市场"（thick markets）。Williamson 引 Macneil 的经典表述：</p>
+
+<blockquote>Classical contract law applies to the ideal transaction in law and economics—"sharp in by clear agreement; sharp out by clear performance" (Macneil, 1974: 738)—in which the identity of the parties is irrelevant.
+</blockquote>
+
+<p>（译文：古典契约法适用于法与经济学中的理想交易——"清楚协议进入、清楚履行退出"——当事人的身份无关紧要。）（p. 271）</p>
+
+<p><strong>新古典契约法（neoclassical contract law）与免责事由（excuse doctrine）</strong>适用于当事人保持自主、但存在非平凡双边依赖的交易。此时身份开始重要：若提前终止或持续不适应会给一方或双方带来负担，敏锐的当事人会拒绝古典契约法，转入新古典契约制度，因为它更好地促进连续性与有效适应。扰动（disturbances）分三种：无关紧要的（inconsequential，调整净收益为负）、中等/重要的（consequential，新古典契约法适用）、高度重要的（highly consequential，新古典契约开始吃紧）。中段扰动对应 Llewellyn 的"作为框架的契约"（contract as framework）观念。</p>
+
+<p>Williamson 用 Nevada Power 公司与 Northwest Trading 公司的 32 年供煤协议来说明新古典契约的弹性机制。该契约（1）设想需要适应的未预期扰动，（2）设置 ±10% 的容忍区（tolerance zone）以吸收失配，（3）要求提出适应时的信息披露与举证，（4）在自愿协议失败时诉诸仲裁。与古典契约相比，争议的初始论坛是仲裁而非法院。仲裁的适应性优势，Williamson 引 Fuller (1963) 说明：仲裁员可以随时打断证人、要求双方"教育"他，这种非正式教育是法院程序所没有的。</p>
+
+<p>但新古典契约并非无限弹性。当扰动变得高度重要，自主所有权地位持续制造"背叛"激励；当坚持字面执行可得的"合法"收益超过继续交换关系的折现值时，对契约精神的背叛就可以预期。此时仲裁让位于诉讼，契约退回更法律主义的制度。Williamson 引 Macneil (1974: 731) 强调：契约救济是法律体系能提供的最弱的救济之一，一大堆法条（履行不能 impossibility、挫折 frustration、错误 mistake 等）都可能使法律体系对守诺的承诺变得不完整。</p>
+
+<p><strong>自制法（forbearance）</strong>支撑科层。Williamson 正面回应 Alchian 与 Demsetz (1972) 的著名主张——"把企业称为合同联结（nexus of contracts）暗示企业在契约方面与市场无异"，以及"说什么管理、指挥、分派工人是误导性的说法"。他的回应是提出一个独立且互补的解释：内部组织的隐含契约法是自制法。法院会例行受理企业之间关于价格、迟延损害、质量瑕疵的争议，却会拒绝受理企业内部两个部门之间关于同样技术问题的争议。既然法院渠道被切断，当事人必须在内部解决分歧：</p>
+
+<blockquote>Access to the courts being denied, the parties must resolve their differences internally. Accordingly, hierarchy is its own court of ultimate appeal.
+</blockquote>
+
+<p>（译文：既然法院渠道被切断，当事人必须在内部解决分歧。因此，科层是自己的终审法院。）（p. 274）</p>
+
+<p>这一论点的制度支点是<strong>商业判断规则（business judgment rule）</strong>——"除非存在恶意或其他腐败动机，董事通常不因判断错误而对公司负责"（Gilson 1986）。Williamson 把它解释为自制法在股东—董事关系上的一个特殊表现。由此解释了市场为何无法复制企业：市场交易由一种完全不同的契约法界定，古典市场缔约有一套逻辑，自制法另有一套逻辑，选择一种制度就排除了另一种。自制法的双重理由在于：内部争议当事人拥有关于争议情境与替代方案效率属性的深知识，只能以巨大成本传达给法院；而允许内部争议上诉到法院会侵蚀科层的效力与完整性。若命令权只是建议性的，企业就沦为"内部承包（inside contracting）"体系。</p>
+
+<p>这段论证的落脚点是对 Alchian-Demsetz 的直接反驳：他们声称企业"没有任何不同于普通市场缔约的指挥权、权威或纪律行动"——这个说法"正好错了"（exactly wrong）：企业能够也确实行使市场无法行使的命令权（fiat）。忽视契约法差异及其后果，正是那个错误的来源。</p>
+
+<h2>4. 治理的维度化：适应性作为中心经济问题</h2>
+
+<p>识别了契约法这一维度后，Williamson 转入更系统的"治理维度化（dimensionalizing governance）"。他先处理<strong>适应性（adaptation）</strong>这一被他称为"中心经济问题"的概念，再把激励与行政控制两件工具（instruments）补进来。</p>
+
+<p>Hayek (1945) 坚称"经济问题的产生总是且仅仅源于变化"，并把"社会的经济问题主要是在特定时间地点情境下的快速适应问题"。Hayek 看重的是价格体系作为传递信息、诱致变化的超高效机制。有趣的是，Barnard (1938) 也认为组织的主要关切是适应变化的环境，但他关注的是<strong>内部组织</strong>的适应——组织生存依赖"复杂性格的均衡"的维持，需要"组织内部过程的再调整"。两个人都在谈适应，一个把适应能力放在市场，一个放在内部组织。Williamson 的判断是：两人都对，因为他们谈的是两种不同种类的适应，而高性能体系两者都需要：</p>
+
+<blockquote>I submit that adaptability is the central problem of economic organization and that both Hayek and Barnard are correct, because they are referring to adaptations of different kinds, both of which are needed in a high-performance system.
+</blockquote>
+
+<p>（译文：我认为适应性是经济组织的中心问题，Hayek 与 Barnard 都正确，因为他们指的是两种不同种类的适应，而高性能体系两者都需要。）（p. 278）</p>
+
+<p>这两类适应被命名为<strong>适应 A（adaptation A）</strong>与<strong>适应 C（adaptation C）</strong>：A 代表自主（autonomy），即价格充当充分统计量（sufficient statistics）时，消费者与生产者各自独立地对参数化价格变化做出反应；C 代表合作（cooperation），即需要协调反应的扰动，以免各部分各自为政或次优化。当双边依赖加深、协调投资与无争议协调再调整的需求频率与重要性上升时，就需要不同的机制——用科层取代自主，命令权（fiat）对双边依赖型交易具有适应优势。</p>
+
+<p>接着是<strong>工具（instruments）</strong>：市场之所以是适应的"奇迹"，在于各方自主占有净收益流，形成<strong>高强度激励（high-powered incentives）</strong>；一旦双边依赖介入，内部组织虽获得适应 C 的收益，却因转移定价、间接费用分摊、存货惯例等可被总部操纵的会计手段而<strong>降低激励强度（incentive intensity）</strong>并增加官僚成本。此外还有<strong>行政控制（administrative controls）</strong>的差异：企业内部的行政控制比企业之间更有效。Williamson 特别强调，激励强度是工具而非目标——若过高的激励强度妨碍了双边适应性，那么用更弱的激励加上更强行政控制（监控、职业奖惩）可能最优。</p>
+
+<p>把这些维度汇总，混合形式在所有四个特征上都取中间值。Williamson 用 ++（强）、+（半强）、0（弱）三档记号，把市场、混合、科层在五维上的区别整理为 Table 1（原文页码 280）。这是全文最核心的一张表：</p>
+
+<h3>表 2：市场、混合与科层治理的区分属性（对应原文 Table 1）</h3>
+<table>
+<tr><th>属性<br>Attribute</th><th>市场<br>Market</th><th>混合<br>Hybrid</th><th>科层<br>Hierarchy</th></tr>
+<tr><td>激励强度<br>Incentive intensity</td><td>++（强）</td><td>+（半强）</td><td>0（弱）</td></tr>
+<tr><td>行政控制<br>Administrative controls</td><td>0（弱）</td><td>+（半强）</td><td>++（强）</td></tr>
+<tr><td>适应 A（自主）<br>Adaptation (A)</td><td>++（强）</td><td>+（半强）</td><td>0（弱）</td></tr>
+<tr><td>适应 C（协调）<br>Adaptation (C)</td><td>0（弱）</td><td>+（半强）</td><td>++（强）</td></tr>
+<tr><td>契约法<br>Contract law</td><td>++（强，古典）</td><td>+（半强，新古典）</td><td>0（弱，自制法）</td></tr>
+</table>
+
+<p>这张表把前面所有概念收拢成一幅可排序的图景：市场与科层是两极，混合在五个属性维度上都落在中间。至此，治理的"维度化"完成——这正是本文对第三项批评（治理描述不足）的回答。</p>
+
+<h2>5. 区别性匹配：资产专用性与治理成本曲线</h2>
+
+<p>有了治理的维度化，下一步是把交易属性与治理形式对齐。TCE 沿袭 Commons (1924, 1934) 的洞见：<strong>交易（transaction）是基本分析单位</strong>。交易在三个维度上相区别——频率（frequency）、不确定性（uncertainty）、资产专用性（asset specificity）——其中 TCE 赋予资产专用性特殊地位。资产专用性的定义是：</p>
+
+<blockquote>Asset specificity has reference to the degree to which an asset can be redeployed to alternative uses and by alternative users without sacrifice of productive value.
+</blockquote>
+
+<p>（译文：资产专用性指一项资产在不牺牲生产价值的前提下，可被转作他用、转由他人使用的程度。）（p. 281）</p>
+
+<p>资产专用性有六种：地点专用性（site）、实物资产专用性（physical）、人力资产专用性（human）、品牌资本（brand name capital）、专用资产（dedicated assets）、时间专用性（temporal）。资产专用性（尤其前五种）制造<strong>双边依赖（bilateral dependency）</strong>并增加缔约风险。本文的分析只聚焦交易成本——既不纳入收入后果，也不纳入资产专门化带来的生产成本节约；这种"截断分析"使专用性增加所有治理形式的交易成本，而新增专用性只有在治理成本增量被生产成本节约或收入增加超过时才是合理的（Riordan &amp; Williamson 1985 的完整处理）。</p>
+
+<p>Williamson 把治理成本写成资产专用性 k 与一组外生变量 θ 的<strong>约化形式（reduced-form）</strong>：市场 M(k)、科层 H(k)、混合 X(k)。关键的不等式关系是 M(0) &lt; H(0)（科层的官僚成本截距更高）与 M′ &gt; H′ &gt; 0（随专用性加深，市场的边际不适应成本上升更快）。混合落在二者之间，M(0) &lt; X(0) &lt; H(0) 且 M′ &gt; X′ &gt; H′ &gt; 0。由此得到原文 Figure 1 的三条成本曲线，以及效率供给规则：</p>
+
+<blockquote>Efficient supply implies operating on the envelope, whence, if k* is the optimal value of k, the rule for efficient supply is as follows: I, use markets for k* &lt; k1; II, use hybrids for k1 &lt; k* &lt; k2; and III, use hierarchy for k* &gt; k2.
+</blockquote>
+
+<p>（译文：效率供给意味着沿着包络线运行；若 k* 是 k 的最优值，效率供给规则如下：I，k* &lt; k1 时用市场；II，k1 &lt; k* &lt; k2 时用混合；III，k* &gt; k2 时用科层。）（p. 283）</p>
+
+<p>这就是"区别性匹配"的图形化表达：三种治理形式在 k 轴上各占一个最低成本区间。Williamson 还提示，可以沿着某条通用曲线移动视为向更强干预性的控制移动——比如两种控制程度不同的特许经营（X1 少控制、X2 多控制），或 M 型（事业部制）与 U 型（单一职能制）公司，都可在 Figure 2 中定位。</p>
+
+<p>为支撑这套约化形式，Williamson 给出一个<strong>矩阵表示（matrix representation）</strong>：把扰动所需回应分成四类（严格自主 / 主要自主 / 主要协调 / 严格协调），把资产专用性分成三档（k1 通用、k2 半专用、k3 高度专用），用一个概率矩阵 [p<sub>ij</sub>] 刻画"专用性加深如何把所需回应分布推向更大合作性"，再用一个效能矩阵 [e<sub>im</sub>] 刻画每种治理形式实施每类适应的效能（市场在严格自主适应上得 1.0，在严格协调上得负值——"比不适应更糟"；科层背负官僚成本，从不在任何类别得高分）。由 1 − e 计算预期不适应成本 C<sub>jm</sub>，得到矩阵中每一行最低值恰由"市场配 k1、混合配 k2、科层配 k3"实现——与 Figure 1 的约化形式关系一致。</p>
+
+<p>这个矩阵是全文形式化最完整的一段。它的价值在于把"治理形式的效能"从文字断言变成可计算的量，也让"市场在双边依赖下是冲突性的"这类判断有了明确的操作含义。</p>
+
+<h2>6. 比较静态：制度环境作为参数位点</h2>
+
+<p>本文最具整合性的贡献之一，是把新制度经济学两个分立阶段接起来的方法论。Williamson 引 Davis 与 North (1971) 区分<strong>制度环境（institutional environment）</strong>（政治、社会、法律的根本规则，如选举、财产权、契约权规则）与<strong>制度安排（institutional arrangement）</strong>（经济单位之间治理合作/竞争的安排）。他提出的接法是：<strong>把制度环境视为一组参数，参数的变化引发治理比较成本的移动</strong>。</p>
+
+<p>三分框架（市场—混合—科层）相对二分（市场—科层）有一个方法论优势：引发从市场到科层（或反向）的移动所需的参数变化，远大于引发从市场到混合、或混合到科层的移动。因此大部分比较静态动作集中在 k1（市场→混合）与 k2（混合→科层）附近。他逐一考察四类参数变化：</p>
+
+<h3>表 3：四类参数变化对治理边界的影响</h3>
+<table>
+<tr><th>参数变化<br>Parameter shift</th><th>作用机制<br>Mechanism</th><th>对 k1 / k2 的影响<br>Effect on k1 / k2</th></tr>
+<tr><td>财产权弱化 / 泄漏风险<br>Property rights / leakage</td><td>知识被供应商、买方、对手侵占或耗散，混合缔约成本上升</td><td>k2 左移，更依赖科层（垂直/横向一体化）</td></tr>
+<tr><td>契约法改善（免责事由）<br>Contract law improvement</td><td>降低混合缔约成本，尤其高专用性区间</td><td>k2 右移，更依赖混合</td></tr>
+<tr><td>声誉效应改善<br>Reputation effects</td><td>减弱企业间机会主义激励，降低混合缔约成本</td><td>k2 右移，更依赖混合</td></tr>
+<tr><td>不确定性（频率/方差）上升<br>Uncertainty</td><td>混合适应需双方同意、耗时，高频扰动下混合最脆弱</td><td>市场与科层增、混合减（高频时混合可能不可行）</td></tr>
+</table>
+
+<p>财产权一节是全文最长的经验叙事。Williamson 区分政府征用（governmental expropriation）与商业征用（leakage）两类安全风险，并用可信承诺（credible commitments）与安全预期（security of expectations）概念处理前者。他引 Kornai (1986) 关于匈牙利手工业者尽管官方反复声明却仍惧怕征用的观察、波兰企业家"我不要昂贵机器，若形势变了我就被套住了"（Newman 1989）的说法，以及 Gorbachev 劝美国公司"早来早参与"的胡萝卜大棒逻辑，指出其缺失之处：行政裁量权的现成可得正是契约风险的来源——更少的自由度（规则）可以比更多的自由度（裁量）更有优势，因为规则能带来可信承诺。有效经济改革要求关闭违约选项，投资者信心才能实现。</p>
+
+<p>关于泄漏，Williamson 接 Teece (1986) 的"弱可占有性制度"与 Arrow (1962) 的信息财产权讨论：若知识投资无法受法律保护或名义保护（如专利）无效，事前投资激励受损，而把投资嵌入保护性治理结构的事后激励增强——在泄漏风险最大的环节做垂直或横向一体化（如商业秘密保护）正是为此。在成本曲线语言里，泄漏风险增大使市场与混合曲线同时上移，k1 大致不变，主要效应集中在 k2 左移——交易分布更偏向科层。</p>
+
+<h2>7. 讨论与结论：从启发式到可检验的比较</h2>
+
+<p>Williamson 在讨论一节坦承了两点边界。其一，前述分析只处理成熟商品/服务的交易，且一次只引入一个参数变化。创新（innovation）带来两类新增问题：弱财产权（已作为泄漏处理）与时效性（timeliness）。平行研发（parallel R&amp;D, Nelson 1961）与合资（joint ventures）这类非标准形式有时正是为了促成及时进入；但合资若属临时性组织、为快速响应服务，则成功与失败的合资都会在契约到期时终止——它们与本文所分析的"均衡型"混合形式要区别开。其二，当一系列参数同时变化且存在强交互效应时，必须把它们作为"集群（cluster）"处理。他借 Aoki (1988, 1990) 的日本企业研究指出，就业、分包、银行三个关键因素彼此互补，美国企业无法只改其中一项就复制日本企业；中国经济与东欧改革若忽视支撑制度（银行组织方式、财产权安全）而零敲碎打，就充满风险。这也是对嵌入性批评的让步式回应：应用需明确考虑不同资本主义形式之间的情境差异。</p>
+
+<p>结论一段把本文对 TCE 议程的五点推进逐条列出，其中第 3、4 点尤其点题：</p>
+
+<blockquote>(3) the hybrid form of organization is not a loose amalgam of market and hierarchy but possesses its own disciplined rationale; (4) more generally, the logic of each generic form of governance—market, hybrid, and hierarchy—is revealed by the dimensionalization and explication of governance herein developed.
+</blockquote>
+
+<p>（译文：（3）混合组织形式是市场与科层的松散杂糅，而拥有自己纪律化的逻辑；（4）更一般地，每种通用治理形式——市场、混合、科层——的逻辑，都通过本文发展的治理维度化与阐明而显现出来。）（p. 293）</p>
+
+<p>其余三点：社会之经济问题被描述为适应问题（区分自主与协调两类）；每种治理形式各由一种不同的契约法支撑（其中适用于内部组织、支撑命令权的自制法尤其值得注意）；以及制度环境与治理制度这两个分立阶段通过"制度环境作为移动参数位点"被接合起来。Williamson 强调由此导出了大量可证伪的命题，且日益增长的经验文献大体上是佐证的（Williamson 1985 第 5 章；Joskow 1988；Shelanski 1990）。</p>
+
+<h2>文献位置（position in the literature）</h2>
+
+<p>本文属于<strong>交易成本经济学（TCE）</strong>这一研究线，是 Williamson 本人把 TCE 从"启发式框架"推向"可检验的离散结构比较"的关键一步。它的对话对象可以清楚点名：</p>
+
+<ul>
+<li><strong>Coase (1937, 1952)</strong>：TCE 的源头——"企业为何存在"的原问题。本文把它发展为"哪些交易该用哪种治理形式"的比较问题，并把 Coase 的"企业—市场"二分扩成"市场—混合—科层"三分。</li>
+<li><strong>Williamson (1975, 1985)</strong>：本文所直接扩展的母本。《经济制度》里已有资产专用性、契约法映射与市场—科层二分；本文把二分扩为三分、补上"自制法"维度、并把治理形式系统维度化。</li>
+<li><strong>Simon (1947/1951, 1978)</strong>：既提供"离散结构分析"的方法论起点（Simon 1978），又通过就业契约/雇佣关系提供命令权（fiat）的权威来源之一（Simon 1951）。</li>
+<li><strong>Hayek (1945)</strong> 与 <strong>Barnard (1938)</strong>：提供"适应"这一中心概念的两极——价格自主适应 vs 内部组织协调适应。本文把他们统一进"适应 A / 适应 C"的框架。</li>
+<li><strong>Macneil (1974, 1978)</strong>：提供契约法三分（古典 / 新古典 / 关系契约）的法学基础，本文把它映射到三种治理形式并补充"自制法"。</li>
+<li><strong>Alchian &amp; Demsetz (1972)</strong>：本文直接反驳的对象——"企业无非契约联结、无区别于市场的命令权"。本文用自制法论证企业行使市场无法复制的命令权。</li>
+<li><strong>North (1986) / Davis &amp; North (1971)</strong>：制度环境一侧的对话者。本文用"制度环境作为参数位点"把 North 的制度环境研究与 Williamson 的治理制度研究接合。</li>
+<li><strong>Hamilton &amp; Biggart (1988)</strong>：嵌入性批评的代表。本文承认其有效性，并用 Aoki 的日本企业、中日欧改革的"制度集群"讨论做出回应。</li>
+</ul>
+
+<p>它在方法论上的位置，是站在<strong>制度经济学内部从"启发式"向"比较静态科学"的转折点</strong>。它挑战的是两种旧有理解：一是"市场—科层"两极图景（把中间形式当作例外或模糊地带）；二是"企业=合同联结"的财产权观（Alchian-Demsetz）。它填补的是 TCE 长期缺失的一块——治理形式的抽象描述与维度化——从而使"区别性匹配"这一核心假说有了可排序、可做比较静态、可证伪的操作形式。</p>
+
+<h2>8. 局限分析</h2>
+
+<p><strong>作者自述的边界</strong>：Williamson 相当坦诚地划出框架的适用范围。他承认分析是静态与比较的，只处理成熟商品/服务的交易；承认创新、时效性、平行研发、合资等临时性组织被明确排除在"均衡型混合"之外；承认约化形式是"截断分析"（只含交易成本，未纳入生产成本节约与收入效应）；承认参数变化每次只引入一个，且需把参数变化表征为"改善与否"、且集中于某一治理形式；承认嵌入性差异（Hamilton-Biggart）需要更明确的情境处理。</p>
+
+<p><strong>我的独立判断</strong>：</p>
+
+<ul>
+<li><strong>作者主张</strong>：本文的核心主张——三种治理形式各是属性簇、由不同契约法支撑、效率要求区别性匹配——在原文中被明确断言，并有 Table 1、Figure 1 与矩阵表示支撑。</li>
+<li><strong>证据</strong>：支持这些主张的材料分三层：文字论证（契约法、适应性、工具的逐维展开）；形式化（约化形式与矩阵）；经验文献转述（Joskow 1988、Shelanski 1990、Klein-Crawford-Alchian、Monteverde-Teece、Masten 等）与案例（Nevada Power 契约、特许经营、日本企业、东欧财产权）。但这些经验证据在本文中主要是<em>点名与转述</em>，而非独立检验。</li>
+<li><strong>推断</strong>：以下属于我基于原文的延伸，原文未明说——① "syndrome / 属性簇"的互补性机制在本文主要靠文字断言，其严格形式化要等到 Holmstrom-Milgrom (1991) 的多任务模型与 Milgrom-Roberts (1990) 的互补性理论，本文只能算预告；② 本文"属性簇"与后来能力观（capabilities）、动态能力（dynamic capabilities）之间的衔接是隐含的，Williamson 本人要等到 1999 年才显式处理治理与战略的关系。</li>
+<li><strong>开放问题</strong>：① k1、k2 边界如何被经验地识别与度量，本文未给出操作化方案；② 属性之间的互补性强度是否在三种形式之间对称，未讨论；③ 把文化/嵌入性还原为"参数移动"是否足以解释跨资本主义体系的治理差异，本文只做了让步而未解决；④ 治理形式是离散的还是可以沿"干预强度"连续排列，Williamson 明确选择离散，但对"离散的边界到底有多硬"未充分论证。</li>
+</ul>
+
+<h2>9. 结论：对"战略的经济学基础"的含义</h2>
+
+<p>这篇论文的持久价值，是把制度分析的方法论从"理想型对比"推进到"离散结构选择"。它用三个一以贯之的动作——<strong>把治理维度化</strong>（激励强度、行政控制、契约法、两类适应）、<strong>把交易维度化</strong>（以资产专用性为中心）、<strong>把二者区别性匹配</strong>（k 轴上的三个成本区间）——把 Coase 开启的"企业边界"问题变成一个可检验的比较框架。</p>
+
+<p>对这门课，它提供的是 theories of the firm 的经济学核心：战略上的关键组织选择——垂直一体化、横向一体化、联盟、特许经营、长期契约——在本文里都被统一为"资产专用性 + 契约法制度"下的治理成本比较。理解它，就理解了为什么战略研究需要"经济学基础"：因为"企业边界划在哪里"这个问题本身，要求一套能把交易属性、治理属性、契约法制度与制度环境放在同一张成本图上做比较的工具。Williamson 1991 正是把这套工具从《经济制度》的启发式阶段，打磨成可做比较静态、可产出可证伪命题的科学装置的一步。</p>
+
+<div class="golden">
+"The implicit contract law of internal organization is that of forbearance."<br>（内部组织的隐含契约法是自制法。—— 企业由此成为自己的终审法院，行使市场无法复制的命令权。）
+</div>
+
+<div class="note">
+<strong>AI 辅助说明</strong>：本文由 AI 依据 reading-notes 技能的 academic 风格工作流，对 Williamson (1991) 原文（出版社版 PDF 的文本层，干净无 OCR 噪音）生成。解读用于辅助理解；blockquote 为原文直接引用，文本层在换行处存在单词拆分（如 "relationto""supportingrelationto"），引用已按原词拼接还原，个别标点/连字符为排版还原，引用请以原文印刷版为准。局限分析中"我的独立判断"为 AI 视角，未经同行评审；其中"作者主张 / 证据 / 推断 / 开放问题"四个标签用于区分原文断言与解读者的延伸。canonical note 见 Obsidian：<code>KnowledgeBase/03-Courses/seminar-economic-foundations-of-strategy/Papers/williamson1991-comparative-economic-organization.md</code>。
+</div>
+
+<div class="back"><a href="index.html">← 返回课程索引</a> · <a href="../index.html">全部课程</a></div>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allocation of Property Rights and Technological Innovation within Firms — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Allocation of Property Rights and Technological Innovation within Firms</h1>
+
+<div class="meta">
+<strong>Authors:</strong> Catherine Magelssen (London Business School)<br>
+<strong>Journal:</strong> Strategic Management Journal, Vol. 41, No. 4, pp. 758–787<br>
+<strong>Year:</strong> 2020<br>
+<strong>DOI:</strong> <a href="https://doi.org/10.1002/smj.3103">10.1002/smj.3103</a><br>
+<strong>Nature:</strong> empirical study — subsidiary-level econometric analysis (instrumental variables + triple-difference designs) of property-rights allocation within multinational firms<br>
+<strong>Keywords:</strong> property rights, innovation, patents, multinational firms, subsidiaries
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Ownership rights over strategic assets can be credibly allocated inside multinational firms, and subsidiaries that hold them — both control and income rights — produce more and higher-quality innovations and respond more strongly to R&amp;D opportunity than non-owners, at a real cost when rights sit in tax-shielding rather than expertise locations.</p>
+</div>
+
+<div class="note"><strong>Reading note.</strong> This paper is the assigned <em>empirical test</em> in the course arc that runs from the classical property-rights problem (Alchian &amp; Demsetz 1972: metering and team production) through the formal residual-control-rights model (Grossman &amp; Hart 1986; Hart &amp; Moore 1990), its translation into strategy (Kim &amp; Mahoney 2005), and the ownership-competence view (Foss et al. 2021). Magelssen keeps Grossman–Hart's core object — the allocation of residual rights over an asset and its effect on ex-ante incentives — but moves the unit of analysis <em>inside</em> the firm, to legally separate subsidiaries of a multinational. It therefore supplies causal-leaning evidence on whether the internal rights allocation that classical PRT treats as impossible (because intra-firm contracts are unenforceable) actually exists, is credible, and changes innovation outcomes.</div>
+
+<h2>1. Background and motivation</h2>
+
+<p>Strategy theory treats strategic assets — technologies, manufacturing processes, know-how — as the source of competitive advantage (Amit &amp; Schoemaker 1993) and, following Dunning's eclectic framework, as resources that an MNE can <em>leverage freely</em> across its geographically dispersed units. Magelssen attacks the hidden assumption in that "free leveraging" view: in practice, MNEs do allocate ownership rights over strategic assets to particular subsidiaries, and they do it through formal written contracts between legally separate entities, documented each year in transfer-pricing reports required by tax law. The allocation is a genuine strategic choice because the two faces of ownership pull in opposite directions: income rights make a subsidiary in a low-tax "income-shielding" location valuable for appropriation, while control rights make a subsidiary in a region of expertise valuable for creation. Tax-avoidance research had documented the first motive (Griffith, Miller &amp; O'Connell 2014; Karkinsky &amp; Riedel 2012); nobody had measured the innovation consequences of the second motive being sacrificed.</p>
+
+<p>The theoretical obstacle is sharper than a research gap. Property-rights theory, applied between firms, predicts that the owner of an asset — the holder of residual control and residual income rights — has the strongest incentive to invest in the asset's value (Grossman &amp; Hart 1986; Hart &amp; Moore 1990). Yet the same literature, in Williamson's (1991) and Baker, Gibbons &amp; Murphy's (1999) hands, held that ownership rights <em>within</em> a firm cannot be credibly allocated: contracts between divisions or subsidiaries are not enforceable in courts, and the parent can always override unit control and reallocate income, so internal ownership rights "are non-credible and should not exist."</p>
+
+<blockquote>"Because the parent’s incentive to intervene is too great, ownership rights to strategic assets within the firm are non-credible and should not exist (Baker et al., 1999)."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">(Introduction, manuscript version)</span>
+
+<p>The paper's opening move is to notice that MNEs are the one place inside firms where this non-credibility claim can fail: subsidiaries are separate legal persons, and third parties — governments and tax authorities applying the OECD Transfer Pricing Guidelines and IRS Treas. Reg. §1.482 — enforce subsidiary ownership rights and impose significant adjustment costs on any internal transfer of those rights away from the subsidiary. Intra-MNE ownership rights therefore function as <em>credible commitments</em>, and the question becomes empirical: does the allocation of these rights across R&amp;D subsidiaries change how much and how well they innovate?</p>
+
+<h2>2. Core argument / framework</h2>
+
+<h3>2.1 The property-rights vocabulary</h3>
+<p>Magelssen imports the Grossman–Hart–Fama–Jensen distinction between two kinds of rights over an asset. <em>Specific rights</em> entitle a party to perform specified activities for an agreed income — making operational decisions inside the scope of the assigned activity. <em>Ownership rights</em> are everything else: the <em>control rights</em> to make strategic decisions over the use, extension, modification, and termination of the asset, and the <em>income rights</em> to all returns from the asset not promised to others in the exchange. The paper's running example makes the split concrete: an entity with specific rights to develop a cell-phone battery can make operational decisions about the battery, but cannot redirect the technology to electronic tablets without the owner's approval. The income-rights half does the incentive work —</p>
+
+<blockquote>"Whereas non-owners are paid an agreed upon amount for their R&amp;D activities, the owner bears the consequences (responsibility) since it receives the income or loss from any innovations created above the payments promised to the non-owners (Fama and Jensen, 1983)."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">(Theoretical Background — Property rights, manuscript version)</span>
+
+<h3>2.2 Why ownership rights can exist and bind inside the MNE</h3>
+<p>The stylized example is ABC Transmissions: the German subsidiary holds ownership rights to a transmission technology, performs R&amp;D itself, and internally contracts the U.K. subsidiary to do R&amp;D for a 15 percent mark-up on costs. Whatever the U.K. subsidiary invents, the contract assigns title to Germany; if the project fails, the U.K. still collects its mark-up and Germany books the loss; if a blockbuster emerges, Germany keeps the income above the promised payments. The appendix of the paper reproduces clauses from a real internal R&amp;D contract of exactly this kind: subsidiary B "shall promptly undertake each Project…and shall use its best efforts to complete the Project in accordance with the specifications and directions of [Subsidiary A]," reports monthly, and "acknowledges [Subsidiary A]'s exclusive right, title, and interest in and to the Intangible Property." These contracts mirror property-rights concepts because governments require them: transfer-pricing law obliges MNEs to designate, for tax purposes, which entity economically owns each intangible. Ownership thus shifts both strategic control and performance consequences from the subsidiary that merely performs activities to the subsidiary that holds the rights.</p>
+
+<blockquote>"Governments uphold subsidiary ownership rights and impose significant adjustment costs on MNEs to transfer ownership rights away from subsidiaries (e.g. OECD Transfer Pricing Guidelines "OECD TPG"; IRS Treas. Reg. §1.482). Thus, ownership rights may serve as credible commitments to delegating control and income rights to subsidiaries."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">(Introduction, manuscript version)</span>
+
+<h3>2.3 The target: autonomy-and-socialization as the received solution</h3>
+<p>The international-management literature managed subsidiary R&amp;D through two instruments: delegation of <em>decision-making authority</em> (autonomy) and <em>socialization</em>. Magelssen argues both are incomplete relative to ownership rights. Delegation without income rights is silent about who reaps returns and bears costs, so the parent implicitly absorbs the consequences and an agency problem appears: an autonomous subsidiary can pick pet projects with private benefits, choose safe bets because it is more risk-averse than the principal, or hoard ideas because transferring knowledge is costly (Hoenen &amp; Kostova 2015; Fey &amp; Furu 2008). The parent's fallback — threatening to revoke authority — is weak for three reasons the paper gives: anticipated intervention itself suppresses the subsidiary's search for new projects (Aghion &amp; Tirole 1994; Baker et al. 1999); rubber-stamping parents only revoke after severe negative outcomes, which tempts irresponsible bets with large private benefits; and because ideas are unobservable, the parent cannot tell whether the subsidiary is acting on them. Socialization fares no better empirically: studies find MNEs do not actually use socialization to control autonomous R&amp;D subsidiaries (Ambos &amp; Schlegelmilch 2007; Asakawa 1996), and socialization is negatively associated with technological success at centers of excellence (Ambos &amp; Reitsperger 2004) because it breeds a headquarter-centric culture that blocks absorption of local knowledge (Frost 2001).</p>
+
+<h3>2.4 The distinct mechanism: situated responsibility</h3>
+<p>The paper's contribution to the mechanism debate is that ownership rights work through a channel the agency view misses — not just incentive alignment across a parent–subsidiary gap, but the co-location of decision control with income exposure, which produces what Magelssen calls <em>situated responsibility</em> (情境责任). Because the owner subsidiary bears the income or loss of the strategic asset, the firm can track its performance and hold it accountable; because it also controls research direction, it can act on local knowledge without routing every decision through headquarters.</p>
+
+<blockquote>"Co-locating control rights with income rights motivate self-monitoring (Jensen and Meckling, 1992). When decision control and income rights are held by the same entity, the agency problem of goal misalignment goes away."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">(Theoretical Background — Management of international R&amp;D, manuscript version)</span>
+
+<p>The mechanisms have practical teeth. Control rights cut the communication and approval costs that innovation requires when ideas are "sticky" (von Hippel 1994) and hard to explain across distance (Prahalad &amp; Doz 1981); income rights make the owner the residual claimant on successful ideas, so it searches harder, while a non-owner who cannot capture returns has little reason to raise ideas at all and can blame the owner when projects fail. Magelssen illustrates with a Japanese subsidiary that owns product technology generating $80 million of income per year: a ten percent value increase raises the pool it manages to $88 million, which it can reinvest across projects — ownership scales the resources at stake with the subsidiary's own success.</p>
+
+<h3>2.5 The allocation trade-off and the three hypotheses</h3>
+<p>Because ownership rights are costly to relocate once granted (governments demand compensation at net-present value for internal transfers), the <em>ex-ante</em> location choice is strategically decisive. Two location attributes attract rights: <em>innovation potential</em> — regional expertise plus host-country R&amp;D incentives (tax subsidies) — and <em>income-shielding potential</em> — low-tax jurisdictions. Parents trade off control, innovation, and appropriation. This yields three hypotheses: owners patent more than non-owners (H1); owners increase output more than non-owners when R&amp;D opportunity rises (H2), because opportunity is only actionable if the subsidiary both perceives local signals and controls research direction; and the owner–non-owner response gap widens in relatively technologically advantaged (high-RTA) locations (H3), where the flow of external knowledge makes control-by-the-expert especially valuable. The ABB–Westinghouse anecdote carries H3: the acquired Westinghouse relays unit, previously unable to persuade its parent to fund solid-state microprocessor relays, immediately chose that direction once ABB gave it project selection and performance responsibility — in time to fend off a new competitor.</p>
+
+<div class="mermaid">
+flowchart TD
+    A["Strategic choice: which subsidiary holds ownership rights to the MNE's strategic assets?"]
+    A --> B["Owner subsidiary: control rights + income rights"]
+    A --> C["Non-owner subsidiary: performs contracted R&D at cost plus markup"]
+    B --> D["Control: sets research direction without approval; fewer frictions on local ideas"]
+    B --> E["Income: bears gains and losses; situated responsibility and self-monitoring"]
+    C --> F["Needs owner approval; weak incentives to act on local knowledge"]
+    D --> G["H1: owners produce more innovations, of higher (citation-weighted) quality"]
+    E --> G
+    F --> G
+    G --> H["H2: after a shock to R&D opportunity (R&D tax subsidy increase), owners raise innovation output more than non-owners"]
+    H --> I["H3: the owner-non-owner gap is largest in high-RTA, technologically advantaged locations"]
+    A --> J["Countervailing pull: income-shielding (tax haven) locations attract ownership rights"]
+    J --> K["Innovation cost of tax-motivated allocation: fewer, less impactful innovations where expertise resides"]
+    subgraph IDENT["Identification strategy"]
+        L["TSLS with Tax Haven instrument (first-stage Kleibergen-Paap F = 22.52)"]
+        M["DDD on staggered R&D tax subsidy increases; subsidiary, year, and owner-year fixed effects"]
+    end
+    L --> H
+    M --> H
+</div>
+
+<h2>3. Evidence / examples</h2>
+
+<h3>3.1 Setting and data</h3>
+<p>The empirical setting is a new, confidential subsidiary-level dataset. Ownership-rights information comes from the transfer-pricing reports of a consulting firm's MNE clients — documents MNEs must produce each year under OECD Transfer Pricing Guidelines — which explicitly state which entities hold economic ownership of the firm's intangibles. Patent data come from the USPTO (matched to subsidiaries by inventor city/state/country and to years by filing date); RTA and R&amp;D-tax-subsidy data come from the OECD; market-concentration data from Compustat Global Vantage; MNE financials from Orbis. The analysis is at the <em>subsidiary level</em>: a starting sample of 4,686 subsidiary-year observations on 1,134 R&amp;D-performing subsidiaries of 78 MNEs, 1997–2011, reduced to 3,789 observations on 952 subsidiaries after excluding licensed rights and merging controls, and to 3,753 observations on 942 subsidiaries once two-digit industries with zero patenting are dropped. The dataset spans 50,934 granted patents, of which 29,028 have a single inventor, 10,711 have multiple inventors in one subsidiary location, and 11,195 span several locations. The sample resembles Berry's (2014) in the share of foreign subsidiaries doing R&amp;D (16.9 vs. 18.2 percent) and patents per year (16.10 vs. 18.65, p &lt; 0.29). Among R&amp;D subsidiaries, 13.3 percent hold ownership rights and 86.7 percent are non-owners contracted by owners. Table 1 of the manuscript shows owners clustered both in tax havens (Ireland 7.88 percent of owner-observations, Switzerland 8.52, Singapore 2.09) and in high-RTA, high-tax cores (United States 30.87, United Kingdom 13.34, Germany 8.20, France 4.98) — visible evidence of the creation-versus-shielding trade-off in the raw data.</p>
+
+<h3>3.2 Measures and design</h3>
+<table>
+<caption>Table 1. Empirical design at a glance: unit of analysis, constructs, measures, and sources (manuscript version)</caption>
+<tr><th>Element</th><th>Construct</th><th>Operationalization</th><th>Role in design</th></tr>
+<tr><td>Unit of analysis</td><td>R&amp;D-performing subsidiaries of MNEs</td><td>3,753 subsidiary-year obs. on 942 subsidiaries of 78 MNEs, 1997–2011</td><td>Sample</td></tr>
+<tr><td>Dependent variable 1</td><td>Innovation quantity</td><td>Number of successful USPTO patent applications by the subsidiary's inventors in the filing year; ln(x+1)</td><td>Outcome</td></tr>
+<tr><td>Dependent variable 2</td><td>Innovation quality</td><td>Forward citations from other firms (excl. examiner) within five years; ln(x+1); sample ends 2009</td><td>Outcome</td></tr>
+<tr><td>Dependent variables 3–4</td><td>Exploratory innovation (robustness)</td><td>Innovation scope (Katila–Ahuja new-citation ratio); innovation new domains (new three-digit USPTO classes)</td><td>Outcome</td></tr>
+<tr><td>Key independent variable</td><td>Strategic asset ownership</td><td>Binary = 1 if transfer-pricing report designates the subsidiary economic owner of any strategic intangible (OECD 2017 definition)</td><td>Treatment</td></tr>
+<tr><td>Moderator</td><td>Host-country relative technological advantage (RTA)</td><td>OECD revealed technological advantage index minus the average of the MNE's other locations</td><td>Context</td></tr>
+<tr><td>Instrument</td><td>Tax haven</td><td>Binary indicator, Dharmapala &amp; Hines (2009) classification</td><td>TSLS instrument</td></tr>
+<tr><td>Shock</td><td>R&amp;D tax subsidy increase</td><td>Binary post-change indicator for a ≥0.01-point host-country increase (OECD significance threshold); median Δ = 0.01, mean = 0.027</td><td>DDD treatment timing</td></tr>
+<tr><td>Controls</td><td>Market, firm, subsidiary context</td><td>Market concentration (4-firm), MNE size (ln revenue), MNE stock compensation (ln), M&amp;A; two-digit SIC and year fixed effects; all lagged one year; subsidiary R&amp;D and role added in secondary analyses</td><td>Confounders</td></tr>
+</table>
+
+<p>Innovation quantity and quality are the headline outcomes; the manuscript's descriptive tables (Tables 2–3) show the raw gaps. Subsidiaries average 1.20 patents and 5.24 citation-weighted patents per year, but owners file over three times as many patents as non-owners (3.21 vs. 0.98), with quality 13.36 vs. 4.34, and owners also patent more in new technological classes. Strategic asset ownership correlates 0.16–0.25 with the outcome variables; tax haven correlates negatively with outcomes but positively (0.23) with ownership — the raw signature of tax-motivated allocation.</p>
+
+<h3>3.3 Identification strategy</h3>
+<p>Ownership rights are not randomly assigned, and the paper says so plainly: unobservables that raise innovation may also raise the chance a subsidiary gets rights, and the causation could run backward from capability to ownership, biasing OLS upward. Identification therefore rests on two designs. First, a two-stage least squares (TSLS) model instruments strategic asset ownership with <em>Tax Haven</em> — a host-country dummy that should predict ownership (through the income-shielding motive) but not affect innovation directly. The first stage is strong: tax haven raises the probability of holding ownership rights by 29.2 percent (coefficient 0.292, column 2 of Table 4), and R&amp;D tax subsidies are positive and significant, with a Kleibergen-Paap Wald F statistic of 22.52 against weak instruments. Second, a <em>triple-difference (DDD)</em> design exploits staggered, exogenous shocks to R&amp;D opportunity — host countries raised R&amp;D tax subsidies at different times — and asks whether owners' innovation rises relative to non-owners' after their country's subsidy increase, using the owner–non-owner gap in untreated countries as the counterfactual. The DDD controls for the underlying owner–non-owner difference (so assignment of rights to more innovative subsidiaries is differenced out) through subsidiary fixed effects, year fixed effects, and owner-by-year fixed effects, with standard errors clustered at the subsidiary. Pre-trend tests (Figure 2) show owner–non-owner relative trends before the subsidy changes are statistically indistinguishable from zero.</p>
+
+<h3>3.4 Headline results</h3>
+<table>
+<caption>Table 2. Hypotheses, estimators, and headline results (Tables 4–5, manuscript version)</caption>
+<tr><th>Hypothesis</th><th>Estimator</th><th>Headline result</th></tr>
+<tr><td>H1: owners produce greater innovation output than non-owners</td><td>TSLS second stage (Tax Haven instrument)</td><td>Consistent with H1: after controlling for subsidiary R&amp;D and role, owners produce an average of one more patent per year and receive 9.99 more citations per year than non-owners</td></tr>
+<tr><td>H2: owners increase output more than non-owners in response to an R&amp;D-opportunity increase</td><td>DDD on host-country R&amp;D tax subsidy increases</td><td>Owner × post-change positive and significant; non-logged values imply relative increases of 25.5% in patents and 44.3% in forward citations over non-owners</td></tr>
+<tr><td>H3: the owner–non-owner response gap is larger in high-RTA locations</td><td>DDD split at median host-country RTA</td><td>High RTA: owners +34.0% in patent quantity and +64.0% in citation-weighted patents relative to non-owners; low RTA: differences positive but statistically indistinguishable from zero; non-owners show no significant post-change response</td></tr>
+<tr><td>Robustness (Tables 6–8)</td><td>Alternative thresholds; matched sample; R&amp;D-spending DV; exploratory-innovation DVs</td><td>Owner × post-change rises with subsidy size (quantity coefficient 0.157 for 1–3% increases vs. 0.475 for &gt;3%, p &lt; 0.001; negative after subsidy cuts), survives matching on pre-change innovation (Table 7), is absent for R&amp;D expenditures as DV (n.s.), and appears for exploratory innovation (high RTA: +0.275 pp in scope, +32.6% in new domains)</td></tr>
+</table>
+
+<blockquote>"For Hypothesis 2, the coefficients for strategic asset ownership post-change are positive and significant in Columns 2 and 9. Calculating the non-logged values, the results indicate that there are relative increases of 25.5 percent in the number of patents produced and 44.3 percent in the number of forward citations received by owners over non-owners, using the differential performance of owners and non-owners in unaffected locations as a baseline."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">(Results — Double difference-in-differences results, Table 5, manuscript version)</span>
+
+<blockquote>"The non-logged values indicate that owners in high RTA host-countries increased the quantity of patents produced by 34.0 percent more than non-owners post-R&amp;D tax subsidy increase and have a 64.0 percent higher increase in citation-weighted patents than non-owners."</blockquote>
+<span style="display:block;margin-top:.6rem;color:var(--muted)">(Results — Double difference-in-differences results, Table 5, manuscript version)</span>
+
+<p>The pattern across designs is coherent. In the cross section, instrumented ownership predicts roughly one extra patent and ten extra citation-weighted patents per year. In the event-study logic of the DDD, owners — not non-owners — translate an improvement in R&amp;D opportunity into more and better innovations, and the effect concentrates exactly where theory says control-by-the-expert matters most: high-RTA locations. The matched-sample analysis (Table 7) addresses the concern that owners differ in unobserved capability: matching owners to non-owners on country, industry, and pre-change innovation, R&amp;D, role, and MNE characteristics leaves the DDD results intact. A placebo-style test (Table 8) shows owner and non-owner <em>R&amp;D spending</em> did not diverge after the subsidy increases, which the paper reads as evidence that the results reflect innovation <em>project selection and effort</em> rather than differential resource flows. Exploratory-innovation measures (scope, new technological domains) move in the same direction.</p>
+
+<h3>3.5 Commentary on the empirics</h3>
+<p>This is, in one sentence, a subsidiary-year panel in which the treatment is a binary indicator of formal ownership of any strategic intangible (coded from confidential transfer-pricing reports), the outcomes are USPTO patent counts and five-year forward citations, and identification comes from a tax-haven instrument (TSLS) and from staggered host-country R&amp;D-tax-subsidy increases (DDD with subsidiary, year, and owner-year fixed effects). The design is unusually strong for strategy research on rights allocation — it pairs a validated, administratively documented treatment with two distinct identification strategies and an exogenous shock — but four threats deserve scrutiny.</p>
+
+<p><strong>Threat 1 — selection into ownership and the limits of the instrument.</strong> The subsidiary that holds rights is chosen by the parent precisely because of where innovation and taxes point; the author concedes the resulting endogeneity and reverse causality explicitly. The TSLS response rests entirely on the exclusion restriction that tax-haven location affects innovation only through ownership rights. That restriction is plausible but not testable, and it is strained by the fact that haven-located "owners" are often low-activity entities whose main function is booking income — entities that plausibly differ from genuine R&amp;D owners on unobservables beyond the rights dummy. The DDD is the more credible leg because it differences out any permanent owner–non-owner difference. But ownership is nearly time-invariant — the author reports "only a small number of changes in ownership" — so subsidiary fixed effects absorb most of the treatment variation, and the DDD effectively identifies off owner × subsidy-change interactions; an ownership <em>change</em> design (reallocation events) would be the stronger causal test. Relatedly, the DDD is identified on countries that changed subsidy regimes; countries that never changed (including most havens) serve only as counterfactual controls.</p>
+
+<p><strong>Threat 2 — measurement of the treatment.</strong> Ownership is a binary "holds any strategic asset" flag coded from transfer-pricing documents. "Economic ownership" in these reports is a tax-allocation construct: the OECD requires firms to designate the entity that <em>should receive the returns</em> for tax purposes, which need not coincide with de facto control over research decisions. A one-trademark owner and an owner of the firm's core technology score identically; partial, joint, and tiered ownership structures collapse into one category; and a single researcher coding confidential documents is not independently replicable. If the ownership flag is noisy, effects are attenuated; if it systematically tags subsidiaries that also have other governance features (e.g., separate boards, full profit-and-loss mandates), the coefficient may capture a bundle of "standalone status" rather than rights per se.</p>
+
+<p><strong>Threat 3 — measurement of the outcome.</strong> Patents capture codified, patentable invention. Filing rates respond to strategic motives (defensive filing, tax-credit rules that reward patent counts), the inventor-location matching may misattribute inventions when R&amp;D is performed by one subsidiary and rights held by another, and citation-based quality is censored at 2009. Table 8's null result for R&amp;D spending cuts against a pure "owners get more resources" story but is also consistent with owners responding to subsidy changes by <em>re-labeling or filing</em> more rather than inventing more — the paper's interpretation (project selection) is one reading of a result that cannot distinguish real from reported invention.</p>
+
+<p><strong>Threat 4 — external validity.</strong> The sample is the client list of one transfer-pricing consulting firm (102 MNEs with full data; 78 with patenting R&amp;D subsidiaries), weighted toward manufacturing, observed 1997–2011, with patents measured only at the USPTO. Foreign subsidiaries patenting at the USPTO are a selected population, and both the enforcement environment (transfer-pricing scrutiny) and tax regimes have changed since. What would strengthen causal identification: ownership-change events as quasi-experiments (internal restructurings, court rulings, or OECD regulatory shifts such as the base-erosion rules that forced rights repatriation), richer continuous measures of which assets and what share of profits are at stake, direct data on decision rights and R&amp;D project outcomes to separate the control and income channels, and non-patent innovation outcomes.</p>
+
+<h2>4. Position in the literature</h2>
+
+<p>The paper sits at the intersection of three literatures, and its position in the property-rights line is precise. It takes the modern PRT research program — Grossman &amp; Hart (1986) and Hart &amp; Moore (1990), summarized in Hart (1995) — in which allocating residual control rights over an asset to the party whose ex-ante investment matters most raises total value, and asks what that logic implies when the "contracting parties" are subsidiaries of one firm. In so doing it confronts the classical objection, from Williamson (1991) and Baker, Gibbons &amp; Murphy (1999), that intra-firm rights cannot be credible because the hierarchy can always override them; Magelssen's answer is that MNE subsidiaries are exceptional because third parties (governments enforcing transfer-pricing rules) supply the credibility the internal hierarchy lacks. Her emphasis on income rights and residual claims as the responsibility-bearing half of ownership reaches back to the earlier property-rights/monitoring tradition — Demsetz (1967), Alchian &amp; Demsetz (1972), Fama &amp; Jensen (1983) — and to Jensen &amp; Meckling's (1992) proposition that co-locating decision and income rights produces self-monitoring. The paper is therefore not a new formal model but the empirical test of whether the modern PRT mechanism operates <em>inside</em> firm boundaries.</p>
+
+<p>Relative to the strategy applications of PRT, Magelssen extends the inter-firm empirical work of Lerner &amp; Merges (1998), Elfenbein &amp; Lerner (2003), Oxley (1999), and Leiponen (2008) — all of whom study rights allocation across alliance or contract boundaries — inward to intra-MNE contracts. It also operationalizes, at subsidiary level, the logic that Kim &amp; Mahoney (2005) developed conceptually when they connected property-rights economics to the resource-based view, and it speaks to the ownership-competence strand (Foss, Klein and colleagues; cf. Foss et al. 2021) by showing that the <em>location</em> of rights relative to competence — who owns what the innovators need — predicts who innovates. Against the international-business literature, the paper's foil is the delegation-and-socialization canon (Ghoshal &amp; Bartlett 1988; Nobel &amp; Birkinshaw 1998; Mudambi, Mudambi &amp; Navarra 2007): where that literature manages subsidiary initiative with autonomy plus corporate culture, Magelssen argues the income-rights dimension was the missing variable, and she marshals Ambos &amp; Schlegelmilch (2007), Asakawa (1996), and Ambos &amp; Reitsperger (2004) as evidence that socialization alone has not worked. Finally, it converts a tax literature that treated ownership placement purely as profit-shifting (Griffith et al. 2014; Karkinsky &amp; Riedel 2012; Dharmapala &amp; Hines 2009) into a strategic one by pricing the innovation cost of tax-motivated allocation. Within the course's arc, this paper is the empirical capstone: it tests whether the residual-rights logic that Alchian–Demsetz and Grossman–Hart formalized survives contact with actual corporate boundaries.</p>
+
+<h2>5. Limitations</h2>
+
+<h3>(a) The author's own stated limitations</h3>
+<ul>
+<li><strong>Patents as the only innovation measure:</strong> "the analyses rely on patents as a measure of innovation," so extensions to other innovation types (products, processes, services) are left open.</li>
+<li><strong>No welfare accounting of the trade-off:</strong> the relative gains and losses of allocating rights for value creation versus value appropriation versus control are "outside the scope of this study."</li>
+<li><strong>A simple model of rights location:</strong> the first stage treats the choice of where to locate ownership rights parsimoniously; richer models should allow interdependence among the MNE's location choices.</li>
+<li><strong>Few ownership changes:</strong> "the sample has only a small number of changes in ownership," so the consequences of <em>changing</em> rights allocation need larger, change-rich samples to identify.</li>
+</ul>
+
+<h3>(b) Independent judgment</h3>
+<ul>
+<li><strong>[paper claim]</strong> The paper claims that "subsidiary strategic asset ownership rights are a commitment mechanism that, beyond delegating decision making authority, credibly allocates control over the strategic asset and its income." That claim is explicit, and its truth is what makes the whole design interpretable as rights doing causal work.</li>
+<li><strong>[evidence]</strong> The supporting evidence is the institutional record — OECD Transfer Pricing Guidelines and IRS regulations requiring compensation at net present value for internal transfers — plus the appendix's real contract clauses showing rights are written and enforced. This is genuine evidence that intra-MNE rights carry third-party teeth, though it documents the tax-legal construct of ownership more than de facto managerial control.</li>
+<li><strong>[inference]</strong> The binary ownership measure almost certainly understates the economic heterogeneity of rights: a subsidiary owning one minor trademark and one owning the firm's core platform technology both score 1, and graduated ownership, joint ownership, or rights over only part of an asset's life are invisible. If the theory is about the strength of residual claims, the treatment is measured with error that likely attenuates effects.</li>
+<li><strong>[inference]</strong> The channel decomposition is untested: control rights and income rights are bundled in the ownership variable and in the theory, so the DDD cannot say whether the response to R&amp;D-opportunity shocks comes from faster approval, stronger motivation, or both. The paper's own Table 8 (no differential R&amp;D spending) supports a project-selection story, but a design that varied income rights holding control constant (or vice versa) would be needed to isolate situated responsibility as the mechanism.</li>
+<li><strong>[open question]</strong> Whether the effects reflect genuine invention or patent <em>assignment and filing behavior</em> remains unresolved: because rights determine which entity legally owns what inventors create, an ownership change can move patent counts between subsidiaries without moving the underlying inventive activity. Distinguishing real from reallocated invention is the paper's deepest unresolved question, and the author's own "few changes in ownership" limitation means the data cannot yet answer it.</li>
+</ul>
+
+<h2>6. Conclusion</h2>
+
+<p>Magelssen establishes three things. First, the theoretical claim that intra-firm ownership rights are non-credible fails precisely where firms are organized as legally separate subsidiaries: transfer-pricing law makes internal rights allocations enforceable and costly to reverse, so property rights are a real governance instrument inside the MNE. Second, on evidence, the subsidiaries that hold those rights produce more patents, patents with more external citations, and — most tellingly — convert exogenous improvements in R&amp;D opportunity into innovation while non-owners do not, with the gap concentrated in technologically advantaged locations where control-by-the-expert should matter. Third, there is an identifiable strategic cost to the tax-avoidance allocation of rights: when ownership sits in income-shielding locations, the R&amp;D units best placed to innovate produce fewer and less impactful innovations. The one-line takeaway for strategy is that the placement of property rights over intangible assets is not a tax back-office detail but a first-order decision about who inside the firm will bear responsibility for, and therefore shape, its technological trajectory.</p>
+
+<div class="golden">"An insight is that since ownership confers control rights, the subsidiaries that hold ownership rights can shape the technological trajectory of the firm."<br>
+<span style="display:block;margin-top:.6rem;font-size:.85rem;color:var(--muted);font-weight:400">— Magelssen (2020), Discussion (manuscript version)</span></div>
+
+<p style="text-align:center;margin-top:.8rem">Framing: the same logic that makes ownership a solution between firms — residual rights allocate both authority and accountability — turns out to operate inside firms wherever legal separation and third-party enforcement make rights credible.</p>
+
+<div class="note"><strong>AI-assistance disclosure.</strong> This page was written by an AI assistant from the paper's full text, extracted with pdftotext from the author's London Business School preprint of the SMJ article (pagination of the published version, SMJ 41(4): 758–787, may differ; the preprint carries no page numbers, so references cite section, table, and figure locations as they appear in the extracted text, i.e., "manuscript version"). All verbatim blockquotes are quoted exactly from that text and each carries a location reference. Tables and the diagram were AI-organized from the numbers reported in the paper; readers should verify every statistic against the original before citing.</div>
+
+<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
+
+</body>
+</html>

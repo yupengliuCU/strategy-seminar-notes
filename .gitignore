@@ -1,0 +1,5 @@
+# local-only / machine-specific files — keep out of the published site
+.DS_Store
+serve.sh
+serve-local.sh
+*.tmpdir/

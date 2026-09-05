@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy as Practice — 深度解读</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Strategy as Practice</h1>
+<div class="meta">
+<strong>作者</strong>：Richard Whittington（牛津大学 New College 战略管理研究员与大学讲师）<br>
+<strong>期刊</strong>：<em>Long Range Planning</em>（长期规划），Vol. 29, No. 5, pp. 731–735, 1996<br>
+<strong>栏目</strong>：<em>Strategy at the Leading Edge — New Research &amp; Conference Reports</em>（前沿战略：新研究与会议报告）<br>
+<strong>PII / DOI</strong>：S0024-6301(96)00068-4 · 10.1016/S0024-6301(96)00068-4<br>
+<strong>文献性质</strong>：研究议程宣言（agenda-setting manifesto），非实证论文；提出"战略实践"（strategy as practice）视角的纲领性短文。
+</div>
+
+<div class="summary-box">
+<h3>一句话总结</h3>
+<p>Whittington 以一张"目标层次 × 分析单位"的二维图，把既有战略研究划分为规划（planning）、政策（policy）、过程（process）三个象限，并为一个新视角——<strong>战略实践（strategy as practice）</strong>——划出第四象限：它把研究焦点从"公司该往哪里走"和"组织如何变革"转向"<strong>战略实践者（practitioners）实际上如何做事</strong>"，并据此重新定义了战略研究的对象、教学方式与从业者的能力观。</p>
+</div>
+
+<div class="note">
+<strong>阅读提示（本课程定位）</strong>：本课程主题是"战略的经济学基础"（theories of the firm）。Whittington 这篇短文从相反的一端切入：它不回答"企业为何存在""企业为何有差异"这类 Coase / Williamson / Penrose 式的问题，而是把分析单位从<strong>企业（firm）</strong>下移到<strong>个体战略实践者（individual strategist）</strong>，把研究问题从<strong>方向（direction）</strong>转到<strong>做事过程（doing）</strong>。读它的价值在于：看清经济学基础之外，战略研究还有一条社会学"实践转向"（practice turn）的路线，它把经济学范式视为"黑箱"的那部分——经理人日常的、默会的、地方性的行动——正面提上研究议程。两者构成"组织层面因果解释"与"个体层面过程描述"的互补，理解这一张力是把握本课程脉络的关键。
+</div>
+
+<h2>一、背景与动机：在一个拥挤的领域里"划地"</h2>
+
+<p>文章开篇直接交代处境：战略研究领域从未如此"丰富多样"，也从未如此"理论拥挤"。Whittington 给自己设定的任务是一个明确的领域主张——为一种"正在兴起的进路"（an emerging approach）<strong>划出空间（claim some space）</strong>。这个动作本身就说明本文的性质：它不是对一个成熟理论的检验，而是一次学术"圈地"，目的是把散落在多个传统里的关切整合成一个可命名、可引用的标签。</p>
+
+<p>这篇短文写于 1996 年，其时战略管理正处于两个趋势的交汇点。其一，经济学范式（交易成本经济学、资源基础观、产业组织分析）主导了战略"内容"研究，它们的共同默认是把<strong>企业</strong>当作分析单位、把<strong>绩效差异</strong>当作被解释变量。其二，社会科学内部正在发生一场"实践转向"：科学社会学家开始研究科学家如何<em>做事</em>而非科学"知识"本身（Pickering 编的 <em>From Science as Knowledge to Science as Practice</em>），会计研究把会计当作"社会与制度实践"（Hopwood &amp; Miller），Schön 提出"反思性实践者"。Whittington 的命题是：轮到战略家了——"现在是轮到战略家的时候了"（now it is the turn of strategists）。他把战略研究纳入这场更广泛的社会学运动，为本文奠定了学科合法性。</p>
+
+<p>从思想谱系看，本文是 Whittington 1993 年著作 <em>What is Strategy — and Does it Matter?</em> 的延伸（该书以"结果—过程"两个维度切出古典、演化、过程、系统四种战略观）。1996 年这篇文章换了一组坐标，用"方向—过程 × 组织—个体"重新切分领域，最终落点是把"实践"从"过程"传统中独立出来，赋予它一个属于自己的象限。理解这层承接关系，才能明白为什么 Whittington 反复强调实践视角"借鉴过程学派洞见，但回到经理人层面"。</p>
+
+<h2>二、核心框架：Figure 1 的四象限</h2>
+
+<p>全文的理论骨架是 Figure 1 的二维坐标图。Whittington 用两条轴把既有战略研究分成四个视角，并把"实践"安放在右下象限。两条轴的命名直接决定整个框架的认知负荷，必须逐字厘清。</p>
+
+<ul>
+<li><strong>纵轴 = 目标层次 / 主导关切（target level / dominant concern）</strong>：上端是<strong>方向性（directional）</strong>思想，关心"战略该往哪里去"（where strategies should go）；下端是<strong>过程（process）</strong>关切，关心"如何真正到达那里"（the how issues of actually getting there）。</li>
+<li><strong>横轴 = 分析单位（unit of analysis）</strong>：左端把<strong>组织单元（organizational units）</strong>当作整体对待；右端关心<strong>个体行动者（individual actors）</strong>——参与战略制定的真实经理人与顾问。</li>
+</ul>
+
+<p>两条轴正交出四个象限，分别对应四个有明确年代标记与文献标记的研究传统。</p>
+
+<table>
+<thead>
+<tr><th>视角<br>Perspective</th><th>兴起年代<br>Era</th><th>坐标位置<br>Quadrant</th><th>分析单位<br>Unit of analysis</th><th>核心问题<br>Core question</th><th>代表工具 / 研究<br>Representative tools &amp; studies</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>规划<br>Planning</strong></td><td>1960s</td><td>方向 × 个体<br>(directional × individual)</td><td>经理人的决策工具</td><td>经理人如何判断业务方向</td><td>组合矩阵（portfolio matrices）、产业结构分析（industry structure analysis）、核心能力（core competence）——Hedley、Porter、Hamel &amp; Prahalad</td></tr>
+<tr><td><strong>政策<br>Policy</strong></td><td>1970s</td><td>方向 × 组织<br>(directional × organization)</td><td>组织整体</td><td>不同战略方向给组织带来何种回报</td><td>多元化（diversification）、创新、并购、合资、国际化——Rumelt、Markides</td></tr>
+<tr><td><strong>过程<br>Process</strong></td><td>1980s</td><td>过程 × 组织<br>(process × organization)</td><td>组织整体</td><td>组织如何识别变革需求并实现变革</td><td>ICI（Pettigrew）、Fosters（Johnson）的变革过程研究</td></tr>
+<tr><td><strong>实践<br>Practice</strong></td><td>1990s</td><td>过程 × 个体<br>(process × individual)</td><td>个体战略实践者</td><td>战略家如何"做战略"（strategize）</td><td>Bourdieu 实践逻辑、Schön 反思性实践、对战略家工作的近距离观察</td></tr>
+</tbody>
+</table>
+
+<p>这张表的两个关键判断值得单独强调。第一，<strong>规划</strong>被放在"方向 × 个体"象限——它虽然服务于公司方向决策，但其载体是一套供<strong>经理人</strong>使用的分析工具，因此分析单位落在个体一端。第二，<strong>实践</strong>与<strong>过程</strong>共享纵轴的"过程"关切，区别只在横轴：过程学派盯着"整个组织的命运"（the fate of the whole organization），实践视角盯着"单个实践者的表现"（the performance of the individual practitioner）。Whittington 用一句话把这个位移说透：实践视角把关注点"从公司的核心能力转向经理人作为战略家的实践能力"。</p>
+
+<blockquote>
+The practice perspective on strategy shifts concern from the core competence of the corporation to the practical competence of the manager as strategist.
+<p style="color:var(--muted)">中文复述：战略的实践视角，把关注点从公司的核心能力（core competence）转移到经理人作为战略家的实践能力（practical competence）。（p. 732）</p>
+</blockquote>
+
+<pre class="mermaid">
+quadrantChart
+    title 战略研究的四种视角（Whittington, Figure 1）
+    x-axis "组织整体 Organization" --> "个体行动者 Individual actors"
+    y-axis "方向 Directional" --> "过程 Process"
+    quadrant-1 "规划 Planning (1960s)"
+    quadrant-2 "政策 Policy (1970s)"
+    quadrant-3 "过程 Process (1980s)"
+    quadrant-4 "实践 Practice (1990s)"
+</pre>
+
+<h2>三、practice 视角的主张：把"做事"本身当作研究对象</h2>
+
+<p>划出象限之后，Whittington 正面展开"实践"视角的内涵。它的第一性主张是<strong>认真对待实践者自己的工作与言说</strong>（take seriously the work and talk of practitioners themselves）。这承接 Bourdieu 的"实践逻辑"：实践不是对规则或模型的执行，而是在具体情境中被行动者<em>做出</em>的东西，值得作为独立的研究对象，而非理论演绎的注脚。落到战略领域，研究对象就是"strategizing"——战略家们日复一日实际完成的那些动作。</p>
+
+<p>Whittington 用一对概念把"做战略"拆成两面。一面是<strong>灵感（inspiration）</strong>：获取想法、捕捉机会、把握情境；另一面是<strong>汗水（perspiration）</strong>：全年展开的预算与规划例程、坐在开支与战略委员会里、撰写正式文件、做汇报陈述。他坚持，实践视角要处理的是后一类——"战略由此真正被制定并实施的"那些会议、谈话、填表与数字运算。</p>
+
+<blockquote>
+Practice is concerned with the work of strategizing — all the meeting, the talking, the form-filling and the number-crunching by which strategy actually gets formulated and implemented.
+<p style="color:var(--muted)">中文复述：实践视角处理的是"做战略"（strategizing）的工作本身——正是通过这些会议、谈话、填表和数字运算，战略才真正被制定并实施。（p. 732）</p>
+</blockquote>
+
+<p>这段引文是全文的方法论宣言：它把战略从"天才洞见"的神坛上拉下来，放回办公室日常。由此引出一组贯穿全文的对比，构成实践能力观的核心命题——在战略执行中，<strong>技艺（craft skill）与技术能力（technical facility）同样重要；默会知识（tacit knowledge）与正式知识（formal knowledge）同样重要；地方性知识（local knowledge）与通用知识（general knowledge）同样重要；坚持与细节，可能胜过才华与灵感</strong>。</p>
+
+<blockquote>
+Here craft skill is as important as technical facility; essential knowledge is as much tacit as formal, local as general; and persistence and detail may win over brilliance and inspiration.
+<p style="color:var(--muted)">中文复述：在这里，技艺与技术能力同等重要；关键知识既默会又正式、既地方又通用；坚持与细节，可能胜过才华与灵感。（p. 732）</p>
+</blockquote>
+
+<p>这组命题是对经济学范式的一个正面修正。古典战略观（以及主流 MBA 训练）默认存在一套可编码、可迁移、普适的分析技术；Whittington 的回答是：真实世界的战略能力嵌入在<strong>本地惯例（local routines）</strong>与<strong>默会知识</strong>之中，无法被教材完整编码。他的第二性主张随之而来——战略实践<strong>因人、因角色而异</strong>。每个公司"做战略的方式"都会固化成独特而稳定的模式，因此了解本地的"惯例做法"（the 'done thing'）是成事的前提。</p>
+
+<blockquote>
+The ways of doing strategy in each firm harden into distinct and regular patterns, so that knowing the 'done thing' locally is essential to being able to get things done.
+<p style="color:var(--muted)">中文复述：每个公司做战略的方式都会固化为独特而稳定的模式，因此了解本地的"惯例做法"是能够成事的必要条件。（p. 733）</p>
+</blockquote>
+
+<p>第三性主张涉及<strong>角色分化</strong>。战略制定不是一个人完成的，而是多种实践者各司其职：公司高管（corporate executives）、子公司总经理（subsidiary general managers）、规划人员（planning staff）、战略顾问（strategy consultants）。Whittington 给每个角色配了一个典型活动动词，形成一张清晰的能力分工表——战略技艺（craft skills）<strong>不具有通用性</strong>，在一个角色上的成功不能保证在另一个角色上成功。</p>
+
+<table>
+<thead>
+<tr><th>实践者角色<br>Practitioner role</th><th>典型活动<br>Typical activity</th><th>所需实践能力<br>Required practical competence</th></tr>
+</thead>
+<tbody>
+<tr><td>公司高管<br>Corporate executives</td><td>仲裁<br>arbitrating</td><td>在相互冲突的事业单元主张间做出裁决、平衡整体方向</td></tr>
+<tr><td>子公司总经理<br>Subsidiary general managers</td><td>倡导<br>advocating</td><td>在总部政治中为本单元争取资源与战略空间</td></tr>
+<tr><td>规划人员<br>Planning staff</td><td>分析<br>analysing</td><td>把分析工具转化为可操作的计划输入</td></tr>
+<tr><td>战略顾问<br>Strategy consultants</td><td>建议<br>advising</td><td>以外部分析与经验向决策者提供独立判断</td></tr>
+</tbody>
+</table>
+
+<h2>四、三重推论：从业者、教学与研究</h2>
+
+<p>实践视角一旦成立，Whittington 顺着三条线推出后果，分别指向<strong>从业者（practitioners）</strong>、<strong>教师（teachers）</strong>与<strong>研究者（researchers）</strong>，并汇成 Figure 2 的"新方向"总表。他把最激进的挑战留给了学术共同体——"实践的琐碎本地惯例，难以从远处被理解或影响"。</p>
+
+<p><strong>从业者层面</strong>的核心是重估<strong>学徒制（apprenticeship）</strong>的价值。公司通常从内部提拔高管，部分原因就在于内部人"知道事情如何运转"；因此在一家公司内部长期的"战略学徒经历"（a long 'strategy apprenticeship'），其价值不应被低估——尤其与 MBA 所代表的正式知识相比。但 Whittington 同时提醒：学徒式学习必须匹配不同角色所需的不同技艺，战略顾问与高管的职业轨道至今仍是分离的，从一个角色跨到另一个角色很少是直接而轻松的；高层管理的任务就是确保自己的"战略学徒"获得与角色发展相称的经验。</p>
+
+<p><strong>教学层面</strong>是"变化最大"的一块。规划的技术、政策的战略—绩效关系、过程的敏感性，这些都可以作为正式的、可推广的知识在课堂讲授；但"把战略做有效"还依赖大量默会而地方性的技艺。因此高管教育者必须从"战略的抽象理解"扩展到"具体实践场域中的个体实践者"，教师角色要从<strong>讲授者（lecturer）</strong>延伸到<strong>咨询者与教练（counsellor and coach）</strong>。</p>
+
+<blockquote>
+The role of executive teacher must extend beyond simple lecturer to counsellor and coach. Practical teaching requires the mutual exploration of difficulties, rather than the unidirectional imparting of knowledge.
+<p style="color:var(--muted)">中文复述：高管教师的角色必须超越单纯的讲授者，延伸为咨询者与教练。实践性教学要求双方共同探索难题，而非单向地传授知识。（p. 734）</p>
+</blockquote>
+
+<p>Whittington 用了一个日后广被引用的比喻收束教学推论：好的高管教育者应当像经理人周末的<strong>高尔夫教练（golf-coach）</strong>一样，成为工作日里同样自然、可信赖的实践建议来源。这个比喻的锋芒在于它的"去崇高化"——战略顾问式的宏大处方被降格为一种贴身、持续、情境化的陪练关系。</p>
+
+<blockquote>
+The educator should become as natural a source of trusted practical advice during the week as the manager's own golf-coach during the weekend.
+<p style="color:var(--muted)">中文复述：教育者应当像经理人周末的高尔夫教练一样，成为工作日里同样自然的、可信赖的实践建议来源。（p. 734）</p>
+</blockquote>
+
+<p><strong>研究层面</strong>，Whittington 给出了一份清晰的研究议程。自 1960 年代以来，学界已了解"不同种类的战略"，现在缺的是对<strong>strategizing</strong>本身的知识。他盘点既有的三股可用文献并逐一指出其不足：过程学派的案例研究洞察了经理人如何互动，但最终仍只关心组织命运；领导力研究建立了变革型领导者的特征清单，却几乎不谈"非英雄式"普通实践者的日常例程；Mintzberg 式的"管理工作"研究虽聚焦真实活动，其"祛魅"倾向有时反而把战略活动边缘化。结论是一句纲领：战略研究的焦点应"较少地独占性地关心公司绩效，更多地关心战略家自身的表现"。</p>
+
+<blockquote>
+The focus of strategy research needs to become less exclusively concerned with company performance, more with the performance of the strategists themselves.
+<p style="color:var(--muted)">中文复述：战略研究的焦点，需要较少地独占性地关心公司绩效，更多地关心战略家自身的表现。（p. 735）</p>
+</blockquote>
+
+<p>为此，Whittington 点名两类方法：对战略家在其例程中工作方式的<strong>近距离观察（close observation）</strong>，以及对实践者学习轨迹的<strong>全面传记（comprehensive biographies）</strong>——后者要能捕捉对战略实践的一切影响，无论正式商学教育、朴素经验，还是家族或英雄的榜样。这两条路径日后正是 SAP 学派民族志与传记研究的直接源头。</p>
+
+<pre class="mermaid">
+flowchart TD
+    A["战略实践视角<br>Strategy as Practice"] --> B["从业者 Implications for practitioners"]
+    A --> C["教学 Implications for teaching"]
+    A --> D["研究 Implications for research"]
+    B --> B1["重估学徒制<br>apprenticeship vs MBA"]
+    B --> B2["角色分工的技艺差异<br>role-specific craft skills"]
+    C --> C1["讲授者→咨询者与教练<br>lecturer → counsellor & coach"]
+    C --> C2["高尔夫教练比喻<br>golf-coach analogy"]
+    D --> D1["近距离观察 strategizing<br>close observation"]
+    D --> D2["实践者传记<br>comprehensive biographies"]
+    D1 --> E["研究对象位移：<br>公司绩效 → 战略家表现"]
+    D2 --> E
+    B --> E
+    C --> E
+</pre>
+
+<h2>五、对战略研究的意义：一条平行于经济学的路线</h2>
+
+<p>把本文放回"战略的经济学基础"课程语境，它的意义在于提供了一个<strong>对照坐标系</strong>。主流经济学范式——交易成本经济学（Coase 1937; Williamson）解释企业边界，资源基础观（Penrose; Wernerfelt; Barney）解释企业异质性，产业组织分析解释行业结构下的定位——共同默认两件事：分析单位是<strong>企业</strong>，研究目标是解释<strong>绩效或方向</strong>的因果。Whittington 的 Figure 1 恰好把这两项默认显性化为两条轴，然后指出：左上（政策）与右上（规划）是经济学的传统领地，左下（过程）已开始松动"方向"假设，右下（实践）则连"企业"这个分析单位也一并放弃。</p>
+
+<p>这一放弃的直接后果，是把一个被经济学范式长期悬置的问题正面提出：<strong>企业内的战略是如何被个体行动者"做出来"的？</strong>交易成本理论从合约与资产专用性推演出治理结构，资源基础观从不可模仿的资源推演出持续优势，二者都不需要观察经理人坐在会议桌前的实际行为。SAP 的贡献是把这层"黑箱"当作研究对象本身，其代价则是与经济学范式的核心关切——效率、激励、边界、可测的绩效差异——拉开距离。</p>
+
+<p>从理论谱系看，Whittington 借用的合法性资源来自社会学而非经济学：Bourdieu 的<strong>实践逻辑（logic of practice）</strong>、Schön 的<strong>反思性实践（reflective practitioner）</strong>、以及科学/会计研究的"实践转向"。这使得 SAP 从一开始就站在与经济学"方法论个体主义 + 均衡分析"不同的认识论基础上——它拥抱情境性、默会性、过程性与非均衡的日常流变。对一门以"经济学基础"为主线的课程而言，这篇短文的价值正在于把一个被默认排除的视角带进对话：战略研究并不只有"企业—市场—绩效"这一个问题空间。</p>
+
+<h2>文献位置（position in the literature）</h2>
+<p>本文是 <strong>strategy-as-practice（SAP）</strong> 学派的奠基宣言。它把战略研究按两条轴——<strong>分析单位（组织 vs 个体行动者）</strong>与<strong>关注点（方向 vs 过程）</strong>——切成四象限，从而显性化了经济学范式的两项默认假设。它对话的对象是此前的三个流派：<strong>planning</strong>（1960s 规划学派）、<strong>policy</strong>（1970s 多元化研究）、<strong>process</strong>（1980s 过程学派），并把社会学 <strong>practice turn</strong>（Bourdieu、Schön）引入战略，构成一条与"方法论个体主义 + 均衡分析"并列的认识论路线。</p>
+
+<h2>六、局限：作者自述与独立判断</h2>
+
+<h3>作者自己的限定</h3>
+
+<p>Whittington 没有声称自己证明了什么。他明确把本文定位为"划出空间"的纲领性短文，反复使用"暗示着新方向""研究议程很大""我们还缺乏系统知识"这类表述。三处自我限定值得记下：其一，他承认既有相关文献"尚不连贯"，实践标签的作用是"赋予其连贯性"，即整合而非原创；其二，他坦承对各类实践者"实际做什么"仍"几乎没有系统知识"，技能习得机制也未知；其三，他点名的方法是观察与传记，两者在 1996 年尚无成熟成果可引——这意味着全文的主张停留在<strong>应然（should）</strong>而非<strong>实然（is）</strong>。</p>
+
+<h3>独立判断</h3>
+
+<ul>
+<li><strong>分析单位下移带来的聚合难题。</strong>SAP 把单位从企业降到个体，却未回答个体实践如何加总回组织绩效。经济学范式之所以坚守企业层面，正是因为"企业为何有差异"需要一个可测的因变量；SAP 若彻底放弃公司绩效，就可能脱离战略管理最核心的解释任务，退化为对实践的描述性民族志。</li>
+<li><strong>描述强于解释的倾向。</strong>主张"认真对待实践者的工作与言说"本身是方法立场而非理论命题。观察能说明战略家<em>如何</em>做事，却不能自动说明<em>为何</em>某种做事方式更有效——后者需要效率、激励或合法性这类因果机制，而 SAP 对这些概念保持沉默。</li>
+<li><strong>默会知识的可迁移性悖论。</strong>Whittington 一面强调知识"默会、地方、不可编码"，一面又主张通过教学与研究把实践能力"系统化"。若实践能力真的无法脱离本地惯例，那么以之为对象建立一门可传授的学问，逻辑上就存在张力。他给出的出路（教练式贴身陪伴）部分缓解了这一张力，但也意味着 SAP 的知识产出难以标准化、难以规模化。</li>
+<li><strong>对经济学的替代而非整合。</strong>全文把经济学范式仅作为"被超越的旧传统"呈现，缺少与其正面对话。后续 SAP 文献（如 Jarzabkowski、Vaara 等人的工作）也长期与交易成本、RBV 并行而少交集。对本文而言，一个更有生产力的读法是把两者视为<strong>不同层级</strong>的分析——经济学回答"企业边界与绩效差异"，SAP 回答"边界与差异背后的微观行动如何发生"——但 Whittington 1996 年并未建立这座桥。</li>
+</ul>
+
+<h2>七、结论</h2>
+
+<p>Whittington 的收束是克制的：实践视角提供的新方向，是关心<strong>战略家（strategists）的有效性</strong>，而不仅仅是<strong>组织（organizations）的有效性</strong>。有效的战略家当然需要规划的分析技术、政策的备选方案、过程的决策与实施认知；但他们还调用另一个领域的技能与知识——Figure 1 右下角的<strong>实践域（the domain of practice）</strong>。这些实践技能在日常的战略制定中被例行使用，学界对它们"是什么、如何习得"却几无正式知识。研究议程是"更多地了解做战略的工作以及战略家如何学会做它"；教学挑战是"找到影响战略实际执行方式的新方法"。</p>
+
+<p>作为 SAP 学派的奠基文本，本文的力量在框架而不在证据：一张二维图完成了对既有领域的干净切分，一句话完成了分析单位的位移，三段推论完成了从学术主张到制度行动（改课程、改研究、改教学）的转化。它对经济学基础课程的真正价值，是迫使读者面对一个被范式默认遮蔽的问题——当我们谈论"战略"时，谈论的究竟是<strong>企业的方向</strong>，还是<strong>具体的人在做的事</strong>。两个答案指向两条不同的研究路线，而 Whittington 把后一条路线正式提上了地图。</p>
+
+<div class="golden">
+"战略研究的焦点，需要较少地独占性地关心公司绩效，更多地关心战略家自身的表现。"<br>
+<span style="font-size:.85rem;font-weight:400;color:var(--muted)">The focus of strategy research needs to become less exclusively concerned with company performance, more with the performance of the strategists themselves. (p. 735)</span>
+</div>
+
+<div class="note">
+<strong>AI 辅助说明</strong>：本页正文由 AI 基于 Whittington (1996) 原文撰写，OCR 文本层有个别字符噪音（如 "today" 被识别为 "t o d a y"），已按语义还原；所有英文引文均逐字对照原文，页码为印刷版页码（731–735）。四象限的坐标归位（规划=方向×个体、政策=方向×组织、过程=过程×组织、实践=过程×个体）依据原文对两条轴与四个方框的描述推断，建议对照 Figure 1 原图复核。
+</div>
+
+<div class="back"><a href="index.html">← 返回课程索引</a> · <a href="../index.html">全部课程</a></div>
+
+</body>
+</html>
