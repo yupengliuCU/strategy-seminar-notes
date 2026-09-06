@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generative AI at Work (Brynjolfsson, Li &amp; Raymond, 2023) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Generative AI at Work</h1>
+<div class="meta">
+<p style="font-size:1.02rem;color:var(--text);font-weight:600;margin:0 0 .6rem">Erik Brynjolfsson, Danielle Li, and Lindsey R. Raymond (2023) &middot; NBER Working Paper No. 31161 &middot; JEL D8, J24, M15, M51, O33</p>
+<strong>Authors</strong>: Erik Brynjolfsson (Stanford Digital Economy Laboratory; NBER), Danielle Li (MIT Sloan School of Management; NBER), Lindsey R. Raymond (MIT Sloan School of Management; NBER)<br>
+<strong>Source</strong>: NBER Working Paper No. 31161, National Bureau of Economic Research, April 2023, revised November 2023. <a href="http://www.nber.org/papers/w31161">nber.org/papers/w31161</a>. NBER working papers are circulated for discussion and comment and have not been peer-reviewed — flag as a working paper.<br>
+<strong>Nature</strong>: Empirical field study of a generative AI conversational assistant deployed at scale for customer support agents at one Fortune 500 firm and its subcontractors. Working-paper version of the study that was subsequently revised over 2023; all results below refer to this NBER text.<br>
+<strong>Data &amp; code status</strong>: All data come from the firms' internal software systems; proprietary, not released. No replication archive or code is mentioned in the text. The analysis combines observational chat-level data with a small initial randomized pilot (50 agents) folded into the main sample.
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Using the staggered rollout of a GPT-based conversational assistant across 5,179 customer support agents, the paper finds that access to the tool raises issues resolved per hour by about 14% on average — with gains of 34% for novices and low-skill workers, minimal effects on veterans — because the model captures and redistributes the tacit best practices of top performers, compressing the experience curve and improving customer treatment, retention, and (suggestively) durable worker learning.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide</strong>: This working paper is the demand-side counterpart to the supply-side and ecosystem studies of the "Hugging Face &amp; the Open-AI Economy" topic. The library's core papers mostly ask who produces and governs AI models — open weights (Azoulay et al. 2024; White et al. 2024), the Hugging Face hub (Laufer et al. 2025; Longpre et al. 2025), platform shocks such as Llama 2 (Wu, Lin &amp; Li 2025) or PyTorch (Yue &amp; Nagle 2024). Brynjolfsson, Li and Raymond supply the missing evidence on what a frontier model actually does at the point of use: inside one workplace, a fine-tuned GPT assistant raised measured output and compressed the productivity gap between novices and experts. Two hooks tie it to this topic. First, the assistant is trained on the collective conversation record of the firm's own workers; the authors argue the model internalizes what top performers do that others do not — a within-firm analogue of the "data commons" that open-model ecosystems aggregate at industry scale, and one that surfaces the same compensation question the private-collective literature poses for unpaid contributions. Second, the paper's own measurement stack uses open models downloaded from Hugging Face (the <code>all-MiniLM-L6-v2</code> embedding model for text similarity; the SiEBERT sentiment model), a concrete instance of the hub-based workflow Dell (2024) codifies in this library. Read it as evidence about the labor-side value that open and closed AI ecosystems are contesting, and keep in mind that it is a working paper, not a peer-reviewed publication.
+</div>
+
+<h2>1. Background and motivation: from the lab to tacit knowledge at work</h2>
+
+<p>Generative AI tools had performed well in laboratory settings, but the paper opens with the gap between that promise and the workplace. Real deployments face unfamiliar problems, organizational resistance, and consequential settings in which a model can offer misleading information (the text cites Peng et al., 2023a, and Roose, 2023, on these risks). The authors describe their study as, to their knowledge, the first of generative AI "deployed at scale in the workplace" — 5,179 agents whose chat volume and outcomes are observed over roughly a year of staggered adoption.</p>
+
+<p>The motivating theory is about <em>tacit knowledge</em>. Prior computerization worked by codification: engineers translate a task into explicit instructions, which is why routine tasks were automated while tasks relying on judgment, tone, and experience resisted it (Polanyi, 1966; Autor, 2014). Machine learning inverts this logic — systems infer rules from examples rather than being programmed, so they can learn tasks "that could previously only be gained through lived experience" (p. 3). Because ML systems are trained on the behavior of many human workers of differing ability, the paper's central hypothesis follows:</p>
+
+<blockquote>We argue that this occurs because generative AI systems work by capturing and disseminating the patterns of behavior that characterize the most productive agents, including knowledge that has eluded automation from earlier waves of computerization. (Brynjolfsson, Li &amp; Raymond, 2023, p. 3 of the PDF)</blockquote>
+
+<p>The economic stake is distributional. Prior information technology raised the productivity of, and demand for, skilled workers — the skill-biased technical change (SBTC) result of Autor, Levy and Murnane (2003), Bresnahan, Brynjolfsson and Hitt (2002), Bartel, Ichniowski and Shaw (2007), and Acemoglu and Restrepo (2018). If generative AI instead works by exposing lower-skill workers to the best practices of higher-skill workers, the within-occupation productivity pattern could be reversed: big gains for novices, little for experts who already behave like the model. Customer support is a natural test bed: it is one of the highest-adoption AI settings (22% of businesses reporting AI use deploy it in customer service; Chui et al., 2021), conversations are digitized and abundant, agent productivity varies widely, and turnover is severe — industry estimates cited in the paper put annual contact-center attrition near 60%, at a cost of $10,000–$20,000 per agent, with supervisors spending at least 20 hours per week coaching weaker performers.</p>
+
+<h2>2. Core concepts and argument: generative AI as a skill-dissemination technology</h2>
+
+<p><strong>The technology (compressed).</strong> Large language models are trained to predict the next token given prior context on a large text corpus; their recent progress rests on four factors: computing scale, positional encoding and self-attention (Vaswani et al., 2017), pre-training on unlabeled data, and fine-tuning techniques in the spirit of reinforcement learning from human feedback (Ouyang et al., 2022). The paper reports the scale figures then circulating: GPT-3 with 175 billion parameters, trained on roughly 300 billion tokens at an estimated $5 million in computing cost; GPT-4 estimated at 1.8 trillion parameters and 13 trillion tokens with a rumored $65 million computing-only cost (p. 7). Because such models learn from examples rather than instructions, the authors argue they can absorb behaviors that "cannot be fully articulated even by those who possess it" — the tacit-knowledge claim again, now with a mechanism.</p>
+
+<blockquote>The fact that generative AI models display such skills suggests that they can acquire tacit knowledge that is embedded in the training examples they encounter. This ability expands the types of tasks that computers may be capable of performing to include non-routine tasks that rely on judgment and experience. (Brynjolfsson, Li &amp; Raymond, 2023, p. 9 of the PDF)</blockquote>
+
+<p><strong>The argument.</strong> If a model is trained on many instances of a task performed well and poorly, it implicitly learns what separates high performers from low performers — "not only are generative AI models capable of performing complex tasks, they might also be capable of capturing the skills that distinguish top workers" (p. 4). Deployed as an assistant to individual workers, such a model can either substitute for lower-skill labor or disseminate best practice to help novices improve; in either case impacts differ by worker ability even within the same job. The firm studied chose the augmentation route, and the empirical question is which distributional pattern materializes. The conceptual chain the paper tests is drawn below.</p>
+
+<pre class="mermaid">
+flowchart TB
+    subgraph Train["Training: the collective conversation record"]
+        A["Chat records of thousands of agents<br/>labeled by outcome: resolved, handle time, top-performer status"] --> B["Fine-tuned GPT-based assistant<br/>tuned to favor empathy, documentation, professional language"]
+    end
+    subgraph Work["At the workplace: an augmenting tool"]
+        B --> C["Real-time suggested replies + internal documentation links<br/>shown only to the agent, who keeps full discretion"]
+        C --> D["Agent behavior: follows ~38% of suggestions on average (IQR 23-50%)"]
+        D --> E["Average productivity rises: resolutions/hour about +14%<br/>faster chats, more simultaneous chats, resolution rate +1.3 pp"]
+        D --> F["Heterogeneity: novices and low-skill agents gain most (+34% to +46%)<br/>veterans and top performers gain little or nothing"]
+        D --> G["Steeper experience curve: treated agents with 2 months tenure<br/>match untreated agents with over 6 months"]
+        D --> H["Learning and convergence: gains persist when outages switch the tool off;<br/>low-skill chat language converges toward high-skill language"]
+        D --> I["Experience of work improves: customer sentiment +0.18,<br/>manager-escalation requests about -25%, new-agent attrition about -40%"]
+        E --> J["Net result: the within-job productivity distribution compresses<br/>skill/AI complementarity is reversed relative to earlier IT waves"]
+        F --> J
+        G --> J
+        H --> J
+    end
+</pre>
+
+<h2>3. Setting: the firm, the agents, and the AI assistant</h2>
+
+<p><strong>Firm and workers.</strong> The "data firm" is a Fortune 500 enterprise-software company selling business-process software to US small and medium businesses. It employs chat-based technical support agents directly and through third-party firms; most agents (89%) work outside the United States, primarily in the Philippines, and are organized into 133 teams across 25 locations. The job is uniform: answering technical support questions from US small-business owners. Chats are randomly assigned and long — averaging around 40 minutes, much of it spent diagnosing the underlying problem. Agents are paid an hourly wage plus bonuses benchmarked against other agents.</p>
+
+<p><strong>The AI assistant.</strong> The tool is built on a recent GPT model plus additional ML algorithms fine-tuned on a large set of customer-agent conversations labeled by whether the chat was resolved, how long it took, and whether the responsible agent was a top performer. The model is further trained, in the spirit of Ouyang et al. (2022), to prioritize empathetic responses, provide appropriate technical documentation, and limit unprofessional language. Once deployed it produces two outputs in real time: suggested replies and links to relevant pages of the firm's internal technical knowledge base, both conditional on the conversation history.</p>
+
+<blockquote>Importantly, the AI system we study is designed to augment, rather than replace, human agents. (Brynjolfsson, Li &amp; Raymond, 2023, p. 13 of the PDF)</blockquote>
+
+<p>Suggestions are visible only to the agent, who may adopt, adapt, or ignore them; the system stays silent when it lacks sufficient training data for the situation. This design choice matters for identification and interpretation: the treatment is <em>access to suggestions</em>, and agents retain discretion throughout.</p>
+
+<h2>4. Deployment, data, and empirical strategy</h2>
+
+<p><strong>Deployment.</strong> The tool was rolled out gradually at the agent level after an initial seven-week randomized pilot featuring 50 agents (the pilot data are included in the main analysis but not analyzed separately, being too small). The bulk of adoption occurred between November 2020 and February 2021, across both the firm's own agents and outsourced agents.</p>
+
+<p><strong>Sample and outcomes.</strong> The analysis covers 3 million chats by 5,179 agents, of which 1.2 million chats by 1,636 agents occur in the post-AI period. Agent-month is the primary level of analysis. Productivity is summarized by <strong>resolutions per hour</strong> (RPH), decomposable into average handle time (AHT), chats per hour (CPH, which incorporates handling multiple chats at once), and resolution rate (RR). Customer satisfaction is measured by net promoter score (NPS) from post-chat surveys. Data coverage varies by outcome: AHT and CPH are reconstructed for all agents from chat-level data, while RR, NPS, and hence the omnibus RPH are provided only for the subset of agents whose (often outsourced) subcontractors report them. Raw means in the paper: never-treated agents resolve about 1.7 chats/hour and post-treatment agents 2.5, with ever-treated agents already stronger pre-AI (about 2.0), and post-AI average handle time falls from roughly 40 minutes to 35.</p>
+
+<p><strong>Design.</strong> The main specification is a difference-in-differences regression at the agent-month level,</p>
+
+<p><code>y<sub>it</sub> = δ<sub>t</sub> + α<sub>i</sub> + β·AI<sub>it</sub> + γX<sub>it</sub> + ε<sub>it</sub>,</code></p>
+
+<p>with year-month fixed effects (δ<sub>t</sub>) for common shocks such as tax season, agent fixed effects (α<sub>i</sub>) for time-invariant ability differences, and time-varying tenure controls; standard errors are clustered at the agent level. Because two-way fixed effects can be biased with heterogeneous or staggered treatment effects, the authors supplement the design with the modern robust estimators of Borusyak, Jaravel and Spiess (2022), Callaway and Sant'Anna (2021), de Chaisemartin and D'Haultfœuille (2020), and the Sun and Abraham (2021) interaction-weighted estimator used for event studies. In appendix Table A.1 these alternatives mostly give <em>larger</em> estimates of the log-RPH effect (e.g., 0.239 for Callaway-Sant'Anna and 0.237 for Sun-Abraham versus 0.137 for two-way fixed effects OLS), so the headline result is not an artifact of the classic estimator.</p>
+
+<h2>5. Findings</h2>
+
+<h3>5.1 Average productivity effects</h3>
+
+<p>Access to the AI assistant raises resolutions per hour by 0.30 chats in the preferred specification with agent and tenure fixed effects — 13.8%, the basis of the paper's headline "14%." The gain decomposes into faster handling, more multitasking, and a small quality improvement, with no measurable harm to customer satisfaction:</p>
+
+<h3>Table 1: Main effects of AI access on productivity and quality (agent-month difference-in-differences)</h3>
+<table>
+<tr><th>Outcome</th><th>Coefficient (preferred spec.)</th><th>Baseline mean</th><th>Implied change</th><th>Interpretation in the paper</th></tr>
+<tr><td>Resolutions per hour (RPH)</td><td>+0.301*** (SE 0.050)</td><td>2.17</td><td>+13.8% (headline ≈ 14%)</td><td>Primary summary measure of productivity</td></tr>
+<tr><td>Average handle time, minutes (AHT)</td><td>−3.750*** (SE 0.476)</td><td>40.65</td><td>−9%</td><td>Chats resolved faster</td></tr>
+<tr><td>Chats per hour (CPH)</td><td>+0.366*** (SE 0.036)</td><td>2.56</td><td>≈ +14%</td><td>Faster chats plus more effective multitasking</td></tr>
+<tr><td>Resolution rate (RR)</td><td>+0.0128* (SE 0.0072)</td><td>0.821 (82%)</td><td>+1.3 pp (10% level)</td><td>Speed gains do not come at the cost of solving problems</td></tr>
+<tr><td>Net promoter score (NPS)</td><td>−0.128 (SE 0.660), n.s.</td><td>79.6</td><td>−0.13 pp, not significant</td><td>No economically significant change in surveyed satisfaction</td></tr>
+</table>
+
+<p class="note">Coefficients transcribed from Tables 2 and 3 of the NBER text (agent, year-month, location and tenure fixed effects; standard errors clustered at the agent level as stated in the text; table notes say "agent location"). Significance: *** p&lt;0.01, ** p&lt;0.05, * p&lt;0.10. Verify against the original PDF before citing.</p>
+
+<p>Event studies (Sun-Abraham) show a substantial and immediate increase in RPH in the first month of deployment, a slight further rise in month two, then a stable and persistent effect through the end of the sample; the auxiliary outcomes show immediate responses for AHT and CPH with flat patterns for RR and NPS.</p>
+
+<h3>5.2 Impacts by skill and tenure — and the experience curve</h3>
+
+<p>Heterogeneity is the paper's central result. Agents are split into within-firm-month quintiles of a skill index built from their pre-AI average handle time, resolution rate, and customer satisfaction, and into tenure groups measured at the moment the tool arrives. Gains decline monotonically with both skill and experience:</p>
+
+<blockquote>We find that less-skilled and less-experienced workers improve significantly across all productivity measures we consider, including a 34% increase in the number of issues they are able to resolve per hour. (Brynjolfsson, Li &amp; Raymond, 2023, p. 4 of the PDF)</blockquote>
+
+<h3>Table 2: Who gains — heterogeneity of the AI effect</h3>
+<table>
+<tr><th>Group (at deployment)</th><th>Effect on resolutions/hour</th><th>Other outcomes</th></tr>
+<tr><td>Lowest skill quintile</td><td>+0.29 log points ≈ +34%</td><td>Largest gains on every measure</td></tr>
+<tr><td>Highest skill quintile</td><td>≈ zero</td><td>Small but significant <em>decreases</em> in resolution rate and customer satisfaction</td></tr>
+<tr><td>Tenure &lt; 1 month</td><td>+0.38 log points ≈ +46%</td><td>Large gains in handle time, chats/hour, resolution rate, satisfaction</td></tr>
+<tr><td>Tenure &gt; 12 months</td><td>≈ zero</td><td>Modest handle-time gains; small negative quality effects</td></tr>
+<tr><td>Experience-curve test (Fig. 8)</td><td>2-month treated ≈ 6-month+ untreated</td><td>Always-treated agents reach 2.5 RPH in 2 months and &gt; 3 RPH by month 5, versus ~8–10 months for never-treated</td></tr>
+<tr><td>Adherence groups (mechanism)</td><td>Lowest-adherence quintile ≈ +10%; highest quintile ≈ +25%</td><td>Returns to access rise monotonically with how closely agents follow suggestions</td></tr>
+</table>
+
+<p>The authors read the negative quality coefficients for top performers as a distraction or satisficing story:</p>
+
+<blockquote>Indeed, the fact that we find negative effects along measures of chat quality—resolution rate and customer satisfaction—suggests that AI recommendations may distract top performers, or lead them to choose the faster option (following suggestions) rather than taking the time to come up with their own responses. (Brynjolfsson, Li &amp; Raymond, 2023, p. 18 of the PDF)</blockquote>
+
+<p>The experience-curve analysis (Figure 8) is the cleanest illustration. All agents start near 2.0 resolutions/hour. Never-treated agents climb slowly to about 2.5 after 8–10 months. Always-treated agents reach 2.5 within two months and exceed 3 after five months; agents treated only in their fifth month accelerate along the same trajectory at that point. The paper concludes:</p>
+
+<blockquote>Across many of the outcomes in Figure 8, agents with two months of tenure and access to AI assistance perform as well as or better than agents with more than six months of tenure who do not have access. (Brynjolfsson, Li &amp; Raymond, 2023, p. 19 of the PDF)</blockquote>
+
+<h3>5.3 Mechanisms: adherence, learning, and conversational change</h3>
+
+<p><strong>Adherence.</strong> Agents follow about 38% of recommendations on average (interquartile range 23–50% in the agent-month distribution) — a level similar to the 27–46% adoption reported for GitHub Copilot code suggestions, and plausibly appropriate given that models do err. The association between following and gaining is strong and monotonic: agents in the lowest initial-adherence quintile still get about a 10% productivity gain, while the highest quintile gets close to 25%. Because adherence–return correlations can reflect selection, the authors examine revealed preference over time: initially skeptical workers (bottom adherence tercile, following under 20% of suggestions) raise compliance by over 50% by month five to just over half; senior workers start lower (30% for those with more than a year of tenure versus 37% for those under three months) but converge to the same level. Within-agent (fixed-effects) versions of the same curves rule out the pure-selection interpretation.</p>
+
+<p><strong>Durable learning.</strong> The most ingenious test uses software outages — periods when the system fails and provides no suggestions at all (one documented outage on September 10, 2020, was caused by an engineer's load test crashing the system). Workers who have been exposed to the AI handle chats faster during outages than their own pre-AI baseline, and this outage-period advantage grows with the length of prior exposure — a one-month-old user shows little, but after three months of exposure workers are faster "even though they are not receiving direct AI assistance." Splitting by initial adherence sharpens the point: high-adherence workers show large outage-period gains; low-adherence workers show none.</p>
+
+<blockquote>That is, if an outage occurs one month after AI adoption, workers do not handle the chat much more quickly than their pre-adoption baseline. Yet, if an outage occurs after three months of exposure to AI recommendations, workers handle the chat faster—even though they are not receiving direct AI assistance. (Brynjolfsson, Li &amp; Raymond, 2023, p. 23 of the PDF)</blockquote>
+
+<p><strong>Conversational change.</strong> Using embeddings from the Hugging Face model <code>all-MiniLM-L6-v2</code> to measure cosine similarity between agent-written chat text, the authors show that (a) an agent's own post-AI chats diverge from their pre-AI corpus immediately after deployment — ruling out "typing the same things faster"; (b) the within-agent change is larger for low-skill than high-skill agents; and (c) across agents, the average text similarity between high- and low-skill workers rises from 0.55 to 0.61 after AI adoption (against an average within-person similarity near 0.67 for high-skill agents), i.e., low-skill agents' language converges toward high-skill agents' language. The authors label this evidence suggestive, consistent with the model disseminating top performers' practices.</p>
+
+<h3>5.4 The experience of work: sentiment, escalation, and attrition</h3>
+
+<p>Workers' outcomes move in the same direction. Customer sentiment (SiEBERT-scored, on a −1 to 1 scale; customers average 0.14 while agents, trained to be unfailingly polite, average 0.89) improves by 0.18 points after AI access — half a standard deviation — with the largest improvements for lower-skill and less-tenured agents. Customers also become less likely to question an agent's competence: requests to speak to a manager fall about 25% from a baseline of roughly 6 percentage points. Attrition falls most among new workers — about a 10 percentage point reduction for agents with under six months of tenure, a 40% drop relative to that group's 25% baseline attrition — with significant declines across all skill groups but no clear skill gradient. The authors caution that the attrition result is less secure than the productivity results because an agent can attrite only once, ruling out agent fixed effects, so selection into treatment could overstate the effect.</p>
+
+<h2>6. Position in the literature</h2>
+
+<p><strong>Its own stream: the labor economics of AI and the reversal of skill bias.</strong> The paper extends the authors' earlier agenda on machine learning and work (Brynjolfsson and Mitchell, 2017) and the tacit-knowledge framing of Autor (2014). Empirically it answers the skill-biased technical change tradition — Autor, Levy and Murnane (2003); Bresnahan, Brynjolfsson and Hitt (2002); Bartel, Ichniowski and Shaw (2007); Akerman, Gaarder and Mogstad (2015); Acemoglu and Restrepo (2020) — with the finding that generative AI compresses, rather than widens, the within-job productivity gap. It also sits on the firm-level AI returns literature it reviews: Acemoglu et al. (2022) find no detectable productivity relationship for AI-specific investments in survey data, while Babina et al. (2022) find positive links between AI investment and firm growth and valuations; the paper's worker-level design is offered as the micro evidence that firm-level adoption studies struggle to recover because adopters differ from non-adopters. Against lab-style experiments — Peng et al. (2023b), where GitHub Copilot roughly doubled the speed of a coding task; Noy and Zhang (2023) on professional writing; Choi and Schwarcz (2023) on a law-school exam — the authors claim to add a real workplace, longer horizons, tracked learning, customer-side effects, and the experience of work, while confirming those experiments' core finding that ChatGPT-style tools compress the productivity distribution.</p>
+
+<p><strong>Relation to the Part I core of this topic library.</strong> Three links matter. (1) <em>Atlan (2026)</em> documents ROI, breakeven, and success factors across 200 French B2B AI deployments — practitioner breadth across firms and projects. Brynjolfsson, Li and Raymond provide the within-firm causal depth that such deployment audits cannot: one clean staggered rollout with chat-level measurement. Read together they argue that AI returns are real but sharply heterogeneous — heterogeneity in <em>deployment success</em> across 200 projects on the one hand, and heterogeneity across <em>workers within one project</em> (novices +34%, veterans ~0) on the other. (2) <em>Dell (2024)</em> is the methods anchor: this paper is a working example of her two methodological pillars — transformers as measurement tools (embedding and sentiment models pulled from the Hugging Face hub to construct outcome variables) and the modern DiD robustness toolbox (Borusyak et al. 2022; Callaway-Sant'Anna 2021; de Chaisemartin-D'Haultfœuille 2020; Sun-Abraham 2021) that has become standard for staggered treatments. (3) The <em>firm-level AI returns</em> question (Acemoglu et al. 2022; Babina et al. 2022; Atlan 2026) is where this paper's "large heterogeneity in effects" warns against averaging: aggregate studies that cannot see the novice/tenure margin may understate both the potential gains and the distributional stakes of generative AI.</p>
+
+<p><strong>Relation to Nagle (2019) and the openness debates in this library.</strong> The Part II classic Nagle (2019) shows, with Fortune 500 and Census data, that firms using open source software enjoy productivity advantages — free, externally supplied code inputs raise firm output. Brynjolfsson, Li and Raymond transpose that logic from firms to workers and from code to model-learned practice: a capability produced outside the individual worker (by a model trained on others' behavior) raises the individual's output, and the gains are largest where internal capability is thinnest. Both results are instances of the same economics: when valuable knowledge inputs are supplied through an external commons rather than accumulated privately, productivity gaps compress. That is precisely the stakes of the topic's core papers — whether the model weights and data commons stay open (Azoulay et al. 2024 on openness and moats; White et al. 2024 on the Model Openness Framework; Longpre et al. 2025 on power and participation in the model ecosystem; Laufer et al. 2025 on the Hugging Face hub), and what platform releases do to downstream activity (Wu, Lin and Li 2025 on Llama 2; Yue and Nagle 2024 on PyTorch; Yeverechyahu et al. 2024 on GitHub Copilot and open-source contributions).</p>
+
+<h3>Table 3: Where this paper sits in the topic library</h3>
+<table>
+<tr><th>Paper</th><th>Question asked</th><th>Level of analysis</th><th>Relation to Brynjolfsson, Li &amp; Raymond (2023)</th></tr>
+<tr><td>This paper (Brynjolfsson, Li &amp; Raymond 2023)</td><td>Does a generative AI assistant raise measured worker productivity, and for whom?</td><td>Worker-level, one firm (5,179 agents)</td><td>— (the reference case)</td></tr>
+<tr><td>Atlan (2026)</td><td>What ROI and success factors do 200 B2B AI deployments show?</td><td>Project/firm level, 200 deployments</td><td>Breadth complement: deployment-level returns with wide variance, consistent with large worker-level heterogeneity</td></tr>
+<tr><td>Dell (2024)</td><td>How can economists use deep learning to measure economic activity?</td><td>Methods review</td><td>This paper is an applied instance: HF-hub embedding/sentiment models as measurement; staggered-DiD robustness toolbox</td></tr>
+<tr><td>Nagle (2019)</td><td>Does using open source software raise firm productivity?</td><td>Firm level (Fortune 500 + Census)</td><td>Parallel logic at firm level with free external code; here the external capability is model-learned best practice at worker level</td></tr>
+<tr><td>Ecosystem core (Azoulay et al. 2024; Longpre et al. 2025; Laufer et al. 2025; Wu, Lin &amp; Li 2025; Yue &amp; Nagle 2024; Yeverechyahu et al. 2024)</td><td>Who produces, controls, and benefits from AI supply?</td><td>Ecosystem/platform level</td><td>Supply-side counterparts; this paper measures the labor-side value those models create in use</td></tr>
+</table>
+
+<h2>7. Limitations</h2>
+
+<p><strong>Author-stated scope limits (paper claims).</strong> The authors are explicit about what their design cannot speak to. The paper "is not designed to shed light on the aggregate employment or wage effects of generative AI tools": their data contain no wages, no overall labor demand, and no observation of the skill mix of newly hired workers, so they cannot say whether firms will hire more novices, de-skill the job, or build AI that replaces lower-skill workers. They also stress that the setting — a relatively stable product with a bounded set of technical-support questions — may not generalize; in fast-changing environments the AI "may actually impede learning by promoting outdated practices observed in historical training data." They flag the attrition analysis as less secure (no agent fixed effects), the adherence–returns correlation as possibly reflecting selection, the outage sample as rare and not necessarily random, and both the learning and the text-convergence evidence as suggestive. A footnote concedes the deepest identification limitation of the learning story directly: "We avoid the term 'learning curve' because we cannot distinguish if workers are learning or merely following recommendations" (p. 16, footnote 15).</p>
+
+<p><strong>Evidence (what the data actually are).</strong> The identification rests on a staggered, largely non-randomized rollout — the initial randomized pilot covered only 50 agents over seven weeks and is pooled into the main sample — so the difference-in-differences estimates rely on parallel trends between ever-treated and never-treated agents, and the paper's own raw data show ever-treated agents were stronger performers pre-AI (about 2.0 versus 1.7 RPH), which the fixed-effects design must absorb. Observation ends about five months after treatment for many agents (the sample "ends here because we have very few observations more than five months after treatment"), so persistence beyond that horizon is untested. All outcomes are the firm's own metrics; resolution rate, NPS, and the omnibus RPH exist only for the subcontractor subset that reports them, and quality measures capture resolution and satisfaction rather than, say, the accuracy of technical diagnoses. The adherence measure counts clicking-to-copy or near-identical self-typed text, an approximation of genuine adoption.</p>
+
+<p><strong>My inferences (independent judgment, flagged as such).</strong> Three readings go beyond the authors' own claims. First, the headline "+14% average" masks a near-zero effect for the top of the skill distribution, so a firm whose workforce is mostly experienced should expect little from the same tool — the average effect is a property of this firm's tenure mix, not of the technology. Second, the outage results are consistent with the authors' "durable learning" story, but also with habit formation or the internalization of canned responses (agents type the model's phrasing from memory), which would raise measured speed without deepening problem-solving skill; the text-convergence results are more consistent with style transfer than with verified diagnostic ability. Third, the paper's closing observation that top performers are unpaid for the training-data value the model extracts from their behavior is, in my reading, a within-firm version of the private-collective contribution problem that the open-innovation literature (von Hippel and von Krogh 2003) poses at community scale: a contributor's uncompensated spillover raises others' output, and the incentive system (here, bonuses relative to peers) may penalize exactly the workers whose behavior makes the tool valuable. The authors raise the compensation question; the analogy to the open-innovation literature is mine.</p>
+
+<p><strong>Open questions.</strong> The paper itself lists the big ones: aggregate employment and wage effects (whether customer-support demand is elastic or inelastic to quality improvements); whether productivity gains persist, compound, or decay beyond the sample window and under newer model generations; how pay and job design adapt when a worker's output includes the training data they generate; and whether AI-assisted practice remains valuable — or becomes misleading — as products evolve away from the historical training distribution.</p>
+
+<h2>8. Conclusion and takeaways</h2>
+
+<p>This is the paper that anchored the early empirical case for generative AI's productivity value. Its headline facts — roughly +14% resolutions per hour on average, +34% for the lowest-skill quintile, +46% for workers under a month of tenure, and near-zero effects for veterans — established that generative AI behaves differently from earlier IT: rather than complementing the already-skilled, it compresses the within-job productivity distribution by moving novices down the experience curve faster. The mechanism evidence (adherence returns, outage-period persistence, language convergence) supports the interpretation that the model carries tacit best practice from top performers to the rest of the workforce, while the customer-sentiment, escalation, and attrition results show the gains are not bought at the cost of how workers experience the job.</p>
+
+<p>For the "Hugging Face &amp; the Open-AI Economy" topic, the paper matters as the value-side benchmark: whatever the governance of open weights, hubs, and platforms studied elsewhere in this library, this is measurable evidence of what frontier-model capability is worth in use — and of how unevenly that value lands across workers. It also carries a warning for that literature's own averages: like ecosystem-level counts and firm-level ROI, worker-level means conceal a distribution, and the distributional margin (who contributes data, who gains capability) is where the economic and political stakes of generative AI are decided. As a working paper not yet peer-reviewed, its numbers should be treated as the strongest available field evidence of its moment, subject to replication in other firms, occupations, and model generations.</p>
+
+<div class="golden">
+We hypothesize that part of the effect we document is driven by the AI system’s ability to embody the best practices of high-skill workers in our firm and make it accessible to other workers. These practices may have previously been difficult to disseminate because they involve tacit knowledge. — Brynjolfsson, Li &amp; Raymond, 2023 (p. 29 of the PDF)
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI (academic-style workflow, English) from the full pdftotext of the local NBER working paper PDF (Brynjolfsson, Li and Raymond, "Generative AI at Work," NBER Working Paper 31161, April 2023, revised November 2023; 67 PDF pages by form-feed count, cover p. 1, title/abstract p. 2, article text pp. 3–30, references and appendix pp. 31–67). All blockquotes are verbatim from that text; quote locations "(p. N of the PDF)" were computed by counting form-feed characters, with N counting the NBER cover as p. 1, so the article's printed page number is N − 2 from p. 3 onward (e.g., the "p. 23" quote sits on printed article p. 21). Coefficients in Table 1 were transcribed from the paper's Tables 2 and 3, and the estimator set in Table A.1; pdftotext of this file contains layout noise, so verify every number and quote against the original PDF before citing. The "Limitations" section separates the authors' stated claims from this reader's inferences, which are labeled as such; the private-collective analogy to the open-innovation literature is the reader's inference, not a claim of the paper.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

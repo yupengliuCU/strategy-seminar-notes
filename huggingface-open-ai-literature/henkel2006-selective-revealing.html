@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selective Revealing in Open Innovation Processes: The Case of Embedded Linux (Henkel, 2006) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Selective Revealing in Open Innovation Processes: The Case of Embedded Linux</h1>
+<div class="meta">
+<strong>Joachim Henkel (2006)</strong> · <em>Research Policy</em> 35(7): 953–969, Elsevier · doi:10.1016/j.respol.2006.04.010<br>
+<strong>Authors</strong>: Joachim Henkel (Dr. Theo Schöller Chair in Technology and Innovation Management, Technische Universität München)<br>
+<strong>Source</strong>: <em>Research Policy</em>, Vol. 35, Issue 7 (2006), pp. 953–969. Received 26 Aug 2005; revised 27 Mar 2006; accepted 18 Apr 2006; available online 5 June 2006<br>
+<strong>Year</strong>: 2006<br>
+<strong>Nature</strong>: Quantitative empirical study — web survey (N = 268) developed from 30 interviews, plus case excerpts; multivariate Tobit and ordered-probit regressions on the share of code revealed<br>
+<strong>Tradition</strong>: Free revealing and user innovation (von Hippel), the private-collective model, commercial open-source strategy, appropriation of innovation profits (Teece, Levin et al.)<br>
+<strong>Data &amp; code status</strong>: Survey fielded November 2003–March 2004 on embedded-Linux portals and mailing lists; no public replication dataset or code. JEL classification L86, M11, O31
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Henkel shows, with a quantitative survey of embedded-Linux developers (N = 268), that commercial firms building on GPL-licensed open source do not face a binary choice between openness and secrecy: they practice <strong>selective revealing</strong> — contributing, on average, about half of the code they develop to the public to obtain informal development support, while protecting the other half through means that remain consistent with the GPL.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide (Hugging Face and the Open-AI Economy)</strong>: This 2006 paper is one of the conceptual foundations of the "strategic openness" question that runs through the AI-model papers in this topic: openness is a <em>decision variable, not a license outcome</em>. When White et al. (2024) decompose an AI model into seventeen components with graded openness instead of a binary "open-source/closed" label, they generalize Henkel's earlier finding that firms partition a single technology into an open part and a protected part. When Haese and Peukert (2026) study firms that build products on open cores, Henkel supplies the behavioral layer underneath: what such firms choose to give back, and why. When Yue and Nagle (2024) measure the innovation response to PyTorch being opened, Henkel explains the mechanism from the contributor's side — firms reveal more when external development support matters and when complementary assets protect them. Read the paper as the pre-AI, code-level template for the question "what do firms reveal, what do they protect, and how do they reconcile openness with appropriation?" that the Hugging Face ecosystem papers ask about model weights, training data, and patents.
+</div>
+
+<h2>1. Background and motivation: can open innovation coexist with IP protection?</h2>
+
+<p>Henkel opens from the contrast between closed and open innovation. In the traditional view, innovation takes place entirely inside one firm; open innovation spans firm boundaries (Chesbrough, 2003), sometimes as market-mediated exchange of technology (Arora, Fosfuri and Gambardella, 2001). The variant he studies is stricter: firms make technology available to the public "in order to elicit development collaboration, but without any contractual guarantees of obtaining it" (p. 954 of the PDF). The empirical setting is the commercial development of open source software (OSS) for embedded systems — machine controls, VCRs, mobile phones — where Linux is one of the three most widely used operating systems.</p>
+
+<p>The puzzle is stated plainly. Using OSS promises informal development collaboration (bugfixes, further development, reduced maintenance), and realizing that benefit requires revealing code; some OSS licenses push in the same direction by restricting how code may be kept proprietary. But a firm also needs to protect its intellectual property, and competitors can free-ride on revealed code. The paper's central question is therefore: <strong>how can open innovation be reconciled with intellectual property protection?</strong> The answer developed and tested is that firms resolve the tension by repartitioning their innovative activity — doing some development openly, some protectively — rather than by choosing either extreme.</p>
+
+<p>Embedded Linux is chosen as the object for three stated reasons (p. 954): it is developed almost exclusively by commercial firms, with hobbyists playing a minor role, so the motives studied are firms' motives; the OSS license makes revealing a real option while leaving firms considerable latitude, so openness is "a conscious decision"; and embedded systems matter economically — more than 98% of the 6.2 billion processors manufactured in 2002 went into embedded systems (Ganssle and Barr, 2003), so the findings bear on a large industry. The firms involved are typically not <em>users</em> of the software, but manufacturers of goods containing embedded software — an important contrast with the user-innovation literature that motivates the study.</p>
+
+<h2>2. Core concepts and argument</h2>
+
+<h3>2.1 Two opposing priors, both of which the paper rejects</h3>
+<p>The paper positions itself against two common priors. The first is that openness and profitability conflict, so a profit-seeking firm should keep its code closed. The second, at the opposite extreme, is that developing OSS — especially code derived from GPL-licensed software — amounts to free revealing, because the license allegedly forces the firm to give everything away. Henkel argues both are wrong. Developing OSS "perfectly well accommodates a combination of free revealing and various means of protecting one's code" (p. 966), and the interesting strategic question is where exactly a firm draws the line between the revealed and the protected part of its development.</p>
+
+<h3>2.2 Benefits and downsides of revealing, as identified in the prior literature</h3>
+<p>Henkel reviews four benefit categories of contributing to public OSS that prior work had identified: setting a standard and enabling compatibility; increasing demand for complementary goods and services; benefiting from external development support, particularly from the OSS community; and signaling technical excellence or good OSS citizenship (p. 955). Against these stand three downsides: freely available software can no longer be sold (customers will pay at best for packaging); revealed code can be used by competitors, implying a loss of competitive advantage; and the originator may lose control over the software's further development even when acting as its official maintainer.</p>
+
+<h3>2.3 Selective revealing as the organizing concept</h3>
+<p>The paper's own contribution is the notion of <em>selective revealing</em>: a firm deliberately reveals some of its developments while protecting others, choosing the partition in light of its private profits. The core empirical result is that firms do exactly this, and that the revealed share is far from random. Henkel's summary of the finding is worth quoting in full:</p>
+
+<blockquote>I find that firms address this issue by revealing selectively. They reveal, on average, about half of the code they have developed, while protecting the other half by various means. (Abstract, p. 953 of the PDF)</blockquote>
+
+<p>The argument for why selective revealing can be profit-maximizing relies on two structural conditions, both present in embedded Linux: user needs are strongly heterogeneous, so each firm values different extensions and can absorb others' code without competing head-on (Bessen, 2001; Franke and von Hippel, 2003); and the technology is highly modular, so code can be partitioned cleanly into an open and a protected part (Baldwin and Clark, 2003; MacCormack, Rusnak and Baldwin, 2004). Under these conditions the private-collective model of von Hippel and von Krogh (2003) — private investment combined with collective sharing — can operate in a commercial environment:</p>
+
+<blockquote>The private-collective model of innovation (von Hippel and von Krogh, 2003) is found to work also in a commercial environment. However, firms practice "selective revealing" so as to minimize competitive losses—and are able to do so while abiding by the applicable OSS license. (pp. 954–955 of the PDF)</blockquote>
+
+<pre class="mermaid">
+flowchart TD
+    A["Firm develops code derived from GPL Linux"] --> B{"Potentially useful<br/>to other firms?"}
+    B -- "No - too device-specific" --> C["Internal only -<br/>revealing not at issue"]
+    B -- "Yes" --> D{"Where does the code sit<br/>in the firm's product?"}
+    D -- "Generic layer" --> E["Free revealing -<br/>website / mailing list /<br/>submission to maintainer"]
+    E --> F["Receives informal support -<br/>bugfixes / further development / maintenance"]
+    D -- "Differentiating layer<br/>(drivers with proprietary protocols)" --> G["Protection consistent with the GPL -<br/>delay / customers only / binary-only modules /<br/>architecture redesign"]
+    F --> H["Commercial firms reveal on average about 49%<br/>of potentially useful code they develop"]
+    G --> H
+    H --> I["Innovative activity repartitioned into an open<br/>and a protected part, consistent with private profits"]
+</pre>
+
+<p>Throughout, Henkel distinguishes revealing (making code actively public — on a website, a mailing list, or by submission to the maintainer) from the mere GPL obligation to make source code available to the receivers of a product. The survey question that measures the dependent variable restricts attention to "those embedded Linux developments by your firm that are potentially useful for others," excluding code so specific to one device that neither revealing nor protection is at issue (p. 959 of the PDF).</p>
+
+<h3>2.4 Research questions and hypotheses</h3>
+<p>Five research questions structure the paper: (1) what latitude do firms have, and which protection means do they use and how often; (2) what share of their code is made public; (3) what type of code is revealed versus protected; (4) what reasons drive voluntary revealing; and (5) how is the degree of openness determined by firm characteristics. Question 5 is tested with six hypotheses derived from the interviews and from prior theory. H1–H6 are summarized with their outcomes in Table 3 below. H4 applies Teece's (1986) complementary-assets logic: hardware should protect a device maker's software, so hardware manufacturers should reveal more than software firms, and component manufacturers (whose driver code is highly specific to their hardware) more still. H5 expects experience with embedded Linux to raise revealing, since newcomers lack high-quality code and must shed a proprietary attitude.</p>
+
+<h2>3. Data: a developer-level survey of embedded Linux</h2>
+
+<p>Between November 2003 and March 2004, Henkel ran a web-based questionnaire developed from a series of 30 interviews with industry participants, yielding 268 valid responses. Respondents were developers rather than managers, on the argument that developers "actually perform the act of revealing code and should thus be best informed about it" (p. 958 of the PDF). The survey was advertised on embedded-Linux portals and mailing lists (51.5% of participants learned of it on LinuxDevices.com); a precise response rate cannot be computed because the size of the basic population is unknown, but an early-versus-late comparison (Armstrong and Overton, 1977) gives no indication of nonresponse bias. Respondents were guaranteed anonymity and were not asked for their employer's name, so a firm could in principle appear more than once; checks on email addresses suggest multiple occurrences are rare.</p>
+
+<p>Organization types among respondents: 42.5% device manufacturers, 22.4% software companies specializing in embedded Linux, 8.6% component (chips and boards) manufacturers, 15.3% hobbyists, and 11.2% university or non-profit research organizations. Weighted by reported hours per week, hobbyists contribute only about 7% of total effort, confirming that hobbyists play a minor role. Most commercial calculations therefore use the 197 commercial respondents as the base. Respondents average 14.2 years of programming experience, 4.9 years of OSS experience, and 7.1 years of embedded-software experience. The three commercial groups differ predictably in demography: software firms are young and small (median founding year 1997; 64% of respondents in firms of at most 50 employees), device manufacturers older (median 1988), and component manufacturers oldest and largest (median 1986, only 26% in small firms).</p>
+
+<h2>4. Evidence and findings</h2>
+
+<h3>4.1 What firms protect, and how (research question 1)</h3>
+<p>Henkel first establishes that the GPL leaves genuine latitude. A common misconception is that derived work of GPL code must be made public; in fact the GPL only requires the seller of derived work — embedded in a device or on a storage medium — to make source code available to its customers. If customers are few, or are uninterested in revealing and unbound by the GPL, the code can effectively be kept secret (p. 959). Beyond that, four protection means are surveyed; Table 1 reports how widely each is used (data from the paper's Table 1, p. 959).</p>
+
+<h3>Table 1: Means of protection used by firms (Table 1 of the paper, p. 959)</h3>
+<table>
+<tr><th>Means of protection</th><th>Always (%)</th><th>Used at least "sometimes" (%)</th><th>Scope of the figure</th></tr>
+<tr><td>Revealing only to customers</td><td>7.0</td><td>46.6</td><td>Software vendors only (N = 43)</td></tr>
+<tr><td>Revealing only on request of device buyers (at market launch)</td><td>5.8</td><td>45.0</td><td>Commercial respondents (N = 138)</td></tr>
+<tr><td>Revealing only after a delay</td><td>2.8</td><td>35.7</td><td>Commercial respondents (N = 141)</td></tr>
+<tr><td>Revealing drivers only as loadable binary modules</td><td>16.1</td><td>53.1</td><td>Commercial respondents (N = 149)</td></tr>
+</table>
+
+<p>The binary-only driver is the most common means, used at least sometimes by 53.1% of respondents and always by 16.1%. Delay exploits the fact that more than a year typically passes between code development and market launch, and lead time is generally considered an effective protection (Sattler, 2003). A fifth, pre-emptive means was not surveyed: re-designing the code architecture so that functionalities requiring protection sit in the proprietary application layer rather than in GPL-bound derived work (Henkel, 2003). Because the field is dominated by the GPL — Lerner and Tirole (2005) count 18,133 GPL projects versus 2,501 LGPL projects on SourceForge — the analysis focuses on GPL-derived code.</p>
+
+<h3>4.2 How much firms reveal (research question 2)</h3>
+<p>Despite these protection options, firms reveal a striking amount. Table 2 reproduces the descriptive statistics for the share of potentially useful code that firms make public (Table 2 of the paper, p. 960).</p>
+
+<h3>Table 2: Share of code that is revealed, by type of organization (Table 2 of the paper, p. 960)</h3>
+<table>
+<tr><th>Type of organization</th><th>Mean share revealed (%)</th><th>Median (%)</th><th>N (valid / missing)</th></tr>
+<tr><td>Software company</td><td>57.5</td><td>60</td><td>39 / 21</td></tr>
+<tr><td>Device manufacturer</td><td>42.3</td><td>25</td><td>69 / 45</td></tr>
+<tr><td>Component manufacturer</td><td>58.8</td><td>60</td><td>17 / 6</td></tr>
+<tr><td><strong>Commercial, all</strong></td><td><strong>49.3</strong></td><td><strong>50</strong></td><td>125 / 72</td></tr>
+<tr><td>University / non-profit research org.</td><td>90.0</td><td>100</td><td>20 / 10</td></tr>
+<tr><td>Hobbyist</td><td>93.3</td><td>100</td><td>31 / 10</td></tr>
+<tr><td><strong>Non-commercial, all</strong></td><td><strong>92.0</strong></td><td><strong>100</strong></td><td>51 / 20</td></tr>
+<tr><td>All</td><td>61.7</td><td>75</td><td>176 / 92</td></tr>
+</table>
+
+<p>Commercial firms reveal, on average, 49.3% of the code they develop for embedded Linux — "very much for an organization used to proprietary processes" — while university developers and hobbyists show "typical" open-source behavior, revealing 92–93% on average. Within every commercial category the standard deviation of the revealed share exceeds 35 percentage points, with a minimum of 1% and a maximum of 100%: revealing is strongly heterogeneous across firms, which motivates the multivariate analysis. The pattern is also growing over time, not fading: asked to compare with the year 2000, only 10.3% of commercial respondents say their company reveals less now, 40.7% see no change, and 49% say their company reveals "somewhat more" or "much more." Code sharing in embedded Linux, Henkel concludes, is not a leftover of the 1999–2000 OSS hype but on its way to becoming mainstream behavior.</p>
+
+<h3>4.3 What type of code is revealed (research question 3)</h3>
+<p>Respondents were asked to react to statements about the type of code their firm typically reveals. The strongest agreement, for both hardware and software firms, is that revealed code is "generic" — 63% agreement from hardware firms and 85% from software firms. Revealing generic code should not harm the firm's competitive position. Yet this is not the whole story: the statements "is important for our competitive position" and "helps to differentiate our product from others" also receive positive net agreement, small for hardware manufacturers but considerable for software firms (net agreement of 27.1% and 30% on the two statements, respectively). For these firms revealing may support differentiation — by signaling competence or by creating demand for related services or proprietary software for which the firm is best qualified. Conversely, hardware firms show 34.5% net agreement that revealed code "is specific to our hardware," and software firms 28.6% net agreement that it "is specific to our application software" — the complementary-assets logic: revealing code tied to a firm's hardware or proprietary application software is safe because the complementary asset stays protected.</p>
+
+<p>Two verbatim answers to the open question about what firms typically make public capture the calculus from practitioners (p. 962 of the PDF). The first is a cost–revenue trade-off on proprietary software support:</p>
+
+<blockquote>"[We reveal code] where the cost of support is more then the profit made on sales. We then give it out without support." (open-question response, quoted on p. 962 of the PDF; spelling as in original)</blockquote>
+
+<p>The second expresses the protection of competitive advantage:</p>
+
+<blockquote>"Anything that will not give our competitors the possibility to copy our products one to one in a short time." (open-question response, quoted on p. 962 of the PDF)</blockquote>
+
+<h3>4.4 Why firms reveal (research question 4)</h3>
+<p>Twelve candidate reasons were offered to respondents. For hardware manufacturers (N = 137, the more numerous group), the reason with the highest agreement is "My company reveals code because the GPL requires it," which Henkel expected — though he notes the GPL does not, strictly speaking, require revealing as the survey defines it. The four reasons ranked 2–5 all concern informal outside development support: appearing as a good OSS player (rank 2), bugfixes by others, further development by others, and reduced maintenance effort. Rank 6 is the first marketing-related reason ("revealing good code improves our company's technical reputation"). Software firms differ: marketing-related reasons rank much higher for them (ranks 3 and 6, versus ranks 6 and 10 for hardware manufacturers), plausibly because these software firms act as suppliers to hardware manufacturers. An exploratory factor analysis (principal components, Varimax rotation) reduces the twelve items to four components explaining 64.6% of total variance (KMO = 0.70): "development support" (Cronbach's α = 0.80), "reputation" (α = 0.64), "marketing" (α = 0.60), and "GPL." These indices feed the multivariate analysis.</p>
+
+<h3>4.5 What determines the degree of openness (research question 5)</h3>
+<p>The dependent variable is the share of potentially useful code revealed, censored at 0 and 100%, so a Tobit model is the natural choice, with an ordered-probit specification (quintiles of the share) as robustness check. Missing values reduce the regression sample from 197 commercial respondents to 119. Table 3 summarizes hypotheses and outcomes (regressions in the paper's Table 5, pp. 963–966).</p>
+
+<h3>Table 3: Hypotheses and empirical outcomes</h3>
+<table>
+<tr><th>Hypothesis</th><th>Prediction (ceteris paribus, share revealed is larger...)</th><th>Outcome</th></tr>
+<tr><td>H1 (firm size)</td><td>...the smaller the firm</td><td><strong>Supported.</strong> SizeLarge (more than 200 employees) is significantly negative in all specifications; medium size (11–200) is insignificant.</td></tr>
+<tr><td>H2 (encouraging policy)</td><td>...if a firm policy encourages revealing</td><td><strong>Not confirmed.</strong> No positive effect of an encouraging policy.</td></tr>
+<tr><td>H3 (restrictive policy)</td><td>...if no restrictive policy is in place</td><td><strong>Partly supported.</strong> Restrictive policy is significantly negative until reason-indices are added; its effect then vanishes, since policies reflect the importance firms attach to reasons.</td></tr>
+<tr><td>H4 (complementary assets)</td><td>...if proprietary complementary assets are available (hardware)</td><td><strong>Partly supported.</strong> Device manufacturers reveal significantly <em>less</em> than software firms, contrary to the hypothesis; component manufacturers reveal significantly more than device manufacturers, as conjectured. Complementary assets are protective for components (specific drivers) but apparently not for whole devices.</td></tr>
+<tr><td>H5 (experience)</td><td>...the longer the firm has developed embedded Linux</td><td><strong>Supported.</strong> Positive and significant at the 5% level in all specifications.</td></tr>
+<tr><td>H6a (development support)</td><td>...the more important development support is as a reason</td><td><strong>Supported.</strong> Positive and significant; a one-unit rise predicts an increase of 8.8 percentage points in the revealed share (specification 6).</td></tr>
+<tr><td>H6b (reputation)</td><td>...the more important reputation is as a reason</td><td><strong>Supported.</strong> Positive and significant; effect size close to that of development support.</td></tr>
+<tr><td>H6c / H6d (marketing / GPL)</td><td>...the more important marketing / GPL considerations are</td><td><strong>Not confirmed.</strong> Plausible reading: marketing-motivated firms contribute visibly but not in higher quantity; GPL-motivated firms may reveal only when they feel forced to.</td></tr>
+</table>
+
+<p>Signs and significance are consistent across the Tobit and ordered-probit specifications and after elimination of insignificant variables. The age at which a firm started developing embedded Linux is positive and significant (included without a hypothesis because of counteracting effects): the complementary-assets argument appears to dominate organizational inertia. The pseudo R² values look low (0.02–0.11), but an OLS version of specification 5 yields R² = 0.27, indicating a reasonable but incomplete explanation of heterogeneity. One supporting statistic is that 90.0% of respondents (N = 185) agree that "Open source software allows small enterprises to afford innovation." Henkel interprets the confirmed hypotheses H1 and H6a together: external development support is the crucial motive, and smaller firms — which benefit more from it because of resource scarcity — reveal more.</p>
+
+<p>A counterexample to the complementary-assets logic for whole devices illustrates the mechanism (footnote 14, p. 964): a device manufacturer built a board bundling 48 UMTS channels from commodity hardware; the intellectual property lay in the driver software, including proprietary protocols. Had that driver been revealed, competitors could have copied the device — the hardware itself afforded little protection. The partition between reveal and protect therefore tracks where the differentiating knowledge actually resides.</p>
+
+<h3>4.6 The role of the individual developer</h3>
+<p>Henkel also addresses the alternative explanation that corporate revealing is really driven by programmers' OSS enthusiasm, possibly against their employers' interests. The data do not support it: employed programmers are somewhat enthusiastic about OSS but significantly less so than hobbyists and university programmers. The indications are that programmers often act as "champions of revealing," but not as uncontrollable enthusiasts disregarding their firm's interests.</p>
+
+<h2>5. Position in the literature</h2>
+
+<h3>5.1 Its own research stream</h3>
+<p>The paper's introduction maps four strands that it draws on and differentiates itself from. First, <em>information trading</em> (von Hippel, 1987; Schrader, 1991; Bouty, 2000): informal exchange of information within dyads, where trust and reciprocity can be targeted at a known counterpart. Henkel's setting differs fundamentally — code is revealed to the public at large, with no recipient selection and no relational sanction against free-riding. Second, <em>free revealing of user innovations</em> (von Hippel, 1988; Morrison, Roberts and von Hippel, 2000; Franke and Shah, 2003; Harhoff, Henkel and von Hippel, 2003): prior work studied individuals or firms that benefit from <em>use</em> of their innovations; the embedded-Linux firms are sellers of products, not users of the operating system, so the motives must run through sales, complements, and support. Third, <em>collective invention</em> (Allen, 1983; Nuvolari, 2001): Henkel quotes Allen's distinction to show why embedded Linux is not simply a modern case of it:</p>
+
+<blockquote>"Collective invention differs from R&D since the firms did not allocate resources to invention—the new technical knowledge was a by-product of normal business operation." (Allen, 1983, p. 2, quoted on p. 955 of the PDF)</blockquote>
+
+<p>In embedded Linux, by contrast, software development is plainly part of R&D, and collaboration is sustained not by identical goals (as with furnace or pumping-engine efficiency) but by the heterogeneity of device needs. Fourth, <em>commercial OSS development</em> (Raymond, 1999; Lerner and Tirole, 2002; Dahlander and Magnusson, 2005; West, 2003): the paper closes the gap left by case-based work, which had studied firms that typically control their whole program (keeping copyright, closing parts), a strategy unavailable for GPL-derived code.</p>
+
+<p>Within this stream, the paper's distinctive moves are three: the unit of analysis is the individual code contribution rather than the whole software program; the empirical design is quantitative (N = 268) rather than case-based; and the dependent variable — the share of code revealed — is related to firm characteristics, so the paper can say <em>where</em> open innovation works. Conceptually it operationalizes von Hippel and von Krogh's (2003) private-collective model in a commercial, selling-firms context and finds it working there, and it turns the appropriation literature's implicit prior on its head. Henkel's framing of that prior is a central statement of the paper:</p>
+
+<blockquote>This discussion usually makes an implicit a priori: It presupposes that exclusivity is desirable for the innovator. It thus focuses on the protection of innovations, while what actually matters is appropriation of profits from innovation. (p. 966 of the PDF)</blockquote>
+
+<p>That sentence connects the paper to the standard appropriation literature — Teece (1986) on complementary assets; Levin et al. (1987), Cohen, Nelson and Walsh (2000, 2002), Arundel (2001), Harabi (1995) and Sattler (2003) on the relative effectiveness of patents, secrecy, lead time and complements — while arguing that in GPL-dominated code, exclusivity-based means are frequently unavailable or undesirable, so appropriation must run through what is <em>not</em> revealed and through the complements that make revealing safe.</p>
+
+<h3>5.2 Relation to the Part I papers on strategic openness in AI</h3>
+<p>Henkel (2006) is best read against the four Part I papers as the code-level template for their openness constructs:</p>
+
+<ul>
+<li><strong>White et al. (2024), the Model Openness Framework (MOF)</strong>. Henkel's firms reject the binary "open versus closed" at the level of code contributions; MOF rejects it at the level of AI models, decomposing a model release into components (weights, code, data, documentation, usage terms) with graded openness. Henkel's dictum — "the key is to understand what to reveal and what to protect" — is exactly the component-selection question MOF formalizes for machine-learning artifacts. Where MOF is a normative taxonomy of release elements, Henkel supplies the empirical regularity that motivates such a framework: profit-seeking firms do partition shared technologies into open and protected parts and can be studied doing so.</li>
+<li><strong>Yue and Nagle (2024), "Igniting Innovation" (PyTorch)</strong>. Their difference-in-differences around Facebook's opening of PyTorch measures the ecosystem's innovation response to a firm relinquishing control over a core technology. Henkel explains the mirror-image micro-decision of contributors in such an ecosystem: firms give code away when they expect external development support in return and when complementary assets (their own hardware, services, or reputation) keep appropriation safe — the logic of H1 and H4. The PyTorch case, where the opener monetizes complements rather than the framework itself, is the modern instance of the complementary-assets mechanism Henkel documents for component and software firms in embedded Linux.</li>
+<li><strong>Haese and Peukert (2026), "Open at the Core"</strong>. Their firms move from a proprietary technology to building a product on OSS — exactly the position of Henkel's firms, who build on the GPL Linux core. Henkel's contribution to that question is the finding that an open core does not force an open periphery: commercial firms built on GPL Linux yet revealed only about half of their own development, using GPL-consistent means to protect the rest. Haese and Peukert examine the performance consequences of the core decision; Henkel explains what the adopting firm keeps proprietary afterward, which is the selective-revealing residue that survives the "open at the core" transition.</li>
+<li><strong>Azoulay, Krieger and Nagaraj (2024), "Old Moats for New Models"</strong>. Their question — whether openness or control pays in generative AI, with patents on upstream inputs as "old moats" — inherits the appropriation framing Henkel makes explicit: exclusivity over the shared layer is not the only route to profits. Henkel's embedded-Linux firms protect the differentiating layer (device-specific drivers carrying proprietary protocols) while giving away generic layers; open-weight AI firms analogously release weights while retaining moats in data, compute, services and patents. The analogy should not be pushed too far — Henkel's setting is GPL-derived code where patents are largely beside the point for the revealed part, whereas Azoulay et al. study patented inputs and weights — but both papers locate competition in the boundary between what is shared and what is kept.</li>
+</ul>
+
+<pre class="mermaid">
+flowchart LR
+    subgraph Predecessor streams
+        IT["Information trading<br/>(von Hippel 1987 - Schrader 1991)"]
+        UR["Free revealing by users<br/>(von Hippel 1988 - Harhoff et al. 2003)"]
+        CI["Collective invention<br/>(Allen 1983 - Nuvolari 2001)"]
+        PC["Private-collective model<br/>(von Hippel and von Krogh 2003)"]
+    end
+    IT --> H
+    UR --> H
+    CI --> H
+    PC --> H
+    H["Henkel 2006 - selective revealing as a<br/>code-level partition (N = 268)"]
+    H --> MOF["White et al. 2024 - component-level<br/>openness (Model Openness Framework)"]
+    H --> YN["Yue and Nagle 2024 - relinquishing control<br/>over the core (PyTorch)"]
+    H --> HP["Haese and Peukert 2026 - open at the core:<br/>what the firm keeps proprietary"]
+    H --> AZ["Azoulay et al. 2024 - openness, control and<br/>moats in generative AI"]
+    MOF & YN & HP & AZ --> AI["Openness as a strategic partition<br/>in the AI model economy"]
+</pre>
+
+<p>Further connective tissue in this library: Laufer, Oderinwale and Kleinberg (2025) and Longpre et al. (2025) describe the Hugging Face model ecosystem as a mix of open and restricted artifacts, which is the hub-and-spoke scale version of Henkel's observation that openness is heterogeneous; Khoshbash (2026) studies how sponsors of open foundation models selectively back fine-tuned variants — a firm-level sponsorship analogue of selective contributing; Wu, Lin and Li (2025) treat the Llama 2 release as an openness shock whose downstream response echoes Henkel's "external development support" mechanism on a platform; Wright, Nagle and Greenstein (2023) and Nagle (2019) quantify the productivity and entrepreneurship value of OSS as an input, the aggregate payoff that Henkel's firms are individually chasing; Wen, Ceccagnoli and Forman (2016) and Conti, Peukert and Roche (2025) analyze firms opening up IP and engaging OSS communities for strategic and financing reasons; and Fleischmann and Haeussler (2026) extend the "degrees of openness" theme to open-source AI, again replacing a binary with a spectrum. Henkel's own Part II neighbors — von Hippel and von Krogh (2003) and O'Mahony (2003) — supply the theory of private-collective innovation and of how communities guard their commons, the two institutional poles between which Henkel's firms steer.</p>
+
+<h2>6. Limitations</h2>
+
+<p><strong>Author-stated boundaries.</strong> Henkel is explicit about several. The study is cross-sectional and relies on self-reported shares of revealed code rather than objective code-level measurement, so the "about half" figure is a respondent estimate. The survey was distributed through developer portals, so the population is self-selected, a precise response rate is unavailable (only an early-versus-late check), and the sample is small within categories — the component-manufacturer cell for the share question has N = 17. Firm-level constructs (policies, reasons) are measured through a single developer respondent per firm, and a firm could in principle appear more than once. The paper explains heterogeneity but does not claim to establish causality from firm characteristics to revealing, and several hypotheses (H2, H6c, H6d) are not confirmed, with post-hoc interpretations offered. The author also notes the unresolved question of the individual developer's role, concluding cautiously that programmers act as "champions of revealing" rather than license-defying enthusiasts.</p>
+
+<p><strong>Independent judgment</strong> (layered and labeled):</p>
+
+<ul>
+<li><strong>Paper claims</strong>: firms choose revealing deliberately; the mean revealed share is about half; revealing is consistent with profit-maximizing behavior; external development support is the main driver; the private-collective model works in commercial settings. All are asserted in the text as conclusions of the analysis.</li>
+<li><strong>Evidence</strong>: the quantitative evidence is a single, cross-sectional, self-report survey (N = 268; regression N = 119) plus interview excerpts. The revealed-share measure has no external validation against actual public code, and the "more than in 2000" trend question is retrospective and crude. The claim that revealing is profit-maximizing is supported by correlations consistent with rationales (support motives, size, experience), not by profit or performance data.</li>
+<li><strong>Inference</strong> (mine, not the author's): self-reported shares may be inflated by social desirability among a self-selected developer audience, so 49.3% is plausibly an upper bound on true public availability. The complementary-assets results (H4) are read by the author as suggesting that only <em>specific</em> complements protect; I infer from the 48-UMTS-channels anecdote that the protective boundary tracks where differentiating knowledge resides, a pattern that would generalize but is not formally tested. I also infer that the relevance to today's AI setting is structural rather than literal: model weights differ from source code in that they are not human-readable derived work, training data and patents play roles the GPL never played, and hub-mediated contribution (pull requests, downloads) changes the governance of what gets "submitted to the maintainer" — none of which this 2006 paper could anticipate.</li>
+<li><strong>Open questions</strong> the paper leaves: what determines the <em>architectural</em> boundary between the open and protected parts (the paper observes repartitioning but treats the code base's modularity as given, citing Baldwin and Clark, 2003); how revealing behavior evolves as more firms reveal and free-riding by non-revealers grows; and whether the balance shifts when complementary assets themselves commoditize — a question now pressing in open-weight AI, where clouds and chips are the complements. The survey's 2003–2004 window also predates the platform-era institutions (central hubs, formal foundations, CLA and DCO processes) that later work on governance, such as O'Mahony and Ferraro (2007) and O'Mahony and Karp (2022), studies.</li>
+</ul>
+
+<h2>7. Conclusion and takeaways</h2>
+
+<p>The paper's practical conclusion is that the conflict between openness and protection is manageable if revealing is practiced deliberately. Embedded-Linux firms routinely combine free revealing with GPL-consistent protection — restricted or delayed revealing, customer-only disclosure, and binary-only drivers — and thereby reveal, on average, about half of the code they develop. Open innovation processes of this kind carry "a considerable potential for efficiency gains," reducing duplication of effort and avoiding the transaction costs of commercial licensing, much as open science supports the accumulation of knowledge (David, 2005). Henkel argues the phenomenon is not confined to OSS or to software: because firms are "far more open than they are obliged to by the license," voluntary revealing is at work, and the main obstacle elsewhere is attitudinal. One respondent's remark supplies the paper's closing diagnosis:</p>
+
+<blockquote>"[revealing code] is new territory for this company. The spirit is willing, but the legal staff is weak." (respondent, quoted on p. 967 of the PDF)</blockquote>
+
+<p>For the Hugging Face and Open-AI topic, the durable takeaway is that openness is a fine-grained strategic partition, not a regime choice: firms — then for device software, now for foundation models — reveal the layers whose sharing brings development support, standardization, and complements demand, and protect the layers that carry differentiation, deciding the boundary with an eye on private profits. Henkel gives that boundary decision its first large-N, firm-level evidence.</p>
+
+<div class="golden">
+The key is to understand what to reveal and what to protect — i.e., to repartition innovative activities into an open and a protected part in a manner consistent with private profits. (Henkel, 2006, p. 954 of the PDF)
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI in the academic deep-dive style of the reading-notes workflow, grounded in a pdftotext extraction of the local PDF of Henkel (2006), Research Policy 35(7), 953–969. Blockquotes are verbatim from that extraction (typographic quotation marks and dashes normalized to plain characters; one respondent quote is reproduced with its original spelling, flagged "sic" in the text); page numbers given as "(p. N of the PDF)" are journal pages of the article derived from the form-feed page breaks in the extraction. Tables 1 and 2 transcribe the paper's Tables 1 and 2; the hypothesis outcomes in Table 3 follow the text of Sections 5.5.1–5.5.6. Statements labeled as inference in the Limitations section are the AI's interpretation, not claims of the paper, and have not been peer-reviewed. Please verify quotations and numbers against the original article before citing.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

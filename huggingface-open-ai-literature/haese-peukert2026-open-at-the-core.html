@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open at the Core (Haese &amp; Peukert, 2026) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Open at the Core: Moving from Proprietary Technology to Building a Product on Open Source Software</h1>
+<div class="subtitle" style="color:var(--muted);margin-bottom:.4rem"><em>Haese &amp; Peukert (2026) · Management Science (in press)</em></div>
+<div class="meta">
+<strong>Authors</strong>: Jérémie Haese; Christian Peukert (corresponding author), Faculty of Business and Economics (HEC), University of Lausanne<br>
+<strong>Source</strong>: <em>Management Science</em>, in press (the topic library's label); the published version read here is <em>Management Science</em> 72(5), May 2026, pp. 4173–4199, DOI 10.1287/mnsc.2023.02886 (received Sept 8, 2023; revised Aug 30 &amp; Oct 30, 2024; accepted Nov 6, 2024; published online in Articles in Advance, Sept 5, 2025). Copyright © 2025 The Author(s); open access under CC BY 4.0. Funded by the Swiss National Science Foundation (Grant 100013_197807); accepted by D.&nbsp;J. Wu (information systems)<br>
+<strong>Year</strong>: 2026 (issue; accepted 2024, online 2025) — flag when citing: the paper was still listed as "in press" when this topic library was compiled; the full-text PDF is the published issue version<br>
+<strong>Nature</strong>: Empirical archival study (difference-in-differences) around a single firm-level event — Microsoft's 2018 switch of Edge from proprietary EdgeHTML to the open-source Chromium core — extended for external validity to 13,740 open-source AI repositories<br>
+<strong>Data &amp; code status</strong>: Open access; online appendix and data files available at the DOI (10.1287/mnsc.2023.02886). Primary data assembled from GitHub, GHArchive push events, vendor security release notes (incl. the Microsoft MSRC API), caniuse.com, BrowserStack page-load simulations, StatCounter Global Stats, and US federal website analytics. No standalone public analysis-code repository is referenced in the text
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Using Microsoft's surprise adoption of the open-source Chromium core for its Edge browser (announced December 2018, shipped January 2020), Haese and Peukert show that an incumbent firm's move from a proprietary core to building a product "open at the core" crowds <em>in</em> rather than crowds out the development community (total commits, reviewers, and vulnerability reporting all rise), while the firm itself gains functionality, development speed, and market share — but at the price of technological distinctiveness, a slower product, and greater concentration of the whole browser market on a single open engine.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide for "Hugging Face &amp; the Open-AI Economy"</strong>: this paper is the browser-generation template for the business model the topic library studies in AI — a commercial product built on an open core (Chromium) inside a proprietary shell, with a lead steward (Google), a rival entrant (Microsoft), a permissive license (BSD-3), and a community whose composition the commercial entrant can change. Everything the Hugging Face papers measure about open-weight models (Yue &amp; Nagle 2024 on PyTorch governance; Azoulay et al. 2024 on openness and control; White et al. 2024's Model Openness Framework; the platform studies of Wu, Lin &amp; Li 2025 or Laufer et al. 2025) has a direct predecessor here: browsers were the first mass market where competing firms converged on one shared open core, and the paper's central question — does commercialization of an open project crowd out its contributors? — is the same question asked about Llama, PyTorch, and the Hugging Face Hub. Read it as the canonical empirical case for "who contributes when a big firm joins the commons," and as the counterpoint to the strategic-revealing logic of Henkel (2006) and to Yue &amp; Nagle's (2024) result on relinquishing control over a core technology.
+</div>
+
+<h2>1. Background and motivation: firms turning to open source at the core</h2>
+
+<p>The paper opens with a factual claim about the direction of travel: firms that once treated open source software (OSS) as a component to reuse internally now build <em>commercial products on top of it</em>. The introduction distinguishes three stages of corporate involvement that the literature has tracked separately — incorporating OSS in the technology stack (Fosfuri et al. 2008; Nagle 2018), actively contributing to OSS communities (Stam 2009; Nagle 2019), and finally making code publicly available on development platforms such as GitHub — and notes that the corporate shift has accelerated "over the last five to ten years" (p. 4173). Despite this prevalence, the authors argue, the specific transition of an incumbent from <em>proprietary technology</em> to an <em>open source core</em> for a commercial product "has not been extensively studied" (p. 4173), and observers worry about three consequences: crowding out of individual contributors, underinvestment in cybersecurity, and threats to the essence of OSS as reflected in the chosen licensing agreements (concerns summarized in Lifshitz-Assaf and Nagle 2021). The paper's question is exactly that transition, posed on three outcome domains: the reaction of the OSS community, and the consequences for cybersecurity, product quality, and firm performance.</p>
+
+<blockquote>Firms are increasingly moving away from proprietary technology to building commercial products on top of open source software. However, it is unclear how such commercialization of open source affects contributions from the community, as well as product quality and firm performance. (Haese &amp; Peukert 2026, p. 2 of the PDF = printed p. 4173)</blockquote>
+
+<p>The empirical vehicle is the market for web browsers, described as a "tremendously understudied 'killer application'" used by about half of the world's population daily (p. 4173). Browser cores are among the largest OSS projects on GitHub, with a combined "over 2.4 million individual contributions" (p. 4174). The market leader, Google Chrome, is built on the open-source project Chromium; Apple's Safari rests on WebKit; Mozilla's Firefox on Gecko. Microsoft's browser technology, by contrast, "has historically always been proprietary" (p. 4174) — which is what made its December 2018 decision to adopt Chromium for Edge a shock that reads as a near-natural experiment: unanticipated by competitors, driven by Microsoft's own strategic calculus rather than by the open-source community, and cleanly timed between an announcement date and a product-release date.</p>
+
+<blockquote>It came as a surprise to many industry observers when Microsoft decided to adopt the open source technology Chromium for their Edge browser in December 2018. (Haese &amp; Peukert 2026, p. 3 of the PDF = printed p. 4174)</blockquote>
+
+<p>Note the identification logic the authors lean on throughout: for competitors and observers the move was exogenous and surprising, whereas for Microsoft it was deliberate and uncertain in its consequences ("a major paradigm shift with lots of uncertainty on how competitors, open source contributors, and consumers would react," p. 4183). The analyst can therefore treat the event as a shock to the Chromium community and to the browser market while remaining agnostic about Microsoft's private motives.</p>
+
+<h2>2. Setting and core concepts</h2>
+
+<h3>2.1 The browser-engine world: an open core, many shells</h3>
+
+<p>A rendering engine converts raw code (HTML and CSS) into the web page the user sees; it is the strategic core of a browser. The paper's Table 1 (p. 4176) organizes the market around five engines and their stewards: Microsoft's proprietary Mosaic/Trident (Internet Explorer up to V10) and EdgeHTML (Edge until V18), Mozilla's open Gecko (Firefox), Apple's open WebKit (Safari, and Chrome until V28), and Google's Blink — "forked from WebKit and [a] key component of Chromium" — which now powers Chrome, Opera, and Edge from V79. Together the three open engines (Gecko, WebKit, Chromium) cover "more than 85%" of devices including smartphones, tablets, and smart TVs (p. 4177), and Chromium itself "is now the leading web browser engine, which makes it the de facto standard for new features" (p. 4177).</p>
+
+<p><strong>Governance of the core.</strong> The authors stress that large OSS projects use governance mechanisms that "define control rights, and shape incentives" (p. 4177). Chromium is steward-led by Google but formally meritocratic: every code change must be reviewed by at least two reviewers, one of them a code owner, and the qualification path to reviewer and code-owner applies "also to the project steward's employees" (p. 4177).</p>
+
+<blockquote>Contributions to Chromium need to be validated by at least two reviewers, where one of them needs to be a code owner, who plays a similar role as senior editors at academic journals. (Haese &amp; Peukert 2026, p. 6 of the PDF = printed p. 4177)</blockquote>
+
+<p>The license is a permissive 3-clause BSD license, which the paper reads as the economic enabler of the open-core business model:</p>
+
+<blockquote>This permissive licensing model offers much flexibility and room for customization as the only constraints are to maintain copyright notices and the license's disclaimers of warranty, and not use the names of contributors for endorsement of a derived work without specific permission. (Haese &amp; Peukert 2026, p. 6 of the PDF = printed p. 4177)</blockquote>
+
+<p>Permissiveness lets firms embed the core in proprietary shells — Brave's privacy positioning, Opera's feature set — and to run their own release cycles. Standards dynamics reinforce concentration: because Chromium leads standards development, and Safari (via iOS) is a second de facto standard, the market has little room for a third engine such as Microsoft's EdgeHTML. That is the structural position into which Microsoft entered in December 2018.</p>
+
+<h3>2.2 Microsoft's strategic reversal</h3>
+
+<p>The paper traces the reversal to 2015: with Windows 10, Microsoft moved to automatic updates, ended development of Internet Explorer, and shipped Edge on a brand-new proprietary engine, EdgeHTML (p. 4178). Edge failed to gain traction — the paper lists the legacy reputation of Internet Explorer, compatibility issues, the rise of mobile, and Chrome's established position as candidate causes (p. 4178) — and anecdotes from the trade press suggest Edge trailed competitors badly on features (only about 70 extensions were available for Legacy Edge against hundreds of thousands for Chromium-based browsers, per the paper's endnote 24). Against this backdrop, the December 6, 2018 announcement that Microsoft would adopt Chromium for a rebuilt Edge was widely read as an attempt to reach or leapfrog the technological frontier:</p>
+
+<blockquote>As any public observer, Microsoft could know that Chromium-based browsers had a broader range of functionalities than their own web browser. Therefore, it seems likely that one of the underlying reasons for Microsoft to join Chromium was to leapfrog the competition or at least be on par with the technological frontier. (Haese &amp; Peukert 2026, p. 6 of the PDF = printed p. 4177)</blockquote>
+
+<p>The paper contextualizes the move inside a corporate cultural change — from Steve Ballmer's early-2000s view of Linux as "communism" and "a cancer" (p. 4178) to Satya Nadella's era, marked by the USD 7.5 billion acquisition of GitHub in 2018 and Microsoft's position as "the second largest private contributor to GitHub" after Google (p. 4178). The empirical timeline used throughout is precise: announcement December 6, 2018; a bounty program for the new Edge launched August 2019; first Chromium-based Edge (version 79, codenamed "Project Anaheim") released January 15, 2020 (p. 4178).</p>
+
+<h3>2.3 Why browsers: multisided platforms with indirect network effects</h3>
+
+<p>Section 2.2.3 frames browsers as multisided platforms: priced at zero, monetized through browsing data that feeds advertising businesses, and connecting users, website and application developers, extension developers, and search engines competing to be the default. Value depends first on the number of websites a browser displays correctly, which produces indirect network effects and concentration dynamics; browsers are also distribution channels inside larger ecosystems (Google promoting Chrome through its search engine, Apple bundling Safari, Microsoft setting Edge as the Windows default). This platform framing does analytic work later: the market-share results must be read with the possibility of supply-side forcing (default settings) in mind, and the policy discussion worries about firms using operating-system market power to favor their own browser.</p>
+
+<pre class="mermaid">
+flowchart TB
+    subgraph CORE["Shared open core layer"]
+        CR["Chromium<br/>(Blink engine, BSD-3)<br/>Google steward"]
+        GE["Gecko (Mozilla)"]
+        WK["WebKit (Apple)"]
+    end
+    subgraph SHELL["Proprietary product shells"]
+        CH["Chrome (Google)"]
+        ED["Edge (Microsoft)<br/>Legacy: EdgeHTML → V79+: Chromium"]
+        OP["Opera, Brave, Vivaldi, ..."]
+        FF["Firefox (Gecko)"]
+        SF["Safari (WebKit)"]
+    end
+    subgraph ACTORS["Contributors and reviewers"]
+        A1["Google engineers"]
+        A2["Microsoft engineers (post-2018)"]
+        A3["External developers"]
+        A4["Code reviewers / owners"]
+        A5["Security vulnerability reporters"]
+    end
+    CR --> CH
+    CR --> ED
+    CR --> OP
+    GE --> FF
+    WK --> SF
+    A1 --> CR
+    A2 --> CR
+    A3 --> CR
+    A1 -.reviews.-> CR
+    A4 --> CR
+    A5 -.reports bugs to.-> ED
+    A5 -.reports bugs to.-> CH
+</pre>
+
+<h2>3. Research objectives, data, and methods</h2>
+
+<h3>3.1 Five measurement domains</h3>
+
+<p>The paper assembles fine-grained data on five domains (its Table 2, pp. 4179–4180): <strong>(i) development activity</strong> from GitHub — daily commits, size of code changes, monthly count of code reviewers, and commits per reviewer — covering January 2016 to December 2021 (reviewer counts from July 2017) for the three engines Chromium (Google), Gecko (Mozilla), and WebKit (Apple); the authors identify the project steward by email domain (@google.com and @chromium.org for Chromium), Microsoft employees (@microsoft.com), and everyone else as "external." <strong>(ii) Security and patching</strong> from vendor security release notes (April 2016–December 2021 for reporters; July 2015–December 2021 for fixed vulnerabilities), parsed semi-automatically for Edge, Chrome, Firefox, and Safari, identifying reporter names, patch dates, and severities; the vendors fixed 4,338 vulnerabilities over the window, mostly tagged with CVE identifiers from the MITRE system (p. 4180). <strong>(iii) Product functionality</strong> from caniuse.com — 528 web-platform functionalities tracked for 17 browsers and their historical versions at browser-month level (July 2015–December 2021); the authors concede this misses UI/UX features such as multitab browsing or toolbars (p. 4181). <strong>(iv) Page load time</strong> from their own independent benchmark on BrowserStack: loading craiglist.org and wikipedia.org on a Windows 10 virtual machine, iterated thirty times per page per browser version from 2017 onward, 3,323 observations (p. 4181); the two sites were chosen because they changed little over a decade and render on old browser versions. <strong>(v) Market shares</strong> from StatCounter Global Stats — monthly, per country and device — for 35 industrial countries, January 2016–December 2021, supplemented by US federal government website traffic at browser–operating-system level for robustness (pp. 4181–4182).</p>
+
+<h3>Table 1: Outcome domains, measures, and coverage (paper Table 2, condensed)</h3>
+<table>
+<tr><th>Domain</th><th>Measures (Dependent variables)</th><th>Source</th><th>Coverage</th></tr>
+<tr><td>Development activity</td><td>Daily commits; code change size (lines); monthly reviewers; commits/reviewer</td><td>GitHub</td><td>01/2016–12/2021 (reviewers 07/2017–12/2021)</td></tr>
+<tr><td>Security and patching</td><td>Quarterly vulnerability reporters; quarterly vulnerabilities fixed</td><td>Patch release notes</td><td>Reporters 04/2016–12/2021; fixed 07/2015–12/2021</td></tr>
+<tr><td>Product quality (functionality)</td><td>Functionalities per release; release-cycle days; page-load time (ms)</td><td>caniuse.com; BrowserStack</td><td>07/2015–12/2021; 01/2016–12/2021; 03/2017–04/2022</td></tr>
+<tr><td>Firm performance</td><td>Monthly browser market share, all devices and desktop, by country</td><td>StatCounter</td><td>01/2016–12/2021 (35 countries)</td></tr>
+</table>
+
+<h3>3.2 Estimation strategy</h3>
+
+<p>The identifying variation is the staggered switch: Microsoft announces adoption of Chromium (period "Announcement": December 6, 2018 to January 15, 2020) and then ships the first Chromium-based Edge (period "PostRelease": after January 15, 2020). Two reference points matter because some effects appear at the announcement (development effort) and others only at release (supported functionalities). The core comparisons are difference-in-differences with two groups of <em>projects</em> — Chromium versus the non-Chromium engines WebKit and Gecko, the "natural choice for a control group" (p. 4183) — and, for browser-level outcomes, three groups of <em>browsers</em>: Microsoft (Edge), Chromium-based non-Microsoft browsers (Chrome, Opera), and non-Chromium browsers (Firefox, Safari). The baseline specifications interact group dummies with the two period dummies (the paper's Equations 1 and 2, p. 4183), with standard errors clustered at the repository or browser level, and a log(+1) transform of counts for convenient interpretation. The authors report leads-and-lags plots (Figures A.3–A.6) supporting parallel pretrends, an alternative control group — the Linux repository, similar in size and plausibly unaffected by a browser decision (pp. 4183, 4193) — and robustness to Poisson and unlogged OLS estimators for count outcomes (Tables A.4–A.10; Chen and Roth 2024; Wooldridge 2023). They also state that extensive checks of community forums, the trade press, and interviews with senior developers surfaced no other major events coinciding with the announcement or the first release (p. 4183).</p>
+
+<p>One feature of the design deserves emphasis: because Chromium was already under commercial stewardship (Google), the Chromium case cannot answer what would happen if a firm entered a <em>community-led</em> project. The authors therefore add an external-validity layer: they assemble 13,740 open-source AI repositories (following Gonzalez et al. 2020's topic-tagging methodology on GHArchive push events), classify commit authors by email domain into company, university, government/not-for-profit, and individual categories (using Crunchbase, university-domain lists, free-email lists, and manual checks), and define a "commercial entrant" as the first company to commit — the first company other than the original corporate owner for already-corporate repositories, the first company ever for community repositories. Scikit-learn (INRIA-led) and PyTorch/TensorFlow (Meta- and Google-launched) illustrate the two governance extremes (pp. 4181–4183).</p>
+
+<h2>4. Findings</h2>
+
+<h3>4.1 Development activity: no exodus, a surge, and heavy churn</h3>
+
+<p><strong>Between projects.</strong> Model-free evidence (Figure 1) shows total Chromium commits flattening after the announcement rather than collapsing, with non-Chromium projects stable throughout. Regression estimates (Table 3, p. 4184) imply that Chromium's commits moved about 19% higher relative to the non-Chromium projects during the announcement period compared with the pre-period (the coefficient 0.17 implies e<sup>0.17</sup>−1 ≈ 19%), with no statistically significant difference after the first release — i.e., the development surge was concentrated in the build-up to the first release. The number of code reviewers in Chromium increased after the release of Chromium-based Edge, with no significant change in reviewers' workload (commits per reviewer).</p>
+
+<p><strong>Within Chromium.</strong> Figure 2 and Table 4 decompose activity by contributor class relative to the Google baseline (p. 4185):</p>
+
+<blockquote>Microsoft increases the daily number of commits 2.5 times more than Google during the announcement period, and close to 3 times more than Google after the first release. (Haese &amp; Peukert 2026, p. 14 of the PDF = printed p. 4185)</blockquote>
+
+<p>External contributors (neither Google nor Microsoft) also raised their commit counts relative to Google — by about 30% during the announcement period and by about 1% after the first release (p. 4185) — while their code-change size showed no systematic shift. The paper's headline summary of the same pattern is an increase of "+6%" in external contributions over the post-adoption window (p. 3 of the PDF = printed p. 4174); the disaggregated relative-to-Google estimates vary by window and baseline. The authors are explicit that they cannot separate whether rising non-Microsoft activity is caused by Microsoft's entry per se or by spillovers from Microsoft's own increased development inside the project (p. 4185).</p>
+
+<p><strong>Composition and churn.</strong> The community did not just grow — it turned over. Around two-thirds of contributors active after the announcement had not contributed in the preceding twelve months:</p>
+
+<blockquote>Around 66% of the contributors in the period following Microsoft's announcement did not contribute in the twelve months before. (Haese &amp; Peukert 2026, p. 3 of the PDF = printed p. 4174)</blockquote>
+
+<p>Figure 3 quantifies the flows among the 1,571 contributors initially exclusive to Chromium: 897 continued, 494 stopped, 174 began contributing to both Chromium and non-Chromium repositories, and only 6 moved to non-Chromium projects exclusively (p. 4186). Across all three browser projects the refresh is stark:</p>
+
+<blockquote>We observe a substantial refresh in the composition of the pool of contributors with 1,130 users ceasing their contributions replaced by 3,810 newcomers to the three projects. (Haese &amp; Peukert 2026, p. 15 of the PDF = printed p. 4186)</blockquote>
+
+<p>About 6% of the new contributors are Microsoft employees; inside Chromium, Microsoft employees account for about 10% of new contributors (p. 4186). Heterogeneity analysis (Online Appendix A.2.1) shows that individual contributors sustained higher post-release activity than company-affiliated contributors, that contributors from the Apple/WebKit community <em>reduced</em> their Chromium involvement while other externals increased theirs, and — a distinctive result — that part of the influx came from Microsoft's own open-source community:</p>
+
+<blockquote>We show that increased activity from external developers is in part driven by Microsoft's open source community, that is, individuals who have contributed to Microsoft's open source projects before. (Haese &amp; Peukert 2026, p. 3 of the PDF = printed p. 4174)</blockquote>
+
+<p>The authors read this as evidence that "commercial actors can have the power to influence the composition of open source communities beyond paying their own employees to contribute" (p. 4195) — a crowding-in mechanism, not crowding out.</p>
+
+<h3>4.2 Security and patching: scrutiny rises with commercial entry</h3>
+
+<p>Vulnerability reporters had stagnated for non-Chromium browsers, then rose sharply for Microsoft and Chromium browsers after the first Chromium Edge release (Figure 4). Table 5 (p. 4187) reports: no significant movement in reporters during the announcement period, then an increase of 271% in reporters related to Edge after release; and faster fixing by both big firms — Microsoft and Google fixed 27% and 32% more vulnerabilities during the announcement period, and 421% and 239% more after the first release, respectively (p. 4187). The 271% figure is tied to incentives:</p>
+
+<blockquote>After Microsoft releases the first version of their Chromium-based browser, the number of reporters related to Edge increases by 271%. This result is consistent with the idea that reporters respond to monetary incentives because Microsoft introduced a bounty program for Chromium-based Edge in August 2019. (Haese &amp; Peukert 2026, p. 16 of the PDF = printed p. 4187)</blockquote>
+
+<p>The paper notes the dual-incentive structure — Microsoft's bounty now runs alongside Google's — and stresses a positive externality: Edge vulnerabilities are Chromium vulnerabilities, so reports about Edge "can benefit every Chromium user" (p. 4174).</p>
+
+<h3>4.3 Product quality: leap to the frontier, loss of distinctiveness, slower pages</h3>
+
+<p><strong>Functionalities.</strong> Internet Explorer and Edge had lagged the market for years; after the switch, Microsoft catches up (Figure 5a). Table 6 (p. 4188) quantifies the move:</p>
+
+<blockquote>In columns (1) and (2), we see that, compared with the rest of the market, Microsoft's change in the number of functionalities is 36% higher, and that Microsoft can reduce its distance to the market leader by 100 functionalities after the release of Chromium-based Edge. (Haese &amp; Peukert 2026, p. 17 of the PDF = printed p. 4188)</blockquote>
+
+<p>Distance to the leader falls only for Microsoft, not for competitors; Chromium-based Edge gains 29 functionalities of overlap with the market leader relative to the average non-Chromium browser; and release cycles shorten by 72%, from about 203 to about 53 days between releases — faster than the market average (pp. 4188–4189). The feature-level anatomy (Figure 6, p. 4189) is brutal for Microsoft's own engineering legacy: comparing Edge 18 (last proprietary version, November 2018) with Chrome 71, and Edge 79 (first Chromium version, January 2020) with Chrome 80, only one functionality exclusive to Legacy Edge survived into the Chromium era, "Edge adopted 125 functionalities that were present in Chrome 71," and of the 17 functionalities exclusive to Edge before the switch, 16 were abandoned (p. 4189). Microsoft reached the frontier "at the cost of becoming similar to its competitors" (p. 4174). The authors note the decision to support the full Chromium feature set is a choice, and that caniuse data cannot see shell-level differentiation such as Edge's AI-assistant toolbar (p. 4189).</p>
+
+<p><strong>Page load time.</strong> The independent benchmark tells the opposite quality story. Edge had been <em>faster</em> than rivals before the switch; after adopting Chromium its average load time rose by more than 1,000 milliseconds (Table 7, coefficient ≈ 1,189 ms), and Edge became the only browser that got slower in the post-release period, even though all browsers converge toward a common loading time afterward (pp. 4189–4190). The paper frames this as a plausible trade-off: "This suggests that there might be a trade-off between loading time and functionalities" (p. 4189).</p>
+
+<h3>4.4 Firm performance: Edge gains share, Microsoft (aggregate) does not</h3>
+
+<p>Table 8 (pp. 4190–4192) separates two levels. At the <em>firm</em> level (Edge plus Internet Explorer), Microsoft's aggregate market share was not significantly different from non-Chromium browsers in the post-release period, overall or on desktop — the strategic reversal did not lift Microsoft's total browser share (p. 4190). At the <em>product</em> level, Edge itself gained:</p>
+
+<blockquote>Estimates suggest that, relative to all non-Chromium browsers, the market share of Edge increased by 4.6 percentage points overall, and by 8 percentage points on desktop devices after the first release of the Chromium-based version. (Haese &amp; Peukert 2026, p. 19 of the PDF = printed p. 4190)</blockquote>
+
+<p>Directly comparing Legacy Edge with Chromium-based Edge yields gains of 1.8 percentage points overall and 4 on desktop (Table A.2). Crucially for competitive dynamics, the new Edge did not take share from Chrome: the increase came from other, less popular Chromium-based browsers and from users finally leaving the discontinued Internet Explorer; gains were driven by desktop usage (about 40% of web traffic in 2020), with no change on mobile (pp. 4190–4191). To separate demand (users choosing Edge) from supply (Microsoft forcing Edge as the Windows default), the authors exploit browser–OS-level US federal website traffic with operating-system fixed effects; the product-level positive effect survives, and a slight positive firm-level effect even appears once time-invariant OS effects are controlled (Table A.3, p. 4192).</p>
+
+<h3>4.5 External validity: commercial entry into 13,740 open-source AI repositories</h3>
+
+<p>The final results block asks whether the Chromium pattern generalizes to community-led projects — the counterfactual the single case cannot answer. In both company repositories (like PyTorch, TensorFlow) and community repositories (like Scikit-learn), Figure 8 shows a jump in commits by external contributors and by the repository owner in the month after a commercial entrant's first commit, sustained for twelve months. Table 9 (p. 4194) confirms positive post-entry coefficients for external and entrant contributions in both governance types, "The fact that we do not find any negative effects in either setting corroborates our core findings in the case of Microsoft entering Chromium, where we document overall positive effects" (p. 4194). The authors caution that the generalization to less commercially attractive domains may be limited, and that only short- to medium-term effects are observed (p. 4194).</p>
+
+<h3>Table 2: Headline results — author-reported point estimates by domain</h3>
+<table>
+<tr><th>Domain</th><th>Key estimates (as reported in the paper)</th><th>Location</th></tr>
+<tr><td>Development activity (project level)</td><td>Chromium commits ≈ 19% higher than other projects in the announcement period; more code reviewers after first release; no change in reviewer workload</td><td>Table 3, p. 4184</td></tr>
+<tr><td>Development activity (within Chromium)</td><td>Microsoft commits 2.5× (announcement) and ≈3× (post-release) Google's; external commits +30% (announcement) and +1% (post-release) vs. Google; churn: 1,130 leavers replaced by 3,810 newcomers; ≈66% of post-announcement contributors were inactive 12 months prior</td><td>Table 4, pp. 4185–4186; pp. 4174, 4186</td></tr>
+<tr><td>Security and patching</td><td>Edge-related reporters +271% after first release; vulnerabilities fixed: Microsoft +27% / Google +32% (announcement), +421% / +239% (post-release)</td><td>Table 5, p. 4187</td></tr>
+<tr><td>Product functionality</td><td>Microsoft functionality growth +36% vs. market; distance to leader −100 functionalities; overlap with leader +29; release cycles −72% (203 → 53 days); 16 of 17 Edge-exclusive features abandoned</td><td>Table 6, pp. 4188–4189</td></tr>
+<tr><td>Page load time</td><td>Edge load time +&gt;1,000 ms (≈1,189 ms) after adoption; Edge the only browser that slows; convergence across browsers</td><td>Table 7, pp. 4189–4190</td></tr>
+<tr><td>Firm performance</td><td>Aggregate Microsoft share: no significant change; Edge share +4.6 pp (all devices) and +8.0 pp (desktop); gains from other Chromium browsers and IE, not Chrome</td><td>Table 8, pp. 4190–4192</td></tr>
+<tr><td>External validity (AI repos)</td><td>Positive entrant and external commit responses in both company and community repositories (N = 13,740 AI repositories)</td><td>Table 9, p. 4194</td></tr>
+</table>
+
+<h2>5. Position in the literature</h2>
+
+<h3>5.1 Its own research stream</h3>
+
+<p>The paper positions itself inside the empirical economics of OSS, against a literature it describes as "largely theoretical" on the question of commercialization (p. 4174). It inherits the motivational tradition of Lerner and Tirole (2002) and the private-collective model of von Hippel and von Krogh (2003) — intrinsically motivated, self-selecting contributors whose participation can depend on licensing choices (Belenzon and Schankerman 2015) — and extends the firm-side theory of profit-motivated contribution (Iansiti and Richard 2006; August et al. 2013, 2017, 2020; Reisinger et al. 2014 on rival firms' investment responses) by measuring, at scale, what happens when a large firm actually joins an existing project. On the value side, it speaks to work measuring OSS contributions to GDP (Greenstein and Nagle 2014), firm productivity from OSS use and contribution (Nagle 2018, 2019), OSS and entrepreneurship (Wright et al. 2023), and OSS engagement and startup funding (Lin and Maruping 2022; Conti, Peukert and Roche 2025 — the latter coauthored by Peukert). Its most direct dialogue partners are two sets of recent empirical papers. First, on competition between a for-profit entrant and an existing community, it is "perhaps closest" (p. 4175) to Nagaraj and Piezunka (2024), who find in OpenStreetMap that Google Maps' entry made <em>new</em> contributors reduce effort while pre-existing contributors increased theirs; Haese and Peukert find no such exodus among new joiners and add that entry into an already commercially governed project (Chromium) may behave differently from entry into a community project. Second, on governance, it cites Chen et al. (2021) — OSS acquisitions spur contributions to other projects — and Yue and Nagle (2024), where moving a project's steward from commercial to nonprofit spurs commercial players' contributions. Methodologically it also borrows from the platform-owner-entry literature (Foerderer et al. 2018; Zhu and Liu 2018; Wen and Zhu 2019) and from Karhu and Ritala's (2021) taxonomy of opportunistic platform entry — exploitation, pacing, and injection — which the authors say all seem to apply to Microsoft's move (p. 4175).</p>
+
+<h3>5.2 Against the strategic-revealing and governance-change classics</h3>
+
+<p>For this topic library, the most important conversations are with Henkel (2006) and O'Mahony and Karp (2022), because together they define the two directions a firm can move along the proprietary–open continuum. Henkel's selective revealing (embedded Linux) showed firms opening <em>part</em> of their code while keeping the proprietary core and differentiating elements closed — a partial-openness equilibrium in which the core stays inside the firm. Haese and Peukert study the opposite boundary decision: giving up the proprietary core entirely (EdgeHTML) and building the product on a shared open core, retaining only the shell. The two results bracket the modern open-core strategy: Henkel explains why firms reveal selectively when they keep a core; Haese and Peukert document what a firm gains and loses when it no longer has a proprietary core at all — frontier functionality and cadence in exchange for distinctiveness and speed. O'Mahony and Karp (2022) study how platform participation strategies evolve from proprietary to collective governance at the level of an ecosystem and its leaders' rule changes. Haese and Peukert complement that account from the other side: rather than an ecosystem leader devolving governance, a late-coming rival submits to someone else's collective governance, and the authors measure the consequences for the community (crowding in, churn), for the product, and for the entrant's performance — the firm-level micro-foundations that O'Mahony and Karp's framework assumes. Related classics in the library — O'Mahony (2003) on guarding the commons, O'Mahony and Ferraro (2007) on the emergence of governance, and Boudreau (2010) on granting access versus devolving control — are echoed in the paper's description of Chromium's meritocratic review system and its emphasis on who holds control of the core versus who merely joins it; the paper shows empirically that a project can be open in license and review yet strongly steward-controlled, which is precisely the gap the Model Openness Framework later formalizes for AI.</p>
+
+<h3>5.3 Connections to the Part I Hugging Face core</h3>
+
+<p>The browser case is, in effect, the pre-AI field test of the open-core business model that the topic library studies at Hugging Face. Three Part I papers are the direct bridges.</p>
+
+<p><strong>Yue and Nagle (2024, PyTorch).</strong> The two papers are mirror images of one firm-level event: Yue and Nagle study the control-relinquishing direction — in Haese and Peukert's own summary of them, "switching the mode of governance in an OSS project by changing the steward from a commercial entity to a nonprofit organization can spur more contributions from commercial players" (p. 4175) — while Haese and Peukert study a rival (Microsoft) <em>submitting to</em> an existing steward's control by joining Google's Chromium, and find the community crowds in rather than out. Taken together they map the two levers of "technology control in open collaboration": who holds the core (governance assignment) and who is allowed or chooses to build on it (membership of the core). For the Hugging Face world this is the exact question behind foundation-model governance — who stewards PyTorch, Llama, or a model on the Hub, and what happens when a second large firm starts contributing to it (compare Khoshbash 2026 on sponsor involvement in open foundation-model ecosystems and Wu, Lin and Li 2025 on the Llama-2 release as a commoditization shock to Hub developers).</p>
+
+<p><strong>Azoulay, Krieger and Nagaraj (2024, "Old Moats for New Models").</strong> Haese and Peukert's policy discussion independently reproduces the Azoulay et al. concern: when a single project controls the technological direction ("With a single project exercising significant influence over the technological direction...", p. 4195), commercial interests can deprioritize user privacy, ad-blocking, or platform openness, and concentration "may result in market inertia and concerns about innovation over the long term" (pp. 4174–4175). Azoulay et al. argue the real moats in generative AI are control over complementary assets rather than formal IP; the browser market's parallel — Google's search and OS positions promoting Chrome, and Microsoft's OS position promoting Edge — is exactly the complementary-assets mechanism the paper invokes, and the paper's finding that Edge's gains came from weaker Chromium rivals rather than from Chrome anticipates the "winner-take-most around the open core" pattern debated for open-weight AI.</p>
+
+<p><strong>White et al. (2024, Model Openness Framework).</strong> Haese and Peukert's setting is the MOF logic applied a decade early. Chromium is open at the core (permissive license, public development, open review), but the products on top are closed shells with closed features — Edge's AI-assistant toolbar is the paper's own example of shell-level differentiation (p. 4189). The MOF warns that "open weights" alone do not make a model open across components; the browser market shows the same architecture — openness of the engine with proprietary distribution, monetization, and product features layered above — operating as the dominant market structure, with concentration as the equilibrium outcome. The paper's observation that "web browser vendors still remain in control of adapting the technology to their specific offerings" (p. 4195) is the MOF's component-level distinction restated for browsers.</p>
+
+<p>Finally, the paper connects to the platform-and-ecosystem layer of the topic library (Jacobides et al. 2018; Adner 2017; Wareham et al. 2014): Chromium acts as a bottleneck "keystone" whose architecture and release cadence constrain every shell around it, and Microsoft's choice illustrates ecosystem entry by accepting dependence on a rival's ecosystem — the configuration ecosystem theory says is stable only when complementarities and control are aligned.</p>
+
+<h3>Table 3: How this paper sits in the literature</h3>
+<table>
+<tr><th>Work</th><th>Core question</th><th>Relationship to Haese &amp; Peukert 2026</th></tr>
+<tr><td>von Hippel &amp; von Krogh 2003 (private–collective)</td><td>Why do private actors contribute to a collective good?</td><td>Baseline model; the paper tests its crowding-out boundary condition when a for-profit joins</td></tr>
+<tr><td>Henkel 2006 (selective revealing)</td><td>When do firms reveal code while keeping a proprietary core?</td><td>Opposite direction of openness: H&amp;P study abandoning the proprietary core for a shared open core</td></tr>
+<tr><td>O'Mahony &amp; Karp 2022 (proprietary → collective governance)</td><td>How do platform participation strategies evolve under rule changes?</td><td>Complement: a rival joining collective governance, with measured community/product/firm effects</td></tr>
+<tr><td>Nagaraj &amp; Piezunka 2024 (Google Maps vs. OpenStreetMap)</td><td>How does for-profit entry reshape a volunteer community?</td><td>Closest competitor result: no exodus of new contributors in a commercially governed project</td></tr>
+<tr><td>Yue &amp; Nagle 2024 (PyTorch)</td><td>What happens when the steward relinquishes control of an open core?</td><td>Mirror event: a rival submits to the steward's core; both inform technology control in open collaboration</td></tr>
+<tr><td>Azoulay et al. 2024 (openness vs. control in genAI)</td><td>Will open weights erode incumbents' moats?</td><td>Concentration-and-complementary-assets logic reproduced in the browser market</td></tr>
+<tr><td>White et al. 2024 (Model Openness Framework)</td><td>What does "open" mean component by component?</td><td>Open-core/closed-shell architecture is the browser-era template the MOF formalizes for AI</td></tr>
+<tr><td>Conti, Peukert &amp; Roche 2025 (OSS engagement and funding)</td><td>Does OSS engagement help startups raise funds?</td><td>Same author (Peukert); OSS–firm-performance agenda continued at product-market level</td></tr>
+</table>
+
+<h2>6. Limitations</h2>
+
+<p>The following separates what the paper itself claims, what evidence it supplies, what I infer beyond it, and what remains open. The author-stated material is quoted or paraphrased from the text; everything labeled as inference is my reading and is not asserted by the authors.</p>
+
+<ul>
+<li><strong>Author's claim (stated in the paper)</strong>: There is no crowding out — total Chromium activity rises, external contributions rise modestly, scrutiny rises, and Edge gains functionality and market share at the expense of other Chromium browsers and of Internet Explorer users.</li>
+<li><strong>Evidence</strong>: Regression tables on GitHub commits, security release notes, caniuse data, a vendor-independent BrowserStack benchmark, and StatCounter shares, with parallel-pretrend diagnostics, Poisson/unlogged robustness, a Linux control group, and an AI-repository replication. This is correlational-with-events evidence, not randomization; identification rests on the surprise quality of the announcement and on the absence of coincident shocks (pp. 4183, 4193).</li>
+<li><strong>Author-stated limitations (in the paper)</strong>: (i) results may be specific to Microsoft — its browser market position, operating-system market power, and reputation (p. 4195); (ii) the paper cannot separate the direct effect of Microsoft's entry from spillovers of Microsoft's own development activity (p. 4185); (iii) Chromium was already commercially governed, so generalization to community-led projects rests on the AI-repository analysis, which covers only short- to medium-term effects and commercially attractive domains (pp. 4181, 4194); (iv) security-reporter supply is fixed in the short run, so attention may have shifted from other OSS projects toward Chromium (spillover, p. 4183); (v) WebKit and Gecko are smaller than Chromium, motivating the Linux control (p. 4183); (vi) in the Linux-robustness specification the log(+1) OLS contradicts the unlogged OLS and Poisson estimates, a caveat the authors print openly (p. 4193); (vii) functionality data omit UI/UX features and the extension ecosystem, and page-load tests cover two simple sites on one OS (pp. 4181, 4190, endnote 24).</li>
+<li><strong>My inferences (not in the paper)</strong>: First, the direction of the causal story at the community margin is ambiguous: part of the measured "crowding in" reflects Microsoft converting its own developer base and paying employees, so the welfare interpretation — community health versus corporate colonization — depends on how one weights Microsoft-affiliated newcomers against independent ones. Second, the "no crowding out" conclusion is conditional on the entrant being a large firm with a large community of its own and a reputation to protect; the AI-repository results cover many small entrants, but the authors do not interact effect size with entrant prominence, so the boundary condition is untested. Third, the paper measures market share and features but not user welfare, developer welfare, or total factor productivity of the ecosystem; the standardization gains it cites (fewer engines, more compatibility, weaker network-effect lock-in, p. 4195) and the concentration costs are not weighed against each other.</li>
+<li><strong>Open questions the authors flag</strong>: cross-company vulnerability reporting practices and their reliability effects; whether R&amp;D savings from joining an open core sustain long-run innovation; how proprietary features layered on OSS affect adoption and positioning; and the long-run legal and operational consequences of licensing models in commercially dominated projects (p. 4195).</li>
+</ul>
+
+<p>Two further cautions belong in any reading note. First, several headline numbers differ slightly across the paper's own layers (e.g., Edge's share gain is reported as "4 percentage points" in the abstract on p. 4174 and as 4.6/8.0 percentage points in the regressions of Table 8 on p. 4190; external-contribution gains appear as "+6%" in the introduction and as +30%/+1% relative-to-Google coefficients in Table 4) — quote the layer that matches your purpose and cite the page. Second, the pdftotext conversion occasionally splits words across lines (the word-boundary hyphens are artifacts, not part of the text); all blockquotes above are joined across those line breaks and should be checked against the PDF before formal citation.</p>
+
+<h2>7. Conclusion and takeaways</h2>
+
+<p>The paper's contribution is a clean, well-measured answer to a question that the Hugging Face economy now faces at scale: what happens to an open-source community, and to the entering firm, when a proprietary incumbent rebuilds its product on someone else's open core? The empirical answer is optimistic on the community margin — no exodus; more reviewers; more vulnerability reporting; activity that is crowded in, partly because the entrant brings its own community with it — and balanced on the firm margin: Microsoft gained frontier functionality, release cadence, and (for Edge) share, while losing its proprietary distinctiveness, its internal feature legacy, and its speed advantage, and while accelerating the market's convergence on one engine. For managers the takeaway is that joining an open core is a governance decision with three simultaneous prices: giving up control of the technology direction, giving up differentiation that the community can replicate, and betting that the ecosystem's standardization gains outweigh its concentration risks. For the open-AI research agenda, the paper supplies the browser-generation evidence that "open at the core" is a stable, scalable industrial structure — and that the interesting competition then moves to the shell: to features, complements, distribution, and the complementary assets around the core, exactly where Azoulay et al. (2024) locate the moats of generative AI.</p>
+
+<div class="golden">
+Contrary to concerns raised by industry observers and prior theoretical work, we do not find evidence of crowding out. … commercial entry into existing open source projects results in higher concentration, which might lead to market inertia and concerns related to innovation over the long run. — Haese &amp; Peukert 2026 (p. 23 of the PDF = printed p. 4194; second sentence: p. 24 of the PDF = printed p. 4195)
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI (paper-analyzer / reading-notes workflow, academic style, English), grounded in the pdftotext extraction of the local PDF of Haese and Peukert (2026), "Open at the Core," Management Science 72(5): 4173–4199, DOI 10.1287/mnsc.2023.02886. All numbers, names, and quoted passages come from that text; blockquote locations give the PDF page followed by the printed journal page. Page-load-time and market-share figures, and any numbers quoted in prose, should be checked against the original before formal citation. The paper was listed as "Management Science (in press)" in the topic index at the time this page was written; the local full text is the published issue version (May 2026, © 2025 The Author(s), CC BY 4.0). Items labeled as inference in the limitations section are the reader's extensions, not author claims, and have not been peer-reviewed.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

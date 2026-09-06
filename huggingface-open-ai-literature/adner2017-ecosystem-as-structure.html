@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ecosystem as Structure: An Actionable Construct for Strategy (Adner, 2017) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Ecosystem as Structure: An Actionable Construct for Strategy</h1>
+<div class="meta">
+<strong>Author</strong>: Ron Adner (Tuck School of Business, Dartmouth College)<br>
+<strong>Source</strong>: <em>Journal of Management</em>, Vol. 43, No. 1 (January 2017), pp. 39–58; DOI: 10.1177/0149206316678451. © The Author(s) 2016<br>
+<strong>Year</strong>: 2017 (article first published online in 2016)<br>
+<strong>Nature</strong>: Conceptual / theory-building article — defines the ecosystem construct, proposes a "grammar" of ecosystem structure (activities, actors, positions, links), defines ecosystem strategy, and delimits the construct against a family of neighboring interdependence concepts, using the Michelin PAX run-flat tire case as illustration. No data, no econometrics, no formal model.<br>
+<strong>Data &amp; code status</strong>: None — no dataset or code accompanies the article; the illustrative case is qualitative, drawn from public materials on the PAX system (the paper refers readers to Adner (2013), <em>The Wide Lens</em>, for fuller case treatment).
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>An ecosystem is best defined not as a community of affiliated actors (<strong>ecosystem-as-affiliation</strong>) but as the <strong>alignment structure</strong> of the multilateral set of partners and activities that must interact for a focal <strong>value proposition</strong> to materialize (<strong>ecosystem-as-structure</strong>), and this definition becomes strategically actionable precisely when the interdependence underlying a value proposition cannot be decomposed into bilateral relationships.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide</strong>: This article supplies the conceptual grammar that much of the Hugging Face literature in this library implicitly assumes. The Part I core papers mostly <em>measure</em> the Hugging Face hub in affiliation terms — numbers of partners, network density, model centrality, download flows (Laufer et al. 2025; Longpre et al. 2025; Wu et al. 2025) — which is exactly the aggregate, access-and-openness view Adner calls ecosystem-as-affiliation. His structuralist alternative asks instead: what is the value proposition, which activities must change, and which actors (including ones with <em>no direct link to the focal firm</em>) must be aligned for it to materialize? Reading with this lens, each open-weight model family (Llama, Qwen, Mistral, and their fine-tuned derivatives) is a separate ecosystem defined by its own value proposition and adoption chain, and the "garages" of open AI — hosters, app developers, regulators, compute suppliers — are latent ecosystem members whose willingness to change activity determines whether a proposition materializes. Keep this in mind while reading the sections on adoption-chain risks and on boundaries; the applications to Hugging Face in this note are interpretive and are flagged as such in the text below.
+</div>
+
+<h2>1. Background and motivation: construct proliferation without construct clarity</h2>
+
+<p>Adner opens from an observation about the strategy field itself: over the 20 years preceding the article, "ecosystem" had become pervasive in both scholarly and applied strategy discourse, riding a broader wave of interest in interdependence across organizations and activities. The problem he diagnoses is not scarcity of ideas but their abundance. A cohort of related constructs — business models, platforms, coopetition, multisided markets, networks, technology systems, supply chains, value networks — had raised awareness of new models of value creation and value capture, but the relations among these ideas in terms of boundary, overlap, redundancy, applicability, and unit of analysis remained unclear. That lack of clarity, he argues, has hampered the usability of all of them.</p>
+
+<p>The article's response is definitional. Adner states a precise definition of the ecosystem, a grammar for characterizing ecosystem structure, and a characterization of what is distinctive about ecosystem strategy; he then contrasts his view with the family of alternative interdependence constructs to show where an ecosystem perspective adds — and does not add — insight. The methodological stance is worth noting at the outset because it recurs in the paper's closing paragraph: a "litmus test for knowing where an ecosystem approach—or any approach—adds value is having clarity on where it does not add value."</p>
+
+<h2>2. Two readings of "ecosystem": affiliation vs. structure</h2>
+
+<p>The paper's central move is to split the ecology of meanings that had grown around the term into two general views. <strong>Ecosystem-as-affiliation</strong> treats ecosystems as communities of associated actors defined by their networks and platform affiliations; <strong>ecosystem-as-structure</strong> treats ecosystems as configurations of activities defined by a value proposition. Adner is explicit that the two are conceptually distinct yet mutually consistent — "One does not rule out the other, and a given setting may illustrate features of both."</p>
+
+<p>The affiliation view descends from the biological metaphor introduced by Moore. Adner reproduces Moore's definition of the business ecosystem, which is worth quoting at length because it fixes the actor-centric register that the rest of the article works against:</p>
+
+<blockquote>An economic community supported by a foundation of interacting organizations and individuals – the organisms of the business world. This economic community produces goods and services of value to customers, who are themselves members of the ecosystem. The member organism also include suppliers, lead producers, competitors, and other stakeholders. Over time, they coevolve their capabilities and roles, and tend to align themselves with the direction set by one or more central companies. <em>(Moore, 1996: 26, as quoted in Adner, 2017, p. 41 of the journal; p. 3 of the PDF)</em></blockquote>
+
+<p>In the same vein, Iansiti and Levien (2004) conceive business networks as ecosystems organized around a keystone species and "characterized by a large number of loosely interconnected participants who depend on each other for their mutual effectiveness and survival." Adner reports that such network-based definitions are echoed widely (e.g., Autio &amp; Thomas 2014; Rong &amp; Shi 2014; Jacobides, Cennamo, &amp; Gawer 2015, a working-paper precursor of the 2018 <em>SMJ</em> theory article discussed below). Analyses pitched at the level of the "healthcare ecosystem," the "Microsoft ecosystem," the "Silicon Valley ecosystem," or the "entrepreneurial ecosystem" fall naturally into this category.</p>
+
+<p>The strategic logic of the affiliation view is growth in access: add actors and intensity of participation, and the focal actor gains bargaining power, increases system value through direct and indirect network externalities, and raises the probability of serendipitous recombinations among partners. Its signature measures are aggregate — number of partners, network density, actors' centrality. Adner's critique is double. First, affiliation-style characterizations are hard to disentangle from other interdependence approaches (networks, platforms, multisided markets), so the construct does little distinct work. Second, because it operates on aggregates, its strategy guidance stays at the level of general governance and community enhancement, with limited insight into the specifics of value creation.</p>
+
+<table>
+<tr><th>Dimension</th><th>Ecosystem-as-affiliation</th><th>Ecosystem-as-structure</th></tr>
+<tr><td>Anchoring question</td><td>Who is connected to whom, and around which hub?</td><td>What value proposition, and which activities must it bring about?</td></tr>
+<tr><td>Unit of analysis</td><td>Actors and their ties (usually to a focal actor/platform)</td><td>The value proposition and the configuration of activities it requires</td></tr>
+<tr><td>Origin of positions</td><td>Positions derived from links (platform, broker, hub-and-spoke)</td><td>Links derived from alignment requirements that give rise to positions in the value blueprint</td></tr>
+<tr><td>Direction of construction</td><td>Actors → links → possible value propositions</td><td>Value proposition → activities → actors to be aligned</td></tr>
+<tr><td>Typical measures</td><td>Number of partners, network density, centrality</td><td>Positions, activity flows, gaps between required and actual alignment</td></tr>
+<tr><td>Strategy emphasis</td><td>Access and openness; enlarging the community</td><td>Partner alignment; managing indirect links; closing alignment gaps</td></tr>
+<tr><td>Construct neighbors it blurs with</td><td>Networks, platforms, multisided markets</td><td>Supply chains, project management, activity systems</td></tr>
+</table>
+
+<p class="note" style="background:#f0f4ff;border-color:#bfdbfe"><strong>Table 1</strong>. The two readings of "ecosystem" as contrasted by Adner (2017, journal pp. 40–44 = PDF pp. 2–6; rows summarize pp. 40–43, with the article's own Table 1 on p. 44). Column content is distilled from the article's wording.</p>
+
+<h2>3. The definition and its four components</h2>
+
+<p>Adner's positive proposal is a single, compact definition that he italicizes as the article's anchor:</p>
+
+<blockquote>The ecosystem is defined by the alignment structure of the multilateral set of partners that need to interact in order for a focal value proposition to materialize. <em>(Adner, 2017, p. 42 of the journal; p. 4 of the PDF)</em></blockquote>
+
+<p>He unpacks the definition into four components, each of which carries a design consequence.</p>
+
+<p><strong>(1) "Alignment structure."</strong> Members of an ecosystem hold defined positions with activity flows among them; alignment is the extent of mutual agreement about those positions and flows. Because different actors may entertain different end states, the definition forces a distinction between <em>participation</em> and <em>alignment</em> — a firm can be present in a system without agreeing on the configuration. A successful ecosystem is one in which all actors are satisfied with their positions, at least temporarily — a Pareto equilibrium. Alignment therefore covers not only compatible incentives but also actors' consistent construal of the activity configuration. Conversely, when partners do not need to be shifted — an incremental product variant inserted into an existing supply chain, or a bilateral exchange with well-accepted buyer/supplier roles — the ecosystem logic adds nothing, because "when the ecosystem is latent, as it is in most of our classic product-based examples of competitive strategy, it can be ignored until such time as conditions change" (p. 42).</p>
+
+<p><strong>(2) "Multilateral."</strong> An ecosystem is inherently multilateral in a strong sense: its relationships are not decomposable into an aggregation of bilateral interactions. Adner is careful to say that decomposable multiplicity does not need the ecosystem construct — a firm's portfolio of many independent alliances is "antecedent to, but not sufficient to characterize, multilaterality." The test case is one where a successful contract between A and B is undermined by the failure of the contract between A and C: analyzing A and B in isolation from C yields a false conclusion. Non-decomposability of this kind is what makes the ecosystem construct earn its keep.</p>
+
+<p><strong>(3) "Set of partners."</strong> Being a set, ecosystem membership is defined rather than open-ended — though "defined" does not mean complete, unvarying, or uncontested; actors may disagree about the composition of the set. The defining attribute of a partner is that the value proposition depends on its participation, "regardless of whether or not they have direct links to the focal firm." This last clause is the definitional seed of everything the paper later says about indirect links.</p>
+
+<p><strong>(4) "For a focal value proposition to materialize."</strong> The productive level of analysis is the value proposition — the promised benefit the target of the effort is to receive, as opposed to what the firm delivers — and the concern is with bringing about the activities required for its instantiation. "Materialization" raises the requirement that partners reach a threshold level of coordination, which lets the analyst ask how much divergence an ecosystem can sustain and still deliver the promise. Divergence here is two-sided: divergence in <em>interests</em> (traditional competition and value capture) and divergence in <em>perspectives</em> (expectations about value creation and value distribution to third parties). Because the value proposition founds the ecosystem, it also draws the ecosystem's boundary endogenously: the same set of actors arranged in two configurations constitutes two different ecosystems, as the PAX case will show.</p>
+
+<h2>4. Elements of structure: activities, actors, positions, links</h2>
+
+<p>Four elements jointly characterize the configuration of activities and actors required for a value proposition to materialize. <strong>Activities</strong> are the discrete actions to be undertaken; <strong>actors</strong> are the entities that undertake them (one actor may run several activities, and several actors may share one); <strong>positions</strong> specify where in the flow of activities an actor sits and who hands off to whom; <strong>links</strong> specify transfers across actors — matériel, information, influence, or funds — and critically, links need not touch the focal actor at all.</p>
+
+<p>The two perspectives handle these elements in opposite directions of strategic construction. The affiliation view begins with actors (typically defined by their ties to a focal actor), reads positions off links, and ends with the value propositions the ecosystem might generate. The structural view begins with the value proposition, works out the activities its materialization requires, and ends with the actors that need to be aligned. Adner's table, reproduced below, makes the asymmetry vivid:</p>
+
+<table>
+<tr><th>Element of ecosystem structure</th><th>Ecosystem-as-structure perspective</th><th>Ecosystem-as-affiliation perspective</th></tr>
+<tr><td>Activities</td><td>Discrete actions to be undertaken in order for the value proposition to be created</td><td>Not applicable</td></tr>
+<tr><td>Actors</td><td>Entities that undertake activities</td><td>Entities that are tied to the focal actor</td></tr>
+<tr><td>Positions</td><td>Specified locations in the flow of activities across the system</td><td>Derived from links to other actors</td></tr>
+<tr><td>Links</td><td>Transfers across positions, which may or may not include the focal actor</td><td>Ties between the focal actor and other actors</td></tr>
+</table>
+
+<p class="note" style="background:#f0f4ff;border-color:#bfdbfe"><strong>Table 2</strong>. Elements of ecosystem structure under the two perspectives (Adner, 2017, Table 1, p. 44 of the journal; p. 6 of the PDF), reproduced in wording close to the original.</p>
+
+<p>One of the sharpest implications is that the structural view deliberately extends strategy's gaze to activities and actors over which the focal organization has no control and with which it has no direct contact; the need to recognize and manage indirect links is, in Adner's phrasing, "one of the key distinctions between traditional strategy and ecosystem strategy." In mature industries most of the ecosystem is latent most of the time: activities, actors, positions, and links are stable, and change occurs at the level of individual actors or dyads rather than in the multilateral alignment of positions. It is when innovation requires reconfiguring these elements that the ecosystem becomes visible and strategically consequential.</p>
+
+<h2>5. An illustrative case: Michelin's PAX run-flat tire</h2>
+
+<p>Adner grounds the apparatus in a deliberately non-high-technology case. Michelin's PAX run-flat system promised drivers with punctured tires the ability to keep driving for <strong>125 miles at speeds up to 55 miles per hour</strong> before repair. Its engineering trick — clamping the tire's edge onto the wheel hub — eliminated blowout danger and roadside changes without sacrificing the performance and comfort that plagued earlier run-flat designs (p. 44).</p>
+
+<p>The traditional tire ecosystem had been structurally frozen for over a century. A tire maker innovated, lobbied automobile manufacturers to install the tire, manufacturers moved cars through dealers to consumers, and garages repaired any punctured tire with equipment that had not changed in decades. Whatever the tire innovation — radial, high-traction, all-weather — each relationship could be treated as a bilateral dyad in isolation from the rest; some dyads were active (tire makers lobbying car makers), others passive (wheel-hub makers were untouched by a new all-weather tire). Because this situation lacks multilateral relationships and requires no shift in partner alignment, Adner argues, no ecosystem logic is needed to understand it:</p>
+
+<pre class="mermaid">
+flowchart LR
+    T["Tire maker<br/>(innovates tire alone)"]
+    A["Automaker"]
+    D["Dealer"]
+    C["Consumer"]
+    G["Garage<br/>(repairs any tire type)"]
+    W["Wheel-hub maker<br/>(passive)"]
+    T -->|"adoption lobbying"| A
+    A -->|"sale"| D
+    D -->|"sale"| C
+    G -. "agnostic repair" .-> C
+    W -. "unaffected by new tire" .-> A
+</pre>
+
+<p class="note" style="background:#f0f4ff;border-color:#bfdbfe"><strong>Mermaid 1</strong>. The traditional all-weather-tire ecosystem as a set of (largely) decomposable bilateral dyads (reading of Adner's Figure 1a, p. 45 of the journal = PDF p. 7; dashed edges are passive relationships). No ecosystem logic required.</p>
+
+<p>The PAX proposition changed this structure. Michelin delivered not a tire but a tire-<em>wheel</em> system with rims specially designed to clamp the tire, so the wheel-hub integration activity moved upstream — the rim was integrated by the tire maker and then handed to the automobile manufacturer. That positional shift reverberated through the system. It required a new generation of repair equipment able to unclamp and reclamp rims, and it thereby forced <em>garages</em> to choose whether to adopt that equipment: garages shifted from latent members of the ecosystem to actors whose participation was a matter of their own choice. Two new links followed: one between consumers' adoption of PAX-equipped vehicles and garages' incentives to buy the repair gear (absent repair demand, garages would not invest), and one between garage adoption and automaker adoption (absent equipped garages, consumers would not pay for the run-flat feature, so automakers would not bear the added cost and complexity).</p>
+
+<pre class="mermaid">
+flowchart TB
+    M["Michelin<br/>(tire + clamping rim, integrated)"]
+    A["Automaker"]
+    D["Dealer"]
+    C["Consumer"]
+    E["Repair-equipment maker"]
+    G["Garage<br/>(now an active adopter)"]
+    M -->|"system handoff"| A
+    A -->|"sale"| D
+    D -->|"sale"| C
+    M -->|"new requirement: unclamp/reclamp gear"| E
+    E -->|"equipment supply"| G
+    G -->|"PAX repair service"| C
+    C -. "new link: repair demand raises garage incentives" .-> G
+    G -. "new link: garage adoption conditions automaker adoption" .-> A
+</pre>
+
+<p class="note" style="background:#f0f4ff;border-color:#bfdbfe"><strong>Mermaid 2</strong>. The PAX run-flat ecosystem after reconfiguration (reading of Adner's Figure 1b, p. 45 of the journal = PDF p. 7). New multilateral links (dashed) make the interdependence non-decomposable: analyzing any dyad in isolation misleads.</p>
+
+<p>Adner stresses what the case does <em>not</em> contain: the PAX proposition introduced no new actors and, in a general sense, no new activities to the tire ecosystem. What changed were positions and links — and that was enough to make the venture's fate depend on the alignment choices of parties far from Michelin. The natural but wrong assumption, he warns, is that automakers can dictate adoption downstream because they are close to dealers and dealers to garages. It fails because dealers, though affiliated with automakers, are independent organizations, and because within a dealership, sales and service operate as separate businesses with separate bottom lines (p. 47). Recognizing the garages' independence — and the PAX proposition's critical dependence on their adoption choice — is precisely what a strategy for the innovation would have to be explicit about. "Managing the changes in interdependence highlighted by these shifts in structure give rise to the need for an ecosystem strategy."</p>
+
+<h2>6. From ecosystem structure to ecosystem strategy</h2>
+
+<p>If the construct anchors on alignment, strategy becomes the management of alignment. Adner's definition of ecosystem strategy is the mirror image of his definition of the ecosystem:</p>
+
+<blockquote>Ecosystem strategy is defined by the way in which a focal firm approaches the alignment of partners and secures its role in a competitive ecosystem. <em>(Adner, 2017, p. 47 of the journal; p. 9 of the PDF)</em></blockquote>
+
+<p>Three components carry the analytic weight. First, <em>the focal firm approaches</em>: although the ecosystem comprises multiple firms, every participant has its own ecosystem strategy, and these strategies range from consistent to contradictory — with no requirement of consistency and no presumption that inconsistencies will be recognized in time. The PAX case is again instructive: it took years for tire and car manufacturers to recognize the garages' mixed motivations, since offering PAX <em>repairs</em> (more profitable than traditional repairs) competed inside each garage with selling PAX <em>replacements</em> (more profitable still).</p>
+
+<p>Second, <em>the alignment of partners</em> requires first recognizing gaps and then creating conditions for closing them. Adner partitions the sources of gaps into activity-based challenges and expectation-based challenges, and within activity-based challenges he draws a distinction that has become canonical in the later literature:</p>
+
+<blockquote>I distinguish between two kinds of alignment risks that arise from activity-based challenges: co-innovation risks, which relate to the challenge partners face in developing the ability to undertake the new activities that underlie their planned contributions; and adoption chain risks, which relate to partners' willingness to undertake the required activities and raise questions of priorities and incentives for participation. <em>(Adner, 2017, p. 48 of the journal; p. 10 of the PDF)</em></blockquote>
+
+<p>Expectation-based challenges split into <em>structural expectations</em> (what the positions are, who hands off to whom, who faces the end customer) and <em>role expectations</em> (who leads and who follows). Position gaps are often easier to recognize than role gaps: because Michelin integrates the wheel and tire, it is clear Michelin must manage that integration — but whose job it is to bring the garages into line, and how parties should price the new interactions, is genuinely ambiguous.</p>
+
+<p>Third, <em>securing its role</em> introduces leadership as an ecosystem-level phenomenon. The ecosystem leader is the firm to whose vision of structure and roles the others defer: it sets (and often enforces) governance rules, determines timing, and typically reaps the largest share of gains once alignment is achieved; a follower cedes the leadership role. Leadership therefore depends on willing followership — a footnote invokes O'Mahony and Ferraro (2007) on the emergence of governance even in open-source communities — and it is contestable: Adner cites Google and Visa in mobile payments and Cisco and Philips in smart-city lighting, where each partner has a credible claim to leadership and a reluctance to follow. Shared leadership is possible (SEMATECH in semiconductors), and systems can be left leaderless where candidacy is unclear or leadership is seen as a burden — as in PAX, where it was unclear whether the tire maker or the automaker could or should bring the garages into line. Followership itself can become contestable as firms must secure their role's uniqueness and tenure (citing Kapoor &amp; Agarwal 2016 and Gawer &amp; Henderson 2007 on Intel).</p>
+
+<p>Finally, "in a competitive ecosystem" relocates competition. Traditional strategy weighs rivalry with firms, entrants, and substitutes; ecosystem strategy weighs rivalry between <em>constellations</em> — ecosystems offering rival value propositions through structures that may look similar (Uber vs. Lyft) or dissimilar (Uber vs. municipal taxi service). Competition operates at two interacting levels: within the ecosystem, over the security of activities, positions, and roles and hence over the distribution of captured value; and across ecosystems, over collective advantage in creating and capturing value. The paper's compression of the whole argument into one contrast has become its most-quoted sentence:</p>
+
+<blockquote>If the heart of traditional strategy is the search for competitive advantage, the heart of ecosystem strategy is the search for alignment. The value, rarity, and inimitability of resources finds its analog in multilateral partnerships, and sustainability of advantage has as much to do with maintaining relationships as it does with keeping rivals at bay. <em>(Adner, 2017, p. 49 of the journal; p. 11 of the PDF)</em></blockquote>
+
+<p>That the alignment problem can defeat the most powerful incumbent is the case's punchline, stated as a general principle about asymmetric interdependence:</p>
+
+<blockquote>Asymmetric interdependence—in which an innovator's success depends more heavily on a partner breaking away from business as usual than does the partner's continued success in its usual business depends on the innovators' choices—can upend expectations of size and authority. <em>(Adner, 2017, p. 49 of the journal; p. 11 of the PDF)</em></blockquote>
+
+<p>World-renowned Michelin struggling to shift the adoption choices of unremarkable local garages is, in Adner's words, "compelling testimony that ecosystem challenges must be addressed with ecosystem strategies."</p>
+
+<h2>7. Where ecosystem-as-structure sits among interdependence constructs</h2>
+
+<p>A long section walks through each neighboring construct — platforms and multisided markets, networks and alliances, business models, project management, supply and value chains, industry structure, industry architecture, value nets (in both its economic and its innovation senses), systems of technology, and open innovation — asking what each highlights and what each leaves outside scope. Adner is at pains to state that the purpose is not to diminish or subsume these alternatives but to confirm that a conceptual gap remains for the structural ecosystem view to close. Table 3 condenses his survey (his Table 2, pp. 54–55):</p>
+
+<table>
+<tr><th>Construct (classic sources)</th><th>Core issue</th><th>Classic example</th><th>What ecosystem-as-structure adds / what the construct misses</th></tr>
+<tr><td>Platforms &amp; multisided markets (Gawer &amp; Cusumano 2002; Parker et al. 2016; Hagiu &amp; Wright 2015)</td><td>Intermediating interfaces among actor types; access, incentives, control</td><td>Intel; eBay</td><td>Interdependence is not always platform-based; hub identity can be unclear or contested (in PAX, is Michelin or Honda the platform?); governance of interfaces ≠ structure of interdependence</td></tr>
+<tr><td>Networks &amp; alliances (Gulati 1999; Powell et al. 1996)</td><td>Observed patterns of connectivity</td><td>Biotechnology alliance networks</td><td>Ties reveal no purpose: Merck–Pfizer collaborations in oncology and dermatology are one network but two ecosystems with different partner sets and alignment challenges</td></tr>
+<tr><td>Business models (Zott, Amit &amp; Massa 2011)</td><td>Plan for value creation and capture of one focal firm</td><td>Zipcar</td><td>One business model can span several ecosystems: Zipcar aligns the Boston parking authority or the Hanover college depending on geography; ecosystem boundaries set strategy boundaries</td></tr>
+<tr><td>Project management (Kerzner 2013)</td><td>Coordination of activities toward an end goal</td><td>Construction site</td><td>Presumes participants agree they are in the project and that a project manager leads; ecosystem strategy exists precisely where alignment, membership, and leadership are in question</td></tr>
+<tr><td>Supply &amp; value chains (Porter 1985; Simchi-Levi 2005)</td><td>Make vs. buy; bargaining along a fixed critical path</td><td>Toyota</td><td>Positions are accepted, not contested; partners off the critical path and shifts in positions (PAX's hub-integration point moving to the tire maker) are out of scope</td></tr>
+<tr><td>Industry architecture (Jacobides 2005)</td><td>Vertical division of labor within a value stream</td><td>Mortgage banking</td><td>Realignment of positions and moves off the focal critical path lie outside the perspective</td></tr>
+<tr><td>Value nets (Brandenburger &amp; Nalebuff 1996; Christensen &amp; Rosenbloom 1995)</td><td>Competing with complementors; lock-in to a supply chain's cost structure</td><td>DeBeers; Nintendo; disk drives</td><td>Economic stream is silent on structure; innovation stream treats structure as rigid and ignores indirect complementors and reconfiguration</td></tr>
+<tr><td>Systems of technology (Hughes 1993)</td><td>Interaction of technical and social factors; bottlenecks</td><td>Electrification</td><td>Rich on interdependence but without explicit structure: the <em>position</em> of a bottleneck drives different outcomes (Adner &amp; Kapoor 2010)</td></tr>
+<tr><td>Open innovation (Chesbrough 2006; von Hippel 2006)</td><td>Sources of innovation; terms of creation and exchange</td><td>Xerox; Linux</td><td>Concerned with bilateral innovation exchange and its governance; questions of multilateral coordination lie outside its scope</td></tr>
+</table>
+
+<p class="note" style="background:#f0f4ff;border-color:#bfdbfe"><strong>Table 3</strong>. Condensed and lightly reworded from Adner's Table 2, "Extant Approaches to Interdependence in the Strategy Field" (Adner, 2017, the article's own Table 2 sits on p. 54 of the journal = PDF p. 16; the survey discussion around it spans pp. 50–55). The final column summarizes his "Outside of Scope / Missing Element" column plus the surrounding discussion.</p>
+
+<p>Two contrasts deserve emphasis for readers of this library. Against platforms, Adner notes that hub-and-spoke imagery presumes agreement on the identity of the hub — sometimes clear (Intel in PC microprocessors), sometimes not (PAX), sometimes aggressively contested (Google, Home Depot, and J.P. Morgan in mobile payments; Intel and Ford in the connected car). Against project management, the PAX epilogue returns: the garages' preference for profitable <em>replacement</em> over <em>repair</em> maximized their short-term gains while undermining the overall proposition — a failure mode that "highlights how the absence of central authority and disagreement on end goals creates challenges that fall outside the realm of (traditional) project management" (p. 51).</p>
+
+<h2>8. Boundaries: when ecosystems matter, and where to draw the line</h2>
+
+<p>Adner is as careful about where the construct does <em>not</em> apply as about where it does. Ecosystem strategy, he writes, "may not be necessary—and is never sufficient—to understand firms' actions, choice, and outcomes," in the same way corporate strategy is unnecessary for analyzing a single-business firm. The scope condition is stated crisply:</p>
+
+<blockquote>Ecosystems matter when the multilateral relationships that underlie a value proposition are not decomposable into multiple bilateral relationships. In such cases, approaching a situation as an agglomeration of bilateral relationships would lead the observer to miss something important in the situation. <em>(Adner, 2017, p. 53 of the journal; pp. 15–17 of the PDF — in the typeset layout the sentence is interrupted by Table 2, so the words above are reassembled from both sides of that break)</em></blockquote>
+
+<p>Even where ecosystem logic applies, there are strong interactions with the other levels of strategy: Apple's iPod launch was aided by its own Apple Store distribution channel (competitive × ecosystem), Apple leveraged its music-player position to align partners in mobile phones (ecosystem × competitive across settings), and General Motors used acquisitions to reposition within self-driving ecosystems (corporate × ecosystem) (p. 53).</p>
+
+<p>The second boundary problem is internal: how to bound a given ecosystem when "the almost infinite web of interdependences" of the modern economy threatens to drown the analysis — should my complementor's supplier's supplier be part of my plan? Adner's answer follows from his definition. The boundary is drawn around the focal value proposition rather than a focal firm, and includes only elements that need to be brought into alignment, "thus excluding those that are already in place and can be expected to stay put" (p. 55). His illustration is a data-center product: whether the electric utility is an active ecosystem member depends on whether it must change its activity (add capacity, alter provision terms). Because units are activities, one organization can occupy several positions (a partner's production and service divisions may appear as separate positions), and one group of partners can constitute several ecosystems: IBM partnering with Apple on enterprise software and on digital healthcare meets Apple in two different ecosystems, because the two value propositions raise different alignment challenges. This, Adner notes, departs from casual, boundary-by-label references to "Apple's ecosystem," "the healthcare ecosystem," or "Silicon Valley," which "create an illusion of focus and consistency that can mask highly inconsistent views" — the coherence of the structural view comes precisely from deriving boundaries from the value proposition. Judgment is not eliminated, but it is guided.</p>
+
+<h2>9. Position in the literature</h2>
+
+<p><strong>Within its own research stream.</strong> This article is the construct-fixing capstone of Adner's decade-long research program on ecosystems: the <em>Harvard Business Review</em> statement "Match Your Innovation Strategy to Your Innovation Ecosystem" (2006), the book <em>The Wide Lens</em> (2013), experimental work with Daniel Feiler (2016), and especially the empirical program with Rahul Kapoor on how the structure of technological interdependence affects firm performance in new technology generations (Adner &amp; Kapoor 2010, included in this supporting library as a separate deep dive) and on innovation ecosystems and the pace of substitution (Adner &amp; Kapoor 2016a). Where Adner &amp; Kapoor (2010) locate performance differences in the <em>positions</em> of bottlenecks along an ecosystem, the 2017 article supplies the general language — alignment structure, multilateral non-decomposability, co-innovation and adoption chain risks — in which such claims can be stated and extended. It is thus best read as the theoretical companion to the empirical ecosystem literature rather than as a piece of evidence.</p>
+
+<p><strong>What it answers.</strong> The immediate interlocutor is the ecosystem-as-affiliation tradition itself: Moore (1996), Iansiti &amp; Levien (2004), Autio &amp; Thomas (2014), and Rong &amp; Shi (2014), together with the platform-economics boom (Gawer &amp; Cusumano 2002; Parker, Van Alstyne &amp; Choudary 2016; Hagiu &amp; Wright 2015). Adner's claim is not that the affiliation view is wrong — the two views are mutually consistent — but that its aggregate, actor-centric lens cannot articulate the structure of value creation. The paper also disciplines the construct's neighbors (business models, networks, supply chains, and the rest, surveyed in Section 7), arguing that each leaves a specific conceptual gap that only a value-proposition-anchored structural view fills. Within this topic library, that positioning task is exactly what Jacobides, Cennamo, and Gawer (2018, <em>SMJ</em>, "Towards a Theory of Ecosystems") continue: the 2018 article — itself a Part II deep dive here — defines ecosystems as communities of actors linked by multilateral, non-generic complementarities without full hierarchical control, and explicitly engages Adner's structural definition as the principal alternative. Where Jacobides et al. anchor the construct in <em>complementarities among actors</em> and treat governance and modularity as the central machinery, Adner anchors it in the <em>alignment of activities behind a value proposition</em>; both articles are reacting to the same construct proliferation and both insist that ecosystems are not reducible to markets, hierarchies, or networks.</p>
+
+<p><strong>Connection to the Part I Hugging Face core.</strong> The structural vocabulary transfers directly onto the open-AI economy studied in this library, and several of the core papers can be read as measuring what Adner theorizes. Laufer, Oderinwale, and Kleinberg (2025, "Anatomy of a Machine Learning Ecosystem: 2 Million Models on Hugging Face") map the hub as a network of model <em>adaptations</em> — derivative fine-tunes chained from parent checkpoints. Their object is a quintessential affiliation-structure dataset (who links to whom, centrality and scale over the hub); but their notion of chains of adaptation is, on Adner's terms, evidence that HF model families are best understood as structural ecosystems in which the value proposition (a downstream task served by a fine-tune) defines who must be aligned — the base-model sponsor, the fine-tuner, the dataset and compute providers, the hosting platform, and the end user. Longpre et al. (2025, "Economies of Open Intelligence") trace power and participation across the open-weight model ecosystem, documenting upstream concentration in a few sponsors; an Adner-style reading would say that measuring affiliation aggregates (hub shares, download centralities) understates how value creation is actually structured by value-proposition-specific alignment chains, and that upstream sponsors win or lose by controlling the positions (weights, licenses, tooling) that downstream propositions must pass through. Khoshbash (2026, "Specialization Trade-offs in a General-Purpose Technology") studies exactly such a structural question within the hub — how sponsors' specialized fine-tuned variants versus modular (MoE) architectures shape downstream developers' adoption across twelve model families — which operationalizes, in panel data, the co-innovation-versus-adoption-chain distinction: whether downstream failure to build on a model is an ability problem (co-innovation) or a willingness/priority problem (adoption chain).</p>
+
+<p>Two further core papers instantiate Adner's governance themes. Yue and Nagle (2024) treat PyTorch's open-sourcing as a deliberate relinquishing of control by a platform owner — in Adner's terms, a shift in the leader's governance role intended to secure followership and expand the ecosystem's collective value creation. Wu, Lin, and Li (2025, ICIS) study the Llama 2 release on Hugging Face as a shock to downstream developer activity, which is an adoption-chain event: a base-model value proposition whose materialization required developers (the garages of open AI) to change what they build on. The interpretive claim here — that the Part I empirical papers measure ecosystem-as-structure phenomena with ecosystem-as-affiliation instruments — is this reader's inference, not a claim any of those papers makes about itself; the core papers should be consulted for their own framings.</p>
+
+<h2>10. Limitations</h2>
+
+<p><strong>Author-stated boundaries.</strong> Adner is explicit that ecosystem strategy is "never sufficient" and only conditionally necessary, and that bounding an ecosystem always requires judgment. He notes in a footnote that a firm can participate in an ecosystem without a well-specified ecosystem strategy, just as it can compete without a well-specified competitive strategy, while affirming the field's presumption that better strategy improves the odds of success. He also confines the article's purpose: the PAX case is used to illustrate how existing constructs would approach a structural problem, not to adjudicate the merits of the PAX innovation or the choices of its actors.</p>
+
+<p><strong>Evidence base.</strong> The article is a conceptual argument. Its evidence consists of a single illustrative case (PAX), stylized examples (Zipcar, IBM–Apple, Merck–Pfizer, SEMATECH, mobile payments), and citations to prior empirical work. It contains no systematic data, no measurement of alignment, and no test of the claim that structural views outperform affiliation views empirically. The illustrative force of the PAX case is genuine, but the case supports the framework's descriptive adequacy, not its predictive power.</p>
+
+<p><strong>Reader's inferences (independent judgment).</strong> Three extensions follow from the text but are not argued in it. First, "alignment" is defined conceptually (mutual agreement on positions, flows, and roles) but never operationalized; translating the framework into measurement — what would count as a gap, how alignment should be scored — remains open, which is precisely the gap the Part I hub papers fill with proxy measures such as download flows and derivative counts. Second, the definition quietly presumes the analyst can identify the focal value proposition and its required activities ex ante; in practice, propositions are contested and revealed over time, so the boundary rule may be clearer retrospectively than prospectively. Third, the paper treats leadership as central yet does not model why a leader emerges or when followership will be granted; its examples (Google–Visa, Cisco–Philips) show contestation is common, but the conditions under which willing followership arises are left to other work (e.g., the governance literature it cites, including O'Mahony &amp; Ferraro 2007, itself a deep dive in this library).</p>
+
+<p><strong>Open questions the article itself raises.</strong> The closing "New Questions and New Directions" section inventories them: how the addition of partners changes perceived risk; how authority operates when internal partners interact with external ones; coordination and sequencing in ecosystem formation (citing Hannah &amp; Eisenhardt 2016; Jacobides, MacDuffie &amp; Tae 2015; Li &amp; Garnsey 2013); the role of institutions, regulators, and professional associations in making alignment more or less feasible (Kahl, King &amp; Liegel 2016); and the empirical cost of ecosystem research — capturing data on a broader actor set and understanding multilateral structure requires deeper contextual knowledge than traditional strategy research. Adner's own forecast is that ecosystems "will only grow in prevalence and in importance," which the subsequent decade of platform and open-AI research has borne out.</p>
+
+<h2>11. Conclusion and takeaways</h2>
+
+<p>Adner's contribution is to make the ecosystem a <em>construct with a definition and a grammar</em> rather than a metaphor with a mood. Three moves carry the argument. First, redefine: an ecosystem is the alignment structure of the multilateral set of partners that must interact for a focal value proposition to materialize — a definition that makes the value proposition the endogenous source of ecosystem boundaries and elevates indirect links and latent members to first-class strategic objects. Second, re-describe: activities, actors, positions, and links give analysts a common language for drawing value blueprints and for seeing when an innovation changes structure rather than merely content. Third, re-orient strategy: where competitive strategy searches for advantage and corporate strategy for scope, ecosystem strategy searches for <em>alignment</em>, splitting the alignment problem into co-innovation risks (can partners develop the new activities?) and adoption chain risks (will partners choose to?), and situating leadership, followership, and within- versus across-ecosystem competition inside that frame.</p>
+
+<p>For a reader of the Hugging Face literature, the practical takeaways are three. The hub's aggregate statistics describe an affiliation structure; the strategy of open AI lives in the structural differences between value propositions — a general-purpose checkpoint, a domain fine-tune, an enterprise deployment, a hosted API each draws different partners into different alignment problems. Second, openness of the core artifact (weights, license) does not dissolve the ecosystem problem; it relocates it to the adoption chain, where downstream actors' willingness and priorities determine whether the proposition materializes. Third, asymmetric interdependence runs both ways in open AI: a giant sponsor can be held up by unremarkable downstream adopters just as Michelin was held up by garages — and conversely, a small fine-tuner can depend on a sponsor's continued choices. The search for alignment, not scale, is where ecosystem advantage is won and lost.</p>
+
+<div class="golden">
+If the heart of traditional strategy is the search for competitive advantage, the heart of ecosystem strategy is the search for alignment. — Adner, 2017, p. 49
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the academic-style workflow of the reading-notes skill, grounded in the pdftotext conversion of the local PDF of Adner (2017), <em>Journal of Management</em> 43(1): 39–58 (pages split by form-feed; PDF page N corresponds to journal page 38+N). The blockquotes are verbatim quotations from the source text; please verify quotes and numbers (e.g., the PAX 125-mile/55-mph specification, DOI, volume/issue/pages) against the original PDF. Statements about Part I core papers (Laufer et al. 2025; Longpre et al. 2025; Khoshbash 2026; Wu, Lin &amp; Li 2025; Yue &amp; Nagle 2024) rest on the metadata and abstracts listed in the topic library index; the interpretation that those papers measure structure phenomena with affiliation instruments is this note's inference, flagged as such in Section 9. The "Reader's inferences" items in the limitations section are AI perspective and have not been peer-reviewed; the labels author-stated / evidence / inference / open question distinguish textual claims from reader extensions.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

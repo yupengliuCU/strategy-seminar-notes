@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Proprietary to Collective Governance (O'Mahony &amp; Karp, 2022) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>From Proprietary to Collective Governance: How Do Platform Participation Strategies Evolve?</h1>
+<div class="meta">
+<strong>Authors</strong>: Siobhan O'Mahony &amp; Rebecca Karp (Boston University Questrom School of Business)<br>
+<strong>Source</strong>: <em>Strategic Management Journal</em> 43(3): 530–562 (2022), special-issue article; DOI <a href="https://doi.org/10.1002/smj.3150">10.1002/smj.3150</a>; received 21 Dec 2017, accepted 4 Feb 2020, published online 19 Apr 2020<br>
+<strong>Year</strong>: 2022 (online 2020)<br>
+<strong>Nature</strong>: Longitudinal inductive field study of the Eclipse development platform (2000–2006, re-entered 2016); grounded-theory process model, not an econometric test<br>
+<strong>Data &amp; code status</strong>: Qualitative field data (45 interviews, 90+ hours of observation, 81 board-meeting minutes, archival documents; 1,061 pages of transcripts); firms de-identified; no dataset or code released
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Tracing how 16 firms adapted their participation as IBM moved the Eclipse development platform from proprietary ownership to a collectively governed open-source foundation (2000–2006), O'Mahony and Karp show that <strong>opening access alone does not deepen external participation</strong>: participation rose when access opened under a clear (if dominant) leader, collapsed when the leader divested control before rules for governing the platform's growth existed, and rebounded into <strong>distributed platform leadership</strong> only after participants collectively designed provisioning processes — roadmaps, project review windows, a coordinated release train, and code-provenance rules.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide — why this paper anchors the "Hugging Face &amp; the Open-AI Economy" topic</strong>: Hugging Face is, in the vocabulary of this paper, a platform leader that writes and revises the rules of <em>access</em> (who may use, download, and redistribute models and weights under which licenses) and <em>control</em> (who decides the hub's technical trajectory — curation, gating, partnership and enterprise offerings). This paper supplies the theory for what happens downstream when such rules change: complementors re-evaluate their participation, some deepen it, some pull back, and a few quietly work against the platform. Its Eclipse sequence is a structured template for reading modern governance episodes — re-licensing moves by open-source infrastructure firms such as Redis or Elastic, gated-model and open-weight releases by foundation-model leaders, and Hugging Face's own experiments with community governance — and for asking when a "leaderless" open platform attracts real commitment and when it chills it. Read it alongside the Hugging Face case (Greenstein et al., 2022), which supplies the contemporary instance; O'Mahony and Karp supply the process theory.
+</div>
+
+<h2>1. Background and motivation: platform leaders write rules, participants live under them</h2>
+
+<p>Platforms depend on external participants to create value through extensions, applications, and services that enrich a platform's utility and relevance. But the platform literature, the authors argue, has concentrated on the platform <em>leader</em> — on how a dominant founder strategically governs the rules of access and control to orchestrate complementors (Gawer &amp; Cusumano, 2002, 2008; Iansiti &amp; Levien, 2004; Parker &amp; Van Alstyne, 2017). Opening is typically modeled as a strategic one-time decision: selectively release source code or interfaces (West, 2003), grant access, attract complements (Boudreau, 2010; Chesbrough, 2003; Eisenmann, Parker, &amp; Van Alstyne, 2009). The premise of this paper is that these choices are not one-time: platforms are dynamic architectures whose rules are revised as both the leader and external participants contribute. "Prominent firms like IBM, Sun and Netscape have made strategic transitions opening formerly closed and proprietary platforms under new participation rules. These transitions can unpredictably relax certain rules or harden others, triggering external participants to re-evaluate their own strategies for participation" (p. 531 of the PDF; journal p. 531).</p>
+
+<p>The research question is stated in the introduction almost verbatim as its own headline:</p>
+
+<blockquote>How do platform participants adapt their strategies when the rules governing control and access of a platform change? (p. 3 of the PDF; journal p. 532)</blockquote>
+
+<p>The gap the paper targets has two sides. On the leader side, transitions in access and control are under-studied relative to stable governance: the authors follow Gawer's (2014) call to examine "drivers and consequences of changes in the degree of openness of platforms." On the participant side, formal models treat platform participation as a binary choice (use or not use; Parker &amp; Van Alstyne, 2005, 2017), whereas field observation suggested a continuous space of choices varying in intensity — from active use and testing to leading new projects. And most of the platforms studied are controlled by a single proprietary firm; "few distribute governance rights to the collective" (p. 4 of the PDF; journal p. 533). How a firm transitions to collective governance, and how that transition reshapes external participation, is the unexplored territory the study enters.</p>
+
+<h2>2. Research setting, sample, and methods</h2>
+
+<h3>2.1 The case: Eclipse as a development platform</h3>
+
+<p>Eclipse is an integrated development environment (IDE) — a unified design space of compilers, source-code editors, debuggers, and build tools — built from modular projects on a common framework. IBM developed it as a proprietary platform and opened it in 2001 to recruit outside talent and build "best in class technology," under competitive urgency against Microsoft and Sun. It is a <em>development platform</em> fostering complementary innovations in the sense of Bresnahan and Greenstein (1999), not a transaction-mediating market platform in the sense of Rochet and Tirole (2003). The authors note that few successful governance transitions exist to study — Sun's Java and the Symbian consortium are cited as poorly executed transitions (Garud, Jain, &amp; Kumaraswamy, 2002; West &amp; Wood, 2013) — which makes Eclipse valuable precisely because its transitions unfolded in public forums with reliable archival traces.</p>
+
+<p>IBM's opening rationale is documented in the field interviews and worth quoting, because it is the canonical economic logic of releasing a platform:</p>
+
+<blockquote>"to get more vendors to build their products on top of it, we had to make it open source. Otherwise, they [participants] would not take the risk of building on a proprietary platform." (p. 5 of the PDF; journal p. 534)</blockquote>
+
+<p>IBM hoped opening Eclipse would attract customers to its proprietary middleware stack; one IBM director called the move "more strategic than charitable" (p. 5 of the PDF; journal p. 534). Scale indicators reported in the paper: Eclipse was used by nearly 40% of software developers worldwide by 2018 (footnote to a 2018 survey), and more than 274 firms participated as members in its development in 2018; the Eclipse member population grew from 3 firms in 2000 to 135 firms by 2006 (p. 6 of the PDF; journal p. 535).</p>
+
+<h3>2.2 Sample and data</h3>
+
+<p>The sample is 16 firms participating with Eclipse between 2000 and 2006: 12 early participants plus 4 "late joiners" (added in the hybrid phase, following Ozcan &amp; Eisenhardt, 2009, to replicate findings). IBM was excluded by design because the research question concerns platform participants. The sample mirrors the broader member population on size and industry: about one-third small (revenue under $10 million), one-third medium ($10 million–$1 billion), and one-third large (over $1 billion), against a population that was roughly 43% small and 23% large; and 61% software producers / 18% service providers / 19% hardware producers in the sample against 63% / 19% / 17% in the population.</p>
+
+<p>Three data sources triangulate the account: (a) 45 semi-structured interviews (1–3 hours) with IBM, foundation employees, and the 16 firms, conducted mainly 2004–2005 (41) and re-visited in 2016 (4); 41 were recorded and transcribed into 1,061 pages; (b) observations of board meetings and Eclipse conferences in two cycles, 2004–2005 and 2016 (90+ hours); (c) archival data from 2000–2016, including 81 board-meeting minutes, 11 foundation reports, press releases, blogs, and presentations. Both authors coded all data with open-coding techniques, iterating to agreement, and moved through six analytic stages: mapping governance changes; identifying and comparing participation choices; analyzing participation intensity; analyzing platform alignment; identifying platform strategies; and building a grounded process model.</p>
+
+<h2>3. Core concepts and framework</h2>
+
+<h3>3.1 Governance domains, access, and control</h3>
+
+<p>Building on O'Mahony (2007) and O'Mahony and Bechky (2008), the authors identify <strong>11 domains of platform governance</strong>, clustered into four types: <strong>Legal</strong> (ownership of IP and derivative works), <strong>Technical</strong> (decision rights over project-level code development), <strong>Membership</strong> (allocation of member designation and rights), and <strong>Architectural</strong> (decision rights over cross-project scope and coordination). Drawing on Boudreau (2010), each domain is assessed as providing either <em>access</em> or <em>control</em>. The two constructs are defined explicitly and kept analytically separate:</p>
+
+<blockquote>Access refers to the degree to which a platform is legally open and usable by external participants … Control can be defined as the right to determine the rules guiding a platform's usage and technical trajectory. (p. 4 of the PDF; journal p. 533)</blockquote>
+
+<p>The distinction matters because the two dimensions can transition independently and on different timetables — Java, for instance, was released under an open-source license (access) while Sun retained control over the protocols. In Eclipse, access opened within about a year while control opened gradually over five.</p>
+
+<h3>3.2 Four governance modes</h3>
+
+<p>Using the criterion of who held the preponderance of decision rights over each domain in each period — boundaries identified by "continuity in the activities within each period and … certain discontinuities at [their] frontiers" (Langley, 1999) — the authors periodize 2000–2006 into four governance modes summarized in Table 1 (their Table 3 and Section 4).</p>
+
+<h3>Table 1. Four modes of platform governance and observed participation responses (Eclipse, 2000–2006)</h3>
+<table>
+<tr><th>Mode (dates)</th><th>Access condition</th><th>Control condition</th><th>Participation response in the 16-firm sample</th></tr>
+<tr><td><strong>Proprietary</strong> (2000–2001)</td><td>Selectively granted via NDA to chosen partners; mostly closed</td><td>IBM holds complete control over all 11 domains</td><td>Only 3 sampled firms had source access as "active users"; strategies limited to observing (cooperative) and front-running (opportunistic)</td></tr>
+<tr><td><strong>Dominant</strong> (2001–2003)</td><td>Fully open; code released to an open-source community under a common public license</td><td>IBM transfers 5 access domains to a 9-firm consortium but retains membership, architectural, and technical (control) domains</td><td>Participation expands: 12 sampled firms participate; integrating, selling-up, and front-running appear; roughly half contribute code; one firm (Firm 7) takes a technical leadership role</td></tr>
+<tr><td><strong>Hybrid</strong> (2004–2005)</td><td>Fully open; ownership legally divested to an independent nonprofit foundation</td><td>Leadership over architectural domains (scope, cross-project coordination, new projects) is unclear; board and foundation roles unsettled</td><td>Participation drops across the board despite growing market share; only Firm 7 continues leading; leadership vacuum</td></tr>
+<tr><td><strong>Collective</strong> (2006+)</td><td>Fully open</td><td>Representative board of participants governs all remaining domains; project leaders run projects under board-approved roadmaps; provisioning processes institutionalized</td><td>Participation deepens; cooperative firms expand the platform, opportunistic firms redirect it; distributed platform leadership emerges</td></tr>
+</table>
+
+<h3>Table 2. Who holds decision rights across the 11 governance domains (condensed from the paper's Table 3)</h3>
+<table>
+<tr><th>Domain (cluster)</th><th>Proprietary (2000)</th><th>Dominant (2001–2003)</th><th>Hybrid (2004–2005)</th><th>Collective (2006+)</th></tr>
+<tr><td>Legal — Use of IP (who can use donated/developed code)</td><td>IBM</td><td>Platform participants</td><td>Platform participants</td><td>Platform participants</td></tr>
+<tr><td>Legal — Stewardship of IP (who checks provenance, asserts licenses)</td><td>IBM</td><td>Platform participants</td><td>Representative board</td><td>Representative board</td></tr>
+<tr><td>Legal — Derivative works (who acquires rights)</td><td>IBM</td><td>Platform participants</td><td>Platform participants</td><td>Platform participants</td></tr>
+<tr><td>Membership — Designation of members and rights</td><td>IBM</td><td>IBM</td><td>Representative board</td><td>Representative board</td></tr>
+<tr><td>Membership — Voting rights</td><td>IBM</td><td>Representative board</td><td>Representative board</td><td>Representative board</td></tr>
+<tr><td>Technical — Project requirements (prioritization)</td><td>IBM</td><td>IBM</td><td>Project leaders</td><td>Project leaders</td></tr>
+<tr><td>Technical — Release management</td><td>IBM</td><td>IBM</td><td>Project leaders</td><td>Project leaders</td></tr>
+<tr><td>Technical — Code commitment</td><td>IBM</td><td>Platform participants</td><td>Project leaders</td><td>Project leaders</td></tr>
+<tr><td>Architectural — Eclipse scope and direction</td><td>IBM</td><td>IBM</td><td>Unclear</td><td>Representative board</td></tr>
+<tr><td>Architectural — Design coordination across projects</td><td>IBM</td><td>IBM</td><td>Unclear</td><td>Representative board</td></tr>
+<tr><td>Architectural — Launching new projects</td><td>IBM</td><td>IBM</td><td>Unclear</td><td>Representative board</td></tr>
+</table>
+
+<p>The table makes the paper's central periodization concrete: the dominant mode opens the five <em>access</em> domains while keeping all six <em>control</em> domains with IBM; the hybrid mode opens legal and membership control but leaves the three architectural domains with no accountable decision-maker ("Unclear"); the collective mode lodges those three domains with the representative board and disciplines project-level control through roadmapping.</p>
+
+<h3>3.3 Participation: choices, intensity, and alignment</h3>
+
+<p>From 325 pooled participation choices across the 16 firms, the authors refined 10 common types of participation: (1) become an active user, (2) join the Eclipse organization, (3) become a board member, (4) launch a commercial product based on Eclipse, (5) donate code/IP, (6) join a project, (7) join multiple projects, (8) dedicate committers, (9) sync the development schedule with Eclipse, and (10) lead a project. Choices 5–10 require code contributions. Because choices demand very different effort — a firm reported that leading a project required eight full-time developers, "on average, at least $1.2 million annually" (p. 11 of the PDF; journal p. 540) — the authors ranked each choice on a 1–6 participation-intensity scale, with 1 (active user) as the baseline and code-contributing choices at 4–6 (Table 3).</p>
+
+<h3>Table 3. Participation intensity scale (paper's Table 5)</h3>
+<table>
+<tr><th>Type of participation</th><th>Intensity (1–6)</th><th>Band</th></tr>
+<tr><td>Become an active user</td><td>1</td><td>Low (no code)</td></tr>
+<tr><td>Join the Eclipse organization</td><td>2</td><td>Low (no code)</td></tr>
+<tr><td>Become a board member</td><td>3</td><td>Low (no code)</td></tr>
+<tr><td>Launch a commercial product on Eclipse</td><td>3</td><td>Low (no code)</td></tr>
+<tr><td>Donate code/IP</td><td>4</td><td>Medium (contribution)</td></tr>
+<tr><td>Join a project</td><td>4</td><td>Medium (contribution)</td></tr>
+<tr><td>Join multiple projects</td><td>5</td><td>Medium (contribution)</td></tr>
+<tr><td>Dedicate committers (full-time developers)</td><td>5</td><td>Medium (contribution)</td></tr>
+<tr><td>Sync development schedule with Eclipse</td><td>6</td><td>High (leadership)</td></tr>
+<tr><td>Lead a project</td><td>6</td><td>High (leadership)</td></tr>
+</table>
+
+<p><strong>Platform alignment</strong> is the second construct. Following Adner (2017), alignment is "the extent to which there is mutual agreement" among participants about incentives and the configuration of their activities with the platform. Firms whose participation furthered the platform's quality were coded as having <em>cooperative alignment</em>; firms that undercut the platform — slowing development, reducing code quality, or redirecting the platform toward their own ends — were coded as <em>opportunistic alignment</em>. Nine sampled firms were cooperatively aligned (Firms 3, 4, 5, 6, 7, 9, 10, 11, 14) and seven opportunistically aligned (Firms 1, 2, 8, 12, 13, 15, 16). A firm's <em>platform strategy</em> is the conjunction of its participation intensity and its alignment; the authors stress that this is not firm-level strategy, only a firm's strategy for participating with Eclipse.</p>
+
+<p>Six participation strategies emerged, three consistently cooperative and three consistently opportunistic:</p>
+
+<h3>Table 4. Six platform participation strategies (paper's Table 6 and Section 3.4.5)</h3>
+<table>
+<tr><th>Alignment</th><th>Strategy</th><th>Intensity</th><th>What the firm does</th><th>Effect on the platform</th></tr>
+<tr><td rowspan="3">Cooperative (9 firms)</td><td><strong>Observing</strong></td><td>Low (PI 1)</td><td>Active use and monitoring of community direction; no code contributions</td><td>Neutral to mildly supportive; builds compatibility and information</td></tr>
+<tr><td><strong>Integrating</strong></td><td>Medium (PI 2–6)</td><td>Joins projects and contributes code/developer time so proprietary products stay compatible with Eclipse</td><td>Extends the platform's market relevance</td></tr>
+<tr><td><strong>Expanding</strong></td><td>High (PI 6)</td><td>Leads projects to build new functionality supporting complementary products</td><td>Grows the platform's functionality and user base</td></tr>
+<tr><td rowspan="3">Opportunistic (7 firms)</td><td><strong>Front-running</strong></td><td>Low–medium (PI 1–6)</td><td>Ships proprietary products based on pre-release Eclipse code; no code back to the platform</td><td>Can confuse code provenance; free-rides on platform development</td></tr>
+<tr><td><strong>Selling-up</strong></td><td>Medium (PI 4–6)</td><td>Joins projects but contributes code inferior to proprietary offerings, as a teaser to sell commercial upgrades</td><td>Contributes technically but strategically scopes contributions</td></tr>
+<tr><td><strong>Redirecting</strong></td><td>High (PI 6)</td><td>Leads projects to reprioritize requirements toward the firm's interests; omits features or bug fixes that would help rivals</td><td>Steers the platform's direction; can degrade code quality</td></tr>
+</table>
+
+<h2>4. Findings: participation across the four modes</h2>
+
+<p>The headline finding is a non-monotonic trajectory. "As Eclipse transitioned from proprietary to collective governance, most participants increased their participation intensity, but pulled back when control over platform leadership became unclear. Only in the collective mode, did cooperative and opportunistic participants take on platform leadership roles—effectively distributing platform leadership" (p. 13 of the PDF; journal p. 541). Notably, "platform alignment did not adapt to changing governance conditions" (p. 13 of the PDF; journal p. 542): which firms behaved cooperatively and which opportunistically was stable across all modes.</p>
+
+<h3>4.1 Proprietary mode (2000–2001): contract-based experimentation</h3>
+
+<p>With code proprietary and development access closed, IBM signed NDAs with select partners to test the platform. Only three sampled firms (8, 9, 16) had source access as active users. The strategic space was thin: Firm 9 observed, reviewing code to make its products compatible while holding back because Eclipse was too immature and IBM's direction unknown; Firms 8 and 16 front-ran, integrating their proprietary functionality so deeply that, in Firm 8's words, "we got in so deeply no one knew we were there" (p. 17 of the PDF; journal p. 546). The NDA experiments persuaded IBM that external interest existed but that firms would not bet on a proprietary platform — the trigger for the November 2001 decision to release the source code.</p>
+
+<h3>4.2 Dominant mode (2001–2003): open access, retained control</h3>
+
+<p>Access opened completely under a common public license, but IBM retained control over membership, architectural, and technical governance domains — formally transferring five access domains to a nine-firm consortium. The paper's label "dominant" captures the resulting condition: formally shared voting at the board level coexisted with IBM's operative control at project level, because IBM fielded many individuals at every meeting while most firms sent one. Informants read the posture accurately:</p>
+
+<blockquote>IBM walked around looking for columns to hide behind so that nobody would notice that they were there. It was a very aggressive neutral posture because they were trying to create the perception that they weren't in control, and that they weren't dominating, and so even though they were … It's all Open Source. But you control 80 of the 82 guys that are developing it. (Firm 13; p. 19 of the PDF; journal p. 548)</blockquote>
+
+<p>Cooperative firms hesitated to invest under the shadow of IBM appropriation: Firm 4's informant summarized the perception as, "All of the committers were IBM. All of the requirements were IBM. All of the management was IBM. So, there was both the perception and reality that it was an IBM Trojan horse" (p. 19 of the PDF; journal p. 548). Still, participation widened: three firms integrated (9, 10, 11), contributing code to make products compatible while fearing IBM would take their ideas; three sold up (8, 12, 13), contributing deliberately inferior code; two front-ran (15, 16) on pre-release code; and Firm 7 became the only firm to take a technical leadership role. About half the sample contributed code. IBM tolerated opportunism deliberately — free-riding vendors were visible, but their commercial launches signaled viable development paths that seeded the ecosystem.</p>
+
+<p>To understand why so many firms held back, IBM commissioned a Gartner report, whose diagnosis the paper quotes:</p>
+
+<blockquote>There was confusion as to what Eclipse really was—an IBM project? An open-source project? A standards-like consortium? Many companies were reluctant to make a strategic commitment to build products on Eclipse. (p. 20 of the PDF; journal p. 549)</blockquote>
+
+<p>The consortium's response was to transfer Eclipse to an independent foundation that would "set it free" from IBM — legal divestiture of control.</p>
+
+<h3>4.3 Hybrid mode (2004–2005): divested control, unresolved leadership</h3>
+
+<p>The legal transition succeeded; the governance transition did not. With IBM pulling back, no firm stepped into platform leadership, and the board's and foundation's roles over technical and architectural domains were unsettled. The result surprised the authors given the openness literature's predictions — with access and control open, theory would expect firms to vie for leadership; instead participation collapsed. Most cooperative firms (eight of nine) limited themselves to observing: membership, board service, and commercialization without code. The deterrent was not IBM but exposure. Firm 3, interested in founding a new project, explained the risk of proposing in a public forum with no approval process:</p>
+
+<blockquote>There was a possibility that we would propose this [new project], get it shut down, and then all of the competitors in the market would know that we've got this strategy, but we've failed. (Firm 3; p. 21 of the PDF; journal p. 550)</blockquote>
+
+<p>All seven opportunistic firms also pulled back, worried that unregulated contributions would commoditize their commercial differentiation "without warning." Firm 8 had invested eighteen months in a tool area it believed empty, only to find the functionality appearing in Eclipse; its product felt "worthless commercially," with customers asking "hey I just found all of your stuff in Eclipse" (p. 21 of the PDF; journal p. 550). The authors classify this as a <em>provisioning</em> concern, not the <em>appropriation</em> concern that dominates open-source and commons theory: Firm 8 was not afraid IBM would take its contribution; it was afraid of how the ungoverned <em>flow of contributions</em> would shape the platform's growth. One informant put the trap precisely: "you can't compete with your own platform" (p. 22 of the PDF; journal p. 551). The chilling effect was uniform across firm sizes and sectors.</p>
+
+<h3>4.4 Collective mode (2006+): provisioning rules and distributed leadership</h3>
+
+<p>The turn came when the foundation led the collective to solve provisioning. Three mechanisms mattered. First, a <strong>road-mapping process</strong> with board approval set an explicit direction for each project and required review-and-comment periods before new projects were approved, giving firms "temporal scope predictability" — an exclusivity window in which to adapt commercial plans:</p>
+
+<blockquote>I need visibility six months out. I can't be commoditized tomorrow. If you give me six-months, then I can adapt. (Firm 13; p. 23 of the PDF; journal p. 552)</blockquote>
+
+<p>Second, a coordinated <strong>release train</strong> synchronized project releases so firms could align their commercial timetables with the platform — code could no longer be dropped without community coordination. Third, a <strong>code-provenance process</strong> evaluated contributed code. With these provisioning rules bounding contributions, "most firms increased their participation intensity and many began contributing code" (p. 23 of the PDF; journal p. 552). Two new leadership strategies appeared: six cooperative firms (3–7, 9) <em>expanded</em> the platform by leading projects tied to their commercial offerings, and two opportunistic firms (1, 8) <em>redirected</em> it, using project leadership to steer priorities or omit bug fixes that would benefit rivals. The authors observe that even the new provisioning rules could not fully stop a determined leader from slowing a project — "It is awfully easy to slow it down. Just to sit on a bug" (p. 24 of the PDF; journal p. 553) — but they bounded any single firm's influence.</p>
+
+<p>Only at this point did leadership become distributed: "Only under collective governance did firms in our sample deepen their participation, contribute code and lead projects, effectively distributing platform leadership across hardware, service and software firms with diverse interests" (p. 24 of the PDF; journal p. 553).</p>
+
+<h2>5. Explaining the emergence of distributed platform leadership</h2>
+
+<p>The authors convert the sequence into a grounded process model (their Figure 2). Each governance mode raises a characteristic participant concern, and each resolution of that concern moves the platform to the next mode:</p>
+
+<pre class="mermaid">
+flowchart TD
+    A["Proprietary<br/>Access mostly closed; IBM controls all domains"] -->|"concerns: technical maturity, market value; contract experiments with select partners"| B["Dominant<br/>Access open (CPL); IBM retains control domains"]
+    B -->|"concerns: will the founder appropriate our contributions? Will contributions help competitors?"| C["Legal divestiture to independent foundation (2004)"]
+    C --> D["Hybrid<br/>Access and legal control open; architectural leadership unclear"]
+    D -->|"provisioning concerns; unregulated overcontribution; participation drops; leadership vacuum"| E["Collective provisioning rules<br/>Roadmaps with review windows · Release train · Code-provenance process"]
+    E --> F["Collective<br/>Representative board governs all remaining domains"]
+    F -->|"scope and temporal predictability restore confidence"| G["Distributed platform leadership<br/>Cooperative firms expand; opportunistic firms redirect; no single central authority"]
+    D -.->|"without provisioning rules: sustained chill"| H["No distributed leadership"]
+</pre>
+
+<p>Three theoretical moves carry the argument. First, the failure mode of openness is reframed from <em>appropriation</em> to <em>provisioning</em>:</p>
+
+<blockquote>Rather than a problem of over usage, we identified a problem of overcontribution that could upend participants' strategies, a challenge under appreciated by either the open-source or platform literatures. (p. 26 of the PDF; journal p. 555)</blockquote>
+
+<p>Where commons theory worries about free-riding on an open resource (Hardin; Ostrom), Eclipse participants worried about the opposite: the resource growing so fast and so unpredictably that it commoditized the complements built on it. Second, provisioning problems are tractable under dominant leadership — a single leader can signal where it will and will not innovate (Gawer &amp; Henderson, 2007) — but are intractable when authority over scope is diffuse, and firms cannot even contract around the problem because asking competitors to withhold contributions could violate antitrust law. Third, the solution is "collective choice" in Ostrom's sense: like a standard-setting organization, the collective had to establish shared rules over the pace and direction of contributions, and those rules — not openness per se — produced the conditions for distributed leadership.</p>
+
+<blockquote>distributed platform leadership—where there is no single central authority over the platform and members lead in accordance with their disparate interests while abiding to the rules of collective governance. (p. 26 of the PDF; journal p. 555)</blockquote>
+
+<p>The authors expect distributed platform leadership to emerge where (a) distributed participation is possible and (b) there is collective choice over participation rules governing both appropriation and provisioning. The strategy space implied by the model is sketched below.</p>
+
+<pre class="mermaid">
+flowchart LR
+    subgraph COOP["Cooperative alignment (Firms 3, 4, 5, 6, 7, 9, 10, 11, 14)"]
+        O1["Observing<br/>(low intensity)"] --> I1["Integrating<br/>(medium)"] --> E1["Expanding<br/>(high, PI 6)"]
+    end
+    subgraph OPP["Opportunistic alignment (Firms 1, 2, 8, 12, 13, 15, 16)"]
+        O2["Front-running<br/>(low–medium)"] --> I2["Selling-up<br/>(medium)"] --> E2["Redirecting<br/>(high, PI 6)"]
+    end
+    E1 --> L["Collective mode:<br/>both alignments take on project leadership<br/>— expanding grows the platform, redirecting steers it"]
+    E2 --> L
+</pre>
+
+<h2>6. Position in the literature</h2>
+
+<p>This paper sits at the intersection of three research streams and answers a call inside each. It belongs, first, to the open-source governance tradition that O'Mahony helped build — O'Mahony (2003) on how community-managed projects guard their commons, O'Mahony and Ferraro (2007) on the emergence of governance in a community, von Hippel and von Krogh's (2003) private–collective model, and Dahlander and O'Mahony (2011) on coordinating project work. Its distinct contribution to that stream is to study a <em>firm-led transition into</em> collective governance rather than a community-born one, and to import Ostrom's (1990) distinction between appropriation and provisioning into the platform context. It belongs, second, to the platform-leadership stream (Gawer &amp; Cusumano, 2002, 2008; Gawer &amp; Henderson, 2007; Eisenmann, Parker, &amp; Van Alstyne, 2009, 2011; Parker &amp; Van Alstyne, 2017; West, 2003), whose blind spot it identifies: the strategies of those "on the other side of the platform" and the multi-lateral relations among complementors (Adner, 2017; Boudreau &amp; Jeppesen, 2015; Kapoor &amp; Agarwal, 2017; Wareham, Fox, &amp; Cano Giner, 2014). Third, it extends ecosystem governance research (Jacobides, Cennamo, &amp; Gawer, 2018) by showing how an ecosystem's <em>rules</em>, not just its structure, evolve.</p>
+
+<p><strong>Dialogue with Boudreau (2010)</strong> is the paper's most explicit theoretical engagement. Boudreau showed that granting access increases complementary innovation while devolving control reduces it; O'Mahony and Karp accept the access–control distinction but complicate the control result with a temporal and configurational reading. In Eclipse, participation dropped not when control was devolved <em>per se</em> but in the hybrid interval when devolution outpaced the creation of any accountable mechanism for governing the platform's scope — "divesting control might not be what depresses platform participation, but rather the conditions associated with a lack of leadership over a platform's growing scope" (p. 27 of the PDF; journal p. 556). Where Boudreau compared governance conditions cross-sectionally across platforms, this paper disaggregates eleven domains and shows that access domains and control domains transition on different clocks; the relevant unit is the sequence, not the snapshot. This is also the point of departure for Part I empirical work in this topic library: Yue and Nagle (2024) treat PyTorch's open-sourcing as a control-relinquishing shock and find downstream innovation gains — precisely the Eclipse finding that openness <em>under clear conditions</em> deepens contribution — and Wu, Lin, and Li (2025) use the Llama 2 release on the Hugging Face platform as a difference-in-differences shock to developer activity, an event-level test of the same logic the Eclipse case theorizes at process level.</p>
+
+<p><strong>Dialogue with Wen and Zhu (2019)</strong> is complementary and directional. Wen and Zhu study complementor responses to the <em>threat of platform-owner entry</em> into complement markets (exit, multi-homing, reduced innovation). O'Mahony and Karp study complementor responses to changes in the platform's <em>governance rules</em> — the mirror-image threat in which the platform owner changes access and control rather than entering a product market. Their six-strategy taxonomy (observe, integrate, expand; front-run, sell-up, redirect) is a governance-side complement to the entry-threat responses Wen and Zhu catalogue, and both papers share the premise that complementors are strategic, guarded actors rather than passive beneficiaries. In the Hugging Face context, Wen and Zhu's framework speaks to complementor reactions when Hugging Face or a model leader moves toward complement markets (enterprise services, inference); O'Mahony and Karp's speaks to reactions when the same actors rewrite the rules of the hub itself.</p>
+
+<p><strong>Dialogue with the Hugging Face case (Greenstein et al., 2022)</strong>: the HBS case documents a platform leader actively designing access and control — open model weights and permissive licenses to seed an ecosystem, gated and curated repos, commercial partnerships, and enterprise offerings that create a proprietary layer above an open core. O'Mahony and Karp supply the theory of what such rule-writing does to complementors over time. Two Eclipse findings translate almost one-for-one. First, "access alone may be insufficient": a hub that is technically open but whose governance is opaque or unilateral can attract usage without attracting deep contribution — the pattern Longpre et al. (2025) and Laufer et al. (2025) document at scale, where most Hugging Face participation is shallow consumption and a small core carries contribution. Second, the Eclipse hybrid mode warns that a leader's withdrawal or ambiguity — whether through license re-licensing episodes in open-source infrastructure (Redis, Elastic), or through unclear governance of gated models — chills precisely the participants whose commitments the platform needs, because they cannot forecast how the platform's growth will affect their complements. My inference from the theory to current events is that each modern re-licensing or open-weight episode can be coded on the Eclipse template: which of the 11 domain types changed, whether access and control moved together, and whether provisioning rules existed to absorb the shock.</p>
+
+<p><strong>Dialogue with open-weight research in the Part I core</strong>: Azoulay, Krieger, and Nagaraj (2024) analyze openness and control in generative AI as strategic variables — when leaders release weights, what they keep closed, and how competition responds. O'Mahony and Karp's Eclipse account explains a mechanism Azoulay et al. measure: open release changes complementors' participation strategies, and the value of the release depends on the surrounding governance of contribution and scope. Yue and Nagle (2024) is the cleanest empirical parallel: PyTorch's transfer of control from a single firm to a community-governed foundation is a compressed Eclipse sequence (the paper even discusses PyTorch's move to collective governance as the modern avatar of Eclipse-style distributed leadership), and their finding that downstream innovation rose after control was relinquished matches Eclipse's collective-mode rebound. Wu et al. (2025), White et al. (2024) on the Model Openness Framework, and Khoshbash (2026) on sponsor fine-tuned variants all refine the modern access dimension — license tiers, open-weight versus open-source — that this paper's access–control pair was an early formalization of. Finally, Greve (2003) and the behavioral tradition enter indirectly: when platform rules change, the payoff structure of participation changes, and firms' responses are locally rational adaptations to a newly ambiguous environment — the Eclipse hybrid mode is a case of firms pulling back because the search-and-evaluation problem of "where will the platform grow" became unsolvable for any single firm.</p>
+
+<h2>7. Limitations</h2>
+
+<p><strong>Author-stated limitations</strong> (Section 5.4): the design "does not have the conditions of a natural or quasi-experiment to offer causal conclusions"; the study is conditioned on initial participation in Eclipse, so it cannot predict which firms first join a platform; participation strategies identified are platform-specific and constitute only one component of firm-level strategy; the authors did not trace firm-level strategic changes or external variables (e.g., Simcoe, 2010) that affect participation; and the scale and breadth of the dynamics "may not be present in all cases" — in particular, whether findings extend to market platforms that mediate transactions between producers and consumers is left open.</p>
+
+<p><strong>Independent judgment</strong>, with claims separated by epistemic status:</p>
+
+<ul>
+<li><strong>Author claims</strong>: access and control are distinct and transition independently; opening access alone did not stimulate deep participation when leadership was unclear; provisioning (overcontribution) concerns, not appropriation concerns, dominated the hybrid mode; distributed platform leadership required collective provisioning rules (roadmap, review windows, release train, provenance); platform alignment was stable across governance modes; opportunistic participation can both threaten and seed platform vitality.</li>
+<li><strong>Evidence</strong>: the supporting material is a single-case, inductive, interpretively coded body of evidence — 16 firms, 45 interviews, observation, and archives — with claims validated through triangulation and the 2016 re-entry, not through statistical identification. The paper's own "roughly half of our sample contributed code" and the per-mode counts in its Table 4 rest on the authors' coding of 325 choices; the transcribed table's column layout is difficult to reproduce precisely from the PDF text layer. Two small internal inconsistencies are visible: the prose reports 45 interviews while the data-summary table lists 44, and the sample description says 4 firms "began in 2004" while the firm table lists 2004–2005 entry years. Neither affects the argument's direction.</li>
+<li><strong>Inferences (mine, not the authors')</strong>: (1) the framework's portability to market platforms and to AI model hubs is plausible but untested — Eclipse is a development platform on which complements are software products, whereas Hugging Face hosts complements (fine-tuned models, datasets, Spaces apps) that are often free goods with thinner commercial stakes, so the intensity of provisioning concern may differ; (2) the paper's finding that alignment is stable across modes suggests firm heterogeneity (business models, product adjacency) rather than governance design drives cooperativeness — the authors note this only as a future research question; (3) the hybrid-mode chilling effect implies that for an open-weight release to stimulate downstream commitment, leaders should announce contribution and scope-governance rules (review processes, roadmap, license terms) at the moment of release — a design prescription the paper gestures at but does not state as such.</li>
+<li><strong>Open questions</strong> the paper leaves: Must a transitioning platform pass through all four modes, or can access and control be opened simultaneously (the authors ask but do not answer whether compression is possible without losing learning); which firm characteristics predict cooperative versus opportunistic alignment; how provisioning rules should be designed when participants are individuals rather than firms; and how these dynamics operate when the platform leader is itself a platform (Hugging Face hosting others' open-weight models) rather than a product firm like IBM.</li>
+</ul>
+
+<p>A textual caveat: the pdftotext source splits journal pages at 530–562; the PDF-page numbers given after each quotation are counted from form-feed characters in the text layer and correspond to the journal pagination shown (PDF page = journal page minus 529). Figures 1 and 2 are graphics and were not machine-readable; their content is described from the surrounding text.</p>
+
+<h2>8. Conclusion and takeaways for the open-AI economy</h2>
+
+<p>The paper's lasting contribution is to recast platform openness from a property of a moment to a property of a <em>process</em>: a sequence of governance modes in which access and control move on separate clocks, each transition raises a distinct participant concern, and collective rules — not openness — determine whether external participants deepen their commitment and take on leadership. Its most general result is that participation and alignment are separable: firms participate in ways that can extend or subvert a platform's vitality, and those dispositions persist across governance changes. Its most policy-relevant result is the provisioning finding — the risk to an open ecosystem is not only under-contribution but ungoverned over-contribution that commoditizes the complements on which participants' business models rest.</p>
+
+<p>For the Hugging Face and open-AI economy topic, the paper provides the vocabulary for what is happening when model and infrastructure leaders change their rules: access (license terms, weight availability, gating) and control (who sets the technical trajectory — hub curation, foundation governance, roadmap authority) are distinct levers; releasing weights is not the same as devolving control, and devolving control without provisioning rules can chill the very complementors an open release is meant to attract. The Eclipse sequence suggests the design agenda for open-weight platforms: visible roadmapping, review processes for what enters the commons, provenance and licensing clarity, and release coordination — mechanisms that give complementors the temporal predictability they need to commit. It also predicts that complementor behavior toward a hub will be guarded and heterogeneous, with some participants working to extend the platform and a persistent minority working to redirect it, so a platform leader should not assume that all participation is cooperation.</p>
+
+<div class="golden">
+Opening access is not the same as devolving control, and devolving control without rules to govern a platform's growth does not invite participation — it chills it. Distributed platform leadership emerges only when the collective governs the pace and direction of what is contributed. — synthesis of O'Mahony &amp; Karp (2022)
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the deep-dive workflow of this topic library, grounded in a pdftotext conversion of the local PDF of O'Mahony and Karp (2022), <em>Strategic Management Journal</em> 43(3): 530–562, DOI 10.1002/smj.3150. Blockquotes are verbatim from the text layer; page numbers count form-feed characters in the .txt ("p. N of the PDF") with the journal page noted alongside. Please verify quotations, numbers, and page anchors against the original. The four epistemic labels in the Limitations section (author claims / evidence / inferences / open questions) distinguish textual assertions from the reader's extensions; the connections to Hugging Face, open-weight releases, and current re-licensing episodes are interpretive applications of the paper's framework, not claims made by the authors.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

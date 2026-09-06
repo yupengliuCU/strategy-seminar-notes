@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beefing IT Up for Your Investor? Engagement with Open Source Communities, Innovation, and Startup Funding (Conti, Peukert &amp; Roche, 2025) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Beefing IT Up for Your Investor? Engagement with Open Source Communities, Innovation, and Startup Funding: Evidence from GitHub</h1>
+<div class="meta">
+<strong>Authors</strong>: Annamaria Conti (IE Business School); Christian Peukert (HEC Lausanne, University of Lausanne); Maria Roche (Harvard Business School, corresponding author); listed in alphabetical order<br>
+<strong>Source</strong>: <em>Organization Science</em> 36(4): 1551–1573 (July–August 2025). DOI: <a href="https://doi.org/10.1287/orsc.2023.18348">10.1287/orsc.2023.18348</a>. Open access under CC BY 4.0; received November 6, 2023; revised June 17, 2024 and November 19, 2024; accepted November 19, 2024; published online March 7, 2025<br>
+<strong>Nature</strong>: Empirical journal article — matched-sample difference-in-differences (DiD) linking Crunchbase startups to GitHub activity records (GH Archive + GitHub API) and Product Hunt launches, with machine-learning classification of external repositories<br>
+<strong>Data &amp; code status</strong>: 160,065 U.S. startups founded 2005–2020 (Crunchbase); 14,881 matched GitHub organization accounts; Product Hunt data January 2014–September 2022. Online appendix available at the DOI; no public replication archive is mentioned. Funding: Swiss National Science Foundation (Project IDs 100013_188998 and 100013_197807, to Conti and Peukert) and Harvard Business School Division of Research and Faculty Development (to Roche)
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Linking 160,065 U.S. startups on Crunchbase to their public activity on GitHub, the paper shows that when early-stage startups begin engaging with open source communities (OSCs) — measured as interaction with external repositories they do not control — their likelihood of having raised a first financing round rises by at least 36% relative to matched comparable startups; the effect is weaker for startups using GitHub only for internal development, is concentrated among startups developing novel technologies (especially AI and Blockchain) and among VC and successful investors, and appears to operate through improved innovation — startups reach product launches — rather than through cosmetic visibility tricks.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide — where this sits in "Hugging Face &amp; the Open-AI Economy".</strong> The topic library mostly studies the <em>sponsor side</em> of openness: firms that release open weights and code to shape ecosystems (Azoulay et al. 2024; Yue &amp; Nagle 2024; Wu, Lin &amp; Li 2025 on Llama 2), the hub that hosts the artifacts (Greenstein et al. 2022; Laufer et al. 2025; Longpre et al. 2025), and definitions of what "open" means (White et al. 2024). Conti, Peukert and Roche supply the missing <em>demand-side</em> evidence: what engagement with open communities does for the startups that consume open code. Read it as the funding-milestone counterpart of Yue &amp; Nagle's control-versus-access logic and of Nagle (2019) and Wright, Nagle &amp; Greenstein (2023): in the open-AI economy, the marginal AI startup does not build its stack from scratch — it forks, builds a minimum viable product on open ML libraries, and this observable engagement is what investors reward. The "Hugging Face" reading: what GitHub is for software repositories, Hugging Face is for models and datasets, and the paper's mechanism says the value investors see in the hub is downstream innovation, not decoration.
+</div>
+
+<h2>1. Background and motivation</h2>
+
+<p>The paper opens with a simple observation: open source software now powers operating systems (Linux, Android), web browsers (Chrome, Safari), and artificial intelligence (Spark, TensorFlow), and the communities behind it have become major <em>knowledge suppliers</em> — survey evidence cited by the authors (the Mannheim Innovation Panel, about 5,000 German firms) shows that close to 20% of firms use open source to access external knowledge, roughly twice the share that draws on others' patents (Figure A1; endnote 2). Over 90% of all Fortune 500 companies use open source products. Yet the economics literature on open source had largely studied mature firms, startups that <em>sell</em> open source products, or small-scale qualitative cases, and had asked how firms <em>organize</em> for open source or how open source maps onto business models — not whether engaging with OSCs helps nascent firms hit performance milestones such as raising capital (pp. 1551–1552).</p>
+
+<p>The article opens with an epigraph from a Stripe developer advocate that states the practical premise this paper tests — that a public community of code is a production input, not decoration:</p>
+
+<blockquote>There is a huge open source community of code and developers to work with and draw inspiration from on GitHub. To build better developer tools, we need a direct line to it. GitHub accelerates production, progress, and connections, bringing us closer to our users. (Developer Advocate, Stripe; p. 1551 of the PDF)</blockquote>
+
+<p>The motivating question is therefore deliberately early-stage: <strong>can engaging with open source communities help a nascent digital startup raise its first money, and is that relationship driven by innovation?</strong> The financing environment shapes strategic choices from the first days of a venture (Hellmann &amp; Puri 2002; Ewens &amp; Marx 2018; Hochberg et al. 2018; Dushnitsky &amp; Matusik 2019). Prior work stresses the founding team (Bernstein et al. 2017; Gompers et al. 2020) and the underlying technology (Kaplan et al. 2009) as drivers of funding; where the knowledge used to build that technology comes from was still open. The authors' answer exploits an unusually clean empirical window: public, timestamped records of startups' interactions on GitHub, the largest host of source code (~40 million public repositories in April 2021), acquired by Microsoft for $7.5 billion in 2018.</p>
+
+<p>Their overall design: combine Crunchbase (firm, investor, and performance information for 160,065 U.S. startups founded 2005–2020), GitHub organization-account activity from GH Archive (a community-led record of public GitHub events since February 2011) plus the GitHub API, and Product Hunt product-launch records (January 2014–September 2022). The first question is answered with a DiD model on a matched sample; the second — mechanism — is attacked by classifying the external repositories startups interact with, by tracing product launches, and by testing a placebo-like "cosmetic activity" (readme-file edits).</p>
+
+<h2>2. Core concepts and argument</h2>
+
+<h3>2.1. What "engagement with OSCs" means</h3>
+
+<p>The paper defines its central construct operationally. Endnote 3: engagement with OSCs is <em>actively participating in the collaborative open source ecosystem</em>, and specifically <strong>interacting with external repositories that the focal startup does not directly control</strong> — forking, watching, or pushing to repositories owned by other organizations. This is contrasted with <em>internal</em> repositories, which originate from and are held by the focal firm and which the firm can determine the fate of. Endnote 5 frames the construct theoretically as "outbound openness" in the sense of Lin &amp; Maruping (2022). The empirical dominant form of external interaction is forking (96% of external events), followed by watch (2%) and push (1%) events — so startups mostly <em>take and adapt others' code</em> rather than contribute comments upstream (p. 1557). Among startups with a GitHub account, external activity overwhelmingly precedes first funding: among startups that both secure funding and engage with OSCs, 80% become engaged before receiving funding, on average beginning GitHub activity five months before the first round (p. 1559).</p>
+
+<h3>2.2. Two opposing forces: knowledge access versus appropriability</h3>
+
+<p>The guiding framework (§2) is a cost–benefit trade-off. On the benefit side, engagement with OSCs can lower development costs and accelerate innovation by leveraging a diverse, global pool of contributors (Kortum &amp; Lerner 2000; Baum &amp; Silverman 2004); OSCs lower barriers to entry by giving free access to cutting-edge, modular technology (Gruber &amp; Henkel 2006; Wright et al. 2023). On the cost side, some investors view open source as a risk because of IP-appropriation concerns and limited monetization options (Bonaccorsi &amp; Rossi 2003). The digital context sharpens the risk: patents are costly, slow, and weak for small software firms; reverse engineering is easy when the backend of a technology is publicly visible; secrecy is hard to execute (Gans &amp; Stern 2003; Veugelers &amp; Schneider 2018; Roche et al. 2024). "Isolating mechanisms" (Rumelt 1984, p. 568) are therefore more limited, and speed or complementary assets become the main competitive levers (Boudreau 2010; Teece 1986).</p>
+
+<p>The argument is built for <em>which</em> startups the trade-off tilts in favor of engagement. Following Fosfuri et al. (2008) on heterogeneous expected payoffs, the paper conjectures two moderators: (i) startups developing <em>novel, complex</em> technologies have the most to gain — innovation as recombinant search (Fleming 2001) requires distant knowledge pieces no single organization holds (Majchrzak et al. 2004; Gans et al. 2021), and speed to first-mover advantage may outweigh disclosure risks (Lieberman 1987; Franco et al. 2009); and (ii) startups in <em>highly competitive</em> markets gain least — there appropriability concerns bite hardest, the needed knowledge is more readily available, and differentiation is what matters (Lee &amp; Kim 2024). The synthesis, in the authors' words:</p>
+
+<blockquote>we expect that, on average, engagement with OSCs will have a positive impact on the entrepreneurial success, specifically the ability to raise earliest stage funding. We conjecture that this relationship is driven by the enhanced ability to innovate, given access to knowledge the OSC provides. (p. 1555 of the PDF)</blockquote>
+
+<h3>2.3. Innovation or mere visibility? The competing explanation</h3>
+
+<p>The design anticipates a rival account: GitHub engagement might work as an <em>endorsing signal</em> that raises visibility (Rysman &amp; Simcoe 2008), analogous to patents or prominent investors signaling startup quality in otherwise opaque markets (Conti et al. 2013a, b; Hsu &amp; Ziedonis 2013). To discriminate, the paper uses the Schumpeterian definition of innovation — commercialization of invention — and takes <em>product launches on Product Hunt</em> as the available proxy (Schumpeter 1934). If engagement works through innovation, it should raise launch probabilities; if it only amplifies visibility, “cosmetic” activities that do not change the underlying technology (editing readme documentation) should still move investors. The latter is tested directly.</p>
+
+<h2>3. Data and measurement</h2>
+
+<h3>3.1. Three linked data sources</h3>
+
+<p><strong>Crunchbase</strong> supplies the firm layer: all recorded U.S. startups founded between 2005 and 2020 — 160,065 firms with founding dates, ~40 industry-group keywords (a startup averages three), location, financing rounds and investors, and exits. Roughly half (46%) sit in California, Massachusetts, and New York; 36% raised at least one round; 8% were acquired by December 2020 and 1.2% went public (Table 1). Because Crunchbase has no sector variable, the authors build a <em>software share</em> index: the share of a startup's industry groups that are software-related (Apps, AI, Consumer Electronics, Data and Analytics, Design, Financial Services, Gaming, IT, Internet Services, Messaging and Telecommunications, Mobile, Payments, Platforms, Privacy and Security, Software). The full-sample mean is 0.46 (Table 1).</p>
+
+<p><strong>GitHub</strong> supplies the engagement layer. The authors collected all GitHub organization accounts via the API, extracted the websites of account owners, and linked them to 14,881 Crunchbase company profiles. Nine percent of sample startups have an organization account; 8% both have an account and engaged with an external repository — the primary measure of OSC engagement. Over 60% of startups with a GitHub organization account carry the "software" keyword. Public event histories come from GH Archive (full record of public GitHub events since February 2011).</p>
+
+<p><strong>Product Hunt</strong> supplies the innovation layer: a website founded in 2013 by Ryan Hoover, admitted to Y Combinator in 2014, acquired by AngelList in 2016, where innovators post new products. The authors retrieved the full set of featured products from January 2014 to September 2022 and matched launches to startups by website. Six percent of startups founded after 2011 had launched a product on Product Hunt by December 2022 (Table 1).</p>
+
+<h3>3.2. Machine-learning classification of technology use-cases</h3>
+
+<p>To separate what startups actually engage with, the authors use supervised and unsupervised machine learning to classify the external repositories interacted with through commits, pull requests, or forks into four use-cases: <strong>Software Development/Backend (SD/BE), Machine Learning (ML), Application Programming Interface (API), and User Interface (UI)</strong> — a comprehensive set for digital technologies (Yoo et al. 2012). Among startups with external engagement (Table 2, N = 13,413), engagement is prevalent with SD/BE (mean 0.646) and API (0.628) repositories, less with UI (0.277) and ML (0.135). A robustness check using the Wappalyzer technology profiler on web tech shows that ~70% of the 50 most-used web technologies on which startups rely are open source (endnote 12).</p>
+
+<h2>4. Empirical strategy</h2>
+
+<p>Randomizing access to OSCs across startups is infeasible, so the authors estimate a DiD model on a matched sample. Each startup that engages with OSCs is matched (following the logic of Arts et al. 2018) with up to five randomly selected comparable startups that either have no GitHub organization account or only engage with their internal repositories. Comparability means: founded in the same state and year; similar software-share bin (ten bins with cutoffs at 0.1–1); similar human capital, proxied by whether a founder or CXO is highly ranked on Crunchbase's list of top people ("Top Team"). The focal startup plus its (on average, four) comparisons form an observation group <em>g</em>. Table 5 documents that, in the matched sample of 34,298 startups (7,207 engaged; 27,091 not), OSC-engaged startups differ sharply in raw outcomes: 49.8% vs 35.4% raised a round, 23.6% vs 9.9% raised a first VC round, 18.0% vs 6.8% from a successful investor, 13.7% vs 4.9% launched a product (all differences with p-value 0.00).</p>
+
+<p>The estimating equation is a linear probability model at the quarter level:</p>
+
+<pre>Y<sub>igt</sub> = δ · PostGitHub<sub>gt</sub> × EngagementWithOSC<sub>i</sub> + μ<sub>i</sub> + ψ<sub>gt</sub> + τ<sub>it</sub> + ε<sub>igt</sub>   (1)</pre>
+
+<p>where <em>Y</em> indicates whether startup <em>i</em> in group <em>g</em> has raised a <strong>first financing round</strong> by quarter <em>t</em> (chosen because first-round investors bring the network for later rounds; Conti &amp; Graham 2020); <em>EngagementWithOSC</em> is one if the startup ever engages publicly with an external repository; <em>PostGitHub</em> turns on for the whole group after the focal startup's first external activity; δ is the coefficient of interest. Fixed effects are saturated progressively: startup FE (μ<sub>i</sub>), year-quarter × observation group FE (ψ<sub>gt</sub>), year-quarter × industry group FE (τ<sub>it</sub>) to absorb technology shocks, and finally startup × age FE to hold constant technology-life-cycle effects. The sample is censored at 2020Q2, and startups are observed for at most six years. Robustness includes a two-way Mundlak model allowing for heterogeneous treatment effects by cohort and time (Wooldridge 2021; Callaway &amp; Sant'Anna 2021), and an event-study design around the quarter of first engagement.</p>
+
+<h2>5. Findings</h2>
+
+<h3>5.1. Baseline: engagement with OSCs and first-round financing</h3>
+
+<p>Table 6 builds the DiD progressively. With startup and year-quarter fixed effects (column 1), engagement with OSCs raises the probability of having raised a first round by 15 percentage points — a 65% increase over the outcome mean of 0.23. Adding observation-group and industry-group interactions and, finally, startup × age fixed effects (column 4) shrinks the coefficient to 0.0811, still highly significant:</p>
+
+<blockquote>Our results suggest that engaging with OSCs on GitHub is associated with an increase in the likelihood of receiving funding by at least 36%. (p. 1552 of the PDF)</blockquote>
+
+<p>An event study (Figure 3) shows pre-period differences flat around zero — supporting parallel trends conditional on the fixed effects (also tested within Rambachan &amp; Roth 2023 bounds, Figure A3) — and a strong, persistent post-engagement increase. Timing matters: in Table 7, excluding startups that engaged only <em>after</em> their first round leaves a normalized effect 27 percentage points larger than the specification that excludes pre-funding engagers, indicating the gains accrue to startups that engage <em>before</em> raising money. A battery of appendix checks (A2–A10) confirms robustness to the matching procedure, to restricting the sample to startups founded 2014+, to the first two to three years of life, to dropping California and accelerator-origin startups (a check against hands-on VCs pushing engagement), to controlling for new hires from top universities and STEM graduates, and to the two-way Mundlak estimator.</p>
+
+<h3>5.2. Is this really engagement with OSCs? Internal versus external repositories</h3>
+
+<p>The central confound is that a GitHub account may simply mean the startup uses GitHub as a public software-development tool. Table 8 therefore enters two events jointly: engagement with <em>external</em> repositories (OSCs) and activity on <em>internal</em> repositories the startup controls, both against a no-GitHub reference group. The external-engagement coefficient (0.157) exceeds the internal-activity coefficient (0.067) by 9 percentage points, with a p-value of 0.00 for the difference. Internal-only use still carries some association, but the OSC channel is distinctly larger — evidence that investors respond to participation in communities the startup does not control, not merely to visible code hygiene.</p>
+
+<h3>Table 1. External (OSC) engagement versus internal GitHub use: what investors reward</h3>
+<table>
+<tr><th>Dimension</th><th>Engagement with OSCs (external repositories)</th><th>Internal development (own repositories)</th><th>Readme-file edits (documentation)</th></tr>
+<tr><td>Definition (endnotes 3–4)</td><td>Public interaction with repositories the startup does not directly control (fork, watch, push)</td><td>Repositories that originate from and are held by the focal firm</td><td>Creating or modifying a repository’s readme documentation</td></tr>
+<tr><td>Composition of the dominant event type</td><td>Forks 96%, watch 2%, push 1% of external interactions (p. 1557)</td><td>—</td><td>—</td></tr>
+<tr><td>DiD coefficient on raising a first round</td><td>0.157*** (p &lt; 0.01; Table 8)</td><td>0.067*** (p &lt; 0.01; Table 8)</td><td>0.008, not significant (s.e. 0.0271; Table 11)</td></tr>
+<tr><td>Reading in the paper</td><td>The OSC channel — access to external knowledge; exceeds the internal channel by 9 pp (p = 0.00)</td><td>Public software-development tool; weaker funding association</td><td>“Cosmetic” sign of presence; investors do not react</td></tr>
+</table>
+<p><em>Note.</em> Coefficients are from the difference-in-differences specifications in Tables 8 and 11 (both with startup, year-quarter × observation-group, and year-quarter × industry-group fixed effects; N = 946,389; standard errors clustered by observation group).</p>
+
+<h3>5.3. Heterogeneity by expected payoffs: technology novelty and competition</h3>
+
+<p>Consistent with the framework, startups developing <em>novel</em> technologies — measured as a founding-year combination of industry keywords that is less than three years old (7,516 unique combinations observed) — are 9 percentage points more likely to engage with OSCs in the first place, while startups facing <em>high competition</em> (more startups with the same keyword combination than the 90th percentile in a year-quarter) are 2 percentage points less likely to do so (Figure A5). Table 9 moves to the funding outcome:</p>
+
+<ul>
+<li><strong>Novelty</strong> (column 1): after engaging with OSCs, startups with novel keyword combinations are 8 percentage points more likely to have raised funds than other OSC-engaging startups (interaction 0.0777, p &lt; 0.01), net of year-quarter × novelty fixed effects.</li>
+<li><strong>Competition</strong> (column 2): startups in competitive markets are 14 percentage points <em>less</em> likely to have raised funds after engagement (interaction −0.143, p &lt; 0.01); the linear combination implies an overall effect of about zero in competitive markets.</li>
+</ul>
+
+<p>The heterogeneity thus traces the appropriability trade-off: open-source inputs pay off where the knowledge space is uncharted and speed matters, and wash out where differentiation against many rivals is what investors price.</p>
+
+<h3>Table 2. Who gains from OSC engagement: heterogeneity in the funding effect</h3>
+<table>
+<tr><th>Condition (as measured in the paper)</th><th>Propensity to engage with OSCs</th><th>Funding effect of engagement</th><th>Source</th></tr>
+<tr><td>Novel technology (founding-year keyword combination less than three years old)</td><td>+9 pp more likely to engage</td><td>+8 pp incremental over the baseline engagement effect (interaction 0.0777***)</td><td>Figure A5; Table 9, col. 1</td></tr>
+<tr><td>High competition (more startups sharing the keyword combination than the 90th percentile in a year-quarter)</td><td>−2 pp less likely to engage</td><td>−14.3 pp incremental (interaction −0.143***); linear combination ≈ 0 overall</td><td>Figure A5; Table 9, col. 2</td></tr>
+<tr><td>Domain: AI &amp; Blockchain</td><td>High; engages especially with ML repositories</td><td>Largest funding gains of any domain, consistent with the novelty result</td><td>Figures 4–5</td></tr>
+<tr><td>Domain: Platform</td><td>Highest engagement across all four use-cases</td><td>Positive but below AI &amp; Blockchain</td><td>Figures 4–5</td></tr>
+<tr><td>Domain: Consumer-facing</td><td>Least active on GitHub</td><td>Smallest gains</td><td>Figures 4–5</td></tr>
+<tr><td>Use-cases for AI &amp; Blockchain startups</td><td>ML, SD/BE, API external repositories</td><td>Gains across the spectrum; no significant gain from UI repositories</td><td>Figure 6(a)–(b)</td></tr>
+</table>
+<p><em>Note.</em> Coefficients are from Table 9 (heterogeneity of Equation (1)) and Figures A5, 4, 5, and 6; all regressions include startup and year-quarter × observation-group fixed effects, and the heterogeneity rows add year-quarter × novelty or year-quarter × high-competition fixed effects. *** p &lt; 0.01.</p>
+
+<h3>5.4. Domains and technology use-cases</h3>
+
+<p>Cross-sectional correlations (Figure 4) show <strong>Platform</strong> startups as the most active engagers across all four use-cases — expected for business models built on cooperating with outside developers — followed by Software Tools and AI &amp; Blockchain startups, with AI &amp; Blockchain startups engaging especially with ML repositories; Consumer-facing startups are least active. The funding gains (Figure 5) do not mirror engagement propensity: <strong>AI &amp; Blockchain</strong> startups derive the largest increase in funding likelihood from OSC engagement, consistent with the novelty result (AI/blockchain being the most novel, complex technologies), while Consumer-facing startups gain least. Zooming into use-cases (Figure 6), startups benefit from interacting with the full spectrum of external repository types, with one nuance: AI &amp; Blockchain startups do not benefit much from UI repositories — engagement with the engineering-relevant knowledge (SD, ML, API) is where the value sits.</p>
+
+<h3>5.5. Mechanism: innovation, not cosmetics</h3>
+
+<p>If OSC engagement improves innovation, it should raise the probability of launching a product — the Schumpeterian commercialization event. Table 10 (sample restricted to startups founded after 2011, since Product Hunt began in 2014) shows that after engagement begins, the likelihood of having launched a product on Product Hunt rises by 8 percentage points in columns (1)–(3), a factor of 1.8 relative to the outcome mean (0.044); with the fullest fixed effects (column 4) the coefficient is 0.0218. The appendix shows robustness for higher-quality products (ratings or upvotes above the 75th percentile) and a stronger association for the <em>first version</em> of a product — aligning with the message that OSC inputs help a nascent startup reach a (minimum) viable product.</p>
+
+<p>The authors then test the visibility alternative with a placebo-style activity that signals presence without changing the product: creating or modifying <strong>readme</strong> documentation files. In Table 11, readme activity carries a small, insignificant coefficient (0.008, s.e. 0.0271) while other internal activity remains significant (0.068). Supporting dynamics (Table A14): the probability of making repositories public rises steadily in the 12 months <em>before</em> the first round — for new public repos and for previously private ones — and the slope does not change afterward, which is hard to square with a pure window-dressing story timed to the funding event. The authors summarize:</p>
+
+<blockquote>we show that investors do not react to “cosmetic” changes that startups add to the readme files associated with their repositories, which would primarily enhance the startups’ visibility. Indeed, these results appear to indicate that VCs and other investors do not rely on mere code updates in their due diligence process. (p. 1569 of the PDF)</blockquote>
+
+<p>Qualitative material quoted in the Discussion corroborates the quantitative pattern: interviews with developers and blog posts describe open source as a critical input to launching a successful venture. As one developer put it:</p>
+
+<blockquote>Starting a new venture is like embarking on an epic quest, and open source is the magic elixir for startups. … Community Magic: Open source projects thrive on collaboration. Tap into the wisdom of the crowd and build upon battle-tested code. It’s like having a fellowship of developers at your side. (developer quoted by the authors; p. 1569 of the PDF)</blockquote>
+
+<h3>Table 3. Mechanism evidence: innovation versus visibility</h3>
+<table>
+<tr><th>Test</th><th>Result</th><th>Interpretation offered by the authors</th></tr>
+<tr><td>Product launch on Product Hunt after OSC engagement (Table 10, cols. 1–3)</td><td>+8 pp, ≈ 1.8× the outcome mean (0.044); 0.0218*** with the fullest fixed effects (col. 4)</td><td>OSC inputs help startups commercialize — reach a (minimum) viable product</td></tr>
+<tr><td>Higher-quality launches (ratings or upvotes above the 75th percentile; Table A12)</td><td>Results robust</td><td>The launch channel is not driven by low-quality products</td></tr>
+<tr><td>Launch of the first version of a product (Table A13)</td><td>Association stronger</td><td>Consistent with the MVP-building reading and with the novelty results</td></tr>
+<tr><td>Readme creation or modification (Table 11)</td><td>0.008, not significant</td><td>Investors do not respond to “cosmetic” activity — visibility alone is not the channel</td></tr>
+<tr><td>Repository-publication dynamics around the first round (Table A14)</td><td>Rising trend in the 12 months before the round; slope unchanged after</td><td>Difficult to reconcile with window dressing timed to the funding event</td></tr>
+</table>
+
+<h3>5.6. Investor heterogeneity</h3>
+
+<p>Table 12 asks who responds most. After engagement, startups are more likely to raise <em>large</em> first rounds (upper quartile; +0.0721, about 1.4× the mean) than smaller ones (+0.0483). The effect is roughly 1.5× the mean for raising a first round from <strong>VCs</strong> (+0.105 vs mean 0.073) and far smaller for non-VC investors (+0.0155). Distinguishing by track record, first rounds from <em>successful</em> investors (portfolio exits in the upper quartile over the prior five years) rise by 0.0892 (mean 0.057), versus 0.0312 for less successful investors. The pattern matches a literature in which VCs and experienced investors weight the underlying technology most heavily (Conti et al. 2013a) and bring nonfinancial capital besides money (Shane &amp; Stuart 2002).</p>
+
+<h3>Table 4. Which investors respond most to OSC engagement</h3>
+<table>
+<tr><th>Type of first financing round</th><th>DiD coefficient</th><th>Mean of outcome</th><th>Author-stated magnitude</th></tr>
+<tr><td>Large amount (upper quartile of first-round amounts)</td><td>0.0721***</td><td>0.050</td><td>Increase by a factor of ~1.4 relative to the mean</td></tr>
+<tr><td>Smaller amount</td><td>0.0483***</td><td>0.176</td><td>+5 pp relative to the mean</td></tr>
+<tr><td>First round led by a VC</td><td>0.105***</td><td>0.073</td><td>~1.5× the mean</td></tr>
+<tr><td>First round from a non-VC investor</td><td>0.0155***</td><td>0.153</td><td>+1.6 pp relative to the mean</td></tr>
+<tr><td>First round from a successful investor (portfolio exits in the upper quartile over the prior five years)</td><td>0.0892***</td><td>0.057</td><td>Substantially larger than for less successful investors</td></tr>
+<tr><td>First round from a less successful investor</td><td>0.0312***</td><td>0.169</td><td>—</td></tr>
+</table>
+<p><em>Note.</em> Standard errors are clustered by observation group; *** p &lt; 0.01. Source: Table 12 of the paper.</p>
+
+<h2>6. The design and evidence at a glance</h2>
+
+<pre class="mermaid">
+flowchart LR
+    A["Crunchbase US startups founded 2005–2020<br/>(N = 160,065)"] --> B["Match GitHub org accounts via websites<br/>(14,881 linked; 8% engage externally)"]
+    B --> C["DiD on first financing round by quarter<br/>engaged startup vs up to 5 matched controls<br/>(same state, year, software-share bin, team)"]
+    C --> D{"Which mechanism?"}
+    D -- "Product launches on Product Hunt<br/>+8 pp (≈1.8× mean); first-version strongest" --> E["Innovation / MVP channel supported"]
+    D -- "Readme-file edits: no funding response;<br/>repo-publication trends flat around round" --> F["Pure-visibility channel weak"]
+    C --> G{"Expected payoff moderators"}
+    G --> H["Novel technologies; AI &amp; Blockchain:<br/>largest funding gains; ML/SD/API repos matter"]
+    G --> I["High competition: effect ≈ 0;<br/>Consumer-facing gains smallest"]
+    C --> J["Investors: VCs and successful investors<br/>most responsive (≈1.5× mean); internal-only<br/>GitHub use much weaker"]
+</pre>
+
+<h2>7. Position in the literature</h2>
+
+<p><strong>Within its own stream — open source, productivity, and entrepreneurship.</strong> The paper positions itself as extending the economics of open source <em>for firm performance</em> to the performance of <em>nascent firms</em>. It builds on Nagle's firm-level results — "learning by contributing" as a source of competitive advantage (Nagle 2018) and the productivity returns to open source adoption (Nagle 2019) — and on Shah &amp; Nagle (2019), applying them to the earliest performance milestone a startup faces, first financing. Its closest antecedent is <strong>Wright, Nagle &amp; Greenstein (2023)</strong> on open source and global entrepreneurship: where they show OSS correlates with higher rates of new-firm entry and entrepreneurship across countries (the entry margin), Conti, Peukert &amp; Roche move to the firm-level financing margin inside the United States and add a mechanism (MVP completion) and an investor decomposition. It also converses with <strong>Haese &amp; Peukert (2026)</strong> in this library on startups building their product on an open source core, and with <strong>Henkel (2006)</strong> on selective revealing — the "outbound openness" that Conti et al. measure (via Lin &amp; Maruping 2022) is the startup-side mirror of the deliberate revealing Henkel documented in established firms.</p>
+
+<p><strong>Within entrepreneurial finance.</strong> The paper enters the long-running debate on whether VCs bet on the jockey or the horse (Kaplan et al. 2009; Bernstein et al. 2017; Gompers et al. 2020). Its contribution is to show that the <em>provenance of the technology's knowledge inputs</em> — observable open-community engagement — carries information investors price, especially technology-oriented VCs. It refines the earlier finding of an association between open source collaboration and startup valuation (Lin &amp; Maruping 2022) by showing that the payoff depends on the use-case and business-model domain, and it complements signal-based accounts of startup finance (patents as signals: Conti et al. 2013b) with a digital-native, code-based signal whose credibility rests on content (what the startup forked and built) rather than on certificates.</p>
+
+<p><strong>Connection to the Part I core — the Hugging Face &amp; Open-AI economy.</strong> Three links matter for this topic. First, <strong>Yue &amp; Nagle (2024)</strong> decompose openness into <em>access</em> (who may use the technology) and <em>control</em> (who decides its direction), using PyTorch's move to the Linux Foundation; Conti et al. study the downstream counterpart of that same PyTorch/TensorFlow world — startups that fork and build on open ML infrastructure — and show who benefits (novel-technology and AI startups) and how the benefit is realized (funding milestones via MVP completion). Together the two papers bracket the open-AI value chain: sponsor-side governance choices (Yue &amp; Nagle) and user-side capture of the returns (Conti et al.). Second, <strong>Azoulay et al. (2024)</strong> analyze openness, control, and competition in generative AI at the frontier of model releases; this paper supplies microfoundations for why an open model ecosystem is attractive to downstream entrants: open weights and open libraries are the AI-era analogue of the external repositories whose engagement Conti et al. show is rewarded by investors — evidence that openness lowers the cost of reaching a fundable MVP exactly where appropriability is weakest. Third, the hub-level papers in the library — Greenstein et al. (2022) on Hugging Face as platform, Laufer et al. (2025) on the ~2-million-model anatomy of the hub, Longpre et al. (2025) on power and participation in the model ecosystem — describe the marketplace where open-AI engagement now happens; Conti et al. measure the financing consequences of that engagement in the GitHub era (2011–2020) that preceded and seeded the model-hub era. Adjacent results — Wu, Lin &amp; Li (2025) on Llama 2's release lifting downstream developer activity, Yeverechyahu et al. (2024) on LLM tools raising open-source contribution, and White et al. (2024) on what model openness should mean — all presuppose that participation in open ecosystems is valuable; this paper shows one concrete valuation channel. Finally, on the classic side, the paper operationalizes the private-collective logic (von Hippel &amp; von Krogh 2003): startups free-ride and contribute in the same communities, and the private return to "collective" engagement is measured in investor attention rather than license revenue.</p>
+
+<h2>8. Limitations</h2>
+
+<p><strong>Author-stated limitations</strong> (Discussion, pp. 1569–1570). The authors acknowledge: (i) external validity is constrained by studying one platform, GitHub — though it is the largest host of source code, with over 40 million public repositories, and anecdotal evidence says investors consult public GitHub activity in due diligence (Jain 2018); (ii) startups can use OSS without forking — via package managers such as pip or npm, or through private modifications — so observed engagement understates OSS usage; the paper's focus is engagement <em>with communities</em>, which should be unaffected; (iii) there is clear selection into OSC engagement, which the econometrics addresses only partially; the authors frame this as informative about which ventures such activities play a role in. An endnote adds quantitative texture: in a random 10% sample of internal repositories, 60% used OSS packages without observable forking or contribution, while only 8% of forked repositories were packages — implying measurement error likely <em>understates</em> the true relationship (endnote 30).</p>
+
+<p><strong>Layered independent reading</strong> (labels distinguish the paper's claims, its evidence, the reader's inferences, and open questions):</p>
+
+<ul>
+<li><strong>Paper claims</strong>: (a) engagement with OSCs on GitHub is associated with an increase of at least 36% in the likelihood of having raised a first round, relative to matched controls; (b) the relationship is weaker for internal-only GitHub use; (c) gains concentrate in novel technologies and are absent on average in highly competitive markets; (d) engagement precedes and predicts product launches, and cosmetic readme activity does not move investors; (e) effects are strongest for VC and successful investors.</li>
+<li><strong>Evidence</strong>: matched-sample DiD with progressively saturated fixed effects, event-study and Rambachan–Roth checks, timing splits, an internal-vs-external contrast, ML-classified use-cases, Product Hunt launch outcomes, investor-type decompositions, and qualitative developer interviews quoted in the text. The design is strong on observables but is not a randomized experiment; identification rests on the parallel-trends assumption conditional on rich fixed effects, and the mechanism evidence (product launches) is labeled "suggestive" by the authors themselves.</li>
+<li><strong>Inference</strong> (mine, not stated by the authors): the results read naturally as a <em>productive signal</em> account — public code history is a costly, hard-to-fake record of capability, so investors can reward substance (forks that become products) without trusting cheap talk; this sits between pure signaling and pure productivity. I also read the readme null result and the pre-funding repo-publication trend as the paper's strongest pieces of evidence against the visibility-only story, and the AI &amp; Blockchain result as direct evidence for the open-AI-relevant claim that the most novel digital technologies are the ones where open inputs create the largest funding value.</li>
+<li><strong>Open questions</strong>: (1) Whether the funding gain reflects real productivity gains from open inputs or investor preferences for a visible tech stack — the two are observationally entangled even with the mechanism tests; (2) whether effects generalize to the post-2022 model-hub economy (Hugging Face, open weights), where "repositories" are models and datasets and the investors and due-diligence practices differ; (3) what happens after the first round — later rounds, valuation terms, and survival are outside the outcome set; (4) reverse causality between investor pressure and engagement is reduced but not eliminated by the appendix checks (e.g., dropping California and accelerators); (5) the matched-comparison and GitHub/Crunchbase coverage may not represent the full population of would-be digital startups.</li>
+</ul>
+
+<h2>9. Conclusion and takeaways</h2>
+
+<p>In the words of the paper, startups are feasibly “beefing up” their products by relying on inputs from OSCs and, by doing so, have a higher likelihood of receiving early stage financing (p. 1569). The rhetorical frame of the title — <em>beefing IT up for your investor</em> — is answered in the affirmative with an important qualifier: investors reward open-source engagement because it correlates with building, not with showing off. The Discussion opens with the cautionary tale of Apple, which hit peak profitability in 1990, stuck to a "closed" regime while competitors built on an "open regime … largely powered by open source," and came to the verge of bankruptcy by 1997 (Oberholzer-Gee 2021) — a reminder that for early innovation strategy, access to a community's accumulated knowledge can outweigh control over one's own code.</p>
+
+<p>Three takeaways for the Hugging Face &amp; Open-AI topic stand out. First, <strong>openness has a measurable financing return for users</strong>: observable engagement with external code is worth a 36%+ increase in first-round likelihood for matched early-stage startups, concentrated in VC and high-quality investors. Second, <strong>the value channel is innovation</strong>: startups that engage are more likely to reach product launches, and investors ignore cosmetic activity — a result that should temper any reading of open-source participation as cheap signaling. Third, <strong>the appropriability trade-off disciplines the effect</strong>: the gains are largest exactly where the Part I literature locates the open-AI frontier — novel, complex technologies (AI, Blockchain, ML-dependent stacks) — and vanish in crowded markets, meaning openness is a strategic choice conditioned on technology and competition, not a blanket virtue.</p>
+
+<div class="golden">
+Our results seem to indicate that startups are “beefing up” their products by relying on inputs from OSCs and, by doing so, are increasing their likelihood of receiving early stage financing. — Conti, Peukert &amp; Roche, Organization Science 2025, 36(4), p. 1553
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the academic-style workflow of the reading-notes skill, grounded in pdftotext of the local PDF of Conti, Peukert, and Roche (2025), <em>Organization Science</em> 36(4): 1551–1573. Blockquotes are direct quotations from the original text with page numbers of the PDF; line-break hyphenation artifacts of pdftotext (soft hyphens) were removed from quoted words. All coefficients, sample sizes, and statistics are transcribed from the paper — please verify quotes and numbers against the original before citing. The "independent judgment" passages and open questions are the reader's extensions, explicitly separated from the authors' claims and evidence.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

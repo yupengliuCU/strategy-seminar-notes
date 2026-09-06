@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Source Software and Global Entrepreneurship (Wright, Nagle &amp; Greenstein, 2023) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Open Source Software and Global Entrepreneurship</h1>
+<div class="meta">
+<strong>Wright, Nataliya Langburd; Nagle, Frank; Greenstein, Shane (2023) · <em>Research Policy</em> 52, 104846</strong><br>
+<strong>Authors</strong>: Nataliya Langburd Wright (Columbia Business School); Frank Nagle (Harvard Business School); Shane Greenstein (Harvard Business School)<br>
+<strong>Source</strong>: <em>Research Policy</em> 52 (2023), article 104846. DOI: 10.1016/j.respol.2023.104846. Open access (CC BY-NC-ND). Received 16 Aug 2021; revised 13 Apr 2023; accepted 23 Jun 2023<br>
+<strong>Year</strong>: 2023 (article available online 28 July 2023)<br>
+<strong>Nature</strong>: Empirical journal article — cross-country panel econometrics (2000–2016, 207 countries) with an instrumental-variable strategy; the first country-level study of open source software (OSS) participation and entrepreneurship<br>
+<strong>Data &amp; code status</strong>: No replication code; the authors state they "do not have permission to share data." Sources: GitHub commits via GHTorrent (Google BigQuery); Crunchbase (venture founding, acquisitions); Preqin (venture financing); World Bank, ITU, UN Human Capital Index, WEF Global Competitiveness Index (controls and instruments); Lewis (2010) database (government OSS policies)
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Using a country-year panel that matches GitHub commit activity to Crunchbase venture founding for 2000–2016, Wright, Nagle, and Greenstein show that open source software participation raises the <strong>rate</strong> of new technology venture formation in the following year, complements rather than substitutes for a country's human-capital and income endowments, and steers the <strong>direction</strong> of entrepreneurship toward globally oriented, mission-oriented, and higher-quality (better-financed, more frequently acquired) ventures — with policy implications for using OSS as a development lever.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide (Hugging Face &amp; the Open-AI Economy)</strong>: This paper is the canonical country-level demonstration of the mechanism that the Hugging Face (HF) papers in this library study at platform level: <em>an open, shared repository of digital artifacts lowers entry barriers and channels human capital into new ventures</em>. What GitHub was for code in 2000–2016, the HF Hub has become for models, datasets, and apps since 2022. Read it as the macro/development layer under Wu, Lin &amp; Li (2025, ICIS — open-weight releases and downstream developer innovation on HF), Jin et al. (2026 — how US policy inadvertently accelerated open AI ecosystems abroad), and Longpre et al. (2025 — who participates in the global model ecosystem). Two ideas travel directly: (1) openness works as a supply of <em>entrepreneurial human capital</em> — contributors become founders, and the ventures they start inherit the community's global, mission-oriented ethos; (2) open ecosystems <em>complement</em>, not substitute for, local endowments — a caution against treating open weights as a free development shortcut where coding human capital is thin. The policy instrument (government OSS procurement rules) is also a direct ancestor of the policy question in Jin et al. (2026).</div>
+
+<h2>1. Background and motivation: open source beyond rich countries</h2>
+
+<p>The paper opens with a striking gap in the literature. Two decades of research had documented the private and social benefits of OSS participation inside high-income economies — labor-market signaling, learning, productivity, and reduced software costs — but almost nothing was known about how open source behaves as an input to <em>entrepreneurship</em> in the rest of the world, even though programmer workforces had been growing rapidly across the middle-income countries of Central Europe and Asia, "accounting for tens of billions of dollars of services a year." OSS reduces the time to develop innovative software, eliminates the hassle of negotiating intellectual property, and lowers the friction of raising capital for software development; and the authors cite their own earlier work (Nagle, 2019b) and Wen, Ceccagnoli &amp; Forman (2016) for these cost channels. Their motivation is explicitly developmental: the accessibility of open source could let low- and middle-income countries reach the technological frontier faster than building software from scratch or buying it from costly proprietary sources, "lowering the challenges of 'catching-up'" in knowledge-intensive software and business processes (Lee &amp; Lim, 2001).</p>
+
+<p>Their motivating figure plots GitHub commits against new IT venture formation for 207 countries in 2016 (log-log), showing that both open source activity and entrepreneurship arise well outside the high-income club, and that income plays a visible but far from exclusive role. The paper frames itself as the first global benchmark of OSS participation:</p>
+
+<blockquote>This is the first study to consider the relationship between open source software (OSS) and entrepreneurship around the globe. This study measures whether country-level participation on the GitHub OSS platform affects the founding of innovative ventures, and where it does so, for what types of ventures. <br><em>(Wright, Nagle &amp; Greenstein, 2023, abstract — p. 1 of the PDF)</em></blockquote>
+
+<p>The analysis is organized on two dimensions inherited from the long literature on inventive activity: the <strong>rate</strong> of entrepreneurship (does more OSS participation raise the number of new ventures?) and its <strong>direction</strong> (does it change what kinds of ventures get founded — global, mission-oriented, high quality?). Within each dimension the authors ask whether the effect is uniform or concentrated, and they close with policy implications for governments that treat OSS as a development lever.</p>
+
+<h2>2. Core concepts and argument</h2>
+
+<h3>2.1 The object of study: participation on an OSS platform</h3>
+<p>The empirical context is GitHub, and the authors are careful to define the platform's vocabulary because their arguments generalize to other repositories with different names. <strong>Participants</strong> are contributors who may or may not be paid by a firm to contribute; <strong>projects</strong> are aggregations of code around a common goal, and participants contribute to at least one; <strong>organizations</strong> are groups of projects sharing a goal, often affiliated with a firm or a shared interest. The illustrative figure (their Fig. 3) distinguishes employed contributors who join their employer's organization from hobbyist or unaffiliated contributors. These distinctions matter later, when the authors split commits between organization-affiliated (about 30%) and individual accounts.</p>
+
+<h3>2.2 Rate vs. direction, and the structure of hypotheses</h3>
+<p>The framework stacks six hypotheses, summarized in their Fig. 2 and my Table 1 below. H1 concerns the rate of venture founding. H2a and H2b are competing hypotheses about whether OSS substitutes for or complements country endowments (income and human capital). H3a–H3c concern direction: globally oriented ventures, mission-oriented ventures, and venture quality proxied by financing and acquisition.</p>
+
+<h3>2.3 Why OSS might raise the rate of entrepreneurship (H1), and why it might not</h3>
+<p>Four mechanisms motivate a positive effect. OSS reduces the cost of <em>searching for human capital</em>: talented coders self-select into visible participation, and platform experience itself improves talent (they cite Nagle, 2018, "learning by contributing"). OSS increases <em>access to complementary assets</em> — community infrastructure, feedback, and recognition systems that are valuable in commercial production (Chatterji, 2009; Elfenbein, Hamilton &amp; Zenger, 2010). OSS lowers the <em>cost of communicating knowledge</em>, in the manner of workplace peers, entrepreneurial clusters, and diaspora networks (Gompers et al.; Nanda &amp; Sørensen; Arzaghi &amp; Henderson; Kerr, 2008; Nanda &amp; Khanna, 2010). And OSS <em>standardizes coding practices</em> and diffuses best practices (Haefliger, von Krogh &amp; Spaeth, 2008; Varian &amp; Shapiro, 2003).</p>
+
+<p>The null is taken seriously, with two arguments. First, career motives may bind contributors to incumbent employers rather than push them into founding — the OSS platform also lets Microsoft and IBM advertise and recruit, and extrinsic career incentives may keep the best coders inside large firms (Lerner &amp; Tirole, 2002; Blatter &amp; Niedermayer; Hann, Roberts &amp; Slaughter, 2013). Second, and most interesting for strategy scholars, participation may carry no durable competitive advantage:</p>
+
+<blockquote>OSS enables access to coordination activities and new ideas, but with few barriers to entry. Moreover, OSS itself is not a source of a rare and non-imitable resource as competitors may freely use the same code. <br><em>(Wright, Nagle &amp; Greenstein, 2023, §2.1 — p. 4 of the PDF)</em></blockquote>
+
+<p>The second sentence engages the resource-based view directly: open code is a shared input that any rival can access, so its value for entrepreneurship must flow through human capital, community, and opportunity discovery rather than through code ownership. This is precisely the logic that later HF research applies to open weights.</p>
+
+<h3>2.4 Substitutes or complements? (H2a vs. H2b)</h3>
+<p>Two competing economics are laid out. The substitution view (H2a): OSS can <em>level the playing field</em>, compensating for thin income and human capital because it reduces the cost of developing talent (Nagle, 2018) and of developing products (Chatterji, 2009; Elfenbein et al., 2010). The complementarity view (H2b): digital technologies concentrate financial and talent capital in well-endowed nations (Bloom, Sadun &amp; Van Reenen, 2012); open platforms have progressively reduced documentation and support, so participation increasingly requires prerequisite knowledge (Lerner &amp; Tirole, 2002); and knowing about OSS opportunities requires access to developer networks that agglomerate where human capital is already high. Since the theory points in both directions, the interaction terms in the empirics decide.</p>
+
+<h3>2.5 Direction hypotheses (H3a–c): ethos and quality</h3>
+<p>The directional hypotheses rest on a "community ethos" argument. The global composition of the OSS community exposes contributors to worldwide demand, trains them to detect international opportunities, and helps them execute through global support and customer networks (Crick &amp; Jones, 2000; Bruneel, Yli-Renko &amp; Clarysse, 2010) — hence H3a (global orientation). OSS communities place weight on community and attract pro-social contributors, so exposure should make founders more likely to address social-impact goals such as gender equality, economic opportunity, environmental sustainability, health, education, and access to finance — hence H3b (mission orientation), where the comparison to Koning et al. (2021) on the gender of inventors is invoked to argue that who founds a venture shapes whom it serves. H3c concerns quality: a <em>selection</em> channel (OSS contributors have higher technical talent, Nagle, 2019b) and a <em>treatment</em> channel (the platform aggregates co-founders, resources, and a collaborative environment, and lets contributors observe problems with large global markets) should both raise financing and acquisition outcomes (proxies from Catalini, Guzman &amp; Stern, 2019, and Guzman &amp; Stern, 2020).</p>
+
+<pre class="mermaid">
+flowchart LR
+    A["Country-level GitHub participation<br/>(year t-1 commits)"] --> B["Mechanisms<br/>lower search costs for talent<br/>complementary assets<br/>knowledge communication<br/>standardized practices"]
+    B --> C1["RATE<br/>new IT ventures (H1) ✓"]
+    B --> C2["new OSS ventures (H1) ✓"]
+    B --> C3["DIRECTION<br/>global-oriented ventures (H3a) ✓"]
+    B --> C4["mission-oriented ventures (H3b) ✓"]
+    B --> C5["QUALITY<br/>financing value &amp; deals,<br/>acquisitions (H3c) ✓"]
+    E["Country endowments<br/>(GDP per capita, human capital)"] -. positive interaction .-> C1
+    E -. "complementarity (H2b) ✓; substitution (H2a) ✗" .-> B
+    A -. "identification: 5 IVs + staggered DiD" .-> F["causal interpretation not rejected"]
+</pre>
+
+<h2>3. Evidence, data, and methods</h2>
+
+<h3>3.1 Measuring entrepreneurship: Crunchbase, machine learning, and financing data</h3>
+<p>Entrepreneurship is measured from Crunchbase — by 2023 a primary source for investors and used in over 90 scientific articles — as the number of new technology ventures founded per year per country. The authors construct two venture definitions: a <em>broad</em> information-technology definition (IT ventures: e.g., business information systems, cloud data services, video chat, NLP, cloud infrastructure) and a <em>narrow</em> open source software definition (OSS ventures). The narrow definition is highly correlated with the broad one (correlation 0.6), so results point in a similar direction. To classify venture orientation, they combine word searches of company descriptions ("international," "worldwide" for global orientation; "empower," "gender," "women," "climate" for mission orientation) with a supervised logistic regression trained on 1,001 manually coded startup descriptions (2% of the venture data), achieving test accuracy of about 93% for global orientation and 95% for mission orientation. Quality is proxied two ways: venture financing, from Preqin (total value and number of venture investments in IT companies per country-year), and acquisitions of IT companies, aggregated from Crunchbase transaction-level events. All skewed variables enter as log(1 + x).</p>
+
+<h3>3.2 Measuring OSS participation: GitHub commits</h3>
+<p>OSS activity is the yearly count of new commits (on average a one-line change) made to OSS projects on GitHub by developers self-identifying as living in a given country, drawn from the GHTorrent mirror hosted on Google BigQuery. The paper is explicit about the platform's footprint and the measure's limits: GitHub was created in 2008 and became the central repository for most major OSS projects; data before 2008 reflect projects migrated to the platform (so results are re-tested on 2008+ data); roughly 50% of participants include a country in their profile, and the authors report no evidence of systematic country-level reporting bias; about 30% of commits come from organization-affiliated accounts, the rest from individuals, and organization affiliation only emerged on GitHub after 2010.</p>
+
+<h3>3.3 Specification and identification: an instrumental-variable strategy</h3>
+<p>The baseline regression relates logged venture founding in country $i$ and year $t$ to logged commits lagged one year, controls, and year fixed effects, with standard errors clustered by country:</p>
+
+<pre>
+VENTURE_it = α + β1·GITHUB_(i,t-1) + β2·CONTROLS_(i,t-1) + γ_t + ε_it      (1)
+</pre>
+
+<p>Controls are lagged log GDP per capita, log population (World Bank), log internet users per capita (ITU), and the UN Human Capital Index (imputed across the years it is unavailable). Testing H2a/b adds an interaction between lagged commits and the endowment measure (GDP per capita or human capital); a positive interaction coefficient supports complementarity (H2b), a negative one substitution (H2a). Country fixed effects are rejected as the primary identification device because too many variables show insubstantial within-country variation over time; the authors therefore pioneer an instrumental-variable strategy for cross-country OSS comparisons, erring "on the side of many instruments" because they are first movers in this setting.</p>
+
+<p>Five instruments are used in the main estimates, three supply-side and two demand-side. The three supply-side instruments operationalize the "slack time" logic of contributions to OSS during economic downturns (Agrawal, Catalini, Goldfarb &amp; Luo, 2018): each is an interaction between below-median economic growth and above-median availability of skilled labor, measured by (i) human capital, (ii) digital skills (WEF Global Competitiveness Index), and (iii) internet users. The exclusion restriction is that weak growth should not itself raise entrepreneurship — particularly not high-quality founding. The demand-side instrument is the adoption of government OSS policies, coded from the Lewis (2010) database of policies in 64 countries over 2000–2009 (categorized as advisory, R&D, preference, or mandatory); the instrument turns on when a country's first policy is adopted, and the analysis using it is restricted to 2000–2009 because granular policy data stop in 2009. Its rationale is that procurement rules affect venture formation only through increased OSS engagement — policymakers pursued security, efficiency, and local economic development, not entrepreneurship. First-stage $F$-statistics for the instruments range from 43.6 to 248.5 individually and are 246.9 and 86.8 in the aggregated specifications, all far above the rule-of-thumb threshold of 10 (Staiger &amp; Stock, 1997; Stock &amp; Yogo, 2005).</p>
+
+<p>The authors are candid about what identification can and cannot deliver:</p>
+
+<blockquote>Although none of these instruments is a silver bullet that fully addresses the endogeneity concerns, in aggregate, their usage helps to take a step towards a causal interpretation of the results. <br><em>(Wright, Nagle &amp; Greenstein, 2023, §3.4 — p. 7 of the PDF)</em></blockquote>
+
+<p>Two further identification exercises are reported. A staggered difference-in-differences specification treats OSS policy adoption as a shock rather than an instrument, and the interaction between commits and policy is positive (0.144*** for IT ventures, 0.075*** for OSS ventures; Table 6). And a direction-of-causation sanity test exploits the intuition that software ventures are closer to OSS activity than hardware ventures: the relationship should be stronger for software, which the appendix (Table A4) confirms. The paper also reports the instrument candidates that failed — most notably a GitHub platform-language change and Bartik-style trade-partner instruments, which surprisingly relate negatively to OSS, a divergence the authors flag for future research.</p>
+
+<p>The final estimation sample with all controls is 2,747 country-year observations across 182 countries; the full panel comprises 3,519 observations across 207 countries and 17 years (2000–2016), and the pre-2010 instrument sample shrinks to 1,106 observations. Mean annual commits per country are about 76,000 (range 0–31.2 million); the average country founds 24.33 IT ventures and 0.22 OSS ventures per year.</p>
+
+<h2>4. Findings</h2>
+
+<h3>4.1 Rate: OSS participation predicts venture founding (H1 supported)</h3>
+<p>Across OLS, 2SLS with the non-policy instruments (2000–2016), and 2SLS with all instruments (2000–2009), lagged GitHub commits positively and significantly predict both IT and OSS venture founding. A 1% increase in GitHub commits is associated with a 0.2–0.4% increase in IT ventures and a 0.03–0.1% increase in OSS ventures in the following year — roughly 5–10 new IT ventures and 0.007–0.02 new OSS ventures per country-year at the sample mean. The smaller coefficient on OSS ventures reflects their narrow definition and small baseline count. Notably, the 2SLS coefficients are <em>larger</em> than the OLS coefficients, which the authors interpret as measurement-error attenuation in OLS and as evidence against the fear that reverse causality would bias estimates upward (footnote 22). The OSS-effect estimate for log IT ventures is 0.217 (OLS) rising to 0.387 (2SLS non-policy) and 0.365 (all instruments); for log OSS ventures, 0.034 (OLS) rising to 0.106 and 0.100 in 2SLS.</p>
+
+<h3>4.2 Endowments: complementarity, not substitution (H2b supported, H2a rejected)</h3>
+<p>The interaction estimates (Table 3a) are positive and significant for IT ventures for both endowment measures — the GitHub-commits × GDP-per-capita interaction is 0.055*** and the GitHub-commits × human-capital-index interaction is 0.340** — and positive though not always significant for the narrow OSS-venture definition. Subsample regressions split at the median (Tables 3b and 3c) confirm that the OSS–venture relationship is larger for above-median GDP per capita and above-median human capital countries. The authors summarize: "Together, these results are consistent with hypothesis 2b: country endowments complement OSS rather than substitute. None of the evidence suggests that endowments substitute for OSS (hypothesis 2a)." Magnitudes are higher for the human-capital interaction than for the income interaction, consistent with their view that human capital is the more germane endowment for OSS use.</p>
+
+<h3>4.3 Direction: global and mission orientation (H3a–b supported, with a caveat)</h3>
+<p>A 1% increase in GitHub commits is associated with a 0.2–0.4% increase in globally oriented IT ventures and a 0.04–0.1% increase in mission-oriented IT ventures (Table 4), and a similar positive relationship holds for globally oriented OSS ventures (0.03–0.1%). The relationship is positive but statistically robust only in the OLS specification for mission-oriented <em>OSS</em> ventures — the authors interpret the overall pattern as OSS affecting IT ventures especially strongly through global, and somewhat less strongly through mission, orientations. Direction therefore changes alongside rate: the ventures that OSS activity precedes are disproportionately those aimed at worldwide customers and community-oriented goals.</p>
+
+<h3>4.4 Quality: financing and acquisition (H3c supported)</h3>
+<p>The quality results (Table 5) are economically substantial. A 1% increase in GitHub commits is associated with a 0.4–0.8% increase in the value of financing deals, a 0.2–0.5% increase in the number of new financing deals, and a 0.1–0.3% increase in the number of technology acquisitions in the following year. Converted to levels at sample means, that is roughly $509–1019 million in new venture financing, 5–13 new financing deals, and 0.4–1.1 acquisitions per country-year. All coefficients carry statistical and economic significance across OLS and 2SLS. The implied per-country scale-up from their 2016 out-of-sample exercise (Table A5) gives the flavor: a 1% increase in 2016 commits predicts about 133 additional ventures in the US, but also 24 in India, 11 in Brazil, 5 in China, 2 in Indonesia, and 1 in Mexico — open source's entrepreneurial dividend reaches lower-income economies, at much smaller scale.</p>
+
+<h3>4.5 Robustness and the summary table</h3>
+<p>Table 7 compiles every hypothesis, implementation, and result: H1 ✓, H2a ✘, H2b ✓, H3a ✓, H3b ✓, H3c ✓. Robustness includes the software-vs-hardware test, the staggered difference-in-differences around OSS policy adoption, re-estimation without lagged controls and instruments, and re-estimation on post-2008 data.</p>
+
+<h3>Table 1: Hypotheses, mechanism, and verdict</h3>
+<table>
+<tr><th>Hypothesis</th><th>Economic logic</th><th>Implementation</th><th>Verdict</th></tr>
+<tr><td>H1: OSS participation raises venture founding</td><td>Lower search costs for talent; complementary assets; knowledge communication; standardized practices</td><td>Lagged log commits → new IT and OSS ventures</td><td>Supported ✓ (IT 0.2–0.4%; OSS 0.03–0.1% per 1%)</td></tr>
+<tr><td>H2a: OSS substitutes for endowments</td><td>OSS levels the playing field for low-endowment countries</td><td>Interaction of commits with GDP per capita / human capital</td><td>Rejected ✘ (negative moderation not found)</td></tr>
+<tr><td>H2b: OSS complements endowments</td><td>Digital activity concentrates where human capital exists</td><td>Same interaction, positive sign</td><td>Supported ✓ (larger effects above median endowments)</td></tr>
+<tr><td>H3a: global-oriented ventures</td><td>Global community → awareness of international demand</td><td>Lagged commits → globally oriented ventures</td><td>Supported ✓ (0.2–0.4% IT)</td></tr>
+<tr><td>H3b: mission-oriented ventures</td><td>Pro-social community ethos spills into venture goals</td><td>Lagged commits → mission-oriented ventures</td><td>Supported ✓ for IT (0.04–0.1%); weaker for OSS</td></tr>
+<tr><td>H3c: higher-quality ventures</td><td>Selection of talent + treatment via resource aggregation</td><td>Lagged commits → financing value/deals, acquisitions</td><td>Supported ✓ (financing 0.4–0.8%, deals 0.2–0.5%, acquisitions 0.1–0.3%)</td></tr>
+</table>
+
+<h3>Table 2: Estimated elasticities of the main outcomes to a 1% increase in GitHub commits</h3>
+<table>
+<tr><th>Outcome (country, following year)</th><th>OLS</th><th>2SLS (non-policy instruments, 2000–16)</th><th>2SLS (all instruments, 2000–09)</th><th>Implied level effect per country-year</th></tr>
+<tr><td>New IT ventures (H1)</td><td>0.217***</td><td>0.387***</td><td>0.365***</td><td>≈ 5–10 ventures</td></tr>
+<tr><td>New OSS ventures (H1)</td><td>0.034***</td><td>0.106**</td><td>0.100***</td><td>≈ 0.007–0.02 ventures</td></tr>
+<tr><td>Globally oriented IT ventures (H3a)</td><td>0.217***</td><td>0.386***</td><td>0.365***</td><td>0.2–0.4% increase</td></tr>
+<tr><td>Mission-oriented IT ventures (H3b)</td><td>0.040***</td><td>0.110**</td><td>0.078***</td><td>0.04–0.1% increase</td></tr>
+<tr><td>Value of financing deals (H3c)</td><td>0.362***</td><td>0.536**</td><td>0.808***</td><td>≈ $509–1019 m per year</td></tr>
+<tr><td>Number of financing deals (H3c)</td><td>0.206***</td><td>0.382***</td><td>0.450***</td><td>≈ 5–13 deals</td></tr>
+<tr><td>Number of acquisitions (H3c)</td><td>0.115***</td><td>0.349***</td><td>0.327***</td><td>≈ 0.4–1.1 acquisitions</td></tr>
+</table>
+<p class="meta">Coefficients as reported in Tables 2, 4, and 5 of the paper (log-log specifications; *** p&lt;0.001, ** p&lt;0.01). Note the mission-Orientation elasticity for the global-OSS outcome is not reported separately here; mission-oriented OSS ventures are significant in OLS only.</p>
+
+<h2>5. Position in the literature</h2>
+
+<p><strong>Within its own research stream</strong> — the economics and strategy of open source, and the entrepreneurship literature on rate and direction of inventive activity — the paper sits at the junction of several lines. It extends the economics of OSS contributions (Lerner &amp; Tirole, 2002; Lakhani &amp; von Hippel, 2003; von Hippel &amp; von Krogh, 2003) from motivation and governance to a country-level output measure, and it benchmarks OSS participation across the globe for the first time, complementing the firm- and community-level studies of OSS in developed economies (Kogut &amp; Metiu, 2001; Lerner &amp; Schankerman, 2010; Nagle, 2018). It adds to Greenstein &amp; Nagle's (2014) "digital dark matter" research program — unpriced digital inputs such as OSS produce measurable outputs — by showing how to measure one such output (entrepreneurial activity) by matching GitHub platform data with firm- and country-level data:</p>
+
+<blockquote>In this study, we show how to measure one of the outputs associated with OSS, namely, entrepreneurial activity. This study demonstrates how to measure the impact of OSS by matching large-scale GitHub platform data with commonly-used and publicly available firm-level and country-level data. <br><em>(Wright, Nagle &amp; Greenstein, 2023, §1 — p. 3 of the PDF)</em></blockquote>
+
+<p>On the entrepreneurship side it belongs to the "rate and direction of inventive activity" tradition (Nelson, 1962; Lerner &amp; Stern, 2012) and to the emerging measurement of entrepreneurial <em>quality</em> (Catalini, Guzman &amp; Stern, 2019; Guzman &amp; Stern, 2020). Its developmental framing speaks to the catch-up and leapfrogging literature (Lee &amp; Lim, 2001; Lee &amp; Malerba, 2017) and to the economics of diasporas and ethnic scientific communities (Kerr, 2008; Nanda &amp; Khanna, 2010). Methodologically, it pioneers cross-country instrumental variables for OSS — the slack-time supply interactions and the government-procurement demand shifter — an approach later cross-country OSS and open-AI studies inherit.</p>
+
+<p>The most direct micro-level conversation partners — both in this library — are Nagle (2019), Wen, Ceccagnoli &amp; Forman (2016), and Conti, Peukert &amp; Roche (2025). <strong>Nagle (2019)</strong>, "Open Source Software and Firm Productivity" (<em>Management Science</em>), established that firms contributing to OSS experience productivity gains; Wright et al. transpose that firm-level result to the country level and to venture <em>creation</em> rather than incumbent productivity, using a similar GitHub-based participation measure and a similar government-policy instrument (Nagle, 2019a shows procurement regulation raises OSS contributions). <strong>Wen, Ceccagnoli &amp; Forman (2016)</strong> studied startup <em>entry into</em> OSS as an intellectual-property strategy choice; Wright et al. study startups that OSS <em>causes</em>, upstream in the causal chain. <strong>Conti, Peukert &amp; Roche (2025)</strong>, "Beefing IT Up for Your Investor? Engagement with Open Source Communities, Innovation, and Startup Funding" (<em>Organization Science</em>, the paper Wright et al. cite in its 2021 HBS working-paper form), show at the startup level that engagement with OSS communities predicts innovation and subsequent funding; Wright et al. aggregate exactly this mechanism to the country-year level, where Crunchbase founding counts and Preqin financing are the outcome variables. The three papers form a consistent ladder: OSS use raises firm productivity (Nagle), startup-level OSS engagement signals quality to investors (Conti et al.), and country-level participation raises the rate, direction, and quality of new venture founding (Wright et al.).</p>
+
+<h3>Table 3: Wright, Nagle &amp; Greenstein (2023) against its micro-level neighbors</h3>
+<table>
+<tr><th>Study</th><th>Unit of analysis</th><th>Outcome</th><th>OSS measure</th><th>Identification</th><th>Contribution</th></tr>
+<tr><td>Nagle (2019) — <em>Mgmt Sci</em>, "OSS and Firm Productivity"</td><td>Firm</td><td>Productivity</td><td>Firm OSS contributions (GitHub/Linux)</td><td>Panel + policy/procurement instruments</td><td>OSS contribution raises firm productivity</td></tr>
+<tr><td>Wen, Ceccagnoli &amp; Forman (2016) — <em>Mgmt Sci</em></td><td>Startup (firm entry decision)</td><td>Entry into OSS as IP strategy</td><td>Startup OSS licensing choice</td><td>Industry conditions, econometric controls</td><td>When startups open up IP to enter OSS</td></tr>
+<tr><td>Conti, Peukert &amp; Roche (2025) — <em>Org Sci</em>, "Beefing IT Up…"</td><td>Startup (firm-level engagement)</td><td>Innovation output and VC funding</td><td>GitHub engagement of startup</td><td>Matching / treatment on engagement</td><td>OSS engagement signals quality to investors</td></tr>
+<tr><td><strong>Wright, Nagle &amp; Greenstein (2023) — <em>Research Policy</em></strong></td><td><strong>Country-year (207 countries)</strong></td><td><strong>Rate, direction, quality of venture founding</strong></td><td><strong>GitHub commits by country</strong></td><td><strong>IV (slack-time supply, OSS policy demand) + staggered DiD</strong></td><td><strong>OSS raises national venture founding, complements endowments, tilts ventures global/mission/high-quality</strong></td></tr>
+</table>
+
+<p><strong>Connection to the Part I Hugging Face core</strong>. In this library's organizing narrative — open ecosystems as infrastructure that lowers entry barriers — this 2023 paper is the canonical upstream evidence that the later HF platform papers build on or parallel. <em>Wu, Lin &amp; Li (2025, ICIS)</em>, "Foundation Models and AI Innovation: Evidence from the Hugging Face Platform," uses the Llama 2 release as an open-weights shock to downstream developers on HF; Wright et al. supply the prior generation's evidence that an open-release shock (here: sustained open code contributions) raises downstream entrepreneurial output, and Wu et al. inherit both the platform-activity measurement logic (GitHub commits → HF derivative activity) and the rate-vs-direction framing. <em>Jin et al. (2026)</em>, "U.S. Policies Unintentionally Accelerated China's Open AI Ecosystems," studies how export-control policy reshaped the cross-border diffusion of open AI ecosystems; Wright et al. is its methodological ancestor on the policy side — government rules (procurement policies here; export controls there) operating as instruments/shocks that move open-ecosystem activity across countries, with the same caution that policy effects run through ecosystem participation rather than direct intent. <em>Longpre et al. (2025)</em> and <em>Laufer et al. (2025)</em> map who participates in the global model ecosystem on HF; Wright et al. is the first global participation benchmark of its kind for code, and their finding that participation skews toward high-endowment countries foreshadows the concentration documented on the model Hub. <em>Greenstein et al. (2022)</em> (the HF teaching case) describes the platform as serving AI "on a platform"; Wright et al. explain why such shared platforms matter economically — they are repositories of entrepreneurial human capital. Where this paper is developmental (countries), <em>Khoshbash (2026)</em> and <em>Yeverechyahu et al. (2024)</em> are its platform-era cousins: developers specializing around open foundation models, and LLM tools (Copilot) shifting OSS contributions. Finally, <em>Azoulay, Krieger &amp; Nagaraj (2024)</em> on openness versus control in generative AI revisit — at the level of model weights and market structure — the same strategic tension this paper observes in code: open inputs boost entry and follow-on activity, yet yield no exclusive advantage to any single contributor.</p>
+
+<h2>6. Limitations</h2>
+
+<p><strong>Boundaries the authors themselves state</strong>. The paper is explicit that its instrumental variables "help to take a step towards a causal interpretation" rather than fully establish causality; that the OSS-policy data end in 2009, forcing the richest identification onto a subsample; that commits measure only activity by the roughly half of GitHub users who list a country (though with no evidence of systematic reporting bias); that pre-2008 data reflect migrated projects (mitigated by 2008+ robustness); that mission-oriented OSS-venture effects are significant only in OLS; and that the authors "do not have permission to share data," limiting replication. The discussion also concedes that the study does not identify the micro-mechanisms connecting communities to ventures inside specific countries (India, China, Russia, Korea, Ukraine are named as large communities deserving case study) and cannot say how much entrepreneurship suffers where digital infrastructure or internet freedom is lacking.</p>
+
+<p><strong>My independent judgment</strong>, layered and labeled:</p>
+<ul>
+<li><strong>Author's claims</strong>: (1) More country-level OSS participation causes more technology venture founding in the following year; (2) OSS complements, and does not substitute for, income and human-capital endowments; (3) OSS steers entrepreneurship toward global, mission, and high-quality ventures. These are the paper's core assertions, each tied to a hypothesis in Table 7.</li>
+<li><strong>Evidence</strong>: The evidence is correlational-plus-IV, and the identification rests on exclusion restrictions that are plausible but not directly testable — that slack-time skill availability and government procurement rules move entrepreneurship only through OSS participation. The instruments' first stages are strong (F well above 10), and the staggered DiD on policy adoption, the software-vs-hardware contrast, and the larger 2SLS-than-OLS coefficients (inconsistent with upward reverse-causality bias) are genuinely informative robustness checks.</li>
+<li><strong>Inferences a reader should not mistake for paper claims</strong>: Interpreting the 2SLS magnitudes as a pure "treatment effect of coding on founding" — in reality commits proxy a bundle of participation behaviors (learning, networking, signaling), and the paper does not decompose them. Similarly, the direction results (global/mission orientation) are measured from company <em>descriptions</em> in Crunchbase, which reflect founders' self-presentation to investors as much as actual strategy; the machine-learning classifier is validated only on 1,001 descriptions. The complementarity result is also consistent with a milder reading: participation is simply <em>harder</em> where endowments are thin, so the intensive margin of OSS that exists in low-endowment countries is selected and may be less venture-prone — a composition story rather than a pure returns-to-OSS story.</li>
+<li><strong>Open questions the paper leaves</strong>: Whether OSS and entrepreneurship mutually reinforce in a virtuous (or divergent) cycle — the authors sketch the feedback loop but do not estimate it; whether consumption/usage of OSS (not just contribution) carries similar entrepreneurial benefits; how the "direction" shift (global, mission-oriented ventures) affects local welfare, employment, and spillovers; and why trade-based instruments relate negatively to OSS, a pattern they flag as unexplained. For the HF context, an analogous open question is whether open-model <em>downloads and fine-tunes</em> (usage) rather than <em>contributions</em> (commits to model repos) drive downstream startups — a distinction this paper's commit-based measure cannot address.</li>
+</ul>
+
+<p>A data-era caveat worth stating plainly: the sample ends in 2016, before GitHub's organizational features matured, before Copilot-class AI tools changed who contributes (see Yeverechyahu et al., 2024), and entirely before the open-weights era on HF. The paper's estimates describe the age of open <em>code</em>; extending its logic to open <em>models</em> is an inference, not a finding of the paper.</p>
+
+<h2>7. Conclusion and takeaways</h2>
+
+<p>The paper's bottom line is a channel, a boundary condition, and a policy lesson. The channel: open source participation acts as a form of entrepreneurial human capital — contributors learn, signal, network, and observe problems with global demand, and the ventures they subsequently found are more numerous, more global, more mission-oriented, and better financed or acquired. The boundary condition: this dividend is complementary to existing endowments, so open ecosystems work best where human capital already exists. The policy lesson is drawn sharply in the discussion:</p>
+
+<blockquote>Investment in OSS alone, or policies to encourage OSS through government support, will spur little entrepreneurial response in settings with low human capital. However, such activity will spur a greater response with an accompanying program investing in raising human capital. <br><em>(Wright, Nagle &amp; Greenstein, 2023, §5 — p. 13 of the PDF)</em></blockquote>
+
+<p>That sentence is the paper's most transferable idea for the open-AI debate: releasing weights or funding open ecosystems is a complement to, not a substitute for, education and institutions — a message that bears directly on whether open models can close the global AI gap (Jin et al., 2026) or will replicate the concentration Wright et al. document. The paper also closes with the ecosystem's self-reinforcing, two-sided character:</p>
+
+<blockquote>Since many firms participate in open source communities, more participation in open source encourages new ventures, which encourages more participation, and so on. We have seen rapid technological change deepen gaps among countries, and this study shows the potential role of digital goods like OSS in either exacerbating or narrowing these gaps. <br><em>(Wright, Nagle &amp; Greenstein, 2023, §5 — p. 14 of the PDF)</em></blockquote>
+
+<p>For the economic foundations of strategy, the deep lesson is about <em>where</em> advantage from openness resides. Open code is not itself a rare, inimitable resource — competitors can use the same code — so the durable value of open ecosystems is located in the complementary human capital, community infrastructure, and global opportunity recognition they cultivate. That is the same logic that makes the HF Hub strategically interesting: the models are free, but the surrounding human capital and ecosystem positions are not.</p>
+
+<div class="golden">
+Open source does not substitute for a country's endowments; it multiplies them — participation in open ecosystems is entrepreneurial human capital in formation. — inference from Wright, Nagle &amp; Greenstein (2023)
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the academic-style deep-dive workflow, grounded in a pdftotext conversion of the local open-access PDF of Wright, Nagle &amp; Greenstein (2023), Research Policy 52, 104846 (DOI 10.1016/j.respol.2023.104846). Blockquotes are verbatim quotations from the article; page numbers were derived by counting form-feed page breaks in the pdftotext output, and hyphenation artifacts of the text extraction were silently repaired. All coefficients, sample sizes, and economic magnitudes are transcribed from the paper's tables and text; the "independent judgment" in the limitations section is an AI perspective and is explicitly labeled as inference, and the golden sentence is labeled as an inference rather than a quotation. Please verify quotations and numbers against the original article.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

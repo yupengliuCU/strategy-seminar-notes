@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Threat of Platform-Owner Entry and Complementor Responses (Wen &amp; Zhu, 2019) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Threat of Platform-Owner Entry and Complementor Responses: Evidence from the Mobile App Market</h1>
+<p style="color:#374151;margin-bottom:.2rem"><em>Wen Wen &amp; Feng Zhu (2019) · Strategic Management Journal 40(9), 1336–1367 · DOI: 10.1002/smj.3031</em></p>
+<div class="meta">
+<strong>Authors</strong>: Wen Wen (McCombs School of Business, University of Texas at Austin) and Feng Zhu (Harvard Business School)<br>
+<strong>Source</strong>: <em>Strategic Management Journal</em> 40(9), 2019, pp. 1336–1367 (received 17 June 2018; accepted 16 March 2019; published online 23 April 2019)<br>
+<strong>Nature</strong>: Empirical journal article — panel difference-in-differences (DiD) analysis of complementor responses to an entry <em>threat</em> on the Android mobile platform<br>
+<strong>Data &amp; code status</strong>: Proprietary data purchased from a mobile-app analytics company (~200,000 randomly selected Google Play apps); data and code not released; robustness tables S1–S14 in the online supporting information
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Using Apple's entries into iOS app markets as a signal of Google's future entry into the matching Android markets, Wen and Zhu show that the average affected Android developer reacts to the <em>threat</em> of platform-owner entry before it materializes: it cuts innovation on the threatened apps (−5.1% updates) and raises their prices (+1.8%), while shifting innovation effort to unaffected apps (+4.3% updates) and to new, unrelated app introductions — whereas developers with popular, affected products respond in the opposite direction on the affected apps, stepping up innovation (+7.8%) and holding prices flat, consistent with signalling strength or positioning as an acquisition target.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide</strong>: This paper sits at the tension that frames the whole "Hugging Face and the Open-AI Economy" topic: the actor who owns the core of an ecosystem also competes with, or can encroach on, the complements built on top of it. In mobile apps the "owner" is Google (platform + OS) and complementors are third-party developers; in the AI stack the analogues are frontier model builders and platform hubs (Hugging Face) on one side and fine-tuners, app developers, and downstream deployers on the other. Wen and Zhu supply a clean empirical template for asking who wins and who loses when the owner moves — here by entering complement product spaces — and for measuring complementor responses (value creation: rate and direction of innovation; value capture: pricing). Part I of this topic library asks the same question in reverse gear, when the owner <em>opens</em> the core (Azoulay et al. 2024; Yue &amp; Nagle 2024; Wu, Lin &amp; Li 2025) or when a general-purpose technology reshapes complementor specialization (Khoshbash 2026). Read this paper for its identification idea — using a competing platform owner's moves to isolate threat from actual entry — and for its core result that complementors accommodate rather than deter, reallocating effort across markets and heterogeneity across complementor strength.
+</div>
+
+<h2>1. Background and motivation: the owner–complementor tension</h2>
+
+<p>Platform owners in the modern economy host large populations of small firms — complementors — that build products on the platform's resources. Complementors are the platform's "value-creation partners" (Kapoor, 2013), yet they face a structural risk that ordinary suppliers do not: the platform owner can imitate them and enter their product spaces with similar offerings. The paper opens with the canonical examples: Apple uses its own apps to compete with third-party developers on iOS at nearly every OS release; Amazon sources products directly from categories where third-party sellers have proven demand; the EU opened an investigation into Amazon's use of third-party seller data to choose which markets to enter. The authors frame this as a policy hotbed precisely because the platform owner combines a governance role (setting the rules of the ecosystem) with a competitive role (playing in complement markets), and because its entry can be made disproportionately effective through bundling, prominent displays, and deeper platform access.</p>
+
+<p>The research question is deliberately narrow and forward-looking. Prior empirical work on platform-owner entry (e.g., Zhu &amp; Liu, 2018 on Amazon) studies what happens <em>after</em> the owner enters. Wen and Zhu ask whether complementors adjust their value-creation and value-capture strategies <em>before</em> entry, when the threat rises but the owner has not yet moved. Two views frame the question. The conventional view, drawn from the entry literature (Goolsbee &amp; Syverson, 2008), holds that incumbents should not react until entry actually occurs, because repositioning is costly and risky (Harrigan, 1980): if the expected entry never happens, early reactions are wasted. The competing view holds that complementors should accommodate from the moment the threat increases, because early repositioning builds positions in safer markets and smooths transition costs over time. The paper's central hypothesis is that once the platform owner holds strong market power — so that deterrence is impossible — the average complementor accommodates the threat by reallocating innovation from affected to unaffected areas while extracting short-term profits in the affected area. The abstract states the headline result:</p>
+
+<blockquote>We find that after Google's entry threat increases, affected developers reduce innovation and raise the prices for the affected apps. However, their incentives to innovate are not completely suppressed; rather, they shift innovation to unaffected and new apps.</blockquote>
+<p><em>Source: Wen &amp; Zhu (2019), Research Summary (abstract); PDF p. 1 of the source txt (journal p. 1336).</em></p>
+
+<h2>2. Core concepts and the argument</h2>
+
+<h3>2.1 Why platform-owner entry is hard to fight, and what "entry threat" means</h3>
+
+<p>The theory section first establishes why complementors perceive platform-owner entry as a major shock rather than ordinary competition. The owner's product may be better because deeper access to the platform's technical details yields tighter platform compatibility; the owner often subsidizes adoption (Heeb, 2003) while third parties must live off product revenue; and the owner bundles complements into the platform itself — Microsoft's Internet Explorer and Windows Media Player are the classic cases — so consumers face lower search cost for the owner's offering and may see no reason to adopt a similar third-party product. The flashlight example is instructive: once Apple bundled a native flashlight into iOS that users reached "with just a swipe and a tap," third-party flashlight apps had little reason to exist. Zhu and Liu (2018) show that affected third-party sellers on Amazon tend to drop the products Amazon begins offering.</p>
+
+<p>Because deterrence is near-impossible against such an owner, this setting isolates the other motive found in the entry literature: accommodation. That clean separation — no deterrence motive, only accommodation — is one of the paper's stated design advantages over prior entry studies, where deterrence and accommodation are confounded (Prince &amp; Simon, 2015).</p>
+
+<h3>2.2 Complementor responses: innovation shifting, pricing, and the role of popularity</h3>
+
+<p>The argument follows the repositioning literature (de Figueiredo &amp; Silverman, 2007; Wang &amp; Shaver, 2014): a firm stays in or leaves a contested market depending on the profitability of the affected market, the profitability of alternative markets, and its strategic flexibility and repositioning costs. In digital platform markets the redeployment of resources across product spaces is relatively cheap, customer needs are diverse (Tiwana, 2015), and entry barriers into new app niches are low — so the net benefit of moving to unaffected markets tends to outweigh staying. This produces the first hypothesis:</p>
+
+<p><strong>H1 (innovation shifting).</strong> Following an increase in platform-owner entry threat, complementors shift innovation efforts from affected to unaffected market segments.</p>
+
+<p>The response should occur while the threat is still pending, for two reasons: expected profits in the affected market fall as soon as entry looks likely, so complementors want to establish positions in safe markets early; and product development takes time, so early starts smooth development costs. Goolsbee and Syverson (2008) and Prince and Simon (2015) supply the precedent that incumbents begin accommodating before entry.</p>
+
+<p>The second hypothesis concerns pricing, and it is where the paper departs from most entry-deterrence reasoning. In the deterrence literature, incumbents cut prices to discourage entry (Seamans, 2013). Here, where deterrence is impossible, the average complementor's price response runs the other way — <em>up</em> — as part of an accommodation package: firms coordinate multiple responses (Seamans &amp; Zhu, 2017; Wang &amp; Shaver, 2016). The mechanism is short-term value capture:</p>
+
+<blockquote>Should a platform owner enter, its bundling strategy and/or price advantage would make it almost futile for complementors to fight. Therefore, complementors who may not expect to survive in the market for too long will begin to focus on maximizing short-term profits.</blockquote>
+<p><em>Source: Wen &amp; Zhu (2019), Section 2.2 (pricing hypothesis); PDF p. 7 of the source txt (journal p. 1342).</em></p>
+
+<p>A higher price lets a complementor milk the customers who value its differentiated features most and are least price-sensitive (following Frank &amp; Salkever's, 1997, account of brand-name drug pricing after generic entry), and the revenue helps finance the transition to new markets. Hence H2: complementors increase prices in the affected market segment under entry threat.</p>
+
+<p>The third and fourth hypotheses introduce heterogeneity, motivated by evidence that complementors with large user bases are affected differently (Li &amp; Agarwal, 2017). Two mechanisms push popular-complementor behavior away from the average response. First, acquisitions: platform owners routinely buy rather than build — Google acquired roughly 50 software application companies between 2007 and 2015; Apple acquired Siri; Facebook acquired Instagram and WhatsApp — and products with large user bases are the natural acquisition targets, especially under network effects (Microsoft's Skype purchase is cited as the paradigm). Popular complementors can therefore treat "becoming an attractive acquisition target" as an alternative response to entry, and they may innovate aggressively on the affected product to <em>signal</em> their potential under information asymmetry (Zott &amp; Huy, 2007). Second, locking in users before entry strengthens the complementor's position if entry does not occur. So H3 predicts that developers with popular affected products <em>increase</em> innovation on both affected and unaffected products, and H4 predicts that they refrain from raising prices in the threat period, since price increases would erode popularity and hence acquisition value.</p>
+
+<h3>2.3 The identification concept: Apple's entry as a signal of Google's threat</h3>
+
+<p>The paper's empirical device turns on a fact about rivalry between the two dominant mobile platform owners: Apple and Google copy each other's app portfolios. If Apple's entry into an iOS market reliably predicts Google's entry into the corresponding Android market, then the period between the two — when Apple has entered but Google has not — is a period of elevated <em>threat</em> for Android developers in that market, cleanly separated from Google's actual entry. The authors compile lists of Apple apps and iOS features introduced from 2007 to 2015 and Google's corresponding Android apps, and match them manually:</p>
+
+<blockquote>Of the other 31 markets Apple entered, Google had entered 26 (84%) by the end of our sample period. As indicated by the entry date, among the 26 overlapped app markets, Apple entered 21 (80%) earlier than Google. Thus, the evidence supports our use of Apple's entry to predict Google's future entry.</blockquote>
+<p><em>Source: Wen &amp; Zhu (2019), Section 3.2; PDF p. 10 of the source txt (journal p. 1345).</em></p>
+
+<p>This "competing-owner-as-oracle" design is the paper's methodological signature: it identifies the threat of entry separately from actual entry, which most entry research cannot do (the authors credit Goolsbee &amp; Syverson, 2008; Prince &amp; Simon, 2015; Seamans, 2012 for the entry-threat identification tradition).</p>
+
+<h2>3. Evidence and methods</h2>
+
+<h3>3.1 Setting: the Android mobile app market</h3>
+
+<p>The empirical setting is Google's Android platform, chosen because Google has introduced roughly 200 mobile apps on Android between 2008 and 2015, so Android complementors repeatedly face owner-entry threats; because the platform supports clean within-platform comparisons; and because mobile apps are a high-stakes, fast-moving complement market with free entry and fierce competition.</p>
+
+<h3>3.2 The three entry events and the app classification</h3>
+
+<p>Because the sample window for the panel (January 2012 through August 2015) only covers Apple entry events occurring after 2012, the main analysis rests on three events where Apple entered before Google in markets that had not yet been touched by Google on Android (paper Table 1).</p>
+
+<table>
+<tr><th>Apple app (iOS)</th><th>Apple entry date</th><th>Matched Google app (Android)</th><th>Google entry date</th><th>App category (Android sample)</th></tr>
+<tr><td>Guided Access</td><td>June 2012</td><td>Android restricted user activity</td><td>November 2014</td><td>Tools</td></tr>
+<tr><td>Podcasts</td><td>June 2012</td><td>Google Podcasts</td><td>June 2018 (beyond sample)</td><td>Entertainment</td></tr>
+<tr><td>Flashlight (Control Center)</td><td>June 2013</td><td>Flashlight</td><td>November 2014</td><td>Tools / Productivity</td></tr>
+</table>
+<p><em>Source: Wen &amp; Zhu (2019), Table 1 (PDF p. 11; journal p. 1346) and Section 4.1 notes on categories (PDF p. 12; journal p. 1347). Google had not entered Podcasts by the end of the sample, so only the threat period is observed for that market.</em></p>
+
+<p>For each event the authors identify, by manual reading of app descriptions plus Google Play's "similar apps" algorithm, the Android apps that Google's potential entry would directly threaten. This yields the three-way decomposition that drives the whole design: <strong>ADAA</strong> — affected developers' affected apps; <strong>ADUA</strong> — affected developers' unaffected apps (apps the developer publishes that are not in the threatened market); and the control group — apps by developers with no affected app at all, drawn from the same app categories so that pre-threat trends in innovation and pricing are comparable.</p>
+
+<h3>3.3 Sample, data, and variables</h3>
+
+<p>The data come from a mobile-app analytics company and cover roughly 200,000 randomly selected Android apps listed in the U.S. Google Play store; about 110,000 (~58%) were active as of August 2015, capturing about 7% of all active Google Play apps at that date. Restricting to the three relevant categories and to apps released before the matched entry threats, then dropping roughly 800 "corporate" apps (banking, airline, hotel apps whose innovation cycles differ), leaves a regression sample of <strong>3,986 apps and 162,473 app-month observations</strong>. App histories span January 2012 through August 2015 with (a) new-version release events, (b) price-change events, (c) user ratings, and (d) rankings for apps in the top 500 of their category or overall.</p>
+
+<p>Innovation effort is measured at the app-month level as the number of new versions released (<em>Updates</em>), consistent with prior digital-innovation research that treats incremental product refinement as experimentation-driven innovation (Boudreau, 2012; Tiwana, 2015; Yoo et al., 2010). The paper notes that major and minor updates are pooled in the baseline and verified separately later using the major-version component of the version number. The second outcome is the app's price at the beginning of the month. Because both variables are highly skewed, the regressions use log transformations. Table 3 of the paper reports that on average an app is updated once every three months; the mean price is $2.47 with a median of $1, though some apps exceed $200; and competition (the share of same-category sample apps flagged as "similar" by Google Play) averages 0.8% and reaches 7%.</p>
+
+<p>The baseline estimating equation is an app-month fixed-effects regression with two treatment windows (<em>Under Entry Threat</em> and <em>Under Actual Entry</em>) interacted with ADAA and ADUA dummies, plus controls for the app's age and its competition measure, month fixed effects, and standard errors clustered at the developer level. App fixed effects absorb time-invariant app and developer attributes. The table below reproduces the sample composition (paper Table 2).</p>
+
+<table>
+<tr><th>Entry event / market</th><th>ADAA: affected apps of affected developers</th><th>ADUA: unaffected apps of affected developers</th><th>Apps of unaffected developers (control)</th></tr>
+<tr><td>Flashlight</td><td>251</td><td>191</td><td>2,054</td></tr>
+<tr><td>Guided Access</td><td>48</td><td>53</td><td>432</td></tr>
+<tr><td>Podcasts</td><td>79</td><td>67</td><td>811</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>378</strong></td><td><strong>311</strong></td><td><strong>3,297</strong></td></tr>
+</table>
+<p><em>Source: Wen &amp; Zhu (2019), Table 2 (PDF p. 13; journal p. 1348). 378 + 311 + 3,297 = 3,986 regression-sample apps. Flashlight attracts the most affected apps because a flashlight app is the easiest of the three types to build.</em></p>
+
+<pre class="mermaid">
+flowchart TD
+    A["Apple enters an iOS app market<br/>(Guided Access · Podcasts · Flashlight)"] --> B["Google has NOT yet entered the matching Android market<br/>Google follows Apple in 84% of matched markets; Apple first in 80%"]
+    B --> C["Affected developer's AFFECTED apps (ADAA)"]
+    B --> D["Affected developer's UNAFFECTED apps (ADUA)"]
+    B --> E["Unaffected developers' apps (control)"]
+    C --> C1["Reduce updates −5.1% under threat; −7.9% after actual entry"]
+    C --> C2["Raise price +1.8% under threat; +3.7% after actual entry"]
+    D --> D1["Increase updates +4.3% (build positions in safe markets)"]
+    D --> D2["No price increase on unaffected apps"]
+    E --> E1["No differential change (parallel pre-trends; falsification holds)"]
+    C1 --> F["If the affected app is POPULAR (top 500 pre-threat):<br/>updates +7.8%, price held flat — signal strength / stay attractive to acquirers"]
+    F --> G["Heterogeneity: multi-homing &amp; capable developers shift even more to unaffected markets"]
+</pre>
+<p><em>Diagram: the paper's identification logic and hypothesized complementor responses (synthesized from Sections 3 and 5; percentages are the baseline DiD estimates in Tables 4 and 6).</em></p>
+
+<h3>3.4 Identification strategy and falsification program</h3>
+
+<p>The credibility of the DiD rests on the parallel-trends assumption and on the claim that Apple's entry is a threat shock rather than a demand or market-maturity confound. The authors run an extensive falsification and robustness program. (1) <em>Timing falsification:</em> dummies for the 0-month, 1–3-month, and 4–6-month pre-threat windows interacted with ADAA/ADUA are insignificant (with the expected exception of the 0-month window for updates, since reducing effort is faster than raising it), supporting parallel pre-trends. (2) <em>Reverse-order markets:</em> in the three markets where Google entered <em>before</em> Apple (maps, mobile wallets such as Apple's Passbook, and file-sharing such as AirDrop), Android developers should not react to Apple's later entry — and they do not (3,272 apps, 137,893 observations), which rules out unobserved market maturity as the driver. (3) <em>Matching:</em> coarsened exact matching (CEM) on pre-threat updates, price, within-category ranking, and age matches 529 of 689 treatment apps (1,058 apps, 43,256 observations), with qualitatively similar results; a second matching design exploits the staggered Apple entry timing by using the Flashlight market as a control for Guided Access before June 2013, matching on the likelihood of being treated. (4) <em>Alternative explanations:</em> a demand-expansion story (Apple's entry makes Android users discover these apps) is tested with the likelihood of ranking in the top 100 as the outcome; the negative coefficients contradict it. (5) Additional checks drop multi-homing developers, add entry-specific linear time trends, use major updates only, exclude apps ever priced above $30, drop never-updated apps, and omit controls — all qualitatively consistent. The paid-app subsample (apps priced at least one month before treatment) is used to sharpen the value-capture test: because free apps can harvest through ads or in-app purchases, and the data do not observe those revenue streams, the baseline price estimate is treated as a lower bound. There the price effect is much larger — +6.5% under threat and +9.5% after actual entry, against +1.8% and +3.7% in the full sample.</p>
+
+<h2>4. Findings</h2>
+
+<h3>4.1 Baseline: innovation falls on threatened apps and rises elsewhere; prices rise</h3>
+
+<p>Table 4 of the paper delivers the central estimates. Under Google's entry threat, an affected developer cuts updates on its affected app by 5.1% relative to an unaffected developer's app in the same category; after Google actually enters, the reduction grows to 7.9%. The difference between the two coefficients is statistically significant, so actual entry hurts affected-app innovation more than the threat alone. In terms of frequency: an average app is updated every three months, so the threat period stretches the update interval from ~90 to ~98 days and the actual-entry period to ~101 days. Meanwhile the same developers raise updates on their <em>unaffected</em> apps by 4.3% under the threat and maintain that higher level after entry. The pricing columns show the mirror-image value-capture move: affected developers raise the price of affected apps by 1.8% when the threat increases (p = .005) and by 3.7% after Google actually enters (p = .008). The authors quote the update result as follows:</p>
+
+<blockquote>The coefficients in Column (1) suggest that, under Google's entry threat, an affected developer significantly reduces its updates on an affected app by 5.1% relative to an unaffected developer's app, whereas after Google actually enters, the affected developer significantly reduces updates on the affected app by 7.9%.</blockquote>
+<p><em>Source: Wen &amp; Zhu (2019), Section 5.1 (baseline results); PDF p. 14 of the source txt (journal p. 1349).</em></p>
+
+<blockquote>In summary, affected developers increase the prices of affected apps by 1.8% when entry threat increases and by 3.7% after Google actually enters, relative to the prices of unaffected developers' apps.</blockquote>
+<p><em>Source: Wen &amp; Zhu (2019), Section 5.1 (baseline results, pricing); PDF p. 16 of the source txt (journal p. 1351). Both effects are significant at p = .005 and p = .008 respectively.</em></p>
+
+<p>Two asymmetries in these numbers carry the interpretation. First, the innovation response is a reallocation, not a retreat: affected developers do not abandon the platform, they redirect effort to unaffected apps. Second, while they innovate more on unaffected apps, they do not raise those apps' prices — consistent with using product improvement and stable prices to stimulate demand while building a competitive position in the safer markets. The authors emphasize that the 1.8–3.7% price rises, though small, matter because app demand is highly elastic: citing Ghose and Han (2014), a 10% price change moves app demand by about 37% on average, so a price rise in the affected market is a deliberate harvest of price-insensitive users at the cost of long-run demand — "complementors indeed focus more on short-term profits after Google's entry threat increases."</p>
+
+<h3>4.2 The extensive margin: new app introductions</h3>
+
+<p>Two developer-level analyses check whether entry threat also redirects the flow of <em>new</em> products. First, the supply of new apps similar to the threatened product collapses: in the Flashlight market the average number of new flashlight-related apps released per month fell from 38 before the threat to 10 during the threat period and 7 after Google's actual entry (t-tests significant); the Guided Access and Podcasts markets show the same pattern. Developers stop crowding into a space the owner is about to occupy. Second, affected developers introduce more new apps <em>unrelated</em> to the entry events: relative to unaffected developers, the monthly count of new unrelated apps rises by 3.1% in the Flashlight event, 9.6% in Guided Access, and 7.9% in Podcasts (paper Table 5), a range matching the abstract's "3% to 10%" summary, and the elevated rate persists after actual entry.</p>
+
+<h3>4.3 Heterogeneity: popular products flip the innovation response</h3>
+
+<p>Restricting the sample to apps that had been ranked in the top 500 across all categories at any time before the threat (a threshold chosen because a top-100 cutoff would leave only 54 apps), the authors test H3 and H4 (paper Table 6). The average-complementor pattern inverts on the innovation margin:</p>
+
+<blockquote>Consistent with H3, a developer increases the updates of its affected popular app by 7.8% under threat of entry.</blockquote>
+<p><em>Source: Wen &amp; Zhu (2019), Section 5.6 (popular apps); PDF p. 23 of the source txt (journal p. 1358).</em></p>
+
+<p>Developers with popular affected apps also raise updates on their other popular, unaffected apps by 15–19% across the threat and actual-entry periods — roughly four times the 4% baseline increase for average apps. And on pricing they depart from the average complementor: during the threat period they do <em>not</em> raise the affected app's price (only after Google actually enters does the price rise, by 4.1%, similar to the average developer's post-entry move). The paper reads this package — innovate on the contested product, hold the price, keep investing in the rest of the portfolio — as the behavior of complementors who are either building a strong competitive position if entry never comes, or keeping themselves attractive as acquisition targets if it does. Supporting splits show that developers whose apps are <em>all</em> affected raise innovation on affected apps twice as much as developers with a portfolio cushion, and that among popular-app developers, single-homers increase updates on affected apps by 8.7% while multi-homers (who can shift across platforms) show only a small, insignificant 3.7% rise on affected apps but a 32% rise on unaffected apps, versus 15% for single-homers — the signature of the "nimbler" developer who reallocates rather than fights.</p>
+
+<h3>4.4 Summary of the estimates</h3>
+
+<table>
+<tr><th>Response of affected developers (vs. unaffected developers)</th><th>Under entry threat</th><th>After actual entry</th><th>Reading</th></tr>
+<tr><td>Updates on affected apps (ADAA) — average developers</td><td>−5.1%</td><td>−7.9%</td><td>H1: reduced innovation in the contested space; threat effect is smaller than entry effect</td></tr>
+<tr><td>Updates on affected apps — developers with <em>popular</em> affected apps</td><td>+7.8%</td><td>falls back toward/below threat-period level</td><td>H3: signal strength / acquisition-target positioning</td></tr>
+<tr><td>Updates on unaffected apps (ADUA)</td><td>+4.3% (all affected developers)</td><td>maintained</td><td>H1: innovation reallocated, not abandoned</td></tr>
+<tr><td>Updates on unaffected apps — popular subsample</td><td>+15–19%</td><td>maintained</td><td>Portfolio build-up in safe markets</td></tr>
+<tr><td>Price of affected apps — average developers</td><td>+1.8% (p = .005)</td><td>+3.7% (p = .008)</td><td>H2: short-term value capture</td></tr>
+<tr><td>Price of affected apps — paid-app subsample</td><td>+6.5%</td><td>+9.5%</td><td>Baseline is a lower bound; ads/in-app revenue unobserved</td></tr>
+<tr><td>Price of affected apps — popular subsample</td><td>no change</td><td>+4.1%</td><td>H4: keep popularity / acquisition value intact</td></tr>
+<tr><td>Price of unaffected apps</td><td>no significant increase</td><td>—</td><td>Stimulate demand while building the safe-market position</td></tr>
+<tr><td>New similar (threatened) apps per month — Flashlight</td><td>38 → 10</td><td>7</td><td>Free-entry crowd leaves the space</td></tr>
+<tr><td>New unrelated apps introduced</td><td>+3.1% (Flashlight), +9.6% (Guided Access), +7.9% (Podcasts)</td><td>elevated rate persists</td><td>Direction of innovation redirects to untouched niches</td></tr>
+</table>
+<p><em>Source: Wen &amp; Zhu (2019), Tables 4–6 and Sections 5.1–5.6; PDF pp. 14–23 (journal pp. 1349–1358). All effects are relative to the same-category control group in the fixed-effects DiD; coefficients from log-linear models interpreted as approximate percentage changes.</em></p>
+
+<h2>5. Position in the literature</h2>
+
+<p><strong>Within its own research stream.</strong> The paper stitches together three empirical literatures. (a) <em>Entry-threat responses</em> (Goolsbee &amp; Syverson, 2008, airlines; Prince &amp; Simon, 2015; Seamans, 2012, 2013; Dafny, 2005; Ellison &amp; Ellison, 2011): it extends the small set of studies of <em>ex ante</em> reactions to entry, and — because the platform owner's power makes deterrence impossible — it provides a comparatively clean setting for pure accommodation behavior, in which the average firm <em>raises</em> price rather than cutting it to deter. (b) <em>Platform-owner entry into complement markets</em> (Zhu &amp; Liu, 2018, Amazon; Li &amp; Agarwal, 2017, Facebook–Instagram; Edelman &amp; Lai, 2016; Gawer &amp; Henderson, 2007, Intel; Pierce, 2009): the companion papers estimate the consequences of actual entry; Wen and Zhu add the threat window that precedes it and argue that omitting it understates the total effect of entry. (c) <em>Competition-driven repositioning</em> (Wang &amp; Shaver, 2014, 2016; de Figueiredo &amp; Silverman, 2007; George &amp; Waldfogel, 2006; Seamans &amp; Zhu, 2017): most such work studies product differentiation alone; here innovation and pricing are treated as coordinated joint responses, and the popular-vs-average heterogeneity shows that repositioning is not uniform. The welfare discussion draws on the free-entry inefficiency tradition (Dixit &amp; Stiglitz, 1977; Spence, 1976; Berry &amp; Waldfogel, 1999; Hsieh &amp; Moretti, 2003): with free entry, entrants duplicate features that consumers value little, so the owner's threat can trim socially wasteful development and redirect effort toward new niches — the reason the authors hesitate to call the entry welfare-reducing even though it pushes complementors into "areas that might be less lucrative."</p>
+
+<p><strong>Relation to ecosystem and platform governance theory.</strong> The paper is a micro-empirical companion to the theoretical ecosystem literature in this topic library. Against Jacobides, Cennamo and Gawer's (2018) modular-complementarity frame, the owner's entry is a unilateral re-partitioning of the ecosystem's niches: the owner converts an open complement niche into an occupied one, and complementors respond by redeploying across the modular structure. Against Adner and Kapoor's (2010) value-creation/value-capture architecture of ecosystems, Wen and Zhu show complementors trading one against the other in real time. Against Wareham, Fox and Cano Giner's (2014) technology ecosystem governance, the finding that entry reallocates innovation suggests entry is itself a governance instrument: Gawer and Cusumano (2002) and Gawer and Henderson (2007) document that Intel used entry mainly to spur complementor innovation in areas it was dissatisfied with, and Wen and Zhu's results give that platform-leadership logic an econometric complement — direct entry can be a steering wheel for the ecosystem's innovation direction.</p>
+
+<p><strong>The two closest governance instruments, Rietveld et al. (2019) and Boudreau (2010).</strong> Rietveld, Schilling and Bellavitis (2019), in the video-game platform economy, study the owner as <em>referee</em>: selective promotion steers demand and attention toward chosen complements, so complementors' fortunes depend on the owner's discretionary curation. Wen and Zhu study the owner as <em>player</em>: entry (and its threat) steers complements by changing the competitive payoffs of niches. Read together, they span the owner's two hands — the owner shapes complementor success through what it promotes and through what it enters, and in both cases complementor heterogeneity (promoted vs. neglected; popular vs. average) determines who gains and who loses. Boudreau (2010) on handheld computing distinguishes two openness mechanisms with opposite innovation effects: granting access (letting more developers in) versus devolving control (handing the platform's architecture over). Platform-owner entry is a third move that Boudreau's dichotomy does not name — the owner <em>retaining</em> or re-asserting control by competing inside complement spaces — and Wen and Zhu's DiD measures its consequences for the innovation rate and direction of the very developers that access-based openness attracted. Boudreau (2012), whose app-update measure Wen and Zhu adopt, is the methodological bridge: the same update-based innovation metric that documents the benefits of platform openness documents here the reallocation triggered by owner encroachment.</p>
+
+<p><strong>Connection to the Part I core papers: who wins and loses when the core opens or the owner moves.</strong> The Hugging Face and Open-AI topic asks how the governance of a core technology — who owns it, whether it is open, and whether the owner also plays downstream — shapes who innovates and who captures value. Wen and Zhu is the canonical statement of the "owner moves in" case, and the four Part I papers that follow it explore the "owner opens the core" case with the same DiD logic and the same interest in complementor heterogeneity. <em>Wu, Lin and Li (2025, ICIS)</em> treat Meta's Llama 2 open-weights release on the Hugging Face Hub as a commoditization shock and estimate its DiD effect on Hub developers; Wen and Zhu supply the template for that design — a staggered, exogenous-to-complementors owner decision whose effect on the innovation of downstream developers is heterogeneous and partly a reallocation across product spaces. <em>Yue and Nagle (2024)</em> show that PyTorch's open-sourcing — the owner relinquishing control of a core technology — ignites downstream innovation; that is the control-relinquishing counterpart to Wen and Zhu's control-reasserting entry, and together they bound what Boudreau (2010) called the two openness mechanisms: devolving control raises complementor innovation, while an owner who keeps and deploys control over complements triggers accommodation and reallocation instead. <em>Azoulay, Krieger and Nagaraj (2024)</em> ask whether open-weight publishing erodes the proprietary advantages of frontier model builders — the owner-side version of who wins when the core opens; Wen and Zhu's developer-side result predicts the mechanism by which such erosion would operate: downstream innovators who fear the owner's move into their niche cut investment there, harvest short-term rents, and pivot to niches the owner has not touched, so the identity and strength of the complementor (popular versus average) determines whether openness reads as opportunity or threat. <em>Khoshbash (2026)</em> documents specialization trade-offs in open foundation-model ecosystems — sponsor fine-tuned variants versus complementor differentiation across 12 model families — and its central heterogeneity finding (who specializes and who is crowded out when a more powerful actor works the same niche) is a direct descendant of Wen and Zhu's popular-versus-average split. The Part II classics complete the arc: Wen, Ceccagnoli and Forman (2016) show that opening up IP strategy shapes when startups enter with OSS; Henkel (2006) shows selective revealing; O'Mahony and Karp (2022) show firms moving from proprietary to collective governance — all governance choices of the core that, like Google's entry decision here, reallocate who innovates where.</p>
+
+<h2>6. Limitations</h2>
+
+<p><strong>Author-stated limitations</strong> (Section 6.1 of the paper). The authors list five. (1) Only three entry events after 2012 are usable given the 2012–2015 sample window, so earlier Apple entries into markets Google had not yet entered cannot be studied. (2) The data do not observe ads or in-app purchase prices, so value capture through those channels is invisible and the baseline price effect is a lower bound; similarly, iOS-side data are unavailable, so the two types of multi-homing developers cannot be separated and the Android-side shift for multi-homers may be understated. (3) The analysis is confined to platform owners with enormous market power; where the owner lacks power, the dynamics could differ — the owner might need to enter more markets to stimulate platform demand, or to "play nicely" to grow the ecosystem. (4) Generalization to industries with high exit/entry barriers is uncertain, since repositioning there is costly and accommodation may take other forms such as cost-cutting and differentiation. (5) The design is agnostic about <em>why</em> Apple enters and Google imitates (value capture, tying, motivating complementor innovation, consumer experience, or even user-privacy events such as the FTC flashlight settlement), which matters for the welfare reading; and the long-term effect of entry on ecosystem growth and innovativeness — the owner's own offerings may attract users and thereby draw in more complementors — remains an open question.</p>
+
+<p><strong>Independent judgment</strong> (layered and labeled, distinguishing paper claims, evidence, inference, and open questions):</p>
+<ul>
+<li><strong>Paper claims</strong>: Complementors react to entry threat before actual entry by reallocating innovation away from threatened apps and toward unaffected and new apps, by raising prices on threatened apps, and by behaving differently when the affected product is popular. These claims are stated as hypotheses and confirmed as DiD estimates.</li>
+<li><strong>Evidence</strong>: The support is a fixed-effects DiD on 3,986 apps / 162,473 app-month observations across three matched events, with timing falsification, reverse-order-market falsification, CEM and staggered-entry matching, and many robustness checks. The effect magnitudes are small in levels (1.8–7.9% on updates and prices) but consistently signed and statistically significant. The identification of "popularity" uses a coarse top-500 pre-threat threshold (a top-100 cutoff yields only 54 apps), and the acquisition-target mechanism (H3/H4) is inferred from behavior, not observed directly through acquisitions.</li>
+<li><strong>Inferences (mine, not the authors')</strong>: (i) The authors' use of Apple's entry as a signal treats Google's imitation propensity as constant across markets and time; if Google's copying intensity varies with market characteristics that also affect developer strategies, the threat measure is noisy, though the reverse-order falsification mitigates this. (ii) The paper's welfare-ambiguity conclusion leans on the assumption that threatened-app markets were socially redundant; for markets where the third-party product had genuine differentiation, the measured innovation cut is a real loss that the "wasteful duplication" frame may understate. (iii) Transposing the result to AI ecosystems — e.g., model owners or the Hub entering app/fine-tune niches — is an extrapolation: app developers face trivial redeployment costs and depend on one platform, conditions that hold only partially for AI startups with model-specific sunk investments.</li>
+<li><strong>Open questions</strong> the paper leaves: whether complementor responses differ when the owner's entry is motivated by innovation-stimulation rather than value capture (the authors call for qualitative work on entry motives); whether the threat effects persist or reverse as developers learn the owner's entry patterns over time; how the unobserved ad/in-app value capture reshapes the total welfare balance; and whether an owner that enters many complement markets eventually chills platform-side entry, offsetting the short-run variety gains the paper documents.</li>
+</ul>
+
+<p>A textual caveat: this reading note is based on the pdftotext conversion of the published PDF (pages 1336–1367), where the tables' numeric cells were partially re-flowed by the conversion; all coefficients quoted above are taken from the body text, which survived cleanly, and table-derived numbers were cross-checked against the prose. Percentages from log-linear models (e.g., −5.1%, +1.8%) are the paper's own reporting of semi-elasticity estimates.</p>
+
+<h2>7. Conclusion and takeaways</h2>
+
+<p>The paper's core contribution is conceptual before it is empirical: platform-owner entry should be studied as a <em>process with a threat phase</em>, not a single event. Complementors are "strategic and nimble actors" who read the signals of owner entry — including the moves of the rival platform owner that the focal owner copies — and adjust both sides of their business model in advance: the rate and direction of innovation (value creation) and pricing (value capture). The average complementor accommodates: less innovation in the contested niche, more innovation everywhere else, higher prices in the niche. Popular complementors play a different game: they invest in the threatened product, hold prices, and keep their portfolio growing, positioning either to compete if the owner stays out or to be acquired if it comes in. For the platform owner, the results reframe entry as a governance instrument — a way to trim redundant complements, standardize a space, and push complementor creativity toward underserved niches, which is precisely how the paper reads Google's own behavior and Intel's documented platform-leadership practice. The welfare verdict is deliberately left unresolved: entry strengthened Google's position in mobile and pushed some complementors into less lucrative areas, yet it also cut wasteful duplication in crowded app niches.</p>
+
+<p>For the Hugging Face and the Open-AI Economy topic, this paper is the micro-foundation of the owner-move question that the Part I papers answer for open-weight AI: it shows what to measure (rate and direction of complementor innovation, value-capture margins), how to identify the shock (a staggered, owner-initiated event that is exogenous to individual complementors), and which heterogeneity to expect (strong, popular complementors respond oppositely to average ones). When the core opens, the same reallocation logic should predict which downstream innovators treat the open model as a platform to build on and which treat it as a threat to their niche — and, like Google's entry threat, the net welfare effect of openness will hinge on whether the effort released from redundant niches finds its way to genuinely new ones.</p>
+
+<div class="golden">
+Complementors respond to the threat of platform-owner entry by reallocating innovation away from threatened apps and toward unaffected and new apps — while extracting short-term profits in the space the owner is about to enter. — Wen &amp; Zhu (2019)
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: AI-assisted reading note grounded in a pdftotext conversion of the local PDF (Wen &amp; Zhu, 2019, <em>Strategic Management Journal</em> 40(9), 1336–1367); check quotes and numbers against the original. All blockquotes are verbatim from the conversion; PDF page numbers were counted from form-feed page breaks in the source text file (journal page = PDF page + 1335). Statements labeled as "inference" or "open questions" in the Limitations section are the note author's extensions, not claims of the paper; the structured summary of this paper lives in the topic's Obsidian canonical note.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opening Up Intellectual Property Strategy (Wen, Ceccagnoli &amp; Forman, 2016) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Opening Up Intellectual Property Strategy: Implications for Open Source Software Entry by Start-up Firms</h1>
+<div class="meta">
+Wen Wen, Marco Ceccagnoli &amp; Chris Forman (2016) · <em>Management Science</em> 62(9), pp. 2668–2691 · DOI 10.1287/mnsc.2015.2247<br>
+<strong>Authors</strong>: Wen Wen (McCombs School of Business, UT Austin); Marco Ceccagnoli and Chris Forman (Scheller College of Business, Georgia Tech)<br>
+<strong>Source</strong>: <em>Management Science</em> 62(9), 2668–2691, September 2016 (received January 17, 2012; accepted January 4, 2015; published online in Articles in Advance December 10, 2015)<br>
+<strong>Nature</strong>: Empirical journal article — econometric analysis of a firm-level "openness" event (IBM's 2005 Patent Commons pledge) on product-market entry by U.S. software start-ups; conditional fixed-effects count models on a 1999–2009 market-year panel<br>
+<strong>Data &amp; code status</strong>: Supplemental material (online appendices A and B) available at the article DOI (10.1287/mnsc.2015.2247); data sources are commercial directories and databases (CorpTech, Gale PROMT, NETS, SourceForge, USPTO) — no replication code distributed with the article
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Using IBM's 2005 pledge of 500 software patents to the Open Source Development Labs' Patent Commons ("The Commons") — part of a broader post-SCO IP strategy in support of open source software (OSS) — as a measurable "openness shock," Wen, Ceccagnoli and Forman show that a unilateral IP-opening strategy by a large incumbent stimulates new OSS product entry by entrepreneurial software firms, and that the effect grows with the cumulativeness of innovation and the concentration of patent ownership in the market — the two observable dimensions along which patent thickets raise the ex ante sunk costs of entry.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide for the "Hugging Face &amp; the Open-AI Economy" topic</strong>: this paper is the canonical pre-AI evidence that <em>opening up one layer of intellectual property is a strategic instrument for growing a complementary ecosystem</em>, and it supplies the identification template that the open-weight literature in Part&nbsp;I transposes to models: an incumbent unilaterally relaxes legal constraints on downstream producers (here: patent non-assertion; there: open weights / open licensing), and entry by small firms responds, most strongly where fragmented cumulative innovation would otherwise deter them. Read it alongside Henkel (2006) on selective revealing (why firms give away part of their IP on purpose), White et al. (2024) on what "open" means component by component, Azoulay et al. (2024) on whether opening weights destroys the opener's moat, and Haese &amp; Peukert (2026) on firms that build their product on OSS. Keep three features in mind while reading: (1) the opener (IBM) pledges <em>patents it does not need for its own business model</em>, which now runs on middleware and services over Linux — openness is chosen where the firm appropriates from complements; (2) the treatment is measured with unusual care (claims-weighted counts of pledged patents mapped to 33 software markets), which is why later hub-level papers can treat "openness events" as quasi-experiments; (3) the authors openly concede they cannot separate The Commons from IBM's other pro-OSS legal actions — a caution that applies equally to today's "open release" announcements.
+</div>
+
+<h2>1. Background and motivation: patent thickets, and a gap in the evidence on IP-opening strategies</h2>
+
+<p>The paper opens from a well-established tension. Patents play a "property rights" role in facilitating transactions in markets for technology (Arora et al. 2001; Gans et al. 2002), yet the strategic use of patents and the appearance of dense, overlapping webs of property rights — <strong>patent thickets</strong> — may also stifle innovation (Bessen and Meurer 2008; Jaffe and Lerner 2004; Shapiro 2001). The empirical record was mixed at the time: in semiconductors the pro-patent shift of the 1980s encouraged strategic patenting by capital-intensive firms but also entry by specialized design firms (Hall and Ziedonis 2001); in software, the mid-1990s expansion of patentability lowered average entry rates while raising the likelihood of entry by patent-holding firms (Cockburn and MacGarvie 2011).</p>
+
+<p>The authors' target is more specific than "do patents deter entry." Firms have long used <em>their own</em> patent portfolios to defuse thickets — making IPR available to others at low cost, or helping complementary producers discover prior art. Google's 2011 acquisition of Motorola is invoked as a prominent example: CEO Larry Page justified the deal as strengthening Android's defenses against "anticompetitive patent attacks." But, the authors argue, we had little evidence on whether such actions actually increase complementary innovative activity, or on the conditions under which they work best. The paper defines its object of study accordingly:</p>
+
+<blockquote>In our setting, we will refer to an IP strategy as any of a set of decisions on how to leverage one's own IP in order to stimulate complementary innovation. This could include a patent nonassertion pledge, or the establishment of other institutions to mitigate some of the risks of IPR infringement by complementors. (p. 2669 of the journal; PDF p. 3)</blockquote>
+
+<p>These strategies were already spreading well beyond software in 2016 — pledged IP had appeared in PC bus architectures and microprocessors (Ethiraj 2007; Gawer and Henderson 2007), open document format standards (Bekkers et al. 2012), electric cars (Musk 2014), and green technology (Hall and Helmers 2013) — so the question was general, not software-specific. The empirical setting chosen is IBM's support of OSS around the mid-2000s, and the outcome is <strong>OSS entry</strong>: the introduction of a firm's first product released under an OSS license in a software market by U.S. start-ups. OSS is a natural laboratory because the patent-thicket problem is thought to be acute there: development is distributed and incremental, innovation is highly cumulative, the provenance of code is hard to establish, and small OSS firms hold few patents with which to cross-license or to search prior art when facing litigation.</p>
+
+<h2>2. Core concept 1: IP strategy in a private–collective model of innovation</h2>
+
+<p>The theoretical frame is the <strong>private–collective model of innovation</strong> (von Hippel and von Krogh 2003). Under that model, an incumbent with a large patent portfolio that uses traditional appropriability mechanisms elsewhere may still contribute to public goods such as OSS: it cannot appropriate value directly from the public good, but it can create and appropriate value from <em>complementary</em> products and services — downstream applications that interface with OSS, support, middleware. IBM fits the profile: a firm whose business model shifted from operating systems toward high-end hardware, proprietary software running on top of Linux, and systems-integration and customized services for enterprise customers (Samuelson 2006).</p>
+
+<p>Patent thickets raise at least three broad types of <em>sunk</em> costs of entry for start-ups, each with a distinct channel through which an incumbent's pledge can help:</p>
+
+<blockquote>Patent thickets are overlapping patent rights that require firms to obtain licenses from multiple patent holders in order to commercialize new technology (Shapiro 2001). They can increase at least three broad types of sunk costs of entry for start-ups: (1) the costs of inventing around existing patents; (2) the costs of infringement, which may include the costs of licensing the infringed technology and the costs of litigation, such as acquiring a defensive patent portfolio as well as injunction and damages; and (3) the transaction costs of acquiring patents owned by others. (p. 2670 of the journal; PDF p. 4)</blockquote>
+
+<p>Large firms can navigate thickets by cross-licensing; small OSS firms mostly cannot, because OSS developers' norms are often philosophically opposed to software patents, and because the costs of writing and administering patents are too high for small firms relative to their benefits (insufficient resources even to hire legal staff). A patent pledge attacks these cost channels directly: start-ups can use the contributed technology instead of inventing around it; as more patents are pledged, pledged patents substitute for blocking patents held by multiple owners, lowering negotiation costs; and the pledge signals commitment to profit as a private–collective innovator through complements rather than through enforcement. The contributor formally retains the right to enforce its non-pledged patents, but exercising that right would damage its reputation in the OSS community — hence the perceived litigation threat declines, and with it the industry's "FUD":</p>
+
+<blockquote>As a result, the perceived threat of litigation will decline, or, to use a widespread terminology among software industry practitioners, there will be less "fear, uncertainty, and doubt" (FUD; see Auza 2011). (p. 2671 of the journal; PDF p. 5)</blockquote>
+
+<p>There are also indirect, public-good benefits. Pledging encourages reciprocal contributions from other private–collective innovators (who may pledge their own patents, or acquire rights to keep them out of hostile hands), creating norms of nonenforcement. Because contributions are a public good and firms in an asymmetric-information environment have an incentive to undercontribute (Coase 1960; Mailath and Postlewaite 1990), actors with high valuations must contribute more than others; in this setting, firms that hold many patents and appropriate more through complements need to contribute most. This is why the likelihood of an adequate "public good of pledged patents" is increasing in the large firm's initial contribution — a direct theoretical justification for focusing on IBM, the largest early contributor:</p>
+
+<blockquote>The contribution of patents represents a commitment not to assert IPR with the goal of fostering the development of new software by entities that are unable to protect themselves against IPR enforcement by traditional means. This goal is more likely to be accomplished when contributions are made by multiple firms. (p. 2671 of the journal; PDF p. 5)</blockquote>
+
+<h2>3. Core concept 2: where the effect should be largest — cumulativeness and ownership concentration</h2>
+
+<p>The second part of the framework asks in which markets a pledge lowers entry costs most. The authors isolate two observable dimensions of thickets that shape ex ante entry costs. <strong>Cumulativeness of innovation</strong> — the extent to which an innovator builds on prior developments (Green and Scotchmer 1995; Scotchmer 2004) — blurs the boundaries of blocking patents, raises the costs of inventing around, and makes inadvertent infringement and multi-license needs more likely. <strong>Concentration of patent ownership</strong> — how patent rights are distributed across holders — is contested territory. The paper stages a genuine theoretical debate between two views:</p>
+
+<ul>
+<li><strong>The anti-commons view</strong> (Heller and Eisenberg 1998): fragmented ownership of many small exclusionary patents raises the transaction costs of coming to terms with many holders — an "anti-commons" that deters use; firms may even patent more aggressively under fragmentation (Ziedonis 2004). Under this view, entry costs are highest when ownership is <em>fragmented</em>.</li>
+<li><strong>The litigation-value view</strong> (Galasso and Schankerman 2010; Lichtman 2006): concentration increases the value of any single negotiation for the patent holder, raising incentives to litigate; when a licensee must clear many patents, each negotiation is small and licensors litigate less. Under this view, expected infringement costs are highest when ownership is <em>concentrated</em>, and pledges bite hardest there.</li>
+</ul>
+
+<p>Because the two views predict opposite moderating roles for concentration, the empirics "allow the data to inform which of these alternative views shapes our results." The prediction on cumulativeness is unambiguous: pledges should matter most in cumulative environments. The hypotheses that follow are: (H1) IBM's IP strategy increases OSS entry; (H2) the effect increases with market cumulativeness; (H3) the effect is governed by the litigation-value logic — it increases with the concentration of patent ownership.</p>
+
+<pre class="mermaid">
+flowchart LR
+    A["Patent thickets in software markets<br/>(Shapiro 2001)"] --> B["Sunk costs of entry for start-ups<br/>1 inventing around · 2 infringement/litigation · 3 transactions"]
+    B --> C["Start-ups hold few patents;<br/>cross-licensing unavailable<br/>(p-c model, von Hippel &amp; von Krogh 2003)"]
+    C --> D["IBM IP strategy 2003-05<br/>SCO countersuit · non-assertion pledge<br/>Patent Commons (Jan 2005, 500 patents)"]
+    D --> E["Expected invention, licensing<br/>&amp; litigation costs fall; FUD declines<br/>reputation binds the pledger"]
+    E --> F["OSS entry by start-ups increases<br/>(first OSS product in a market)"]
+    E --> G["Reciprocal pledges by others;<br/>norms of nonenforcement (public good)"]
+    G --> F
+    H["Market moderators<br/>cumulativeness of innovation ↑<br/>patent-ownership concentration ↑"] -. stronger drop in entry costs .-> E
+    F --> I["More complements; OSS more valuable;<br/>opener appropriates downstream<br/>(middleware, services, hardware)"]
+    I --> J["Feedback: further entry<br/>and further pledges"]
+</pre>
+
+<h2>4. Research setting: IBM, the SCO shock, and The Commons</h2>
+
+<p>The empirical context is IBM's IP strategy and its consequences for OSS innovation between 1999 and 2009. IBM announced its commitment to Linux in 1999, invested $1 billion over three years from 2001 to make Linux enterprise-suitable, made all its hardware Linux-compatible, and progressively exited operating systems in favor of middleware, application software, and services — explicitly supporting OSS to promote open standards in areas complementary to its profitable businesses (Campbell-Kelly and Garcia-Swartz 2009; Capek et al. 2005).</p>
+
+<p>Many of IBM's pro-OSS actions, however, are hard to measure at the level of specific software markets, so the authors focus on one quantifiable element: contributions to the Open Source Development Labs' <strong>Patent Commons</strong> ("The Commons"). Its virtues for identification: it lists every contributed patent number (measurable and market-allocable), it spans many software markets (within-market over-time variation), and it was introduced in January 2005, leaving six pre-years (1999–2004) and five post-years (2005–2009) in the sample window.</p>
+
+<blockquote>In January 2005, IBM pledged access to 500 software patents to "any individual, community, or company working on or using software that meets the Open Source Initiative (OSI) definition of open source software now or in the future" (International Business Machines Corporation 2005). Subsequent to IBM's action, several other incumbents pledged an additional 29 patents to The Commons. (p. 2673 of the journal; PDF p. 7)</blockquote>
+
+<p>The pledge was announced as the largest patent pledge of any kind; pledged patents are listed in a public database, and users need sign no formal agreement. The authors are explicit that The Commons is a <em>proxy</em> for a coherent, multi-action IP strategy, not an isolated event: the pledge of patents in 2005 is one act in a sequence that began with the SCO Group's $1 billion lawsuit against IBM in March 2003 over UNIX code allegedly copied into Linux. IBM's responses — a point-by-point answer (April 2003), a countersuit (August 2003), an OSS legal defense fund with OSDL and Intel (January 2004) to indemnify customers targeted by SCO, and Senior Vice President Nick Donofrio's August 4, 2004 announcement that IBM would not assert its patents against the Linux kernel — clustered between 2003 and 2005. The clustering makes the separate effect of each action unidentifiable; The Commons is therefore used as the measure of the strategy's intensity by market.</p>
+
+<table>
+<tr><th>Date</th><th>Event (as reported in the paper)</th><th>Role in the paper</th></tr>
+<tr><td>1999–2001</td><td>IBM announces commitment to Linux; $1 billion, three-year investment program announced 2001</td><td>Background: strategic pivot toward complements (hardware, middleware, services)</td></tr>
+<tr><td>March 2003</td><td>SCO Group files $1 billion lawsuit against IBM over UNIX code in Linux</td><td>Shock that triggers the measured IP actions; origin of the identification window</td></tr>
+<tr><td>April 2003</td><td>IBM files detailed point-by-point answer to SCO's complaint</td><td>Part of the coherent pro-OSS legal strategy</td></tr>
+<tr><td>August 2003</td><td>IBM files countersuit against SCO; Red Hat separately sues SCO</td><td>Same</td></tr>
+<tr><td>January 2004</td><td>IBM, OSDL and Intel launch an OSS legal defense fund indemnifying OSS customers targeted by SCO</td><td>Same</td></tr>
+<tr><td>August 4, 2004</td><td>IBM SVP Nick Donofrio announces IBM will not assert its patents against the Linux kernel</td><td>Same; likely a response to the Open Source Risk Management report naming IBM among firms whose patents might affect Linux</td></tr>
+<tr><td>January 2005</td><td>IBM pledges 500 software patents to The Commons; later incumbents add 29 patents</td><td>The measured treatment (claims-weighted counts per market)</td></tr>
+<tr><td>Later (near sample end)</td><td>Open Invention Network (OIN) established</td><td>Used as a control; too late for a powered test of its own effect</td></tr>
+</table>
+
+<h2>5. Data and measures</h2>
+
+<p>The sample is 2,054 start-up software firms drawn from the 2004 and 2010 editions of the CorpTech Directory of Technology Companies, operating primarily in the U.S. prepackaged software industry. "Start-up" is operationalized as founded after 1990, fewer than 1,000 employees, and less than $500 million in annual sales; combining the 2004 and 2010 directories addresses potential survivor bias (CorpTech has no historical data for 2005–2009, the core sample years). The sample period is 1999–2009.</p>
+
+<p><strong>Dependent variable — OSS entry.</strong> Entry for software market <em>j</em> in year <em>t</em> counts events in which a start-up introduces its <em>first</em> OSS product into that market. Identification uses press releases in the Gale PROMT database in three steps: keyword search for OSS-related articles; manual reading of every hit to detect new OSS product introductions (a new product with at least one module under an open source license, or a new version of an existing product adding open source modules); and retention only of events where the firm entered a market in which it previously had no OSS product. This yields 242 new OSS product entry events by 85 start-up firms over 1999–2009, aggregated into a balanced market-year panel. Markets are defined by PROMT software product codes, cross-walked through a PROMT–CorpTech concordance and a patent–CorpTech concordance (following Cockburn and MacGarvie 2006, 2011) into a final mapping of 33 software markets to 422 patent class–subclass combinations.</p>
+
+<p><strong>Treatment — The Commons.</strong> Log of the claims-weighted count of patents in The Commons related to market <em>j</em> cumulated to year <em>t</em>. Claims weighting is justified because the scope of a patent is defined by its claims and because claims proxy for effort to resist invalidation (i.e., value); the log reduces skewness. <strong>Cumulativeness</strong> follows Clarkson (2005): the average propensity of patents in a market to backward-cite other patents in the same market, computed from the share of possible backward citations actually made. <strong>Concentration</strong> follows Noel and Schankerman (2013) and Cockburn and MacGarvie (2011): the four-assignee citation concentration ratio — the share of a market's backward citations held by the top four cited assignees, capturing how much prior art is owned by the firms one must negotiate with. Controls include sales growth (from the NETS database, ~4,500 software firms assigned to eight-digit SIC 7372 codes), total market patents, patent quality (citation stock per patent), patent age, OIN patents, SSO patents licensed royalty-free (major eight SSOs, 1971–2008, from Rysman–Simcoe data), and an OSS-demand proxy constructed by weighting total software sales by the market's share of SourceForge downloads (over 0.2 million OSS applications mapped to the 33 markets).</p>
+
+<h2>6. Evidence and methods</h2>
+
+<p>The estimation framework extends the literature on patent thickets and software entry (Cockburn and MacGarvie 2011): OSS entry is modeled with count-data models with conditional market fixed effects — a Poisson specification absorbing market-specific, time-constant heterogeneity (<em>E</em>[<em>Y</em><sub><em>jt</em></sub> | <em>X</em><sub><em>jt</em></sub>, α<sub><em>j</em></sub>] = α<sub><em>j</em></sub> exp(<em>X</em><sub><em>jt</em></sub>′β)), with year dummies, controls lagged one year, and robust standard errors clustered at the market level. The key coefficient is on The Commons; interaction terms with lagged cumulativeness and concentration test the heterogeneous predictions. The conditional fixed-effects estimator drops markets with no OSS entry over the whole period, giving 286 observations (from 363 market-year cells).</p>
+
+<p>Because the treatment is not randomized — IBM chose both the timing and the market distribution of its contributions — the authors invest heavily in probing the quality of the "treatment." Three lines of evidence stand out. First, <em>pledged patents are compared with counterfactual patents</em> (matching on subclass and application year, following Thompson and Fox-Kean 2005): against similar market patents and against IBM's own similar patents, pledged patents look comparable in forward citations and somewhat less derivative, but carry fewer claims — i.e., plausibly less resistant to invalidation. Second, the <em>market distribution</em> of IBM's pledges tracks its proprietary patent portfolio (operating systems and utilities, disk/file management, database software at the top of both distributions). Third, a <em>pre/post comparison of market characteristics</em> (Table 4 in the paper) shows the markets that received large Commons contributions differed persistently (higher concentration, more total patents, younger patents) — motivating the fixed-effects design rather than naive comparisons.</p>
+
+<table>
+<tr><th>Comparison (paper's Tables 2 &amp; 3)</th><th>Patents in The Commons vs. similar market patents</th><th>IBM's pledged patents vs. IBM's other similar patents</th></tr>
+<tr><td>Matched pairs</td><td>517</td><td>407</td></tr>
+<tr><td>Forward citations (as of Dec. 2004)</td><td>11.39 vs. 12.33 — no significant difference</td><td>11.04 vs. 10.34 — no significant difference</td></tr>
+<tr><td>Backward citations</td><td>9.72 vs. 9.74 — no significant difference</td><td>9.68 vs. 11.55 — lower for pledged (significant at 1%)</td></tr>
+<tr><td>Claims</td><td>17.32 vs. 19.40 — lower for pledged (significant at 1%)</td><td>16.81 vs. 18.65 — lower for pledged (significant at 5%)</td></tr>
+<tr><td>Authors' interpretation</td><td colspan="2">Pledged patents are of similar quality and somewhat less derivative, but may be less resistant to invalidation challenges; 57% were granted before 1998 and 97% before 2002, limiting citation-truncation concerns. The paper notes the industry perception that big firms do not pledge their most important patents (fn. 5, citing Bort 2010).</td></tr>
+</table>
+
+<p>Descriptive evidence (Figures 2–4 of the paper) shows OSS entry rising after 2005 mainly in markets with many Commons patents, and growth concentrated in high-cumulativeness and high-concentration markets; a moderate entry increase appears already in 2003 and a marked one in 2004 — before The Commons existed, but coincident with the SCO case and IBM's legal responses to it.</p>
+
+<h2>7. Findings</h2>
+
+<p>The central result (Table 5 of the paper): a 10% increase in The Commons' claims-weighted patents related to a software market is associated with a 1.6% increase in OSS entry into that market (baseline, column (1)); the introduction's preview of results summarizes the average association as 1% to 3% (pp. 2669–2670). The heterogeneity results match the theoretical predictions:</p>
+
+<ul>
+<li><strong>Cumulativeness.</strong> Interacting The Commons with market cumulativeness (column (2)): a 10% increase in The Commons is associated with about a 3% rise in OSS entry at the average level of cumulativeness; at the 90th percentile of cumulativeness the effect rises to about 5%, while at the 10th percentile it is not significant. The difference between the 10th- and 90th-percentile marginal effects is statistically significant. The introduction's preview (p. 2670) reports the range across specifications as moving from 0.6%–1.3% (10th percentile) to 4.0%–5.5% (90th percentile).</li>
+<li><strong>Concentration.</strong> Interacting with ownership concentration (column (3)): The Commons is insignificant at the 10th percentile or mean of concentration, but a 10% increase is associated with a significant ~1.5% increase in OSS entry at the 90th percentile; the 10th-vs-90th difference is significant at 5%. The range reported in the introduction (p. 2670) is 0%–1.7% (10th) to 1.5%–2.7% (90th). The sign pattern supports the litigation-value view over the anti-commons view: it is <em>concentrated</em> patent ownership, not fragmentation, that makes a pledge valuable to entrants.</li>
+<li><strong>Both moderators together</strong> (column (4)): a 10% increase is associated with a ~4% increase in OSS entry at the 90th percentile of cumulativeness (difference from low cumulativeness significant at 1%); the concentration interaction keeps its positive sign but loses significance, which the authors attribute to multicollinearity (the simple correlation between the two interaction terms is 0.66, fn. 23).</li>
+</ul>
+
+<p>Robustness is extensive (Table 6 and online appendix B): adding the "endogenous-looking" controls (OSS demand, OIN patents, SSO patents) leaves results similar; adding market-specific linear time trends weakens magnitudes somewhat but preserves the pattern (a 10% increase → ~2.8% at the 90th percentile of cumulativeness, difference significant at 10%); results survive OLS with market fixed effects, raw and citations-weighted counts instead of claims weighting, alternative sample endpoints (2007 and 2008), an eight-assignee concentration measure, and controls for market-structure (sales-based) concentration — the last confirming that it is concentration of <em>IP holdings</em>, not of market structure, that moderates the effect.</p>
+
+<p><strong>Timing tests</strong> (Table 7) sharpen the interpretation. The Commons' measured effect is larger (a 10% increase → ~4.4% more entry) when the reference period is 1999–2002 rather than 1999–2004, because entry already rose in 2003–2004. Interacting the 2005 size of The Commons with year dummies shows significant positive coefficients for 2004 and 2003 but a small, insignificant coefficient for 2002 — evidence that the "effect" begins exactly when IBM's post-SCO legal actions begin, and no pre-trend before the SCO lawsuit. A placebo-style measure built from IBM's <em>non-pledged</em> patents matched to the same classes (IBM matched patents) shows a similar but weaker pattern (significant for 2004, insignificant for 2003), as expected if The Commons proxies IBM's broader commitment.</p>
+
+<p><strong>Falsification on proprietary entry</strong> (Table 8). The authors re-measure proprietary (closed-license) product entry from the same press releases (2,384 events, 2002–2009, 29 markets after a PROMT code reclassification forced aggregation; mean proprietary entries per market-year = 10.28, versus 0.75 for OSS entry identified with manual reading and 0.13 for OSS entry identified by PROMT codes alone). The Commons shows no significant association with proprietary entry, and in the pooled OSS/proprietary specification a 10% increase in The Commons raises entry by ~3% in OSS markets with no effect in proprietary markets (difference significant at 1%). Because IBM's actions should benefit only OSS producers, this is the pattern the framework predicts — though the authors flag the proprietary-entry data as weaker (45% of product-introduction articles lack PROMT product codes, and code reclassification forced coarser markets).</p>
+
+<table>
+<tr><th>Estimand (as reported in the prose)</th><th>Effect of a 10% increase in The Commons on OSS entry</th><th>Source in the paper</th></tr>
+<tr><td>Baseline, average market</td><td>+1.6% (introduction preview range: 1%–3%, pp. 2669–2670)</td><td>§6.3 (p. 2681), Table 5 col. (1); Introduction</td></tr>
+<tr><td>At average cumulativeness</td><td>≈ +3%</td><td>Table 5 col. (2)</td></tr>
+<tr><td>At 90th percentile cumulativeness</td><td>≈ +5% (10th-percentile effect insignificant)</td><td>Table 5 col. (2); intro range 4.0%–5.5% (p. 2670)</td></tr>
+<tr><td>At 90th percentile patent-ownership concentration</td><td>≈ +1.5% (significant); 10th percentile insignificant</td><td>Table 5 col. (3); intro range 1.5%–2.7% (p. 2670)</td></tr>
+<tr><td>Both moderators; cumulativeness at 90th</td><td>≈ +4% (difference significant at 1%); concentration interaction loses significance (corr. of interactions = 0.66)</td><td>Table 5 col. (4); fn. 23</td></tr>
+<tr><td>With market-specific time trends; 90th-pct cumulativeness</td><td>≈ +2.8% (difference significant at 10%)</td><td>Table 6 col. (6)–(8)</td></tr>
+<tr><td>Timing model, reference period 1999–2002</td><td>≈ +4.4%</td><td>Table 7 col. (1)</td></tr>
+<tr><td>Falsification: OSS vs. proprietary markets (pooled)</td><td>+3% in OSS markets; zero in proprietary markets; difference significant at 1%</td><td>Table 8 col. (5)</td></tr>
+</table>
+
+<h2>8. Position in the literature</h2>
+
+<p><strong>Its own research stream.</strong> The paper belongs to the economics-of-open-source and private-collective innovation tradition, and it answers the question that tradition left open on the <em>demand side of openness</em>. von Hippel and von Krogh (2003) supplied the model of why profit-seeking firms contribute to public goods and appropriate from complements; Fosfuri, Giarratana and Luzzi (2008) showed which firms commercialize OSS products (those with complementary patents or downstream capabilities); Alexy and Reitzig (2013) analyzed how private–collective innovators use pledges and counterintuitive appropriation to fend off proprietary rivals. Wen, Ceccagnoli and Forman add the missing quantitative link: an incumbent's unilateral IP-opening raises <em>entry by the small firms that the model says matter</em>, and does so precisely where thickets are worst. In the entry-and-IP literature the paper sits next to Cockburn and MacGarvie (2009, 2011) — which it extends from "patents deter entry" to "strategic non-assertion attracts OSS entry" — and it speaks directly to the anti-commons debate (Heller and Eisenberg 1998; Ziedonis 2004; Galasso and Schankerman 2010): its concentration results are an empirical vote for the litigation-value view of thickets over the fragmentation view, while its treatment — a single firm's patent commons — is offered as an alternative to multilateral mechanisms such as patent pools (Lampe and Moser 2010, 2014) and standard-setting organizations (Rysman and Simcoe 2008; Simcoe et al. 2009). Methodologically it follows the measurement template of Cockburn and MacGarvie for mapping patents to software markets, and the broader literature connecting formal IPR to the rate and direction of innovation in cumulative settings (Murray and Stern 2007 on the anti-commons in science; Williams 2013 on the human genome).</p>
+
+<p><strong>Dialogue with Henkel (2006), its closest Part II neighbor.</strong> Henkel studied <em>selective revealing</em> in embedded Linux: firms voluntarily reveal part of their own code to OSS development while protecting the rest, trading proprietary secrecy for external development effort and standard compatibility. Wen et al. move from code to patents and from the opener's decision to the <em>entrant's response</em>. The two papers are mirror images of one strategic act: Henkel shows why and which firms reveal (the supply of openness, measured on contributing firms); Wen et al. show what revealing achieves (the demand response, measured as downstream market entry). Both assume the firm keeps the valuable core private — Henkel's firms hide their differentiating code; IBM keeps its middleware and services model while giving away patents in markets where it no longer competes directly. Read together, they define the "open part of the portfolio" as a deliberate, bounded choice rather than an ideology: openness is profitable where the firm appropriates from complements, and the boundary of what is revealed is the strategic variable.</p>
+
+<p><strong>Connection to the Part I core on Hugging Face and the Open-AI economy.</strong> Wen et al. 2016 is the historical template for three moves that recur throughout the core library: measuring an openness event; testing heterogeneity by ecosystem structure; and asking whether the opener keeps its own moat. Concretely:</p>
+
+<ul>
+<li><strong>White et al. (2024), the Model Openness Framework (MOF)</strong>: the MOF insists that an AI artifact's openness is decided <em>component by component</em> (code, weights, data, documentation, license terms), and that "open weights" is a partial state. Wen et al. is the pre-AI demonstration of the same logic at work: IBM opened one component — patent claims over specified technologies — while leaving its proprietary software, services, and hardware fully closed, and the pledge's value was precisely that it was component-specific and legally credible. The claims-weighted measure of pledged patents is an early cousin of MOF-style questions: not "is it open?" but "what exactly is opened, under what terms, and does it cover what downstream producers need?" (Notably, the paper also reports the industry perception that pledgers do not give away their crown jewels — a caution the MOF repeats about open-weight releases that omit data.)</li>
+<li><strong>Azoulay, Krieger and Nagaraj (2024), "Old Moats for New Models"</strong>: the Part I paper asks whether open-weight publishing erodes the proprietary advantages of frontier AI builders. Wen et al. supplies the antecedent empirical answer for patents: a large firm can open a layer of IP and <em>increase</em> the complementary innovation around it without surrendering the layers where it appropriates value — and the strategic logic (profit from complements, keep the differentiating assets) is exactly the private–collective logic Azoulay et al. analyze for weights, data and ecosystem control. Where Wen et al. measure the upside of openness (entry), Azoulay et al. measure the downside (erosion of the opener's position) — together they frame openness as a portfolio decision with heterogeneous payoffs.</li>
+<li><strong>Haese and Peukert (2026), "Open at the Core"</strong>: Haese and Peukert study when and how firms <em>abandon</em> proprietary technology to build their product on OSS. Wen et al. study the complementary case: an incumbent that keeps its core proprietary but opens the IP around it to attract complementors. The two papers bracket the strategic choice "how much of the stack do I open": Wen et al. show openness of the <em>complementary</em> layer stimulates entry; Haese and Peukert examine firms that open (or adopt) the <em>core</em>. Both belong to the stream (with Yue and Nagle 2024 and Wu, Lin and Li 2025) that treats openness events as shocks whose effects on ecosystems can be estimated.</li>
+<li><strong>Other Part I papers</strong>: Yue and Nagle (2024) study Facebook's relinquishing control of PyTorch — the modern "devolve control to grow the ecosystem" event whose 2000s analog is IBM's patent pledge (though IBM devolved legal rights while keeping governance of its own products); Wu, Lin and Li (2025) run a difference-in-differences around the Llama 2 open-weights release on Hugging Face developers — the same "openness shock → downstream entry" design on a platform setting, where the "market cumulativeness and concentration" moderators of Wen et al. reappear as questions about model specialization and ecosystem structure (Laufer et al. 2025; Khoshbash 2026; Longpre et al. 2025); Yeverechyahu et al. (2024) ask whether LLMs raise contributions to open-source innovation — an entry-cost reduction of a different kind (production costs rather than IP risks), echoing Wen et al.'s mechanism that lowering ex ante costs is what moves entry; the platform-complementor dynamics in O'Mahony and Karp (2022) and Wen and Zhu (2019) concern the same "who controls the platform layer" question from the complementor's side.</li>
+</ul>
+
+<p><strong>What it challenges.</strong> The paper challenges the presumption, implicit in much of the anti-commons literature, that formal IPR is uniformly hostile to cumulative, community-based innovation: it shows that the <em>strategic exercise</em> of IPR — including deliberate non-assertion — can be the very instrument that unlocks the ecosystem, and that a unilateral corporate act can substitute for, or complement, multilateral institutions (pools, SSOs) that the literature had emphasized. It also challenges any treatment of patent pledges as cheap talk: by measuring where pledges land and showing they track the pledger's own portfolio while still moving entry, the paper gives the "commitment" interpretation teeth (the pledger's reputation binds it — the FUD mechanism).</p>
+
+<table>
+<tr><th>Paper in the topic library</th><th>Openness dimension studied</th><th>What Wen et al. 2016 contributes to reading it</th></tr>
+<tr><td>Henkel 2006 (selective revealing, embedded Linux)</td><td>Firms revealing part of their own code</td><td>Supplies the entrant-side outcome (entry) for the opener-side behavior Henkel documents; both treat the revealed portion as bounded and strategic</td></tr>
+<tr><td>White et al. 2024 (Model Openness Framework)</td><td>Component-level openness of AI artifacts (17 components, classes I–III)</td><td>Pre-AI proof that component-specific legal openness (pledged patent claims, not the whole portfolio) is measurable and causally effective</td></tr>
+<tr><td>Azoulay et al. 2024 (old moats, open weights)</td><td>Open weights vs. control of data, ecosystem, distribution</td><td>Empirical baseline for "opening one layer raises complementors' activity"; the moat question reads as: does the opener still profit from the closed layers? (IBM: yes)</td></tr>
+<tr><td>Haese &amp; Peukert 2026 (open at the core)</td><td>Firms building products on OSS / opening core technology</td><td>Complementary case: openness of the surrounding IP to seed entry vs. openness of the core itself</td></tr>
+<tr><td>Yue &amp; Nagle 2024 (PyTorch); Wu, Lin &amp; Li 2025 (Llama 2 on HF)</td><td>Control-relinquishing / open-weights shocks in developer ecosystems</td><td>Both replicate Wen et al.'s design ("openness event → downstream entry") in AI; Wen et al. show the moderating role of cumulative, concentrated knowledge</td></tr>
+<tr><td>Yeverechyahu et al. 2024 (Copilot and open-source innovation)</td><td>LLM tools lowering the cost of OSS contributions</td><td>Another channel (production cost) for the same mechanism Wen et al. isolate (ex ante entry costs)</td></tr>
+<tr><td>Laufer et al. 2025; Longpre et al. 2025; Khoshbash 2026</td><td>Hub structure, derivative adaptation, specialization of open models</td><td>Map the ecosystem structure that Wen et al.'s market-level moderators (cumulativeness, concentration) proxy in software markets</td></tr>
+</table>
+
+<pre class="mermaid">
+flowchart TB
+    subgraph P2["Part II · open-innovation canon (2000s)"]
+        VK["von Hippel &amp; von Krogh 2003<br/>private–collective model"]
+        H["Henkel 2006<br/>selective revealing (code)"]
+        W["Wen et al. 2016<br/>opening IP (patents) to stimulate entry"]
+        F["Fosfuri et al. 2008 · Alexy &amp; Reitzig 2013<br/>commercialization of OSS; p-c strategy"]
+        VK --> W
+        H --> W
+        F --> W
+    end
+    subgraph P1["Part I · Hugging Face &amp; open AI (2022–26)"]
+        MOF["White et al. 2024<br/>Model Openness Framework (component openness)"]
+        AZ["Azoulay et al. 2024<br/>open weights vs. moats/control"]
+        HP["Haese &amp; Peukert 2026<br/>open at the core"]
+        YN["Yue &amp; Nagle 2024 · Wu et al. 2025 (ICIS)<br/>openness shocks on developer ecosystems"]
+        HUB["Laufer 2025 · Longpre 2025 · Khoshbash 2026<br/>hub structure &amp; specialization"]
+    end
+    W -->|"same logic: open one layer,<br/>keep the appropriable core"| MOF
+    W -->|"entry response measured;<br/>moat question left open"| AZ
+    W -->|"complementary to core-openness"| HP
+    W -->|"template: openness event → downstream entry"| YN
+    YN --> HUB
+</pre>
+
+<h2>9. Limitations</h2>
+
+<p>The authors are unusually candid about identification limits, and the text lets us separate claims, evidence, inferences, and open questions cleanly.</p>
+
+<p><strong>Paper claims (author-stated).</strong> (1) Increases in the size of The Commons in a software market are associated with increases in OSS entry by start-ups into that market; (2) the association is strongest in markets with high cumulativeness of innovation and with concentrated patent ownership; (3) the effects begin when IBM's broader post-SCO legal strategy begins (2003–2004), with no pre-trend before the SCO lawsuit and no effect on proprietary entry; (4) The Commons is best read as a proxy for IBM's coherent multi-action IP strategy rather than as an isolated event.</p>
+
+<p><strong>Evidence (author-stated).</strong> The claims rest on conditional fixed-effects Poisson regressions over 33 software markets and 1999–2009 (286 market-year observations used), on matched-patent quality comparisons (n = 517 and n = 407), on timing tests interacting the 2005 Commons size with year dummies (significant 2004 and 2003 effects; insignificant 2002), on a matched non-pledged IBM-patent placebo, on a proprietary-entry falsification (2,384 events), and on an extensive robustness battery (full controls, market-specific time trends, OLS, alternative patent weights, alternative endpoints, eight-assignee concentration, market-structure controls). The paper repeatedly cautions that the regression estimates represent the equilibrium outcome of IBM's contribution choices and start-ups' entry decisions, not a randomized treatment effect: "we do not possess a true exogenous variable that shifts contributions to The Commons" (§6.3).</p>
+
+<p><strong>Reader inferences (independent judgment).</strong> (1) The concentration result is a meaningful empirical contribution to the anti-commons versus litigation-value debate — the sign pattern supports the litigation-value view — but the authors themselves frame this as letting "the data inform which of these alternative views shapes our results," so the inference that fragmentation is benign should not be pushed beyond this setting. (2) The magnitude ordering (entry response of roughly 1.5%–5% per 10% more pledged claims, concentrated in thicket-prone markets) suggests that IP openness mattered at the margin for entry timing and location rather than transforming the industry — an interpretation consistent with 242 entry events over eleven years. (3) The generalizability to AI is my extrapolation: patent-thicket severity is not the binding constraint on downstream AI startups in the same way, because open-weight licenses create different legal exposures (license terms, training-data provenance) than the patent thickets of 2000s software; the analogies in section 8 should be read as structural, not quantitative.</p>
+
+<p><strong>Open questions (partly author-stated).</strong> The authors list: (1) disentangling the direct cost-reduction mechanism from the signaling mechanism ("we do not explicitly disentangle these different mechanisms, but we believe this is an important question for future study"); (2) effects on large private–collective firms and on proprietary-license sellers, which the study does not cover; (3) survival effects — only one sampled OSS entrant exited before the end of the period, so survival cannot be studied. Author-acknowledged measurement weaknesses include the proprietary-entry falsification (45% of articles missing PROMT product codes; coarser 29-market coding), the NETS-based sales-growth assumption (markets sharing an SIC code get the same growth rate), and the admitted nuance that the cumulativeness measure also captures how focused knowledge is within a market. An open question I would add (independent judgment): whether the results reflect entry that would have happened anyway, displaced across markets or years — the identification cannot fully rule out that IBM's pledges accelerated entry that was already coming in high-cumulativeness, high-concentration markets.</p>
+
+<h2>10. Conclusion and takeaways for the open-AI topic</h2>
+
+<p>The paper's conclusion states its contribution in its own terms:</p>
+
+<blockquote>the data show that these actions taken together had a significant impact on OSS entry, suggesting that opening up the IP space is an effective mechanism to stimulate start-up innovation in settings characterized by patent thickets and cumulative innovation. (p. 2688 of the journal; PDF p. 22)</blockquote>
+
+<p>It then generalizes beyond software, citing Tesla's 2014 open patent pledge and the Eco-Patent Commons of IBM, Sony, Bosch and DuPont, and quoting Musk's rationale for opening the patents: the real competitor was the gasoline car, not other electric-car startups. Three takeaways travel to the Hugging Face and open-AI economy. First, <em>openness is a portfolio decision, not an identity</em>: the opener reveals what complements its business model and keeps the layers where it appropriates value — the same structure that makes an open-weight release by a frontier lab with proprietary data, chips, or distribution analytically familiar. Second, <em>the payoff of openness is conditional on ecosystem structure</em>: the measured benefits concentrate where cumulative, concentrated knowledge would otherwise block entrants — a warning against evaluating "open AI" with a single average effect. Third, <em>credibility is the mechanism</em>: pledges work because reputation binds the pledger and reduces entrants' expected litigation costs (FUD); today's equivalent question is what makes an open-weight or open-license commitment credible to downstream developers when licenses, training data, and enforcement norms are still unsettled.</p>
+
+<div class="golden">
+"If these contributions do not lead to complementary innovation, then the benefits to contribution will be isolated to the positive publicity in the OSS community. Our results show that such contributions will have an effect on commercial activity in OSS, particularly in markets where patent thickets are most likely to raise ex ante entry costs." (Wen, Ceccagnoli &amp; Forman, 2016, Conclusion, p. 2689 of the journal)</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI as an English deep-dive for the local reading-notes site, grounded in the pdftotext conversion of the local PDF (Management Science 62(9): 2668–2691, DOI 10.1287/mnsc.2015.2247). Page numbers given as "p. N of the journal; PDF p. M" are computed by counting form-feed page separators before each quoted passage in the extraction: PDF page 1 is the INFORMS cover and journal pages 2668–2691 map to PDF pages 2–25, so journal page = 2666 + PDF page. Quoted sentences are verbatim from the extraction apart from normalizing quotation marks (the raw text mixes straight and curly quotes) and collapsing line breaks; tables reproduce the paper's own summary statistics and prose-reported marginal effects rather than raw regression cells (the two-column pdftotext output garbles table digits, so every number in Table 4 of this note was cross-checked against the paper's prose and abstract). The analogies to White et al. (2024), Azoulay et al. (2024), Haese &amp; Peukert (2026) and the other topic-library papers are structural interpretations by the AI reader, not quotations from those papers; statements about IBM, SCO, The Commons, sample sizes and estimates are as they appear in Wen et al. (2016). Please verify quotations and numbers against the original PDF before citing.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

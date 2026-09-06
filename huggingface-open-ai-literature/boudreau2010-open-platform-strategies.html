@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Platform Strategies and Innovation (Boudreau, 2010) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Open Platform Strategies and Innovation: Granting Access vs. Devolving Control</h1>
+<div class="meta">
+<strong>Boudreau, Kevin (2010)</strong> · <em>Management Science</em> 56(10): 1849–1872 · DOI <a href="https://doi.org/10.1287/mnsc.1100.1215">10.1287/mnsc.1100.1215</a><br>
+<strong>Authors</strong>: Kevin Boudreau (Department of Strategy and International Management, London Business School; drawn from his MIT Sloan dissertation, advisors R. Henderson, M. Cusumano, M. Rysman)<br>
+<strong>Source</strong>: <em>Management Science</em>, Vol. 56, No. 10, October 2010, pp. 1849–1872. Received August 14, 2008; accepted May 16, 2010 (department editor Sandra Slaughter, information systems); published online in Articles in Advance September 9, 2010<br>
+<strong>Year</strong>: 2010<br>
+<strong>Nature</strong>: Empirical econometric study of platform openness and innovation. Hand-collected product-level panel on the handheld computing industry, 1990–2004 (21 operating-system platforms; new hardware devices as the innovation outcome); fixed-effects count-data regressions. No structural model; identification from within-system changes in open policies plus controls, not a natural experiment<br>
+<strong>Data &amp; code status</strong>: No replication files are reported in the article. Data were hand-collected by the author and research assistants over more than 24 months from trade publications, product lists, company press releases, 10-K filings, market research archives (IDC, Gartner Dataquest), COMPUSTAT, and interviews. Source text for this note: pdftotext of the local PDF, 26 pages including the INFORMS download cover page (article text on PDF pp. 2–25 = printed pp. 1849–1872)
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Boudreau separates "opening" a technology platform into two distinct margins — <strong>granting outside developers access</strong> to the market for complementary components around the platform, versus <strong>devolving control</strong> over the platform itself — and shows in handheld computing (1990–2004) that they activated different economic mechanisms: liberalizing access to independent hardware developers raised the rate of new device introductions along an inverted U that peaked at intermediate licensing liberality (up to roughly a fivefold, ≈4.6×, acceleration), while giving up platform control (equity, vertical scope, outside contributions to the operating system) added only about a 20% increase on average.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide (topic: Hugging Face &amp; the Open-AI Economy)</strong>: This paper supplies the canonical vocabulary that the Part I papers reuse: when an AI firm "opens" something, which margin is being opened — access to complements, or control of the core? In the Hugging Face economy, releasing model weights licenses outsiders to build fine-tunes, apps, and services (an access/complement margin on the Hub), whereas handing a foundational framework to an open community, as with PyTorch, is closer to Boudreau's second margin of devolving control over the platform itself. Two of its empirical results carry the weight when you read the modern papers: (i) access liberalization has a nonmonotonic, inverted-U relationship with innovation, so "more openness is better" is not the right reading of the evidence; and (ii) incremental variation in platform control moved innovation only weakly in this setting, which sets up the question of when control relinquishment matters at all — the question Yue and Nagle (2024) reopen with PyTorch. Keep asking, for each modern open-weight release or hub policy: does it change who may build complements (access) or who decides the future of the core technology (control)?
+</div>
+
+<h2>1. Background and motivation: how to organize the development of a technology system</h2>
+
+<p>Boudreau starts from a question in the economics of innovation and appropriability (Teece 1986): an innovator of a technology may choose to "open" it by letting outsiders participate in its development and commercialization (Shapiro and Varian 1998). The choice is especially consequential for <strong>systems</strong> — products made of multiple components, such as computers, automobiles, telecommunications services, and video games (Katz and Shapiro 1994; Marschak 1962) — because a system can be opened one component at a time. Whether to open is described as "one of the most crucial decisions an innovator will face": opening can build momentum behind a technology but can leave its creator little control and little ability to appropriate value.</p>
+
+<p>The paper's entry point is the observation that the openness decision is a bundle of distinct choices that the literature tended to conflate. "Part of the difficulty in distinguishing these approaches is that they often coincide in theory and practice." If a platform owner devolves all control, no party remains who can restrict outsiders, so widespread entry can follow; public communications standards and open-source UNIX/Linux illustrate how giving up the core can also open complementary markets for hardware, services, and consulting. But owners can open complementary development without giving up control — it is enough that independent developers be permitted to use the platform while their components are made legally and technically interoperable. The paper's organizing contrast is therefore:</p>
+
+<blockquote>One approach is to grant access to a platform and thereby open up markets for complementary components around the platform. Another approach is to give up control over the platform itself. (Boudreau, 2010, abstract; printed p. 1849 = PDF p. 2)</blockquote>
+
+<p>The cleanest illustration is Apple's iPhone: Apple tightly controls the operating system while allowing thousands of outsiders to develop applications and content — a textbook case of granting access to complements while retaining control of the platform:</p>
+
+<blockquote>Apple tightly controls development of its iPhone operating system (and the closely linked iPhone, iPod, and iPad hardware), but allows thousands of outsiders to develop software applications, commercial media, and user-generated content. This example illustrates the important distinction between giving up control over the platform and simply granting access to the platform in order to open up complementary development. (Boudreau, 2010; printed p. 1850 = PDF p. 3)</blockquote>
+
+<p>The motivation is empirical as well as conceptual. Two strands of theory existed — one on how wide access to mix-and-matchable components fosters diverse experimentation (e.g., Baldwin and Clark 2000; von Hippel 2005), another on how owners stimulate innovation by relinquishing control of foundational platform technologies (e.g., Katz and Shapiro 1986; Farrell 2007; Shapiro and Varian 1998) — but no study had separately identified the effects of the two margins in one setting. Handheld computing between 1990 and 2004 gave Boudreau that setting, because operating system owners varied both their licensing liberality toward independent hardware developers and, in a few cases, their control over the operating system itself.</p>
+
+<h2>2. Core concepts and argument (following the paper's sections 2–3)</h2>
+
+<h3>2.1 Systems, platforms, complements, and the "bottleneck"</h3>
+
+<p>A <strong>platform</strong> consists of the elements used in common or reused across implementations — physical components, development tools and rules, technical standards for interoperability, or a combination. Serving as a stable nexus, a platform organizes the technical development of interchangeable complementary components. These same characteristics make platforms <strong>technological bottlenecks</strong> (Jacobides et al. 2006; Rochet and Tirole 2004): complements of a given variety can substitute for one another, but the platform cannot. Because the platform holder owns the property rights over the bottleneck, it holds what Boudreau calls, following Strahilovetz (2006), the "bouncer's rights" to exclude outsiders from the whole system:</p>
+
+<blockquote>The entity holding property rights over a platform therefore also possesses "bouncer's rights" (Strahilovetz 2006) to exclude outsiders from the entire system (Boudreau and Hagiu 2009). (Boudreau, 2010, p. 1851; printed p. 1851 = PDF p. 4)</blockquote>
+
+<p>Openness, broadly, means easing restrictions on the use, development, and commercialization of a technology. The polar extremes are anchored in property rights: closed technologies are wholly owned, proprietary, and vertically integrated, with outsiders restricted through patents, copyrights, and secrecy; a purely open technology sits in the public domain, neither owned nor controlled by any party. Between the poles lie <strong>partially open</strong> regimes (West 2003), where the assignment of property rights no longer fully clarifies freedoms and the governance question becomes which parts of the system are opened, which freedoms and restrictions apply, whether fees are charged, and what IP is implicated.</p>
+
+<h3>2.2 Two trade-offs</h3>
+
+<p>Opening a technology trades <strong>adoption against appropriability</strong> (West 2003): an open strategy reduces the innovator's share of profits by lowering entry barriers and introducing intrasystem competition, but it can encourage wider adoption by reducing consumers' fear of lock-in to a single vendor — the logic Boudreau attributes to JVC's sharing of the VHS standard to defeat Sony's Betamax (Cusumano et al. 1992). When a system requires ongoing innovation after opening, a second trade-off becomes salient, which he calls <strong>"diversity versus control"</strong>: an open system draws on the input, ideas, and knowledge of a broader pool of contributors, but external knowledge must be actively applied with deliberate investment, diffuse property rights can blunt everyone's incentive to sponsor the system, and parallel innovation by many parties can threaten coherence across the system, producing "coordination by committee" costs. He is explicit that these are different margins with different predicted mechanisms.</p>
+
+<h3>2.3 The argument: two distinct mechanisms</h3>
+
+<p><strong>Granting access and opening complementary development.</strong> At a minimum, granting access requires sharing architectural IP so that outsiders hold a basic set of design rules for technical interoperability. Opening complementary development plausibly affects innovation by drawing on <strong>diversity</strong>: economies of specialization, distributed heterogeneous knowledge, independent experimentation by complementors, and processes of variation and selection. But the usefulness of diversity depends on complementors' willingness to invest, and the degree of openness shapes incentives: wider access can strengthen direct competition among complementors and thereby reduce each one's incentive to innovate (Parker and Van Alstyne 2008; Rey and Salant 2008). The owner's bottleneck bargaining power can persist even with open complements — "a platform owner's bargaining power (conferred by control over a bottleneck platform) might be sufficiently strong to lock in consumers and complementors without necessarily controlling the entire system" (p. 1853) — so granting access need not destroy the adoption/appropriability balance, and fully specified interfaces can keep coordination at arm's length.</p>
+
+<p><strong>Devolving control over the platform.</strong> Concentrated control invites the platform owner to "squeeze" complementors once they have innovated, and complementors anticipating this expropriation may underinvest. By giving up some control, an owner can make a credible commitment not to abuse partners, restoring the incentive to invest in complementary innovation. Whether the commitment works in practice is unclear: Gawer and Henderson's (2007) Intel study shows that giving up formal control (staying out of complementary production) was not enough by itself — Intel also needed organizational practices to establish commitment — and Perrons (2009) argues trust and reputation mattered at least as much as formal power. Cutting deeply into control, moreover, can diminish the owner's ability to sponsor and orchestrate activity across the system. And when opening goes so far that outsiders contribute to the platform itself, the platform's single-variety character creates a special coordination problem:</p>
+
+<blockquote>Given that the platform must be supplied in just one variety, it is not straightforward for contributors to work in parallel; there is a greater need for collaboration. (Boudreau, 2010, p. 1854; printed p. 1854 = PDF p. 7)</blockquote>
+
+<p>Large open platforms with multiple contributors are therefore typically surrounded by "extraordinary institutional arrangements" for coordination and consolidation — open source projects such as Linux and Apache, the W3C, IEEE, and ITU. Boudreau shortens the two strategies to "opening the complement" versus "opening the platform" and hypothesizes that the observed openness–innovation relationship should be <em>qualitatively different</em> for the two margins; the paper then tests this empirically.</p>
+
+<h2>3. Evidence and methods: handheld computing, 1990–2004</h2>
+
+<h3>3.1 The empirical context</h3>
+
+<p>Handheld computers (personal digital assistants, PDAs) were a distinct niche of the computing industry from the early 1990s until smartphones and digital music players blurred the boundaries in the mid-2000s. Global sales grew from several hundred thousand to more than ten million units per year. The two economically important elements were the <strong>operating system</strong> and the <strong>hardware</strong>; multiple independent suppliers typically designed similar devices on top of a common operating system, so the operating system fits the definition of the platform and hardware the definition of the complementary component. Commercial success depended on sustaining a stream of new devices with more features, higher quality, and greater appeal; the paper counts new device releases as its innovation measure, arguing that these count data capture product innovation without imposing ex ante valuations on an expanding and partly intangible product space.</p>
+
+<h3>3.2 Sample and data</h3>
+
+<p>Boudreau hand-collected information on all handheld devices released from 1990 to 2004 — the years handhelds occupied a distinct industry niche — recording for each product its release month and year, hardware developer, and operating system platform. Systems active for at least two years define the sample: <strong>21 systems</strong> (Atari ST, Cruise, Cybiko, DOS, EPOC, GEOS, Hewlett Packard, MagicCap, Microsoft Mobile, Montavista Linux, Newton, Norand, Palm, Pen DOS, Pen Windows, PenPoint, PenRight!, REX, RIM, Royal Consumer, Windows), forming an unbalanced panel of <strong>1,706 system-month observations</strong> (an average of 6.8 years per system). Seven systems changed their open policy at least once during the sample — the "switchers": EPOC, Microsoft Mobile, Montavista Linux, Newton, Palm, RIM, and Royal Consumer — accounting for 541 panel points (6.4 years per system). The dependent variable NEW_DEVICES is the count of new devices released in a system and month.</p>
+
+<p>The data collection process ran more than 24 months with the author and research assistants, using internet searches, trade publications, product lists kept by industry enthusiasts, company press releases, 10-K filings, and articles in Factiva, corroborated by in-person and phone interviews in 2005 with Palm executives including CEO David Nagel, multiple vice presidents and directors at Psion and Symbian, and industry analysts.</p>
+
+<h3>3.3 Measuring the two margins of openness</h3>
+
+<p>The access margin and the control margin were each measured with several variables, summarized in Table 1. A notable feature of access pricing is its stability — licensing fees were a minor, flat instrument, not a strategic one:</p>
+
+<blockquote>The prices paid for this access generally remained fixed at roughly $10 per unit, with a slight downward trend. Notably, these fees did not appear to fluctuate in response to market conditions. (Boudreau, 2010, p. 1855; printed p. 1855 = PDF p. 8)</blockquote>
+
+<p>Variation in the access margin therefore came from the <em>liberalness</em> of licensing — from outright exclusion to licensing all comers — and from whether the owner shared "reference designs," blueprints for fully working devices that lowered entry barriers by letting entrants modify a working design rather than develop from scratch (which is how traditionally manufacturing-only Asian companies entered device design). Palm, for example, "turned away would-be partners at several points in its history, even in its early days," while Microsoft began by licensing large hardware manufacturers from its personal-computing business and later licensed more liberally.</p>
+
+<p>Variation in the control margin came from equity sales to independent hardware developers (Geoworks, Montavista, Psion, and Palm sold equity), from changes in vertical scope (Palm, Apple's Newton, and Psion's EPOC at times developed hardware alongside independent outsiders), and from outside contributions to the operating system itself (EPOC and Montavista allowed external firms to produce parts of the graphical user interface and hardware drivers; several owners incorporated open source components).</p>
+
+<h3>Table 1: The two margins of openness as operationalized (paper §5.1 and Table 1)</h3>
+<table>
+<tr><th>Margin</th><th>Variable (paper's name)</th><th>What it measures / coding</th><th>Systems that switched within the sample</th></tr>
+<tr><td rowspan="2">Granting access<br>(opening the complement)</td><td>COMPLEMENT_ACCESS_DEGREE</td><td>Liberalness of licensing to hardware developers: 0 = exclusion; 1 = restricted number of licensees restricted to niches; 2 = restricted number of licensees, no niche restriction; 3 = licensing to all comers</td><td>Psion, Microsoft, Newton, Palm, RIM (multiple changes)</td></tr>
+<tr><td>COMPLEMENT_IP</td><td>Indicator: platform owner shared IP in the form of reference designs</td><td>Microsoft, RIM</td></tr>
+<tr><td rowspan="4">Devolving control<br>(opening the platform)</td><td>PLATFORM_CONTROL</td><td>Indicator: any equity in the platform (owner) held by independent hardware developers</td><td>Psion, Montavista, Palm</td></tr>
+<tr><td>PLATFORM_CONTROL_HHI</td><td>Continuous: 1 − Σ s<sub>k</sub>² over ownership stakes; 0 = concentrated (closed), approaching 1 = diffuse (open)</td><td>Psion, Montavista, Palm</td></tr>
+<tr><td>PLATFORM_DISINTEGRATION</td><td>Indicator: platform owner no longer integrated into complementary hardware development alongside outsiders</td><td>Psion, Palm</td></tr>
+<tr><td>PLATFORM_CONTRIBUTIONS</td><td>Indicator: outsiders contribute to the platform (GUI, OS kernel, drivers/utilities)</td><td>Psion, Royal Consumer</td></tr>
+<tr><td>—</td><td>OPEN_PLATFORM; OPEN_COMPLEMENT</td><td>Discrete indicators of any platform opening and any complementary opening (used for the discrete open/close analysis)</td><td>—</td></tr>
+</table>
+
+<p class="note" style="background:#f0f4ff;border-color:#c7d7f5"><strong>Controls</strong>: SYSTEM_SALES (millions of units sold, from IDC and Gartner Dataquest archives), SYSTEM_SHARE, SYSTEM_GROWTH, SYSTEM_AGE (months since launch), PLATFORM_R&amp;D (COMPUSTAT; available for EPOC, Microsoft Mobile, Newton, Palm, RIM), and PLATFORM_VERSION. All covariates are lagged.</p>
+
+<h3>3.4 Econometric approach</h3>
+
+<p>The analysis characterizes the reduced-form relationship between the rate of new device development and the openness measures using a count-data panel. The expected count is modeled as $E[\text{NEW\_DEVICES}_{it}] = \mu_i \cdot \exp(g(O_{it}) + \beta' X_{it} + \delta_t)$, with multiplicative system fixed effects $\mu_i$, additive time dummies $\delta_t$, a Poisson distribution, and heteroskedasticity-autocorrelation robust standard errors following Wooldridge (1999), which yields consistent "distribution-free" estimates. Boudreau deliberately models the <em>rate of new device releases</em> rather than structural entry-and-positioning choices or hedonic measures, because the product space was expanding and ex ante unknown and ex post valuations are poor guides to the value of experimentation.</p>
+
+<p>Open policies are endogenous choices, and Boudreau is candid about identification: "No natural experiment fulfills all these requirements in this context." He instead adds controls for the main suspected sources of bias — system demand and competitive position (SALES, SHARE, GROWTH), platform-owner resources (R&amp;D), platform advancement (VERSION), and system age — and relies on the system-specific, period-to-period variation in policies not explained by covariates. He also addresses reverse causality (no correlation between openness and lagged measures of the advancing technical frontier in a subsample), industry-wide change (pre-1996 versus post-1996 subsamples bracketing the 1996 Palm Pilot), and asymmetric cross-system competition in licensing (a measure of other systems' policies). His defense of the within-system comparison rests on the quasi-experimental character of the switches themselves:</p>
+
+<blockquote>Changes to openness policies were often clumsy, blunt, ill-timed, made in an uncertain environment, and lacked management team consensus. (Boudreau, 2010, footnote 31; printed p. 1860 = PDF p. 13)</blockquote>
+
+<p>Because switchers are only one-third of the sample and differ observably from nonswitchers (switchers sold about twice as many units — 626 versus 335 thousand per year on average — and released devices at about twice the rate, 0.92 versus 0.48 devices per month), he tests whether nonswitchers are a meaningful comparison group: preswitch-month indicators for switchers are statistically indistinguishable from zero, and results survive regressions restricted to switchers.</p>
+
+<h2>4. Findings</h2>
+
+<h3>4.1 Discrete opening decisions</h3>
+
+<p>For discrete switches between closed and open policies (models in Table 3 of the paper), opening complementary hardware is strongly associated with faster development: the OPEN_COMPLEMENT coefficient is positive, large, and significant at the 1% level (≈1.15–1.21 across specifications with fixed effects, year dummies, and covariates). Opening the platform (OPEN_PLATFORM) is not statistically distinguishable from zero (coefficients from about 0.00 to 0.10). The fixed-effects comparison matters: without controlling for cross-sectional heterogeneity, OPEN_PLATFORM carries a significantly negative coefficient (−0.59; p = 0.01), implying that systems with low development rates were more likely to open the platform — weaker owners were more willing to open, exactly the selection concern the panel design addresses.</p>
+
+<h3>4.2 Degrees and modes of openness</h3>
+
+<p>Replacing the discrete indicators with the finer measures (paper Table 4) produces the paper's central result: a strong <strong>inverted-U relationship</strong> between device development rates and the liberalness of access (COMPLEMENT_ACCESS_DEGREE), together with much smaller positive platform-opening effects. Testing the inverted U directly — by excluding the peak category and checking that deviations from it are negative and significant — confirms nonmonotonicity: the deviation is significant at p = 10% for degree 1 and p = 5% for degree 3, and the joint test that both levels equal the peak is significant at p = 1%.</p>
+
+<h3>Table 2: Headline results as reported in the paper (preferred model 4-7, Figure 4; §7)</h3>
+<table>
+<tr><th>Policy</th><th>Estimated relationship with new-device development</th><th>Statistical significance as reported</th></tr>
+<tr><td>Open complementary hardware (discrete, OPEN_COMPLEMENT)</td><td>Coefficient ≈1.15–1.21 (Table 3)</td><td>Significant at 1%</td></tr>
+<tr><td>Access degree 1 (few licensees, niche-restricted)</td><td>Incidence rate ratio ≈2.5 (relative to closed, degree 0)</td><td>Inverted-U deviation from peak significant at 10%</td></tr>
+<tr><td>Access degree 2 (few licensees, unrestricted niches) — the peak</td><td>≈4.6× acceleration — "up to a fivefold acceleration"</td><td>Reference category in peak test; joint test vs. levels 1 and 3 significant at 1%</td></tr>
+<tr><td>Access degree 3 (licensing to all comers)</td><td>Incidence rate ratio ≈3.0</td><td>Inverted-U deviation from peak significant at 5%</td></tr>
+<tr><td>Sharing IP via reference designs (COMPLEMENT_IP)</td><td>≈ +16%</td><td>Not significant in preferred model; consistent sign and magnitude across specifications</td></tr>
+<tr><td>Opening the platform (OPEN_PLATFORM)</td><td>≈ +22% on average (≈ +13% in the leading-systems subsample; ≈ +39% in the post-1996 subsample where significant)</td><td>Not significant in the preferred model; significant in some specifications</td></tr>
+<tr><td>All platform-control measures together</td><td>Account for roughly a 20% increase in development rates</td><td>Effect not statistically significant in all models</td></tr>
+</table>
+
+<p>Alternative measures of platform openness tell the same story: the continuous ownership-concentration measure PLATFORM_CONTROL_HHI is the only platform variable with a negative coefficient; PLATFORM_DISINTEGRATION and amalgamated measures are positive, small, and insignificant; and adding R&amp;D and version controls on the switcher subsample (five systems, 484 observations) leaves the pattern unchanged, with OPEN_PLATFORM significant only at p = 15%.</p>
+
+<h3>4.3 Robustness</h3>
+
+<p>The results are robust to including other systems' open policies, to estimating on the post-1996 subsample, to replacing year dummies with 180 individual month dummies, and to running the models only on switchers. Preswitch parallel-trends checks (Figure 5 of the paper) find no statistical difference between switcher and nonswitcher trending before switches; the post-switch differential trend is positive and significant at the 1% level. Boudreau notes that pre-1996 there is insufficient variation in the key variables to estimate coefficients, so the earlier period cannot be separately verified.</p>
+
+<pre class="mermaid">
+flowchart TB
+    subgraph OWNER["Platform owner strategy"]
+        A["Open the COMPLEMENT<br/>grant independent developers access<br/>(licensing liberalness; reference designs)"]
+        B["Open the PLATFORM<br/>devolve control<br/>(equity sharing; vertical scope; outside contributions)"]
+    end
+    A --> M1["Mechanisms: diversity of entrants; specialization; independent experimentation; intensifying competition among complementors"]
+    M1 --> R1["Evidence (21 systems, 1990-2004):<br/>inverted U in access liberalness; peak ~4.6x at intermediate licensing; all-comers ~3.0x; reference designs +16%"]
+    B --> M2["Mechanisms: credible commitment against squeezing complementors; weaker sponsorship and harder coordination on a single-variety platform"]
+    M2 --> R2["Evidence: ~+22% on average, not significant in the preferred model; 13-39% where significant; an order of magnitude smaller than access"]
+    R1 --> G["Conclusion: distinct margins move distinct mechanisms; abandon the all-encompassing metaphor of openness"]
+    R2 --> G
+</pre>
+
+<h2>5. Interpretation: which mechanisms were set in motion</h2>
+
+<p><strong>The access effect.</strong> The largest effect — a development rate up to 4.6 times the system's preceding closed policy — is the inverted-U relationship between innovation and licensing liberalness. Boudreau is careful not to over-identify the mechanism: plausible contributors include strategic interactions and spillovers among complementors, transaction and coordination costs between the platform owner and complementors, and the diversity of suppliers. The historical record (his own 2006 account of the industry) shows granting access drew heterogeneous skills and experience into the industry — mobile phone makers, low-cost consumer electronics manufacturers, and healthcare and real-estate specialists entered — while complementors like Palm, Sony, and Handspring simultaneously depended on and directly competed with one another. Executives at the time believed opening hardware development could make a platform an industry standard, consistent with network effects, but subsequent research suggested network effects mattered more in software applications than in hardware development; the current-day example of the iPod and iPhone, offered by a single supplier, underlines that a great many hardware developers are not necessary for platform success. Coordination and conflict between owners and their external developer networks also imposed real costs.</p>
+
+<p><strong>The reference-design effect.</strong> The positive (≈16%) relationship between sharing IP and development is consistent with lower entry barriers, but Boudreau attaches caution flags: reference designs appeared only toward the end of the sample, so the estimate may track an unobserved trend; devices built from a common reference design may be less differentiated and plausibly less innovative; and the policy coincided with shifting production and design overseas to Asian manufacturers, so short-run product counts may not reveal the more profound global redistribution of design, development, and production.</p>
+
+<p><strong>The platform-control effect.</strong> The small average effect of devolving control (≈20% versus an order of magnitude more for access) is "surprising given the considerable attention devoted to devolving the platform owner's control in the literature." Several explanations are consistent with the evidence: the hypothesized mechanisms (commitment effects that raise complementor investment versus reduced sponsorship and orchestration) may offset one another; or the platforms in the data were simply not opened enough — the sponsored-versus-unsponsored literature considers extreme forms of opening such as placing crucial IP in the public domain or full compatibility, and incremental shifts in formal control may be only weakly relevant to a bottleneck platform compared with those extremes. Prior empirical work (Gawer and Henderson 2007) reached a similar conclusion.</p>
+
+<h2>6. Position in the literature</h2>
+
+<p><strong>Its own research stream.</strong> The paper sits at the junction of the systems-and-standards tradition (Katz and Shapiro 1986, 1994; Shapiro and Varian 1998; Farrell and Katz 2000), the platform-governance literature (Gawer and Cusumano 2002; Boudreau and Hagiu 2009 on "platform rules"; Eisenmann, Parker and Van Alstyne on opening platforms; Jacobides et al. 2006 on industry architectures and bottlenecks), and empirical work on platform owners and complementors (Gawer and Henderson 2007 on Intel; Pierce 2009 on complementor shakeouts; Huang et al. 2009; Nair et al. 2004). Its specific contribution is to turn "openness" from a one-dimensional construct into two empirically separable margins and to show that they move different mechanisms with different magnitudes — a move anticipated conceptually by West (2003) on partial openness and by Boudreau's own dissertation and 2007 working paper, and stated as a challenge to the umbrella term:</p>
+
+<blockquote>The results presented in this paper thus challenge the use of an all-encompassing metaphor of "openness" when considering the organization and governance of distributed innovation in a multicomponent system. (Boudreau, 2010, p. 1869; printed p. 1869 = PDF p. 22)</blockquote>
+
+<p><strong>What it answers and what it leaves open.</strong> It answers the question "which openness matters for innovation" with evidence that in this industry the access margin dominated, and that the licensing regime's shape (not merely its presence) mattered — the sweet spot was intermediate liberalness, not maximal openness. It leaves open which specific mechanisms generate the inverted U (competition among complementors versus coordination costs versus spillovers) and whether control devolution matters under more extreme forms of opening than the incremental variation in these data.</p>
+
+<p><strong>Connections to the Part I Hugging Face papers (the reuse that motivates this deep dive).</strong></p>
+
+<ul>
+<li><strong>Yue &amp; Nagle (2024), "Igniting Innovation" (PyTorch)</strong> — the closest direct descendant on the control margin. Yue and Nagle treat Facebook's open-sourcing of PyTorch as a shock that relinquished control over a core technology it had developed, and they study the downstream innovation response — exactly Boudreau's second margin ("devolving control"). Boudreau's handheld result that incremental control variation moved innovation little sharpens what is distinctive about PyTorch: a framework that complementors (researchers, startups, other firms) build <em>on</em> and extend, where a credible commitment not to exploit the bottleneck may have unusually large effects because the complements themselves (models, tools, trained talent) are the locus of value. The topic index's own deep dive reads Boudreau's access/control distinction as the frame behind Yue and Nagle's complementor/user split.</li>
+<li><strong>Azoulay, Krieger &amp; Nagaraj (2024), "Old Moats for New Models"</strong> — reuses the margin distinction to interpret Meta's open-weight strategy: releasing Llama weights devolves control over the model itself while the sponsor continues to ration access to the complementary assets (compute, serving, distribution, data) that surround it. Boudreau's evidence that "opening the platform" had small direct effects in handheld computing is a caution for the claim that weight release alone restores competition at the foundation layer — the modern complement to Azoulay et al.'s thesis that moats live in complementary assets.</li>
+<li><strong>Haese &amp; Peukert (2026), "Open at the Core"</strong> — firms that move from proprietary technology to building their product on open source software are making Boudreau's second-margin choice in its most extreme form: full devolution of the core technology's control while capturing value in complements, services, and products on top. Boudreau supplies the vocabulary and the counter-hypothesis (sponsorship and orchestration weaken as control is cut) against which Haese and Peukert's empirical finding of gains from going open at the core should be read.</li>
+<li><strong>Wen &amp; Zhu (2019), "Threat of Platform-Owner Entry and Complementor Responses"</strong> — complements Boudreau's access margin from the other side. Boudreau's theory section reviews the "squeeze" logic (owners extract rents from complementors once they have innovated) as the reason owners may need to devolve control; Wen and Zhu provide the direct modern evidence of what complementors do when the platform owner threatens to enter their space — responses that Boudreau's device-count data cannot measure, since he observes the flow of devices, not complementor entry, exit, and repositioning.</li>
+</ul>
+
+<p><strong>Other members of the topic library.</strong> Within the supporting classics, the paper is a canonical antecedent for the governance and ecosystem entries — Wareham et al. (2014) on technology ecosystem governance, Jacobides et al. (2018) on ecosystems and modularity, O'Mahony and Karp (2022) on the move from proprietary to collective governance, Rietveld et al. (2019) on selective promotion of complements (access rationing as a governance tool), Wen et al. (2016) on opening IP strategy and open-source entry by startups (the access margin at firm entry), and the entrepreneurship studies (Nagle 2019; Wright, Nagle and Greenstein 2023; Conti, Peukert and Roche 2025) that link open source to firm entry and funding. Among the Part I core papers, its measurement philosophy — degrees and modes of openness rather than a binary — is the direct ancestor of White et al.'s (2024) Model Openness Framework, and its count-of-artifacts approach to innovation is echoed by the Hub-scale studies (Laufer et al. 2025; Longpre et al. 2025) and by the event-study designs of Wu, Lin and Li (2025) around Llama 2, Yeverechyahu et al. (2024) around GitHub Copilot, and Khoshbash (2026) on open foundation-model families.</p>
+
+<h2>7. Limitations</h2>
+
+<p><strong>Boundaries the author himself states</strong> (pp. 1869 and throughout): the innovation measure is deliberately narrow — the rate of new device introductions — and says nothing about the direction, nature, locus, or distribution of technical change across components and actors; the sample covers a period of incremental innovation "on top of" relatively stable platforms, not a period of orchestrated cross-component design or of extreme, trajectory-changing shifts (markets "tipping"); the particulars of an open strategy vary from context to context; and identification rests on controls rather than a natural experiment, which "no natural experiment fulfills." He also flags the reference-design result as fragile (late appearance, possible confounds with overseas relocation and design standardization) and treats several positive but insignificant platform-control coefficients as suggestive only ("I still judge them to be meaningful because their signs and magnitudes were consistent across many specifications").</p>
+
+<p><strong>My independent judgment</strong> (layered and labeled):</p>
+
+<ul>
+<li><strong>Author's claim</strong>: granting access and devolving control are distinct strategies that activate distinct mechanisms, with access showing a large inverted-U effect and control devolution a small positive effect in this setting. The paper's own preferred reading; the strongest statements are hedged.</li>
+<li><strong>Evidence</strong>: a hand-built panel of 21 systems and 1,706 system-months with seven policy-switching systems; fixed-effects Poisson regressions with robust standard errors and parallel-preswitch-trend checks. The design is credible for a within-industry study, but the number of independent policy events is small and several switches occur in the same few firms (Psion/EPOC, Palm, Microsoft Mobile, RIM, Montavista, Newton, Royal Consumer).</li>
+<li><strong>Inference</strong> (my extension, not stated in the paper): the inverted-U ordering in Figure 4 — closed ≈ 1.0, degree 1 ≈ 2.5, degree 2 ≈ 4.6, degree 3 ≈ 3.0 — suggests that the marginal effect of access turns negative somewhere between "restricted liberalness" and "licensing all comers"; but because the paper does not isolate which mechanism (competition intensity, coordination costs, spillovers, or complementor diversity) drives the downturn, the nonmonotonicity is a documented empirical regularity with an unidentified causal mechanism.</li>
+<li><strong>Open questions</strong>: ① whether more extreme control relinquishment (public-domain placement, full sponsor exit, or owner entry into complementary markets) than the incremental equity/vertical-scope variation observed here would produce larger effects — the question Yue and Nagle's PyTorch shock and Haese and Peukert's open-core firms partially answer; ② how the access margin generalizes when complements are software and services rather than hardware devices, where entry costs, differentiation, and network effects differ; ③ the measurement validity of categorical licensing codes built from archival sources and recollected interviews; ④ whether the device-count outcome understates quality-improving but count-neutral innovation, or overstates minor redesigns.</li>
+</ul>
+
+<p>A textual caveat: the pdftotext stream interleaves footnotes into the body text on some pages (for example, the discussion of the post-switch trend on printed p. 1868 is interrupted by footnote text), and the journal's typographic ligatures were normalized in this note; quote locations give both the printed <em>Management Science</em> page and the 1-indexed PDF page (number of preceding form-feed characters plus one).</p>
+
+<h2>8. Conclusion and takeaways</h2>
+
+<p>Boudreau's contribution is to make "openness" analytically precise where strategy discussions treat it as one dial. In the handheld computing industry, opening complementary hardware development to independent firms — licensing access, and to a lesser extent sharing reference designs — was associated with a large, nonmonotonic acceleration of new-device introductions, peaking at intermediate liberalness with up to a fivefold rate increase. Giving up control over the operating system platform — through shared equity, narrowed vertical scope, or outside contributions to the platform itself — was associated with a much smaller, roughly 20% average increase that was not statistically significant in the preferred model. The two margins used different contractual and technical instruments and, the industry history and theory both suggest, set in motion different economic mechanisms.</p>
+
+<p>For the Hugging Face and open-AI economy, three takeaways carry over. First, evaluate an "open" release by which margin it moves: license terms that let outsiders build and ship derivatives change the access margin; governance that cedes decisions over the core (who controls the framework, the weights lineage, the training stack) changes the control margin — and the two have different consequences. Second, expect nonmonotonicity: more access is not monotonically better for innovation, because entrants both contribute diversity and compete away each other's incentives; the design of the access regime (how many, how restricted, how standardized) shapes the outcome. Third, control relinquishment is a commitment device whose payoff depends on context: in Boudreau's data it barely moved innovation, which makes the modern cases where it did — PyTorch, open-core firms — the informative outliers that Part I studies examine.</p>
+
+<div class="golden">
+The evidence from the industry and theoretical arguments both suggest that distinct economic mechanisms were set in motion by these two approaches to opening. — Boudreau, 2010, Management Science 56(10), p. 1849
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the academic-style deep-dive workflow of the reading-notes skill, grounded in the pdftotext text of the local PDF of Boudreau (2010), <em>Management Science</em> 56(10): 1849–1872. The source PDF includes the INFORMS download cover as page 1, so the article runs from PDF p. 2 (printed p. 1849) to PDF p. 25 (printed p. 1872). Blockquotes are verbatim passages from the pdftotext output with typographic ligatures normalized and line breaks removed; on a few pages footnotes are interleaved in the text stream, and quotes were chosen to avoid interrupted sentences. Location notes give the printed journal page and the 1-indexed PDF page (equal to the count of form-feed characters preceding the quote plus one). All numbers (1,706 system-months, 21 systems, 7 switchers, 4.6×, +16%, +22%, ≈20%, coefficients and significance levels) are taken from the article text; the "independent judgment" in the Limitations section is the AI's own analysis, distinguished from the author's claims under the four labels author's claim / evidence / inference / open questions. Verify quotes and numbers against the original before citing.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

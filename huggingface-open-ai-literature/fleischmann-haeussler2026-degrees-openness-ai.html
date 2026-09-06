@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Degrees of Openness in Open-Source AI (Fleischmann &amp; Haeussler, 2026) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Degrees of Openness in Open-Source AI: Empirical Insights and Implications for Downstream Innovation</h1>
+<p><em>(Fleischmann &amp; Haeussler, 2026) · Open and User Innovation (OUI) Conference, July 27–28, 2026, Harvard Business School · Track: Consumer and User Innovation</em></p>
+<div class="meta">
+<strong>Authors</strong>: Fabian Fleischmann (presenter; University of Passau) and Carolin Haeussler (University of Passau)<br>
+<strong>Source</strong>: OUI 2026 conference extended abstract and presentation (598 words, of a 600-word cap), Open and User Innovation Conference, Harvard Business School, July 27–28, 2026<br>
+<strong>Year</strong>: 2026<br>
+<strong>Nature</strong>: <em>Conference extended abstract, not a full paper.</em> Large-scale empirical project (Hugging Face data, 22,137 base models) reported at abstract level: descriptive trajectories plus regression results summarized without coefficients, standard errors, or robustness checks. Not peer-reviewed. Treat every claim below as a claim made in a 600-word abstract; details beyond it are not yet public.<br>
+<strong>Data &amp; code status</strong>: Hugging Face, described as "the dominant platform for distributing open-source AI models." Sample: 22,137 base models, defined as models that served as the foundation of at least one derivative model. The abstract dates the observed trajectories to 2022–2025. No dataset, replication code, or preprint location is identified in the abstract.
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Fleischmann and Haeussler measure three dimensions of openness — publication of model weights, disclosure of training data, and the applied license — across 22,137 Hugging Face base models and ask whether openness attracts downstream adaptation: they find that ecosystem openness peaked around 2023 and has since receded, that weight publication stayed near-universal (95–97%) while data disclosure and explicit licensing declined sharply, and that only explicit licensing shows a clear positive, significant association with downstream derivative adaptation, which they read as a legal-certainty mechanism reducing appropriability risk.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide</strong>: This note is scaled to its source: the entire "paper" is a ~600-word OUI 2026 conference abstract, so this deep dive reads the abstract closely, quotes it liberally, and places its claims in the "Hugging Face &amp; the Open-AI Economy" topic. The abstract matters to the topic for three reasons. First, it turns the degrees-of-openness debate of Part I — most concretely White et al.'s (2024) Model Openness Framework — into a measurement exercise: instead of asking how open a model <em>should</em> be, it asks how open the models labeled "open-source AI" on Hugging Face actually are, over time. Second, its headline result (weights preserved, data and licenses eroded, openness peaked ~2023) is ecosystem-level evidence on the open-washing concern that the MOF literature raises. Third, it connects openness to the topic's central dependent variable — downstream innovation — measured the way the Hugging Face literature measures it: derivative (fine-tuned) models building on base models, as mapped at scale by Laufer et al. (2025) and exploited as identification by Wu, Lin &amp; Li (2025) and Khoshbash (2026). Read it as the empirical companion to the MOF taxonomy, not as a completed study.
+</div>
+
+<h2>1. Background and motivation: does the OSS playbook transfer to open-source AI?</h2>
+
+<p>The abstract opens from a puzzle of applicability. Open-source software (OSS) has a mature empirical literature on the mechanisms behind it and on the determinants of OSS innovation, but the authors doubt that this knowledge carries over to open-source AI, because the two settings innovate differently. Their first move is therefore to state the difference that motivates the whole study:</p>
+
+<blockquote>Whereas OSS evolves through cumulative contributions to a shared codebase, open-source AI advances through derivative models i.e. context-specific adaptations of a base model for example fine-tuning a voice to text AI model. Innovation thus happens through specialization rather than through incremental improvements. (Fleischmann &amp; Haeussler, 2026, p. 1 of the PDF)</blockquote>
+
+<p>The distinction is consequential for the economics of the topic. In classic OSS, "the commons" is one evolving codebase to which contributors add patches; in open-source AI, "the commons" is a stock of base models, and innovation is the act of specializing them — fine-tuning a voice-to-text model for a particular language or domain, quantizing it, or building adapters on top. The unit of analysis shifts from the contribution to the derivative, and the economic question shifts from "who contributes to a shared codebase" to "who builds on whom, and what makes a base model a good platform for others to build on." This is the same shift that structures Laufer et al.'s (2025) family-tree anatomy of Hugging Face and that makes "base model → derivative count" a natural measure of downstream innovation (see Section 3).</p>
+
+<h3>Table 1: Classic OSS vs. open-source AI innovation logic (as characterized in the abstract)</h3>
+<table>
+<tr><th>Dimension</th><th>Open-source software (classic OSS)</th><th>Open-source AI (per Fleischmann &amp; Haeussler)</th></tr>
+<tr><td>Unit of the shared commons</td><td>One evolving shared codebase</td><td>A population of base models</td></tr>
+<tr><td>Mode of innovation</td><td>Cumulative contributions to the codebase</td><td>Derivative models: context-specific adaptations of a base model (e.g., fine-tuning a voice-to-text model)</td></tr>
+<tr><td>Character of progress</td><td>Incremental improvements</td><td>Specialization</td></tr>
+<tr><td>What a contributor "adds"</td><td>Patches and features to a common trunk</td><td>A new derivative branching off a base model</td></tr>
+<tr><td>Well-studied?</td><td>Yes — a mature OSS literature on the mechanisms and determinants of OSS innovation</td><td>No — "its applicability to open-source AI remains unclear" (Fleischmann &amp; Haeussler, 2026, p. 1 of the PDF)</td></tr>
+<tr><td>Consequence for this paper</td><td>—</td><td>"Base model → # derivative models" becomes the natural measure of downstream innovation</td></tr>
+</table>
+
+<h2>2. Core concepts and argument</h2>
+
+<h3>2.1 Openness is a multidimensional construct, not a binary attribute</h3>
+
+<p>The abstract's second conceptual move locates the study inside the degrees-of-openness debate. "Openness" in AI, it argues, is not a property a model has or lacks; it is a vector of disclosure decisions that can point in different directions at once:</p>
+
+<blockquote>"Openness" in AI is not a binary attribute but a multidimensional construct, involving the disclosure of, amongst others, model weights, training data or documentation (White et al., 2024; Liesenfeld &amp; Dingemanse, 2024). (Fleischmann &amp; Haeussler, 2026, p. 1 of the PDF)</blockquote>
+
+<p>The two citations mark the debate this study enters. White et al.'s (2024) Model Openness Framework is the Part I anchor: it decomposes openness into three model components — weights, code, and data — holding 17 component classes in total and requiring OSI-approved licenses per component, so that releasing weights alone does not make a model "open" in MOF terms (White et al. classify, e.g., GPT-J under Apache 2.0 as open but BLOOM under the non-OSI OpenRAIL license as merely source-available). Liesenfeld and Dingemanse (2024) supply the critical vocabulary of "open-washing": marketing a model as open when only some components are disclosed. Fleischmann and Haeussler inherit the multidimensional view and add what the framework papers lack — systematic measurement of the actual distribution of these dimensions across the ecosystem.</p>
+
+<h3>2.2 Two research gaps and two research questions</h3>
+
+<p>The authors identify two gaps in this literature. First, systematic empirical evidence on the actual distribution of openness across open-source AI models is scarce. Second, the link between degrees of openness and downstream innovation through derivative models is unknown. From these gaps come the two research questions, quoted here in full because they define what the project does:</p>
+
+<blockquote>To address these gaps, we pose two research questions: (1) To what extent are models labeled as "open-source AI" actually open? and (2) How do varying degrees of openness shape downstream model adaptation? (Fleischmann &amp; Haeussler, 2026, p. 1 of the PDF)</blockquote>
+
+<p>Question 1 is descriptive and skeptical — it interrogates the label "open-source AI" itself, in the spirit of open-washing concerns. Question 2 is the economic question: does openness pay, in the currency of downstream adaptation? The abstract's answer to each is summarized in Section 4.</p>
+
+<h2>3. Methodology and data (as far as the abstract reveals)</h2>
+
+<p>The abstract gives the design in compressed form, and only in compressed form — this is where the conference-abstract format most visibly truncates the study. The data come from Hugging Face, and the sample is defined by an observable act of downstream use rather than by model popularity or provenance:</p>
+
+<blockquote>We conduct a large-scale empirical analysis using data from Hugging Face, the dominant platform for distributing open-source AI models. Our dataset comprises 22,137 base models that is, models that have served as the foundation for at least one derivative model. We operationalize openness along three dimensions: (1) publication of model weights, (2) disclosure of training data, and (3) the applied license. We measure adaptation by counting the number of derivative models that build on each base model. (Fleischmann &amp; Haeussler, 2026, p. 1 of the PDF)</blockquote>
+
+<p>The design is therefore: units = base models with at least one observed derivative; treatment-side variables = three binary (or categorical) openness dimensions recorded on each base model; outcome = the count of derivative models per base model. Several features deserve emphasis because the abstract compresses them.</p>
+
+<ul>
+<li><strong>Openness is measured on the base model, adaptation on its derivative tree.</strong> The two research questions map cleanly onto this structure: RQ1 reads the three openness dimensions off each base model; RQ2 regresses the derivative count on those dimensions.</li>
+<li><strong>The sample definition conditions on downstream use.</strong> Only models that already have at least one derivative enter the sample. Newly released models with no derivative yet — and models nobody chose to adapt — are excluded by construction (see the right-censoring caveat in Section 7).</li>
+<li><strong>Derivative count is a count of any documented reuse</strong> (fine-tunes, and per Hugging Face metadata conventions also quantizations, adapters, merges), not a measure of the depth or value of that reuse. The abstract does not say which derivative types are counted.</li>
+<li><strong>No controls, sample period, or estimation details are given.</strong> The trajectories are dated 2022–2025 in the results, but variable definitions, filters, and covariates are not described in the abstract.</li>
+</ul>
+
+<p>The research design, as reconstructed from the abstract, is shown below. Everything in this diagram that is not a quoted number is an inference about the design from the abstract's wording.</p>
+
+<pre class="mermaid">
+flowchart LR
+    HF["Hugging Face data<br/>22,137 base models, each the<br/>foundation of at least one<br/>derivative model"] --> O["Openness dimensions<br/>(1) publication of model weights<br/>(2) disclosure of training data<br/>(3) the applied license"]
+    HF --> AD["Adaptation<br/>count of derivative models<br/>building on each base model"]
+    O --> RQ1["RQ1: To what extent are models labeled<br/>'open-source AI' actually open?"]
+    AD --> RQ2["RQ2: How do varying degrees of<br/>openness shape downstream adaptation?"]
+    RQ1 --> REG["Regression analyses<br/>openness dimensions → derivative count"]
+    RQ2 --> REG
+</pre>
+
+<h2>4. Findings</h2>
+
+<h3>4.1 The distribution of openness over time: a peak around 2023</h3>
+
+<p>The results section begins with a summary judgment — the data, the authors say, reveal "a more detailed picture of openness than the dominant narrative of openness suggests" (paraphrase of the abstract's opening line, p. 1 of the PDF). The dominant narrative is presumably the weight-centric story that open-source AI is widely open because open weights are widespread. The measurement then unpacks the picture into its three dimensions, which diverge sharply:</p>
+
+<blockquote>First, the three dimensions of openness exhibit different trajectories over time. The publication of model weights has remained widespread (95–97%). In contrast, data disclosure and explicit licensing followed an inverted U-shape: both rose from 2022 to 2023 before declining sharply through 2025. Taken together, these patterns suggest that the ecosystem's openness peaked around 2023 and has since receded, even as the headline of "open weights" and transparency has been preserved. (Fleischmann &amp; Haeussler, 2026, p. 1 of the PDF)</blockquote>
+
+<p>This is the study's headline descriptive result, and it is a measurement of exactly what the degrees-of-openness debate in Part I theorizes about. If openness is multidimensional, then an ecosystem can be simultaneously "more open" on one dimension (weights near-universal, ~95–97%) and "less open" on others (data disclosure and explicit licensing eroding through 2025). The aggregate impression — openness peaked around 2023 and has since receded — is generated by the two receding dimensions, while the public-facing label of openness rests on the one dimension that never moved. Whether the weight dimension staying at 95–97% means weights were already near-saturated by 2022 (so that the "peak around 2023" is driven by the other two dimensions) is not stated in the abstract; that reading is an inference, not a claim of the paper.</p>
+
+<h3>4.2 Openness and downstream adaptation: only licensing behaves as expected</h3>
+
+<p>The second block of results connects openness to adaptation — RQ2. Here the findings are more surprising than the descriptive picture:</p>
+
+<blockquote>regression analyses indicate that explicit licensing is positively associated with downstream adaptation: models released under clearly specified licenses attract significantly more adaptation than models lacking licensing terms. This finding is consistent with a legal certainty mechanism, whereby unambiguous licensing reduces appropriability risk. Notably, however, the relationships between adaptation and the other two dimensions of openness i.e. weight publication and training data disclosure do not follow the direction one might naively expect. (Fleischmann &amp; Haeussler, 2026, p. 2 of the PDF)</blockquote>
+
+<p>The authors add that these counterintuitive patterns "warrant careful interpretation and point toward more complex mechanisms linking openness and adaptation" (p. 2 of the PDF). Three readings of the finding structure follow; the first is the authors', the latter two are the reader's.</p>
+
+<p><strong>The license result is the paper's clearest economic claim.</strong> A downstream developer deciding whether to invest in fine-tuning someone else's base model faces an appropriability problem: effort spent specializing a model can be expropriated, and the legal terms under which the derivative may be used, modified, and commercialized are ambiguous when no license is attached. A clearly specified license resolves that ambiguity, and the significant positive association between explicit licensing and derivative counts is interpreted as the behavioral trace of that legal-certainty mechanism. This is a causal-sounding mechanism attached to a correlational result; the abstract does not report the identification strategy behind the "regression analyses," so the mechanism is the authors' interpretation of an association.</p>
+
+<p><strong>The weights and data results cut against naive openness optimism.</strong> If weights are near-universal among base models (95–97%), the weight dimension carries almost no discriminating variance across the sample — a statistical reason, independent of any behavioral mechanism, why weight publication may show no positive association with adaptation. My inference, not stated in the abstract: near-universal release makes weight openness a nearly constant "table stakes" attribute, so whatever drives adaptation must be something that varies — data disclosure, license terms, model quality, documentation. On training data, the naive expectation would be that disclosing data attracts adapters (data enable further training); the abstract reports the opposite direction for both dimensions without giving signs or magnitudes. Plausible mechanisms that the abstract does not name, again as my inference: training data are the most competitively valuable and legally exposed disclosure (copyright litigation, scraped-content provenance), so the decline in data disclosure through 2025 may reflect strategic and regulatory pressure rather than mere fashion — a form of selective revealing (Henkel, 2006) at the model level, where firms disclose what is cheap or mandatory (weights) and withhold what is valuable (data).</p>
+
+<p><strong>The result complicates the "open weights spur downstream innovation" story of Part I.</strong> Event-study evidence in the topic library — Wu, Lin &amp; Li (2025) around the Llama 2 release on Hugging Face — finds that a major open-weight release increased downstream development. Fleischmann and Haeussler's cross-sectional message is different in kind: across many base models, weight publication per se does not discriminate which models get adapted; licensing does. The two designs answer different questions (a release event versus a cross-section of models), so they are complements rather than contradictions, but the juxtaposition is instructive for the topic: openness that downstream developers can contract on (license) may matter more than openness that merely advertises access (weights).</p>
+
+<p>The three dimensions, their measured trajectories, and their reported relation to adaptation are summarized in the table below. Mechanism rows are labeled as paper-stated or as my inference.</p>
+
+<h3>Table 2: Openness dimensions, trajectories, and downstream consequences</h3>
+<table>
+<tr><th>Openness dimension</th><th>Operationalization (paper)</th><th>Trajectory 2022–2025 (paper claim)</th><th>Relation to downstream adaptation (paper claim)</th><th>Proposed mechanism</th></tr>
+<tr><td>Model weights</td><td>Publication of model weights</td><td>Stable and widespread: 95–97% throughout</td><td>Does not follow the naively expected direction</td><td>Paper: none offered. Inference: near-universal release leaves little variance; weights are "table stakes," so they cannot discriminate which base models attract adapters</td></tr>
+<tr><td>Training data</td><td>Disclosure of training data</td><td>Inverted U: rose 2022→2023, declined sharply through 2025</td><td>Does not follow the naively expected direction</td><td>Paper: none offered; result flagged as needing careful interpretation. Inference: data are the most valuable and legally exposed input — selective concealment and regulatory pressure may dominate</td></tr>
+<tr><td>License</td><td>The applied license (explicit terms vs. none)</td><td>Inverted U: rose 2022→2023, declined sharply through 2025</td><td>Positive and significant: clearly specified licenses attract significantly more adaptation</td><td>Paper-stated: legal certainty — unambiguous licensing reduces appropriability risk for downstream adapters</td></tr>
+</table>
+
+<p>Reading across the rows makes the paper's implicit theory visible: what downstream developers appear to need is not maximal disclosure but <em>contractible</em> disclosure — terms they can rely on when investing in a derivative — plus, presumably, usable weights. The finding that fewer base models carry explicit licenses even as licenses strongly predict adaptation implies a growing pool of open-weight models whose legal status discourages downstream investment; whether that pool is growing because of neglect, strategic choice, or a shift toward restrictive-but-explicit terms (e.g., RAIL-style licenses) is an open question the abstract does not address.</p>
+
+<pre class="mermaid">
+flowchart LR
+    D["Downstream adaptation<br/>(count of derivative models per base model)"]
+    W["Weights published<br/>95–97%, stable"] -->|"relation: not the naively<br/>expected direction"| D
+    T["Training data disclosed<br/>inverted U, ↓ sharply through 2025"] -->|"relation: not the naively<br/>expected direction"| D
+    L["Explicit license applied<br/>inverted U, ↓ sharply through 2025"] -->|"positive and significant<br/>consistent with a legal-certainty<br/>mechanism"| D
+</pre>
+
+<h2>5. Evidence and methods: what a 600-word abstract can and cannot establish</h2>
+
+<p>Scale matters for reading this note correctly. The abstract reports a large-sample descriptive mapping (22,137 base models) plus regression results, but it supplies no coefficients, no standard errors, no model specifications, no control variables, and no robustness discussion. Consequently, the evidentiary weight of the claims is uneven:</p>
+
+<ul>
+<li><strong>Descriptive trajectories (95–97% weights; inverted-U data and licensing).</strong> These are concrete, quotable numbers from the abstract and are the study's most defensible contribution as reported. Even here, the abstract does not define precisely how "disclosure of training data" is coded (any documented data? complete data? a data card?), nor how "the applied license" is classified (permissive vs. copyleft vs. restrictive is not distinguished), so the trajectory claims inherit those unspecified coding choices.</li>
+<li><strong>The adaptation regressions.</strong> The abstract reports direction and significance ("positively associated," "significantly more adaptation") without magnitude. The "legal certainty" reading is presented by the authors as an interpretation of the licensing association ("This finding is consistent with a legal certainty mechanism"), not as a directly tested mechanism.</li>
+<li><strong>The counterintuitive weights and data results.</strong> The abstract does not even state the sign of these relationships, only that they do not follow the naive direction. Any specific claim about what the signs are, or why, is my inference, not the paper's.</li>
+</ul>
+
+<p>Until the full presentation, preprint, or paper is released, the study should be treated as a claim-generating research program at abstract stage: it establishes the empirical questions and the headline shapes of the answers, not the estimates. This caveat is structural (conference abstracts are capped — this one notes "Current Word Count – 598 (max. 600)") and not a criticism of the underlying project.</p>
+
+<h2>6. Position in the literature</h2>
+
+<p>The abstract is best read as the empirical bridge between two literatures that the topic library otherwise holds apart: the normative framework literature on AI openness and the empirical Hugging Face ecosystem literature on derivative innovation.</p>
+
+<p><strong>Direct dialogue with White et al. (2024) and the degrees-of-openness debate.</strong> The MOF is cited by the authors precisely for the multidimensionality premise, and the study operationalizes MOF-style thinking in a stripped-down, measurable form. Where the MOF asks normatively how many components (weights, code, data; 17 component classes in all) a model must disclose — under OSI-approved licenses — to count as open, Fleischmann and Haeussler ask positively how much of each dimension the ecosystem actually discloses and whether disclosure attracts adapters. Their distributional finding sharpens the MOF's motivating worry about open-washing: if weights stayed at 95–97% while data disclosure and explicit licensing receded after 2023, then models can remain "open" in the public headline while drifting away from the full-component openness the MOF defines. The dimension the MOF treats as the hardest bar — open training data — is exactly the dimension that eroded fastest through 2025. In this sense the abstract supplies the empirical ground for the framework debate that Part I surfaces in White et al. (2024) and, on the critical side, in the open-washing concerns of Liesenfeld and Dingemanse (2024) (both cited in the abstract; the MOF paper itself engages Liesenfeld &amp; Dingemanse on open-washing). Azoulay et al. (2024) ask the strategic question of how much openness incumbent model developers can afford and why weight release can function as a moat rather than a giveaway; Fleischmann and Haeussler measure the ecosystem side of the same question — what developers in fact disclosed — and add the downstream payoff condition: openness that is not contractible (no clear license) does not reliably attract adaptation.</p>
+
+<h3>Table 3: From the Model Openness Framework (White et al., 2024) to measured openness (Fleischmann &amp; Haeussler, 2026)</h3>
+<table>
+<tr><th>MOF component (White et al., 2024)</th><th>MOF stance (normative)</th><th>F&amp;H empirical dimension</th><th>F&amp;H trajectory (paper claim)</th><th>What the pairing shows</th></tr>
+<tr><td>Model weights</td><td>Releasing weights is necessary for a model to count as open, but weights alone are not sufficient</td><td>Publication of model weights</td><td>95–97%, stable 2022–2025</td><td>The "headline" dimension is near-saturated; the public label of openness is preserved even as other dimensions erode</td></tr>
+<tr><td>Model code (inference, evaluation, and preprocessing components)</td><td>Code components must be released under OSI-approved licenses</td><td>Not separately measured in the abstract</td><td>Not reported</td><td>F&amp;H's three dimensions compress away the MOF's code components — a coverage gap to note (my inference)</td></tr>
+<tr><td>Training data</td><td>Open data is the hardest bar for full MOF openness</td><td>Disclosure of training data</td><td>Inverted U: rose 2022→2023, declined sharply through 2025</td><td>The component the MOF treats as most demanding is the one eroding fastest</td></tr>
+<tr><td>License (cross-cutting requirement in the MOF: acceptable, OSI-approved per component)</td><td>An open model carries OSI-approved licenses; an open-weight model without one is not "open" in MOF terms (cf. its GPT-J "open" vs. BLOOM "source-available" classification)</td><td>The applied license</td><td>Inverted U: rose 2022→2023, declined sharply through 2025 — yet positively and significantly associated with adaptation</td><td>Licensing is the dimension with measurable downstream consequences even as fewer base models carry explicit terms</td></tr>
+</table>
+
+<p><strong>Complementary empirical papers in the topic library.</strong> The study's structural premise — that Hugging Face innovation happens through derivative trees anchored on base models — is precisely what Laufer et al. (2025) document at scale in their anatomy of roughly two million Hugging Face models: models cluster into family trees of fine-tunes, quantizations, adapters, and merges rooted in base models (they trace, for instance, an IBM Granite tree of 147 models spanning multiple generations). Wu, Lin &amp; Li (2025) provide the complementary event-study evidence that a major open-weight release (Llama 2) increased downstream developer activity on the platform, and Khoshbash (2026) studies the same derivative-innovation space with a panel of 1,529 foundation models and 2,768 developers, asking how sponsor-supplied fine-tuned variants and architecture choices shape specialization. Longpre et al. (2025) trace openness and power across the model ecosystem and reach related distributional concerns. The distinct contribution of Fleischmann and Haeussler within this cluster is to make openness itself — and its time trend — the object of measurement, and to run it against the adaptation outcome that the other papers take as given.</p>
+
+<p><strong>The classic open-innovation and strategy streams.</strong> The abstract frames itself as testing whether the OSS evidence base transfers to AI, which positions it against the private-collective model of von Hippel and von Krogh (2003) — the account of why profit-seeking actors freely reveal innovations — and against the empirical OSS results in the supporting library (Nagle 2019 on firm productivity; Wright, Nagle &amp; Greenstein 2023 on entrepreneurship; Conti, Peukert &amp; Roche 2025 on startups' community engagement and funding). Its innovation-logic premise (specialization through derivative models rather than cumulative codebase contributions) is the reason those OSS results may not carry over. Within that stream, the closest conceptual relatives are Henkel's (2006) selective revealing — firms disclose some components and withhold others, which is what the 95–97% weights / declining data pattern looks like at model level — and O'Mahony's (2003) argument that community-managed projects use licenses to guard the commons, reframed here as: licenses govern who may build on the commons, and downstream developers respond to that governance. In platform terms, the finding that licensing predicts adaptation echoes Boudreau's (2010) distinction between granting access and devolving control: releasing weights grants access, while the license terms determine how much control the base-model owner retains over the derivative space. The implied strategic message for model developers — disclosed-but-unlicensed models attract less downstream investment than clearly licensed ones — connects to the IP-opening strategies literature (Wen, Ceccagnoli &amp; Forman 2016) and to Haese and Peukert's (2026) account of firms building products on open cores.</p>
+
+<h2>7. Limitations</h2>
+
+<p>Because the source is an abstract, the limitations discussion must separate what the authors themselves flag, what the format hides, and what remains open.</p>
+
+<h3>Boundaries visible in the abstract itself</h3>
+<ul>
+<li>The authors explicitly describe the counterintuitive weights and data results as requiring "careful interpretation" and as pointing "toward more complex mechanisms" — an author-stated admission that their measured relationships outrun their explanatory story.</li>
+<li>The paper claims only descriptive coverage of RQ1 and "first results" on RQ2 ("drawing first results on how openness is related to adaptation"), an author-stated modesty about the second question.</li>
+</ul>
+
+<h3>What the conference-abstract format hides (an evidentiary boundary, not an author claim)</h3>
+<ul>
+<li><strong>No estimates.</strong> Coefficients, standard errors, specifications, and controls for the adaptation regressions are not in the abstract; the "legal certainty" mechanism is presented as consistent with an association, not as identified.</li>
+<li><strong>Sample construction is underspecified.</strong> The 22,137 base models are defined as models with at least one derivative; filters, deduplication, the treatment of merges and quantizations as derivatives, and the platform's metadata reliability are not discussed.</li>
+<li><strong>No robustness or alternative explanations.</strong> Nothing is said about model quality, documentation, download counts, or release timing as confounds of the openness–adaptation relationship.</li>
+</ul>
+
+<h3>Independent judgment (layered and labeled)</h3>
+<ul>
+<li><strong>Author's claim</strong>: ecosystem openness is multidimensional in measurement and peaked around 2023, with weights stable at 95–97% and data disclosure and explicit licensing in decline; explicit licensing is positively and significantly associated with downstream adaptation, consistent with a legal-certainty mechanism.</li>
+<li><strong>Evidence</strong>: in the abstract, the evidence for these claims is a summary of descriptive statistics plus a summary of regressions, with the headline numbers (95–97%, inverted-U pattern, significance of licensing) stated and the statistical machinery withheld. As published so far, the claims "assert more than they exhibit."</li>
+<li><strong>Inference (mine, not the paper's)</strong>: ① weight release is so near-universal that it cannot discriminate adaptation, which may fully explain the counterintuitive weights result without any behavioral puzzle; ② the decline in explicit licensing while licensing predicts adaptation implies a growing stock of hard-to-contract derivatives, plausibly driven by strategic license choice or restrictive-but-explicit terms, or by a shift of the newest frontier models off permissive terms; ③ the timing of the post-2023 decline coincides with rising legal and regulatory scrutiny of training data, which my reading treats as a candidate cause, not an established one.</li>
+<li><strong>Open questions</strong>: ① What are the actual signs and magnitudes of the weights and data associations, and which mechanisms — selection, confounding by quality, strategic concealment — survive controls? ② Does the sample definition (base models with ≥1 derivative) right-censor models released after 2023, mechanically depressing recent openness and adaptation measures and inflating the apparent "decline"? ③ How are licenses classified — does the positive licensing effect hold for restrictive licenses, or only for permissive and OSI-approved ones (the MOF distinction)? ④ Would the same patterns hold on platforms other than Hugging Face, which skews toward the open-weights Western ecosystem? ⑤ Is the legal-certainty interpretation causal, or does licensing proxy for the sophistication and intent of the releasing organization? None of these can be answered from the abstract.</li>
+</ul>
+
+<h2>8. Conclusion and takeaways for the Hugging Face &amp; the Open-AI Economy topic</h2>
+
+<p>For the topic, this abstract delivers three takeaways. First, it operationalizes the degrees-of-openness debate: openness is a vector (weights, data, license) whose components move independently, and the empirical distribution is what the frameworks theorized about — weights near-saturated, the harder components in retreat after a 2023 peak. Second, it ties openness to the topic's core outcome, downstream innovation measured as derivative adaptation, and finds that the component that governs contracting (the license) is the one that predicts adaptation — a result that reframes "openness" from a disclosure ideal to a governance variable. Third, it illustrates the frontier of the topic library: the same Hugging Face data that Laufer et al. (2025) map structurally and that Wu, Lin &amp; Li (2025) and Khoshbash (2026) exploit for identification can be mined for the openness distribution itself. The obvious next steps — full estimates, a causal design, and license-category granularity — await the full paper, which the abstract does not yet make public.</p>
+
+<div class="golden">
+We contribute to the literature of open innovation and open science by investigating the dynamics of openness in an ecosystem whose innovation logics diverge from existing knowledge. — Fleischmann &amp; Haeussler, 2026, p. 2 of the PDF
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the academic-style workflow of the reading-notes skill, grounded in the pdftotext text of the OUI 2026 conference abstract (local file "2026 - Fleischmann and Haussler - Degrees of Openness in Open-Source AI.txt", 3 PDF text pages, of which pages 1–2 contain content). The source is a ~600-word extended abstract, not a full paper: no coefficients, identification details, or robustness results are public yet, and this note says so where it matters. Blockquotes are verbatim from the pdftotext output with page numbers assigned by counting form-feed page breaks; the original text contains minor typographical artifacts (e.g., "Results indicate more detailed picture" lacking "a", "22,137 base models that is"), which I paraphrased rather than reproduced where they would read as errors. Please verify quotations and numbers against the original abstract. Claims labeled "inference" or "open question" are the AI reader's extensions, not the authors' statements; statements of what other papers (White et al. 2024; Laufer et al. 2025; etc.) find are kept to the level verifiable from their own abstracts or metadata.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

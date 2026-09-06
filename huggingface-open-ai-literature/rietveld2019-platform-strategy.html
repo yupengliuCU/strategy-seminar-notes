@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platform Strategy: Managing Ecosystem Value Through Selective Promotion of Complements (Rietveld, Schilling &amp; Bellavitis, 2019) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Platform Strategy: Managing Ecosystem Value Through Selective Promotion of Complements</h1>
+<div class="meta">
+<strong>Subtitle</strong>: Rietveld, Joost; Schilling, Melissa A.; Bellavitis, Cristiano (2019) · <em>Organization Science</em> 30(6), 1232–1251 · DOI 10.1287/orsc.2019.1290 · Open access (CC BY-NC 4.0)<br>
+<strong>Authors</strong>: Joost Rietveld (UCL School of Management), Melissa A. Schilling (NYU Stern), Cristiano Bellavitis (Auckland Business School)<br>
+<strong>Source</strong>: <em>Organization Science</em>, Vol. 30, No. 6, November–December 2019, pp. 1232–1251<br>
+<strong>Year</strong>: 2019 (received March 2018; accepted January 2019; published online September 10, 2019)<br>
+<strong>Nature</strong>: Empirical journal article combining new theory of platform governance with econometric tests (logit choice models, Poisson panel, difference-in-differences) on the UK console video game market<br>
+<strong>Data &amp; code status</strong>: Proprietary retail transaction data covering more than 90% of UK video game sales, provided by a platform sponsor; complemented by hand-collected Metacritic scores and VGChartz European sales. Tabulated robustness results available from the first author on request; no public replication archive
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Platform sponsors govern their ecosystems not by promoting the best complements but by spending scarce promotional attention where the marginal contribution to total ecosystem value is largest: on good-but-not-best complements with unrealized potential, in high-value categories where the platform lacks a top seller, on high-quality exclusive complements, and in slow periods of the release calendar.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide for "Hugging Face &amp; the Open-AI Economy"</strong>: This paper supplies the vocabulary for asking who decides what becomes visible in a complement economy, and on what logic. On the Hugging Face Hub, where millions of models compete for attention, the platform's equivalents of "Best of" endorsement are Trending lists, curated collections, featured models, and newsletter spotlights. Rietveld, Schilling and Bellavitis predict that such curation is strategic rather than meritocratic: a value-maximizing sponsor boosts up-and-coming complements and fills category gaps, even at the expense of "best in class" items. That prediction bears directly on Wu et al. (2025), who measure model popularity with Hub likes and downloads and ask which features drive it — curation itself becomes an omitted driver of the popularity they explain. It also frames the hub's power questions in Longpre et al. (2025) and the complementor-side reactions studied by Wu, Lin &amp; Li (2025) and Wen &amp; Zhu (2019). Read the paper with two questions open: who holds the promotion lever on an open model hub, and whether the sponsor's private logic of ecosystem value aligns with the community's.
+</div>
+
+<h2>1. Background and motivation: the sponsor as orchestrator, promotion as a governance lever</h2>
+
+<p>Many markets are organized as platform ecosystems in which a stable core — a smartphone operating system, a music-streaming service, a model hub — mediates between a wide range of complements and prospective end users. When value depends on the bundle rather than on any single component, "there can be a complex interplay in how each element of the bundle contributes to the overall value of the system, and there are important interdependencies between the actions of the members comprising the ecosystem" (p. 1232). Members are invested in each other's fates: because the overall appeal of the ecosystem attracts end users, each complement's success depends in part on the success of complements with which it may simultaneously compete. Switching costs and investments in platform-specific assets turn arm's-length arrangements into cospecialized, longer-term relationships.</p>
+
+<blockquote>A platform ecosystem thus is characterized by relationships that are neither as independent as arm's-length market contracts, nor as dependent as those within a hierarchical organization. It is, in essence, a hybrid organizational form. <br><span style="color:var(--muted);font-size:.85rem">— (p. 2 of the PDF; journal p. 1232)</span></blockquote>
+
+<p>The paper's opening claim is that the player sitting between all complements and all end users — the <strong>platform sponsor</strong> — "possesses both incentive and ability to manage how the ecosystem creates value" (p. 1232), citing Yoffie &amp; Kwak (2006), Boudreau &amp; Hagiu (2009), Adner &amp; Kapoor (2010), and Wareham et al. (2014) for the governance role of architectural control. One key instrument is <strong>selective promotion</strong>: endorsements, awards, special campaigns, and prominent placement that draw attention to individual complements. Apple's App Store "Editor's Choice" and "Best New Apps" features are the running example; Spotify's curated playlists, Kickstarter's "Projects We Love," and Sony's "Platinum" rerelease label are listed as parallels. Featured applications can receive up to six times as many downloads during the feature period (p. 1233, footnote 1, citing VentureBeat).</p>
+
+<p>The authors deliberately distance the platform case from the reseller trade-promotion literature in marketing, where a manufacturer funds a retailer to cut price and the retailer frequently pockets the incentive rather than passing it through (Kumar et al. 2001; Ailawadi &amp; Harlam 2009). A reseller has short horizons and little reason to invest in an upstream manufacturer's product. The sponsor's incentives differ because of cospecialization and because the ecosystem's total value is what attracts users:</p>
+
+<blockquote>Platform sponsors' incentives, by contrast, are more complex; the cospecialization that occurs between platform and complement and the need to foster a valuable and complete ecosystem motivate a platform to more actively orchestrate the attention paid to different complements. <br><span style="color:var(--muted);font-size:.85rem">— (p. 3 of the PDF; journal p. 1233)</span></blockquote>
+
+<p>The decision to promote one complement advantages it over others, and four complications make the choice genuinely strategic. First, a sponsor cannot promote everything: resource constraints and the need to protect the credibility of its signal force rationing. Second, complements compete with each other, so promotion reshapes competitive dynamics, complementor incentives, and bargaining power. Third, complements contribute to ecosystem value both individually and through the depth and breadth of the portfolio; the individually best complement may be redundant for portfolio appeal, so the sponsor may "be better off rationing scarce resources in a way that meets a broader variety of needs" (p. 1233). Fourth, comparable complements differ in what the sponsor captures: exclusive complements, or those with favorable terms, return more of their value to the sponsor. A temporal element completes the picture: promotion can be timed to revive slow sales periods and to reach later adopters. The research question follows: how do platform sponsors choose which complements to promote, and when?</p>
+
+<h2>2. Core concepts and argument</h2>
+
+<p>The theory section, "Using Selective Promotion to Manage Ecosystem Value," anchors value in three drivers: (1) consumers' perception of the platform's own quality and installed base, (2) their perception of individual complements' quality, and (3) the depth and breadth of the complement portfolio (following Schilling 1998, 2003). The paper works on the second and third drivers. Promotion works on consumers by directing attention, raising salience, and acting as a quality signal that helps users sort among a flood of complements; in crowded markets "even high-quality complements may go undiscovered" (p. 1234). Four hypotheses follow, each a claim about where the marginal contribution of promotion to ecosystem value is largest.</p>
+
+<h3>2.1 Hypothesis 1: promote the good, not the best (unrealized potential)</h3>
+<p>Quality and prior sales matter, but as a baseline rather than as the decision rule. The sponsor wants "killer app" potential drawn to consumers' attention, and a quality floor protects the trust embodied in the promotion signal: promoting low quality would erode users' faith in the platform. Yet the marginal value of promotion should decline for already-exceptional complements, because an outstanding seller has little additional sales or visibility to gain.</p>
+
+<blockquote>The marginal value of privileged access or selective promotion by the platform is not a linear function of the complement's quality and prior sales performance: it is likely that, at some point, diminishing returns set in; that is, the amount of improvement in either sales or visibility available to an already exceptional complement may be limited (e.g., Adner and Zemsky 2006). <br><span style="color:var(--muted);font-size:.85rem">— (p. 5 of the PDF; journal p. 1235)</span></blockquote>
+
+<p>Complements whose full value has yet to be recognized — the "up and coming" titles — have more untapped value for promotion to harvest, and their producers often hold less bargaining power, which translates into better terms and greater loyalty for the platform (p. 1249, footnote 4). Hypothesis 1 therefore predicts a non-monotonic relationship: sponsors are more likely to promote complements with good initial sales than either the very best sellers or poor sellers.</p>
+
+<h3>2.2 Hypothesis 2: complements that round out the ecosystem</h3>
+<p>Because depth and breadth of the portfolio drive both individual adoption decisions and the platform's reach into heterogeneous consumer segments, sponsors spread promotion across important categories rather than choosing purely on stand-alone performance. If a platform lacks a top-selling complement in an important category, promotion in that category raises perceived quality there and broadens the ecosystem. The authors quote a senior executive from Microsoft's original Xbox founding team: "We have a portfolio team, and we look at how the games round out the portfolio and sell the console . . . you want to make sure the portfolio is well rounded" (p. 1235). Hypothesis 2: sponsors are more likely to promote complements in high-value categories in which the platform does not have a top-selling complement, relative to high-value categories with a top seller or to low-value categories.</p>
+
+<h3>2.3 Hypothesis 3: quality and exclusivity interact</h3>
+<p>Sponsors prefer to enhance the reputation of high-quality complements that are exclusive to the platform: exclusivity rewards loyalty and prevents promotion from building demand for a competing platform. Exclusivity itself can arise from first-party production, from cospecialization costs that make multihoming difficult, from contractual exclusivity agreements, or simply from a complement being too weak to be sought elsewhere. Only the first three kinds are worth promoting — an exclusive arrangement with an exceptional complement differentiates the platform, while one with a poor complement does nothing. Hence the paper expects no main effect of exclusivity but a positive interaction: high quality and exclusivity together raise the chance of promotion (Hypothesis 3).</p>
+
+<h3>2.4 Hypothesis 4: the timing of selective promotion</h3>
+<p>Promotion also manages consumers' perception of the ecosystem over time and across the platform's life cycle. Endorsements generate "new 'buzz' about the platform and its complements during periods when attention has waned" (p. 1236): promoting when few new complements are released avoids competitive crowding, lessens cannibalization of new releases (citing Boudreau 2012), and makes the signal stand out in a market that is not awash with launch publicity. A Sony PlayStation director of sales planning and analysis describes the calendar management logic:</p>
+
+<blockquote>You don't want all of your good stuff to come out at the same time . . . it's all about managing the catalog. If the calendar is looking empty, we will rerelease to fill the catalog. Contrarily, during Christmas, we won't rerelease. <br><span style="color:var(--muted);font-size:.85rem">— (p. 6 of the PDF; journal p. 1236)</span></blockquote>
+
+<p>Hypothesis 4 predicts more promotions in periods with fewer new complement releases. Across all four hypotheses runs one organizing principle: the sponsor maximizes the marginal effect of each scarce promotion on total ecosystem value, treating promotions as interdependent instruments whose selection and timing must be orchestrated together.</p>
+
+<pre class="mermaid">
+flowchart TD
+    A["Platform sponsor<br/>(Sony PlayStation 3 / Microsoft Xbox 360)"] --> B["Selective promotion<br/>(“Best of” endorsement rerelease)"]
+    B --> O1["Reward loyalty and signal quality<br/>(quality floor protects trust)"]
+    B --> O2["Create new stars — unlock<br/>unrealized value of up-and-coming titles"]
+    B --> O3["Round out ecosystem depth and breadth<br/>(portfolio balance across genres)"]
+    B --> O4["Manage timing: fill empty calendar,<br/>avoid crowding, reach late adopters"]
+    O1 -.-> H1["H1: good-but-not-best initial sales promoted;<br/>quality is a baseline control"]
+    O2 -.-> H1
+    O3 -.-> H2["H2: high-value genre with no prior top seller"]
+    O3 -.-> H3["H3: high quality x platform exclusive"]
+    O4 -.-> H4["H4: more endorsements when fewer<br/>new games are released"]
+    H1 --> E1["Logit model of which games get endorsed<br/>(Table 2; N = 918 games)"]
+    H2 --> E1
+    H3 --> E1
+    H4 --> E2["Poisson panel of endorsed rereleases<br/>(Table 4; N = 1,770 platform-genre-months)"]
+    E1 --> V["Sales uplift of endorsement validated by<br/>DiD on 25 matched multihomed game pairs<br/>(Appendix B)"]
+    E2 --> V
+</pre>
+
+<h2>3. Evidence and methods</h2>
+
+<h3>3.1 Empirical setting: platform-endorsed console video games</h3>
+<p>The context is seventh-generation home consoles in the United Kingdom between 2007 and 2011 — Sony's PlayStation 3 (launched March 2007) and Microsoft's Xbox 360 (launched December 2005). Console makers price hardware at or below cost and capture value from their own games and from royalties on third-party publishers' titles; a small share (about 10%) of games is rereleased under a "Best of" endorsement label — Sony's "Platinum: The Best of PlayStation" and Microsoft's "Xbox Classics." Endorsed rereleases carry distinct packaging, a small retail price drop, and a lower royalty charged to the publisher to offset the price cut. Sony describes Platinum titles as "the cream of the crop, the very best games that have been published" (p. 1237). Nintendo's Wii is excluded as a fundamentally different console: more than 50% of PlayStation 3 games are also available on the Xbox 360, whereas fewer than 8% of Wii games are (p. 1249, footnote 8).</p>
+
+<p>Three institutional facts discipline the analysis. First, eligibility: in the United Kingdom a game must have sold at least 300,000 units in the wider European market and been on the market for at least 180 days. Second, governance: endorsement decisions are made at senior-vice-president level or above, escalation included; the publisher has some agency, but the sponsor decides eligibility and the release timing of the rerelease. Third, timing: on average, endorsed rereleases launch one year and two months after a game's initial release, and a minimum life cycle of one year is built into the sampling window (2011 releases are excluded so every game can accumulate a year of sales).</p>
+
+<h3>3.2 Data and variables</h3>
+<p>The core data were provided by one of the platform sponsors and cover more than 90% of all UK retail transactions (online and brick-and-mortar) for the games released in the period. The estimation sample holds 918 games — 419 PlayStation 3 and 499 Xbox 360 titles — of which 105 (47 and 58) received an endorsement; 91 first-party games are excluded because first-party titles are exclusive by default and may face different rules. Sales data at the European level come from VGChartz; quality comes from hand-collected Metacritic scores, with a "high quality" dummy for a Metascore of 75 or higher.</p>
+
+<ul>
+<li><strong>Dependent variable (H1–H3)</strong>: <em>Endorsed</em>, a game-platform-level dummy equal to 1 if a game is endorsed and rereleased.</li>
+<li><strong>Sales performance (H1)</strong>: first-month unit sales ranked within platform-year and split into top 2.5% (market-leading), top 2.6–20% (good initial sales), and bottom 80% (poor; base). First-month sales are used because they account for a disproportionate share (&gt;40%) of cumulative sales (Figure 1) and because they predate the endorsement decision, limiting reverse causality.</li>
+<li><strong>Portfolio value (H2)</strong>: the interaction of <em>no prior hit in genre</em> (no top-20%-ranked first-month seller in the same genre-platform over a rolling one-year window) with <em>value of genre</em> (percentage rank of the genre by total first-month sales within platform-year, computed excluding the focal game).</li>
+<li><strong>Exclusivity (H3)</strong>: <em>platform exclusive</em>, a dummy for launching only on the focal platform, interacted with high quality.</li>
+<li><strong>Timing (H4)</strong>: a platform-genre-month panel of 1,770 observations (870 for PS3, 900 for Xbox 360), with the count of endorsed rereleases regressed on the count of new game releases in that genre-month.</li>
+</ul>
+
+<p>Controls include platform, genre, calendar-month and year dummies; a publisher's relationship with the sponsor (log of past endorsements in the preceding five years), publisher age, and listing status; European unit sales (to absorb the eligibility threshold); and Metascore-based quality. Estimation uses logit models with heteroskedasticity-robust standard errors, McFadden's adjusted R² as fit, predicted probabilities and marginal effects for interpretation, and significance assessment of interactions via plotted predicted probabilities (following Wiersema &amp; Bowen 2009; Zelner 2009).</p>
+
+<h3>3.3 Does promotion actually move sales? Appendix B's design</h3>
+<p>The main models explain the sponsor's choice. Appendix B validates that the instrument works, using a difference-in-differences design over 25 game pairs that multihome on PlayStation 3 and Xbox 360 but receive an endorsement on only one console. A multihomed game is nearly identical across platforms in design, gameplay, release date, and marketing, so the same game on the other console is a strong counterfactual. Weekly unit sales are compared eight weeks before and eight weeks after the normalized endorsement date, with game-platform fixed effects, game-age fixed effects, and platform-year-month fixed effects. A relative-time model (following Autor 2003; Seamans &amp; Zhu 2013) checks that no pretreatment dummy differs from zero, validating parallel trends.</p>
+
+<h2>4. Findings</h2>
+
+<h3>4.1 Which games get endorsed</h3>
+<p>Hypothesis 1 is supported. Controlling for quality, games in the top 2.6–20% sales rank are more likely to be endorsed than bottom-80% games (p &lt; 0.01) and than top-2.5% market leaders (p &lt; 0.01). The average predicted probability of endorsement is 12.85 percentage points higher for good-but-not-best sellers than for market leaders, and 15.75 points higher than for poor sellers (both p &lt; 0.01). Consistent with the mechanism, endorsed games with lower prior sales enjoy about three times larger sales increases from endorsement than endorsed games with higher prior sales (Appendix B). Market leaders are evidently not the promotion targets: their predicted probability of endorsement sits 12.85 points below that of good-but-not-best sellers (p &lt; 0.01).</p>
+
+<p>Hypothesis 2 is supported: the interaction between genre value and no prior hit in genre is positive and significant (p &lt; 0.01). Predicted probabilities barely move with genre value when a prior hit exists; without one, endorsement probability rises from 7.60% in low-value genres to 23.33% in high-value genres. The sponsor directs promotion into valuable categories where it lacks a star — creating a star where none exists rather than amplifying an existing one (footnote 6 draws the contrast with a retailer's loss leader, which amplifies an existing draw).</p>
+
+<p>Hypothesis 3 receives partial support. The interaction of platform exclusivity and high quality is positive and significant (p &lt; 0.01), but the predicted-probability plot shows the effect is concentrated among low-quality games: the endorsement probability is near zero for low-quality exclusive games versus 8.31% for low-quality multihomed games, while high-quality exclusive (14.89%) and high-quality multihomed (13.12%) games are statistically indistinguishable. The authors interpret this through selection: many exclusive games are "exclusive by default" — not popular enough to warrant multihoming — so low quality plus exclusivity marks a complement nobody wants, whereas among high-quality games exclusivity no longer discriminates.</p>
+
+<p>Among controls, the quality baseline is positive and significant (high quality raises the predicted probability by 8.52 points, p &lt; 0.05); European sales are strongly positive (a rise from one standard deviation below to above the mean increases the predicted probability by 31.86 points, p &lt; 0.01); past endorsements to the publisher matter modestly (p &lt; 0.05); publisher age is insignificant; and listed publishers are 4.91 points less likely to be endorsed (p &lt; 0.10), consistent with sponsors favoring up-and-coming producers with less bargaining power.</p>
+
+<h3>4.2 When endorsements happen</h3>
+<p>Hypothesis 4 is supported in the Poisson panel (Table 4, Model 3): the coefficient on new game releases is negative and significant (p &lt; 0.05); each additional same-genre game entering the platform is associated with a 5.67% lower endorsed-rerelease rate. Platform age is positive (p &lt; 0.01): a one-month increase in platform age is associated with a 2.03% higher rerelease rate, consistent with using promotion to attract later adopters later in the platform's life.</p>
+
+<h3>4.3 The effect of endorsement on sales (Appendix B)</h3>
+<p>Endorsement works. On average, endorsed games sell 269.43 more units per week than their non-endorsed twins over the eight weeks after endorsement (p &lt; 0.05), and the effect is carried by lower-prior-sales games (+730.51 units/week, p &lt; 0.01) rather than higher-prior-sales games (+24.66, insignificant). A matched-pairs regression finds a difference of 761.13 units per week; the effect appears immediately, grows over two weeks, and loses statistical significance after five weeks, for a cumulative increase of about 2,742 units. Spillovers to control games are absent, and placebo treatments placed 16, 12, and 8 weeks early produce no significant effects, strengthening the causal reading.</p>
+
+<h3>Table 1: Hypotheses, predictions, and results</h3>
+<table>
+<tr><th>Hypothesis (paper claim)</th><th>Prediction</th><th>Support (evidence)</th></tr>
+<tr><td>H1 — good, not best</td><td>Sponsors promote complements with good initial sales more than market leaders or poor sellers</td><td>Supported: top 2.6–20% sellers are 12.85 pts (vs. top 2.5%) and 15.75 pts (vs. bottom 80%) more likely to be endorsed (both p &lt; 0.01)</td></tr>
+<tr><td>H2 — round out the ecosystem</td><td>Promotion goes to high-value categories in which the platform has no prior top seller</td><td>Supported: interaction of genre value x no prior hit is positive (p &lt; 0.01); probability rises from 7.60% (low-value genre) to 23.33% (high-value genre)</td></tr>
+<tr><td>H3 — quality x exclusivity</td><td>High-quality exclusive complements promoted more than those meeting one or neither criterion</td><td>Partial: interaction positive (p &lt; 0.01) but marginal effects insignificant; effect concentrated in low-quality subsample (exclusive low quality near 0 vs. multihomed low quality 8.31%)</td></tr>
+<tr><td>H4 — timing</td><td>More promotions when fewer new complements are released</td><td>Supported: one extra same-genre release lowers the endorsed-rerelease rate by 5.67% (p &lt; 0.05); platform age raises it by 2.03%/month (p &lt; 0.01)</td></tr>
+</table>
+
+<h3>Table 2: The platform sponsor's selective promotion versus the reseller's trade promotion</h3>
+<table>
+<tr><th>Dimension</th><th>Reseller trade promotion (marketing literature)</th><th>Platform sponsor selective promotion (this paper)</th></tr>
+<tr><td>Who initiates and funds</td><td>Manufacturer funds the reseller; resellers rarely invest unless funded (Ailawadi &amp; Harlam 2009)</td><td>Sponsor initiates and pays; it is vested in complements' long-term success (p. 1233)</td></tr>
+<tr><td>Instrument and target</td><td>Price cut ("pass through") to shift a product; retailer may pocket the incentive</td><td>Endorsements, awards, featured placement; directs attention and signals quality (p. 1233)</td></tr>
+<tr><td>Decision logic</td><td>High-market-share, high-margin products; short horizon</td><td>Marginal contribution to total ecosystem value; quality, portfolio balance, exclusivity, timing trade-offs (p. 1233)</td></tr>
+<tr><td>Relationship with supplier</td><td>Arm's-length, replaceable assortment</td><td>Cospecialization, switching costs, exclusivity agreements, royalties; hybrid rather than market form (p. 1232)</td></tr>
+<tr><td>Star creation vs. star amplification</td><td>Loss leaders amplify an existing draw (footnote 6)</td><td>Sponsors create new stars in empty high-value categories (H2 evidence, p. 1240–1241)</td></tr>
+</table>
+
+<h3>Table 3: Key quantities at a glance</h3>
+<table>
+<tr><th>Quantity (evidence)</th><th>Value</th><th>Source</th></tr>
+<tr><td>Estimation sample</td><td>918 games: 419 PS3 + 499 Xbox 360; 105 endorsed (47 + 58)</td><td>p. 1238</td></tr>
+<tr><td>Share of games endorsed</td><td>About 10% of all games; within the underlying data including first-party titles, 31% of first-party vs. 11% of third-party games were endorsed</td><td>pp. 1237, 1249 (fn. 9)</td></tr>
+<tr><td>Endorsement eligibility (UK)</td><td>&gt;= 300,000 units sold in wider European market; &gt;= 180 days on market</td><td>p. 1237</td></tr>
+<tr><td>Average lag to endorsed rerelease</td><td>1 year, 2 months after initial release</td><td>p. 1238</td></tr>
+<tr><td>H1 predicted-probability gaps</td><td>+12.85 pts vs. top 2.5%; +15.75 pts vs. bottom 80%</td><td>p. 1240</td></tr>
+<tr><td>H4 panel and rate effect</td><td>1,770 platform-genre-month observations; 5.67% lower rerelease rate per extra same-genre game</td><td>pp. 1241–1242</td></tr>
+<tr><td>DiD sales effect (8 weeks)</td><td>+269.43 units/week average; +730.51 for lower-prior-sales, +24.66 (n.s.) for high-prior; cumulative ~2,742 units over ~5 weeks</td><td>pp. 1246–1248</td></tr>
+<tr><td>Apple App Store feature effect (cited)</td><td>Up to 6x downloads while featured</td><td>p. 1233, fn. 1</td></tr>
+</table>
+
+<h2>5. Position in the literature</h2>
+
+<h3>5.1 Its own research stream</h3>
+<p>The paper belongs to the platform governance tradition that treats the ecosystem as an object of deliberate orchestration by a sponsor holding architectural control: Yoffie &amp; Kwak (2006) on managing complementors, Boudreau &amp; Hagiu (2009) on platform rules as private regulation, Adner &amp; Kapoor (2010) on value creation under technological interdependence, Schilling (2009) on appropriability and architectural control, Wareham et al. (2014) on the governance tensions of software ecosystems, and Jacobides et al. (2018) on ecosystems as alignments of complementary activities. Against this background the paper identifies a specific, under-studied instrument — promotion rather than access, pricing, or technical architecture — and gives it a theory.</p>
+
+<p>It also answers a literature that had studied complementor outcomes but treated the sponsor's promotional choices as noise: Boudreau (2012) on crowds of app developers, Kapoor &amp; Agarwal (2017) on sustained performance in mobile ecosystems, Yin et al. (2014) on killer apps, and Rietveld &amp; Eggers (2018) on demand heterogeneity in complement adoption. Prior work asked which complements succeed and why; Rietveld, Schilling and Bellavitis ask which complements the sponsor chooses to make succeed — the selection equation behind observed complement success. Their deliberate contrast with the marketing trade-promotion literature (Lal 1990; Kumar et al. 2001; Ailawadi &amp; Harlam 2009) sharpens what is distinctive about sponsors: cospecialized, long-lived relationships and a portfolio-level objective function.</p>
+
+<p>Within platform competition research, the paper is a sibling of Wen &amp; Zhu (2019), which studies the same governance relationship from the complementor's side: how app developers respond when the platform owner enters their niche, for instance by curbing investment in the threatened category or repositioning their activity. Wen &amp; Zhu show complements react to a threat; this paper shows sponsors act preemptively and selectively with rewards. Together they cover both directions of the sponsor-complementor strategic interaction that later work — including O'Mahony &amp; Karp (2022) on how platform participation strategies evolve — takes as its subject.</p>
+
+<h3>5.2 Connections to the Hugging Face core library (Part I)</h3>
+<p>The transfer to model hubs is direct but needs care, and the core papers supply both sides of the analogy.</p>
+
+<ul>
+<li><strong>Wu, Yang, Xu, Wang, Le &amp; Lo (2025), "Learning From the Best," measures model popularity by Hub likes and downloads and asks which documentation, model, platform, and technique features predict it. Rietveld et al. supply the missing governance half of that story: if hub curation is strategic, popularity is partly manufactured by the platform's promotion decisions, and the features Wu et al. estimate may partly proxy for curation itself. The reverse implication is testable — hubs that behave like value-maximizing sponsors should systematically boost up-and-coming, underappreciated models, exactly the population whose features Wu et al. find hardest to explain.</li>
+<li><strong>Laufer, Oderinwale &amp; Kleinberg (2025)</strong> map 2 million Hub models and their adaptation chains. Their finding of extreme concentration and a discovery problem ("even high-quality complements may go undiscovered," p. 1234) is the Rietveld et al. condition for promotion to matter; the open question is who does the promoting on a community hub.</li>
+<li><strong>Longpre et al. (2025)</strong> trace power and participation in the open-weight model ecosystem, documenting corporate control of the hub's commercial layer. Rietveld et al. predict what a profit-seeking sponsor does with such control: it curates to manage ecosystem depth and breadth and to favor complements that return value to it — a mechanism for the "power" Longpre et al. describe.</li>
+<li><strong>Wu, Lin &amp; Li (2025)</strong> find that Llama 2's open release stimulated downstream developer innovation on Hugging Face. Their DiD treats a sponsor-level openness decision as a shock to complementors; in Rietveld et al.'s terms, openness is the access decision and selective promotion is the attention decision that follows it — two governance levers that should be studied jointly.</li>
+<li><strong>Greenstein, Yue, Herman &amp; Gulick (2022)</strong>, the topic's teaching case, document how Hugging Face monetizes while preserving community trust. Selective promotion sits exactly at that tension: curated visibility can build trust or, if it rewards the sponsor's own models over the community's, destroy it.</li>
+</ul>
+
+<p>Inference, not paper claim: the model hub case inverts one assumption of the video game setting. Console sponsors own the storefront, the hardware, and the royalty stream, giving them unambiguous architectural control. Hugging Face's sponsor is a commercial layer over a community commons whose members can fork, self-host, and choose licenses (Longpre et al. 2025; Laufer et al. 2025). Whether the hub's curation power is strong enough to produce the paper's strategic patterns, or whether the commons constrains it toward meritocratic "best in class" promotion, is an empirical question the framework leaves open.</p>
+
+<h2>6. Limitations</h2>
+
+<p><strong>Author-stated limitations (paper claims).</strong> The authors' own list is short and honest. They cannot directly observe how ecosystem value is divided between sponsor and complementors — value capture and costs are unobserved because game-specific licensing revenues and royalty rates "are closely guarded secrets, redacted from publicly available financial reports" (p. 1244). What they can infer comes from industry informants: royalty schedules with five or more decreasing rate tiers, negotiated on the basis of the game's bargaining power. As an executive at Take-Two Interactive put it, "Games that achieve superb commercial success receive a royalty break along the way," and "with size and quality, definitely comes the power to negotiate better rates" (p. 14 of the PDF; journal p. 1244). Lower-selling games pay higher royalty rates, which is why promoting a lower seller can capture more value for the console producer than promoting a top seller — the economic punchline behind H1. The authors also note they study only one promotion form (endorsements), exclude first-party games and the Wii, treat exclusivity as potentially endogenous (addressed with an endogenous-treatment-effects robustness model), and observe promotion decisions rather than their value consequences except in the Appendix B sales validation.</p>
+
+<p><strong>Evidence vs. inference in the paper's own argument.</strong> The strategic-selection findings (Tables 1–4) are evidence about <em>what sponsors do</em>. The claim that this behavior maximizes ecosystem value is inference built on informant interviews and on the royalty-tier economics; the paper does not estimate value capture directly, so "maximization" is an interpretation of revealed behavior rather than a measured outcome. The Appendix B DiD is the paper's strongest evidence that promotion itself (not underlying quality) raises sales, and the placebo and parallel-trends checks support that reading; the modest effect magnitudes (hundreds of units per week in a market where top games sell millions) and the five-week decay qualify how much permanent value an endorsement creates.</p>
+
+<p><strong>Independent judgment (reviewer's inferences and open questions).</strong></p>
+<ul>
+<li>The sample ends in 2011 and covers two consoles in one country. Endorsement-based rerelease is a physical-goods ritual (repackaging, relaunch); digital storefronts can promote at near-zero marginal cost and can A/B test, which changes the scarcity assumption that drives the whole theory. Whether the paper's trade-offs survive when promotion is cheap is an open question the authors do not address.</li>
+<li>The dependent variable captures promotion <em>decisions</em>. Selection and treatment are separated cleanly only in Appendix B's paired design, and that design is small (25 pairs) and relies on games that happen to multihome — exactly the population in which H3's exclusivity logic does not apply.</li>
+<li>H3's "partial support" is honest but thin: the interaction's significance in the logit is driven by the low-quality cell, which the authors reinterpret post hoc through "exclusive by default." An alternative reading — that sponsors avoid any exclusive game that could not multihome, regardless of quality — is equally consistent with the estimates (inference).</li>
+<li>For the Hub analogy, the paper cannot tell us whether a community-governed ecosystem's promotion decisions follow the same private-value logic, or whether users respond to sponsor curation the way console buyers respond to a "Best of" seal. Those are open questions for the Hugging Face core papers rather than failures of this one.</li>
+</ul>
+
+<h2>7. Conclusion and takeaways</h2>
+
+<p>The empirical bottom line is that selective promotion in a platform ecosystem is a portfolio-management instrument, with a theory of where the marginal promotion is most valuable:</p>
+
+<blockquote>Platform sponsors do not just promote best-selling complements; instead, they are using promotion to achieve myriad objectives in the management of their ecosystems. <br><span style="color:var(--muted);font-size:.85rem">— (p. 13 of the PDF; journal p. 1243)</span></blockquote>
+
+<p>Sponsors create stars rather than only rewarding them; they fill high-value category gaps; they favor high-quality complements whose value they can capture; and they time their attention to manage the catalog across the platform's life cycle. For complement managers the message is that "up-and-coming complements have more opportunity to gain preferential treatment by the platform than it may first appear" (p. 1244): promise of growth and exclusivity commitments are credible inducements. For scholars of open AI the paper reframes a familiar surface phenomenon — that some models on a hub become visible and popular while equally good ones do not — as a strategic outcome shaped by whoever holds the promotion lever, with measurable consequences for which complements are found, adopted, and built upon.</p>
+
+<div class="golden">Ecosystem value is managed at the margin of attention: the complement that most raises the value of the whole is seldom the best complement in the catalog.</div>
+
+<div class="note"><strong>AI disclosure</strong>: AI-assisted reading note grounded in the pdftotext extraction of the local PDF ("2019 - Rietveld et al. - Platform Strategy.txt"; INFORMS open-access copy, Organization Science 30(6), 1232–1251). Verbatim quotes carry PDF/journal page locations computed from the text's form-feed page breaks; check quotes and numbers against the original before citing in formal writing. Interpretations labeled as such are the reader's, not the authors'.</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Source Software and Firm Productivity (Nagle, 2019) — Deep Dive</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Noto Serif SC",serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:760px;margin:0 auto;font-size:17px}
+h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
+.meta a{color:var(--accent);text-decoration:none}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.5rem 0;background:#f0f4ff;border-radius:0 8px 8px 0}
+pre{background:var(--code-bg);padding:1rem 1.2rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.5;margin:1.5rem 0;border:1px solid var(--border)}
+code{font-family:"SF Mono","Fira Code",monospace;font-size:.9em}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.4rem 0}
+table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
+td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
+th{background:#f9fafb;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+</head>
+<body>
+
+<h1>Open Source Software and Firm Productivity</h1>
+<p style="color:#333;font-size:1.05rem">Frank Nagle (2019) · <em>Management Science</em> 65(3), 1191–1215 (published online in Articles in Advance, May 4, 2018)</p>
+<div class="meta">
+<strong>Authors</strong>: Frank Nagle (Marshall School of Business, University of Southern California)<br>
+<strong>Source</strong>: "Open Source Software and Firm Productivity," <em>Management Science</em> 65(3): 1191–1215, INFORMS. DOI: <a href="https://doi.org/10.1287/mnsc.2017.2977">10.1287/mnsc.2017.2977</a>. Accepted by Chris Forman (information systems). The PDF behind this note is the <em>Articles in Advance</em> version (pp. 1–25); page references below give the position in that PDF<br>
+<strong>Year</strong>: Received June 10, 2015; accepted October 3, 2017; published online May 4, 2018; print issue March 2019<br>
+<strong>Nature</strong>: Empirical journal article — production-function econometrics on a 2000–2009 panel of U.S. public firms (Harte Hanks IT survey matched to Compustat financials)<br>
+<strong>Data &amp; code status</strong>: Restricted/commercial sources: Harte Hanks Computer Intelligence database (~10,000 firms surveyed per year), S&amp;P Compustat, Gartner installed-base market shares, BLS/BEA deflators, and the World Management Survey; analysis sample of 1,566 public firms and 10,355 firm-year observations. No public replication archive is mentioned; the online appendix is available at the DOI
+</div>
+
+<div class="summary-box">
+<h3>One-sentence summary</h3>
+<p>Measuring the firm-level use of <strong>nonpecuniary (free) open source software</strong> across 1,566 U.S. public firms from 2000–2009, Nagle finds that a 1% increase in free-OSS use raises value-added productivity by roughly 0.002%–0.008% <strong>only for firms that already have an ecosystem of complementary technical capabilities</strong> (high IT intensity or IT-producing industries); for the average firm the effect is indistinguishable from zero, and larger firms capture less of the gain than smaller ones.</p>
+</div>
+
+<div class="note">
+<strong>Reading guide — where this sits in "Hugging Face &amp; the Open-AI Economy".</strong> The topic library asks who captures value from open digital goods: model hubs and their communities (Greenstein et al. 2022; Laufer et al. 2025; Longpre et al. 2025), sponsors who release open-weight models (Wu, Lin &amp; Li 2025; Azoulay et al. 2024; White et al. 2024), and developers who build downstream. This paper supplies the missing <em>demand-side accounting</em> for that whole ecosystem: the productivity payoff that user firms obtain from inputs whose price is zero. Read it with three questions in mind. First, what is "free"? Nagle separates <em>nonpecuniary</em> OSS (no price, no vendor contract) from <em>pecuniary</em> OSS (sold on top of open code) and from closed software — a three-way taxonomy that anticipates the "degrees of openness" debates applied to AI models today. Second, is free valuable on average? His headline is deliberately non-glamorous: the unconditional effect is zero; the effect exists only where complementary capabilities already exist. That conditional logic is the template for later findings in this library, from Brynjolfsson, Li &amp; Raymond (2023) on who gains from an AI assistant to Atlan (2026) on why AI ROI concentrates in a minority of B2B deployments. Third, how do you identify a productivity effect of a <em>free</em> input when standard measurement rests on prices? His answer — dynamic-panel GMM plus instruments built from peer adoption of OSS in the same county and industry — is the identification playbook that the Hugging Face–era studies in this library inherit.
+</div>
+
+<h2>1. Background and motivation: the unmeasured input</h2>
+
+<p>The paper opens with a decade of proclamations. In 2011 Marc Andreessen said "software is eating the world"; in 2015 the venture capitalist John Vrionis sharpened the claim to open source specifically:</p>
+
+<blockquote>It’s actually open source software that’s eating the world. (Vrionis, quoted in Nagle 2019, p. 2 of the PDF)</blockquote>
+
+<p>The factual backdrop: Apple, Google, and Facebook build their productive and innovative efforts on OSS; Microsoft, whose CEO Steve Ballmer once called Linux "a cancer," became "an open-source company"; non-IT brands such as Ford and Walmart rely on OSS; WhatsApp, later acquired for $19 billion, leaned on free OSS from its inception; and, by the early 2010s, more than half of all computing devices ran on OSS because of Android and iOS. Yet the input was nearly invisible in the official statistics, and Nagle's motivating diagnosis is a measurement failure with two sources: free goods have no price for standard productivity measures to weight, and permissive licenses make the installed base unknowable.</p>
+
+<blockquote>First, because these goods are frequently free, standard productivity measures, which rely on price to reflect value, do not properly capture these increasingly critical inputs. (p. 2 of the PDF)</blockquote>
+
+<p>Nagle links this micro mismeasurement to the macro literature on unpriced digital goods — the "digital dark matter" whose contribution to the U.S. economy runs into the billions of dollars for a single piece of OSS (Greenstein &amp; Nagle 2014), and the GDP accounting corrections from intangibles and nonpecuniary production (Corrado, Hulten &amp; Sichel 2009; Bridgman 2013). If national accounts and standard firm surveys cannot see free software, then managers and researchers will systematically underestimate the IT the firm actually uses, misattributing its contribution to unmeasured "intangibles." The paper's two research questions follow directly: <em>what is the impact of nonpecuniary open source software on firm productivity, and what firm-level determinants condition that impact?</em></p>
+
+<p>The sign of the answer is not obvious ex ante. Integrating free software can be more expensive than buying comparable proprietary products (the paper cites a Forrester estimate that long-run costs run 5%–20% higher), so the net productivity effect could be negative. This is why the paper builds a theory of <em>conditional</em> value before turning to data.</p>
+
+<h2>2. Core concepts: free software as an input into production</h2>
+
+<p>Section 2 of the paper locates the work between two literatures that had not met. The user-innovation literature — von Hippel (1986), and the OSS branch centered on Lerner &amp; Tirole (2002), Lakhani &amp; von Hippel (2003), West &amp; Lakhani (2008), Athey &amp; Ellison (2014), O'Mahony (2003), Baldwin &amp; Clark (2006) — asks almost exclusively <em>supply-side</em> questions: why individuals and firms contribute to OSS. The productivity-of-IT literature — Brynjolfsson &amp; Hitt (1996, 2003), Tambe &amp; Hitt (2012), Huang, Ceccagnoli, Forman &amp; Wu (2016) — measures IT by dollars spent on software, hardware, and labor, so inputs priced at zero never enter the estimating equation. The demand and usage side of the OSS market was, in Nagle's reading, an open question; the one partial exception he cites, Lerner &amp; Schankerman (2010), studies cross-country differences in OSS demand without estimating returns and excludes the United States.</p>
+
+<h3>2.1 Risks and costs of using nonpecuniary OSS</h3>
+
+<p>The theory section first catalogues why free software might <em>hurt</em> productivity. The "free" price tag misleads: the purchase price of software is a small share of total cost of ownership (TCO). Reviewing the TCO literature, Nagle cites MacCormack (2003) for the consensus figure that the purchase price represents less than 10% of all costs of using a piece of software, and Giera &amp; Brown (2004) for the estimate that nonpecuniary OSS can carry long-term costs 5%–20% higher than proprietary software once implementation, support, and maintenance are counted. Three further risks compound the cost story: (i) no vendor stands behind the product — there is rarely official technical support, no guarantee of continued development or of the technical path of future versions, and no service-level agreement, so a firm has no one to sue when something goes wrong; (ii) openness cuts both ways on security — anyone can audit the code, and Linus's Law ("Given enough eyeballs, all bugs are shallow") predicts quick bug discovery, but the Heartbleed and Shellshock vulnerabilities (undetected in OpenSSL for two and a half years and in Bash for over two decades) are counterexamples, and open vulnerabilities attract exploitation; (iii) users may burn unproductive time troubleshooting rather than producing. The era's risk aversion had a slogan:</p>
+
+<blockquote>No one ever got fired for buying Microsoft. (industry phrase discussed at p. 5 of the PDF)</blockquote>
+
+<h3>2.2 Benefits of using nonpecuniary OSS</h3>
+
+<p>Against these costs stand three benefits. The direct saving from the zero price is real but small relative to TCO, so Nagle reasons that <em>if</em> a measurable positive productivity effect exists, the free price is not the main mechanism. The second benefit is collective intelligence: code developed inside one firm cannot draw on knowledge outside it, whereas a community project can. This is Joy's Law —</p>
+
+<blockquote>No matter who you are, most of the smartest people work for someone else. (Bill Joy, quoted at p. 5 of the PDF)</blockquote>
+
+<p>— which Nagle reads as the modern form of Hayek's (1945) claim that knowledge is distributed through society and cannot be aggregated in one central body; crowd problem-solving has been shown to work even on complex problems, and knowledge inputs of this kind contribute to productivity. The third benefit is freedom from holdup and an architecture advantage: a firm using nonpecuniary OSS can contribute the code it needs itself rather than waiting on a developer, and the open, modular structure of such software integrates better into enterprise systems. The balance of costs and benefits is an empirical question, and — critically — the balance is likely to differ across firms.</p>
+
+<h3>2.3 IT capabilities and the ecosystem of complements</h3>
+
+<p>The paper's central theoretical claim is that nonpecuniary OSS is a <em>specific input</em> requiring a complementary ecosystem to be productive. Free software must be implemented, configured, and maintained by people with technical skills; without such capabilities the costs dominate. This is the reason the paper expects heterogeneity:</p>
+
+<blockquote>Therefore, for a firm to successfully implement nonpecuniary OSS, it must already have a high degree of technical capabilities. (p. 6 of the PDF)</blockquote>
+
+<p>Because no data set measures the full complement ecosystem (organizational practices, culture, skills), Nagle operationalizes it with two proxies that are observable: <em>IT intensity</em> (the deflated value of IT hardware divided by sales, used continuously and as a dummy for the 95th percentile) and membership in an <em>IT-producing industry</em> (a dummy built on Jorgenson, Ho &amp; Stiroh's (2005) definition updated to NAICS: computer and electronic product manufacturing, software publishers, data processing and hosting, custom programming, and computer systems design). The complementarity hypothesis — returns to free software rise with these proxies — is the paper's core empirical target. The theorized mechanism connects to the established finding that IT pays off mainly with complementary organizational investments (Bresnahan, Brynjolfsson &amp; Hitt 2002; Aral, Brynjolfsson &amp; Wu 2012; Brynjolfsson &amp; Milgrom 2012).</p>
+
+<h3>2.4 Firm size as a moderator</h3>
+
+<p>The second moderating factor is firm size. Small, capital-constrained firms can use free software to ramp up IT capabilities without expensive outlays, so the cost-saving channel matters most for them; as firms grow, the savings shrink relative to the fixed costs of adopting and supporting free software, and the net benefit should fall. Nagle therefore predicts a negative interaction between nonpecuniary OSS use and firm size, proxied by Fortune 1000 membership, sales, and employee counts.</p>
+
+<h2>3. Data and measurement: how do you count free software?</h2>
+
+<p>Measuring the use of a free input is the paper's first contribution. The empirical base joins two firm-year panels. OSS usage comes from the Harte Hanks IT Survey, an establishment-level survey of IT usage covering nearly 10,000 firms per year from 2000 to 2009 — the same database used in leading IT-productivity studies (Brynjolfsson &amp; Hitt 2003; Forman 2005; Bloom, Sadun &amp; Van Reenen 2012; Tambe et al. 2012; McElheran 2014; Huang et al. 2016). Financial data come from Compustat for public firms, matched to Harte Hanks establishments by ticker and by an automated plus hand-checked name-matching algorithm, so establishments change parent correctly across mergers. Because the model needs 10-K financials, only public firms enter: 1,663 firms, minus 97 that never report operating-system usage, giving a final sample of <strong>1,566 firms and 10,355 firm-year observations</strong> (an unbalanced panel averaging 6.6 observations per firm). All monetary values are deflated to constant 2009 dollars.</p>
+
+<p>Harte Hanks records which operating systems run at each site, not how many machines run each system. The paper converts types into counts by splitting each site's PCs and servers across operating-system categories in proportion to Gartner's yearly installed-base market shares, with a correction for sites that use only closed systems, then imputing from surveyed sites to the full firm. The resulting measures are machine counts of three categories of operating systems, defined by the paper as shown in Table 1 (the two OSS categories reproduce the paper's Table 1).</p>
+
+<h3>Table 1: The three categories of operating-system inputs (input measurement, Nagle's Table 1)</h3>
+<table>
+<tr><th>Category (English / 类别)</th><th>Examples in the data (paper's Table 1)</th><th>Price</th><th>Vendor contract / support</th><th>Treatment in the analysis</th></tr>
+<tr><td><strong>Nonpecuniary OSS</strong> (免费开源)</td><td>Berkeley Software Distribution (BSD), Conectiva, Debian, Fedora, FreeBSD, Gentoo Linux, Mandrake Linux, NetBSD, OpenBSD, Ubuntu</td><td>Zero — downloadable free; nominal CD price ignored</td><td>None: no SLA, no entity to sue</td><td>The treatment input (the paper's measure of free OSS)</td></tr>
+<tr><td><strong>Pecuniary OSS</strong> (付费开源)</td><td>Red Hat Linux, SUSE Linux, SCO Linux, TurboLinux</td><td>Positive — e.g., Red Hat Enterprise Linux builds on the free Linux kernel but adds functionality and support</td><td>Vendor contract exists, mitigating risk</td><td>Control and placebo (no complement interaction expected)</td></tr>
+<tr><td><strong>Closed source</strong> (闭源)</td><td>All other systems, including Windows and Apple's Mac OS X (BSD-based but treated as closed because it behaves like one)</td><td>License fees</td><td>Vendor support and SLAs</td><td>Control</td></tr>
+</table>
+
+<p>Two features of this measurement matter for interpretation. First, the survey asks only about operating systems, so the measure <em>underestimates</em> total nonpecuniary OSS use at the firm; the paper is explicit that any estimated effect is a lower bound on the effect of all free OSS. Second, the counts carry real economic meaning in this setting: because the empirical focus is operating systems, each instance requires a piece of hardware to run on, which resolves the theoretical puzzle that a profit-maximizing firm would demand an infinite quantity of a zero-price input — implementation cost is positive, so demand is finite.</p>
+
+<p>The sample is broad but skewed. Sales range from Inter Tel Inc.'s $4.67 million (its lowest year, 2001) to Exxon Mobil's $425 billion (2008), and the paper stresses that this breadth — including non-manufacturing industries such as trade, finance, services, and information — generalizes beyond studies limited to the Fortune 1000. But Harte Hanks oversamples larger firms, and reliance on 10-Ks excludes start-ups and very small firms. In the average firm-year, 5,739 machines run closed operating systems versus 67.5 running nonpecuniary OSS and 130.6 running pecuniary OSS; 3,257 of the 10,355 observations use at least one nonpecuniary OSS system (averaging 214.6 such machines among adopters), 6,095 use no OSS at all, and only 10 observations (Novell; Evans &amp; Sutherland) use exclusively OSS. Industry penetration of nonpecuniary OSS ranges from 16.3% (retail trade) to 47.6% (information), averaging 31.5%. The correlation structure is favorable for identification: nonpecuniary OSS use correlates only weakly with pecuniary OSS and closed use (0.02 and 0.10), while pecuniary OSS and closed use correlate at 0.63.</p>
+
+<h2>4. Empirical strategy and identification</h2>
+
+<h3>4.1 The estimation model</h3>
+
+<p>The workhorse is the standard IT-augmented Cobb–Douglas production function, in logs:</p>
+
+<p style="text-align:center">$$\ln(\text{VA}_{it}) = \alpha \ln K_{it} + \beta \ln L_{it} + \gamma_1 \ln \text{IT}_{it} + \gamma_2 \ln \text{nonpecuniary\_OSS}_{it} + \ln A_{it} + \varepsilon_{it}$$</p>
+
+<p>Value added replaces sales as output to remove demand shocks and economy-wide trends (following Brynjolfsson &amp; Hitt 2003); $A_{it}$ is a firm-specific efficiency term absorbing unobserved management skill, institutional knowledge, and learning. Log-log coefficients are output elasticities: $\gamma_2$ is the percentage change in value added for a 1% change in nonpecuniary OSS machines. IT capital is measured following the literature as the value of IT hardware plus three times the value of IT labor (internal software development is capital), non-IT capital is an economically depreciated, deflated stock built from PPENT, and the specification controls for R&amp;D stock, advertising (brand) stock, and the spread of advanced technologies (ERP, data warehousing, database management). The ecosystem-of-complements hypothesis is tested by interacting the nonpecuniary OSS measure with IT intensity or IT-producer status, with parallel interactions of those proxies with IT capital so the coefficient of interest is not picking up a general "good-at-IT" bonus.</p>
+
+<h3>4.2 The endogeneity problem</h3>
+
+<p>Firms choose whether and how much free software to use, and unobserved quality — better management, better IT organization — plausibly drives both adoption and productivity, which would bias a naive estimate upward through simultaneity and make the "effect" partly reflect the complements themselves. Measurement error is a second concern because the underlying data are self-reported surveys and the OS counts are imputed. The paper's identification strategy is a ladder of increasingly demanding estimators, exploiting the panel's ten-year length:</p>
+
+<blockquote>In an ideal experiment, one would randomly assign firms from the full population of U.S. firms to use or not use nonpecuniary OSS at varying levels of intensity. (p. 7 of the PDF)</blockquote>
+
+<p>The primary specifications are <strong>dynamic-panel GMM</strong>: Arellano–Bond (using two-period-and-older lags of inputs as instruments in a differenced GMM) and Blundell–Bond (a system estimator requiring only one-period lags, correcting a small-sample downward bias), the methods used in recent IT-productivity work such as Tambe &amp; Hitt (2012). Firm fixed effects are estimated but are not the primary approach: within-firm year-to-year variation is modest, and — a point the paper makes in an endnote — the recursively constructed capital stocks have so little within-firm variation that the capital coefficient collapses toward zero, a known artifact in this literature. Year and two-digit NAICS industry fixed effects are always included, with five-digit NAICS as a robustness check.</p>
+
+<h3>4.3 The robustness stack</h3>
+
+<p>To support a causal reading, the main dynamic-panel estimates are checked against five further designs (the paper's Table 9): (i) the <strong>Levinsohn–Petrin</strong> GMM estimator, which uses materials cost as an observable productivity shock; (ii) <strong>inverse probability weighting</strong> (IPW), which reweights firms by their propensity to adopt free OSS to balance the sample on observables; (iii) <strong>coarsened exact matching</strong> (CEM), which matches adopters to non-adopters and drops unmatched observations; and (iv–v) a <strong>two-stage least squares instrumental-variable design</strong> with two instruments: the average nonpecuniary OSS usage of other firms in the same two-digit NAICS industry and the same county as the focal firm, computed from the full Harte Hanks universe (about 419,000 establishments per year) and weighted either by site employees or site revenues. The exclusion logic is stated in the text:</p>
+
+<blockquote>the number of other firms in a county or industry using nonpecuniary OSS is likely to exogenously shift the likelihood of a firm to also use nonpecuniary OSS. (p. 19 of the PDF)</blockquote>
+
+<p>The identifying story is that free OSS requires specialized labor that is dispersed geographically and by industry, so peer adoption shifts the local supply of that labor and thus the focal firm's adoption cost, while — because most sample firms were founded before OSS diffused — their county and industry locations predate and are independent of OSS adoption patterns. The instruments perform well on the usual diagnostics: first-stage F-statistics of 43.6 and 43.8, Cragg–Donald minimum eigenvalues near 9.3, and overidentification tests that do not reject (p = 0.65 and 0.43). Finally, a <strong>management-quality placebo</strong> addresses simultaneity through better management directly: for the 183 sample firms (217 firm-year observations) that also appear in the World Management Survey (Bloom &amp; Van Reenen 2007), management quality is uncorrelated with — indeed has a negative, insignificant coefficient on — the decision to use OSS, evidence that the adoption-productivity correlation is not driven by omitted management practices.</p>
+
+<pre class="mermaid">
+flowchart TD
+    A["Firm-level use of nonpecuniary OSS<br/>(Harte Hanks 2000-2009, machine counts)"] --> B["Log value-added production function<br/>ln(VA) = f(ln K, ln L, ln IT, ln OSS)"]
+    B --> C{"Endogeneity<br/>self-selection, simultaneity,<br/>survey measurement error"}
+    C --> D["Dynamic panel GMM<br/>Arellano-Bond, Blundell-Bond<br/>(lagged inputs as instruments)"]
+    C --> E["Levinsohn-Petrin GMM, IPW, CEM<br/>(production shocks, selection)"]
+    C --> F["2SLS instruments<br/>peer OSS use in same county / industry<br/>first-stage F ~ 44"]
+    C --> G["World Management Survey<br/>management quality uncorrelated<br/>with OSS adoption"]
+    D --> H{"Is the payoff conditional<br/>on an ecosystem of complements?"}
+    E --> H
+    F --> H
+    G --> H
+    H -->|"With complements: IT intensity or IT producer"| I["Positive elasticity 0.002-0.008 per +1% OSS<br/>= +$69k to +$277k value added<br/>for the average adopter"]
+    H -->|"Average firm, no complements"| J["Effect indistinguishable from zero"]
+    I --> K["Larger firms gain less<br/>(OSS x size interactions negative)"]
+</pre>
+
+<h2>5. Findings</h2>
+
+<h3>5.1 The data reproduce the known IT-productivity results</h3>
+
+<p>Before turning to free software, the paper validates its data and methods by estimating the standard three-factor production function. The IT-capital elasticity falls from 0.073 in the least restrictive OLS to 0.023 in the dynamic panels (Arellano–Bond and Blundell–Bond), and the paper shows that its coefficients' confidence intervals overlap those of Huang et al. (2016) (the closest methodological cousin), of Brynjolfsson &amp; Hitt's (2003) one-year-difference model, and of Tambe &amp; Hitt (2012). Non-IT labor carries the large elasticity typical of these studies (roughly 0.67–0.79). This benchmark exercise matters because the credibility of a novel input measure rests on the rest of the model behaving as the literature says it should.</p>
+
+<h3>5.2 On average, no effect</h3>
+
+<p>The first substantive result is a null — and the paper reports it plainly. Including the continuous nonpecuniary OSS measure, the OLS model with two-digit industry controls yields a small negative coefficient (−0.004); once the specification tightens to five-digit industry controls, firm fixed effects, or dynamic-panel GMM, the coefficient is not distinguishable from zero. There is no measurable average productivity return to free OSS across all public firms, and this null survives restricting the sample to adopters. Table 2 summarizes the anatomy of the results.</p>
+
+<h3>5.3 A positive return where complements exist</h3>
+
+<p>The conditional results are the paper's core finding. Interacting nonpecuniary OSS with the ecosystem-of-complements proxies (Table 7 of the paper), the interaction coefficients are positive and significant at the 5% level or better across OLS, Arellano–Bond, and Blundell–Bond, and the tests of the combined OSS-plus-interaction coefficient are significant at 10% or lower. To make the magnitudes concrete, Nagle computes an example for a firm at the 95th percentile of IT intensity using the Arellano–Bond estimate: with an interaction coefficient of 0.409 and baseline OSS coefficient of −0.001, the aggregate elasticity is $(0.009 \times 0.409) - 0.001 \approx 0.003$. Applied to the average adopting firm — 215 free-OSS systems and $3,464 million of value added — the paper translates this into dollars:</p>
+
+<blockquote>a 1% increase in the amount of nonpecuniary OSS at the firm (or an additional 2.15 systems) leads to a 0.003 × 0.01 × $3,464,000,000 ≈ $103,920 increase in value added. (p. 15 of the PDF)</blockquote>
+
+<p>The parallel estimates with a high-IT-intensity dummy range from 0.004 (Blundell–Bond) to 0.008 (Arellano–Bond), the latter implying about $277,120 of additional value added per 1% increase in free-OSS use — the upper bound cited in the abstract's 0.002%–0.008% range. The complementarity is steep: at the 77th percentile of IT intensity the aggregate coefficient falls to about 0.002, a 75% drop from the 95th-percentile value. IT-producing firms behave like the most IT-intensive firms, with an aggregate elasticity around 0.003. Reassuringly for identification, adoption among IT producers is 40%, not 100%, so there is within-group variation to identify the effect from. And the placebo works: interacting <em>pecuniary</em> OSS with IT intensity produces no significant effect, consistent with the theory that paid software already embeds vendor support and needs no firm-side complement ecosystem.</p>
+
+<h3>Table 2: Anatomy of the productivity results (findings)</h3>
+<table>
+<tr><th>Firm type (English / 类型)</th><th>Specification basis</th><th>Aggregate elasticity of nonpecuniary OSS</th><th>Implied value-added gain per +1% OSS for the average adopter (215 systems, $3,464M VA)</th><th>Significance</th></tr>
+<tr><td>Average firm (all public firms)</td><td>NAICS-5 FE, firm FE, ABOND, BBOND</td><td>Indistinguishable from zero (OLS with NAICS-2 even negative, −0.004)</td><td>None measured</td><td>Null</td></tr>
+<tr><td>High IT intensity (≥ 95th percentile)</td><td>ABOND (dummy proxy)</td><td>≈ 0.008 (upper bound); ≈ 0.004–0.005 in OLS/BBOND</td><td>≈ $277,120 (ABOND)</td><td>Positive, combined-coefficient test p ≤ 0.10</td></tr>
+<tr><td>IT-intensive, continuous proxy</td><td>ABOND, interaction 0.409</td><td>≈ 0.003 at 95th percentile; ≈ 0.002 at 77th percentile (−75%)</td><td>≈ $103,920; ≈ $69,280 at lower cutoff</td><td>Positive at 5%+; holds down to 77th pct</td></tr>
+<tr><td>IT-producing industry</td><td>OLS, ABOND, BBOND</td><td>≈ 0.003</td><td>Similar to the 95th-percentile IT-intensity case</td><td>Positive</td></tr>
+<tr><td>Larger firms (Fortune 1000, high sales, high employees)</td><td>Interactions and triple interactions (Tables 6, 8a, 8b)</td><td>Negative interaction with size</td><td>—</td><td>Size interactions negative and significant, especially with IT-producer proxy</td></tr>
+</table>
+
+<h3>5.4 Firm size: smaller firms capture more</h3>
+
+<p>Consistent with the capital-constraint argument, the interaction of nonpecuniary OSS with firm size — Fortune 1000 membership, high sales, or high employee counts — is negative and significant across specifications (Table 6, models 6–8). The baseline OSS coefficient turns positive for smaller firms, though it reaches only 10% significance. In the triple interactions that combine size with the complement proxies (Tables 8a and 8b), larger firms again gain less, and the result is stronger and consistently significant when IT-producer status proxies the ecosystem. Nagle's interpretation: even holding complements constant, the free-software cost saving matters most to firms that cannot easily buy their way to capability. Because the sample contains no start-ups, the very-small-firm end of this gradient is untested in the data.</p>
+
+<h3>5.5 The results survive the robustness stack</h3>
+
+<p>Table 9 of the paper checks the headline conditional effect against finer industry controls (NAICS-5), Levinsohn–Petrin GMM, IPW (significant at 10%; at 5% with the IT-producer proxy), CEM, and the two 2SLS instrument sets — in every case the interaction of interest stays positive with confidence intervals overlapping the baseline. Table 10 varies the sample and measures: adopters only; adding pecuniary-OSS and closed-source counts as controls; replacing imputed dollar values with raw machine and employee counts; adding a headquarters-county fixed effect (the point estimate drops slightly but stays positive at 10%, mitigating agglomeration/spillover concerns); and dropping financial, natural-resource, and IT-producing firms (results unchanged, which rules out an accounting-rules or IT-input-price artifact behind the IT-producer finding).</p>
+
+<h2>6. Position in the literature</h2>
+
+<p><strong>The paper's own research stream.</strong> Nagle 2019 fills the demand-side hole in the economics of OSS. The supply-side tradition he answers — Lerner &amp; Tirole (2002) on contributors' incentives, Lakhani &amp; von Hippel (2003) on user-to-user assistance, von Hippel &amp; von Krogh's (2003) private-collective model, O'Mahony (2003) on community guarding of IP, Baldwin &amp; Clark (2006) on free-riding, Henkel (2006) on selective revealing by firms — asks why code gets produced and revealed for free. Nagle keeps that production story in the background and asks what happens <em>after</em> revelation, on the consuming firm's balance sheet. Methodologically it stands in the productivity-of-IT line (Brynjolfsson &amp; Hitt 1996; Dewan &amp; Min 1997; Brynjolfsson &amp; Hitt 2003; Tambe &amp; Hitt 2012; Huang et al. 2016) but corrects its shared blind spot: every prior study priced IT inputs, so unpriced IT was silently misattributed to intangible capital. The paper is the firm-level complement to Greenstein &amp; Nagle's (2014) macro measurement of "digital dark matter," and it imports the complementarity framework of Bresnahan et al. (2002) and Brynjolfsson &amp; Milgrom (2012) — IT pays off with organizational complements — and applies it to the zero-price margin. Conceptually it is the productivity counterpart to Wen, Ceccagnoli &amp; Forman's (2016) study of firms that open their own IP to enter OSS markets: Nagle looks at the user side of the same opening-up phenomenon, and Haese &amp; Peukert (2026) later extend the demand side to firms building products on open cores.</p>
+
+<p><strong>Connections to the Part I core on firm-level returns from openness and AI.</strong> Three Part I papers in this library are the direct descendants of Nagle's conditional-returns logic.</p>
+
+<ul>
+<li><em>Brynjolfsson, Li &amp; Raymond (2023), "Generative AI at Work."</em> The field experiment on an AI conversational assistant for customer-support agents finds that productivity rises most for novice and low-skilled workers — i.e., the gains from a newly available, widely accessible tool are distributed according to who can absorb it. Nagle 2019 is the firm-level precursor: returns to a free, widely available input (OSS) are likewise concentrated where complementary capabilities exist, with the twist that his IT-capability gradient runs in the opposite direction (skilled, IT-intensive firms absorb free software better, whereas the AI assistant helps the least-experienced agents most). Both papers push against average-treatment-effect thinking.</li>
+<li><em>Atlan (2026), "AI ROI Analysis: Evidence from 200 B2B Deployments."</em> The practitioner study of 200 French B2B AI projects (2022–2025) reports that ROI concentrates in a minority of deployments, with data quality and complementary organizational assets separating winners from the rest. This is Nagle's ecosystem-of-complements result restated for AI adoption at the project level — an instructive parallel precisely because Atlan's sample is non-peer-reviewed and small, while Nagle provides the peer-reviewed econometric template: measure the free/cheap input, condition on complements, and beware selection.</li>
+<li><em>Azoulay, Krieger &amp; Nagaraj (2024), "Old Moats for New Models."</em> The NBER paper asks whether frontier model builders lose their proprietary edge by publishing open weights. Nagle supplies the demand-side ingredient that openness calculus needs: free, widely copied digital inputs do raise user-firm productivity when users have complementary capabilities — so openness can function as a complement-building and standard-setting strategy rather than pure giveaway, echoing the control-versus-access logic of Yue &amp; Nagle (2024) on PyTorch and Boudreau's (2010) distinction between granting access and devolving control.</li>
+</ul>
+
+<p><strong>Connections to the Part II supporting library.</strong> Nagle 2019 is the natural companion to the two adjacent empirical papers in this library. <em>Wright, Nagle &amp; Greenstein (2023), "Open Source Software and Global Entrepreneurship,"</em> documents that OSS engagement raises entrepreneurship by building human capital in developing countries; Nagle's capital-constrained-small-firm conjecture — that the productivity payoff of free inputs should be largest where money is scarcest — is the same mechanism at the intensive margin of established firms, and both papers treat OSS as an input that lowers barriers for resource-poor actors. <em>Conti, Peukert &amp; Roche (2025), "Beefing IT Up for Your Investor,"</em> shows that start-ups signal quality to investors through OSS engagement, which then funds innovation; Nagle measures the productive payoff of such engagement for incumbents that already have complements, so the two papers bracket the OSS lifecycle: young firms use OSS participation as a signal to obtain capital, mature firms with IT ecosystems convert free-OSS use into measured value added. <em>O'Mahony &amp; Karp (2022)</em> on the evolution from proprietary to collective governance and <em>von Hippel &amp; von Krogh (2003)</em> provide the supply-side institutions that make Nagle's zero-price input available in the first place.</p>
+
+<p><strong>What the paper challenges and fills.</strong> It challenges the implicit assumption in the returns-to-IT literature that measuring dollars spent captures the IT a firm uses, showing that prior studies understate IT and therefore misattribute its contribution. It fills a gap in the user-innovation tradition, which had documented the production of free innovation but not its consumption-side value. And it disciplines the popular enthusiasm behind "open source is eating the world": the productivity dividend of openness is real but conditional, so managers and policy makers who treat free software as an unconditional gift misread the evidence.</p>
+
+<h2>7. Limitations</h2>
+
+<p><strong>Limitations the author states.</strong> Nagle is explicit that free-OSS use is measured only through operating systems, so the paper underestimates total nonpecuniary OSS and the true effect is likely larger than estimated. The sample covers public, mostly medium and large U.S. firms — even the smallest firm is far from a start-up — so the paper's most intriguing prediction, that very small, capital-constrained firms benefit most, is left untested. The coefficient on OSS may partly capture benefits from higher-quality IT labor in adopting firms, which cannot be disentangled without detailed skills data. And endogeneity, while attacked from many angles, can never be fully eliminated in observational productivity work; the management-quality check covers only about 10% of sample firms.</p>
+
+<p><strong>Independent judgment</strong> (layered and labeled, separating what the paper says from what a reader infers):</p>
+
+<ul>
+<li><strong>Author's claim</strong>: The positive conditional effect (elasticity ≈ 0.002–0.008 for firms with complements; zero for the average firm) is a productivity effect of using nonpecuniary OSS, identified by dynamic-panel GMM, matching, and IVs. This is the paper's central asserted finding.</li>
+<li><strong>Evidence</strong>: The claim rests on the reported elasticities and dollar translations above, robust across the estimator ladder; the IV first-stage F-statistics (43.6–43.8) and overidentification tests support instrument relevance and validity within the usual conventions.</li>
+<li><strong>Inference (mine, not the paper's)</strong>: The operating-system measure is a count of machines, so the "elasticity" is with respect to free-OSS <em>machines</em>, not the value or sophistication of the software they run; treating the machine count as a proxy for OSS capital assumes a proportional mapping that the paper cannot verify, and imputation plus market-share splitting add noise whose direction is unclear (the paper asserts the measure understates OSS — a plausible but not proven claim). The IV exclusion restriction — peer county/industry adoption affects the focal firm only through its own OSS use — could be violated by localized IT labor markets or knowledge spillovers that directly raise productivity; the county-fixed-effect robustness addresses headquarters-county agglomeration but not industry-level spillovers. The management-quality placebo covers a subset of firms and is a correlation test, not a full remedy.</li>
+<li><strong>Open questions</strong>: (i) whether the complementarity result extends to non-OS free inputs — Nagle himself lists Wikipedia, 3D-printing blueprints, open hardware, crowdsourced tournaments, and online reviews, and the modern case of open foundation models and AI hubs (Hugging Face) is the natural generalization, but its economics (GPU complements, API delivery, dual-use appropriation) differ from 2000–2009 operating systems; (ii) whether very small firms and start-ups realize the largest gains, which the data cannot reach; (iii) whether the labor-skill channel, rather than the software itself, carries part of the measured effect.</li>
+</ul>
+
+<p><strong>Version caveat.</strong> The source PDF is the May 2018 <em>Articles in Advance</em> version of the article that was later paginated as <em>Management Science</em> 65(3): 1191–1215 (2019). This deep dive is faithful to that PDF; page references count the PDF's own pages (the abstract sits on p. 2 because the INFORMS download cover precedes the article).</p>
+
+<h2>8. Conclusion and takeaways</h2>
+
+<p>The paper's conclusion restates the conditional finding and draws out its three audiences:</p>
+
+<blockquote>The results of this study show that the use of nonpecuniary OSS has a positive and measureable impact on value-added productivity for firms that already have an ecosystem of complementary capabilities as proxied by IT intensity or belonging to an IT-producing industry. (p. 21 of the PDF; "measureable" is the PDF's spelling)</blockquote>
+
+<p>For researchers, the message is measurement: productivity studies that price only purchased IT understate the IT firms use, and unpriced, crowdsourced digital inputs should enter production functions explicitly rather than be misattributed to intangibles — increasingly important as information costs approach zero and such inputs multiply. For practitioners, firms that already hold the complementary ecosystem can raise value-added productivity by deploying more free OSS, and smaller firms stand to gain disproportionately. For policy makers:</p>
+
+<blockquote>the results indicate that federal funding of OSS and other publicly available digital goods could enhance the productivity of firms. (p. 22 of the PDF)</blockquote>
+
+<p>The takeaways for this topic are three. First, <em>openness pays conditionally</em>: free digital inputs are not automatically productive; the firm's pre-existing capabilities determine whether the cost-saving or the integration-cost channel dominates. Second, <em>measurement is strategy</em>: goods priced at zero escape both national accounts and firm-level productivity regressions, so claims about the value of free ecosystems (models, data, weights on a hub) require explicit measurement choices before they can be evaluated. Third, <em>heterogeneity is the norm</em> — the average effect can be zero while well-defined subpopulations earn substantial returns, which is precisely the pattern the Hugging Face–era studies in this library keep rediscovering at the level of workers, projects, and AI deployments.</p>
+
+<div class="golden">
+Free inputs are not free capabilities: the productivity payoff of zero-price open source accrues to firms that already own the ecosystem of complements needed to absorb it. (Synthesis of Nagle 2019 — a paraphrase, not a quotation)
+</div>
+
+<div class="note">
+<strong>AI assistance note</strong>: This reading note was generated by AI following the deep-dive workflow of the reading-notes skill, grounded in a pdftotext extraction of the local PDF of Nagle (2019), <em>Management Science</em> 65(3): 1191–1215 (Articles in Advance version, May 2018, DOI 10.1287/mnsc.2017.2977). All quotations are verbatim from that extraction and each carries its location in the PDF ("p. N of the PDF", counting the download cover as p. 1); page labels such as "the paper's Table 1/7/9" refer to the article's own numbering. One extraction artifact was repaired: the PDF encodes the "≈" in the $103,920 computation as a stray control character, rendered here as "≈". The limitations section separates the author's stated claims from the reader's inferences, which are labeled as such and have not been peer-reviewed. Please check quotes and numbers against the original before citing.
+</div>
+
+<div class="back"><a href="index.html">← Back to topic index</a> · <a href="../index.html">All courses &amp; topics</a></div>
+
+</body>
+</html>
