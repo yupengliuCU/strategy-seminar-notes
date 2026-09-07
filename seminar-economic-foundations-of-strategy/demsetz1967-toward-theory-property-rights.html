@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,9 @@
 <style>
 :root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Serif SC",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
 h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
-h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
 h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
 .meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
 .meta a{color:var(--accent);text-decoration:none}
@@ -24,11 +24,14 @@ table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
 td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
 th{background:#f9fafb;font-weight:600}
 .summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
-.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.summary-box h2{margin:0 0 .5rem;color:var(--accent);border:none;font-size:1.1rem}
 .golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
 .note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
 .back{margin:3rem 0 1rem;font-size:.9rem}
 .back a{color:var(--accent);text-decoration:none}
+.langbar{position:sticky;top:0;background:var(--bg);padding:.7rem 0;z-index:10;display:flex;gap:.5rem;margin-bottom:1rem;border-bottom:1px solid var(--border)}
+.langbar button{border:1px solid var(--border);background:#fff;color:#333;padding:.45rem 1.1rem;border-radius:99px;cursor:pointer;font-size:.95rem;font-family:inherit}
+.langbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 @media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -39,6 +42,131 @@ th{background:#f9fafb;font-weight:600}
 <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
 </head>
 <body>
+
+<div class="langbar">
+  <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+</div>
+
+<div id="lang-zh">
+<h1>Toward a Theory of Property Rights</h1>
+<blockquote><strong>元信息（Meta）。</strong> <strong>作者（Authors）：</strong> Harold Demsetz（芝加哥大学 University of Chicago）</blockquote>
+<blockquote><strong>期刊（Journal）：</strong> <em>The American Economic Review</em>, Vol. 57, No. 2, Papers and Proceedings of the Seventy-Ninth Annual Meeting of the American Economic Association (May 1967), pp. 347–359</blockquote>
+<blockquote><strong>年份（Year）：</strong> 1967</blockquote>
+<blockquote><strong>DOI：</strong> 无（pre-DOI 时代的纸质文章；JSTOR 稳定链接：http://www.jstor.org/stable/1821637）</blockquote>
+<blockquote><strong>性质（Nature）：</strong> theoretical economics essay（理论性经济学论文——产权理论 property-rights theory 的经典源头；无正式模型，论证建立在定义、成本—收益命题与人类学案例证据之上）</blockquote>
+<blockquote><strong>关键词（Keywords）：</strong> property rights; externalities; internalization; communal vs. private vs. state ownership; transaction costs; fur trade; Coase theorem; ownership structure</blockquote>
+<div class="summary-box"><h2>一句话总结（One-sentence summary）</h2>
+</div>
+<h3>一句话总结（One-sentence summary）</h3>
+<p>产权（property rights）并不是固定不变的数据（datum），而是在内部化（internalization）的收益超过其成本时生成并演变、把外部性（externalities）内部化的制度安排：因此，一个社群的产权结构会对新技术、相对价格与市场价值做出内生（endogenous）回应。</p>
+<div class="note"> <strong>阅读笔记（第 3 周——经典 PRT（classical PRT）→ 现代 PRT → 战略（strategy）→ 所有权能力（ownership competence）→ 实证检验（empirical test））。</strong> 本文开启这条脉络：它界定了产权理论（property-rights theory，PRT）中经典、以效率为基础的分支——在这一分支看来，所有权制度的存在是为了让私人激励与社会成本收益对齐，因而会随技术与市场价值的变化而调整。本文尚未提出 Alchian & Demsetz（1972）的计量/监督（metering/monitoring）问题，也未涉及 Grossman & Hart（1986）的剩余控制权（residual control rights）问题；但文中对公司制的讨论同时为这两个问题埋下伏笔。其共有/私有/国家所有权三分法（communal/private/state trichotomy）加内部化命题（internalization thesis），为现代 PRT、它在战略管理中的转译以及后来的实证检验提供了它们共同预设的分类学与基准。</div>
+<h2>1. 背景与动机（Background and motivation）</h2>
+<p>Demsetz 的靶子是 1960 年代的价格理论主流（price-theoretic mainstream）：后者把附着于商品之上的产权束（bundle of property rights）当作既定前提，只追问价格与数量由什么决定。他把这个优先级颠倒过来——权利束各组成部分的生成与配比才是更在先的问题，而交换本身就是两个权利束的交换，不是实物商品的交换。更深的对手是庇古式福利经济学传统（Pigovian welfare tradition）：在那一传统中，烟雾、过度捕猎之类的外部性表现为市场失灵（market failure），构成国家矫正的理由。Coase（1960）已经证明：只要权利界定清晰、可以转让且交易成本（transaction costs）为零，私人谈判无论初始归属如何都能达到效率；Demsetz 再往前一步，追问究竟什么样的权利会存在。第二个范围较小的对手是人类学：Speck 与 Leacock 记录了皮毛贸易（fur trade）与美洲印第安人私人狩猎领地之间的相关关系，却始终没有人提出任何把土地的私有性与皮毛贸易联系起来的理论。本文补上了这个理论，把产权变成经济分析中的因变量（dependent variable）。</p>
+<h2>2. 核心论点与分析框架（Core argument / framework）</h2>
+<p>论文按它宣布的三个部分展开：产权的概念与作用、产权的生成（emergence），以及产权聚合成特定所有权结构的组合过程（coalescence）。</p>
+<h3>Part I — 产权的概念与作用（The concept and role of property rights）</h3>
+<p>在 Robinson Crusoe 式的孤立世界里，产权不起任何作用：产权是"社会的工具（an instrument of society）"，帮助一个人在与他人的交往中形成可以合理持有的预期，并通过法律、习俗与社会规范（laws, customs, and mores）来表达。由于权利界定了人与人之间如何相互受益、相互伤害，它决定了"谁必须向谁付费，以改变他人采取的行动"——这正是产权与外部性关系密切的原因。</p>
+<blockquote>When a transaction is concluded in the marketplace, two bundles of property rights are exchanged. A bundle of rights often attaches to a physical commodity or service, but it is the value of the rights that determines the value of what is exchanged. — Demsetz 1967, p. 347 (opening paragraph).</blockquote>
+<p>></p>
+<blockquote>中文复述：市场上达成一笔交易时，交换的是两个产权束。产权束常常附着于某种实物商品或服务，但决定被交换之物价值的，是其中权利的价值，而非实物本身。（论文开篇段）</blockquote>
+<p>接下来是两个承重概念。外部性是一种交易成本现象，而不是物理现象：任何效应都不外在于整个世界——总有人承受它或享受它——因此，只有当把某种效应施加到互动各方决策之上的成本高到不划算时，该效应才成为外部性。内部化（internalization）指的是让该效应（在更大程度上）作用于所有互动方的过程，"通常表现为产权的变动"。</p>
+<blockquote>What converts a harmful or beneficial effect into an externality is that the cost of bringing the effect to bear on the decisions of one or more of the interacting persons is too high to make it worthwhile, and this is what the term shall mean here. "Internalizing" such effects refers to a process, usually a change in property rights, that enables these effects to bear (in greater degree) on all interacting persons. — Demsetz 1967, p. 348.</blockquote>
+<p>></p>
+<blockquote>中文复述：把某种有害或有益效应变成外部性的，是把该效应施加到一方或多方互动者决策上的成本高到不值得付出的程度——本文即在此义上使用这个词。"内部化"这类效应，指的是一个过程，通常是产权的变动，它使这些效应能够（在更大程度上）作用于所有互动者。</blockquote>
+<p>于是，"产权的一个基本功能，就是引导激励，以实现更大程度的外部性内部化"。交易成本以两种截然不同的方式阻隔内部化：一是"自然的"交易困难（当事人众多、效应难以测度），二是法律对自愿谈判的禁止——后者使交易成本趋于无穷。使用奴隶劳动的企业，如果允许奴隶出价赎买自由，就把奴隶制的成本内部化了——Demsetz 正是借这个透镜解读中世纪欧洲从农奴到自由民的转变——而纳税人之所以无须承担征兵制的全部成本，仅仅因为法律禁止"花钱雇人顶替（buy-him-in）"的自愿兵市场或"花钱买退路（let-him-buy-his-way-out）"的豁免市场："那么多经济学家看到烟雾时能认出外部性，看到征兵令时却认不出来。"在零交易成本（zero transaction costs）的世界里，随之而来的是两个"惊人的推论（striking implications）"（脚注 1 归于 Coase 1960）：权利可转让时，产出组合是有效率的；且产出组合与所有权被分配给谁无关，因为一种制度下为获豁免而出价最高的人，正是另一种制度下最后自愿应征的人。脚注 2 的农场主—牧场主案例表明不变性（invariance）在何处失效：一个在获偿权上刚好收支相抵的农场主，付不起钱让牧场主减少牛群——但此时牧场主买下农场反而有利可图，把养牛与耕作合并起来，让自利把损害内部化。合并因此是一种内部化装置（internalization device），这正是 Part III 要展开的主题。</p>
+<h3>Part II — 产权的生成（The emergence of property rights）</h3>
+<p>如果权利的配置功能在于内部化，那么权利的生成最好联系新的或被重新估值的、有益与有害的效应来理解，命题随即直接给出：</p>
+<blockquote>property rights develop to internalize externalities when the gains of internalization become larger than the cost of internalization. Increased internalization, in the main, results from changes in economic values, changes which stem from the development of new technology and the opening of new markets, changes to which old property rights are poorly attuned. — Demsetz 1967, p. 350.</blockquote>
+<p>></p>
+<blockquote>中文复述：当内部化的收益大于内部化的成本时，产权就会发展起来，把外部性内部化。内部化的增强主要源于经济价值的变化——这些变化来自新技术的发展与新市场的开辟，而旧产权对这类变化适应不良。</blockquote>
+<p>三个限定条件为命题框定边界。其一，分析把"一个社群对私有所有权（private ownership）的偏好"当作既定前提：给定这一偏好，新的私有或国家权利会随技术与相对价格的变化而出现。其二，调整不必是有意识的——在西方社会，它通过"社会风俗与普通法判例（common law precedents）的渐进变化"推进，属于某种程度上的试错（hit-and-miss）实验，其长期存续取决于它们在多大程度上消化了重大变化背后的外部性，"在一个高度重视效率成就的社会里"。其三，该命题是一个经验性论断："对这一断言的严格检验，需要大量而细致的经验工作"——美洲印第安人材料就是为此提供的证据。下面的 Mermaid 图画出完整的因果链。</p>
+<div class="mermaid">
+flowchart TD
+    A["Change in knowledge, technology, or market values"] --> B["New or revalued harmful and beneficial effects"]
+    B --> C["Externality becomes economically significant"]
+    C --> D{"Gains of internalization &gt; costs of internalization?"}
+    D -->|No| E["Old rights persist; effect stays external"]
+    D -->|Yes| F["Adjustment of property rights via mores, common law, legislation"]
+    F --> G["Communal / private / state ownership"]
+    G --> H["Concentration of benefits and costs on decision-makers"]
+    H --> I["Incentives: husbanding, conservation, efficient intensity of use"]
+    I --> J{"Residual externalities affect how many parties?"}
+    J -->|Few| K["Private negotiation or contracts among owners"]
+    J -->|Many| L["Buy-outs and scale of ownership, or state action"]
+</div>
+
+<h3>Part III — 产权的聚合与归属（The coalescence and ownership of property rights）</h3>
+<p>生成解释的是权利<em>会</em>出现；以何种形式出现则是第二个问题。三分法由三种理想形式支撑：共有所有权（communal ownership）——社群全体成员均可行使的权利，它否认国家或任何个人有干预之权；私有所有权（private ownership）——社群承认所有者排除他人的权利；国家所有权（state ownership）——国家可在既定的政治程序约束下排除任何人使用。国家所有权不在详细考察之列；分析针对的是以私有产权为导向的社群（private-property communities）。其工作母机是共有土地范式（communal-land paradigm）：</p>
+<blockquote>Suppose that land is communally owned. Every person has the right to hunt, till, or mine the land. This form of ownership fails to concentrate the cost associated with any person's exercise of his communal right on that person. If a person seeks to maximize the value of his communal rights, he will tend to overhunt and overwork the land because some of the costs of his doing so are borne by others. — Demsetz 1967, p. 354.</blockquote>
+<p>></p>
+<blockquote>中文复述：假设土地为共有。每个人都有权在这片土地上打猎、耕作或采矿。这种所有权形式没能把任何人在行使共有权利时产生的成本集中到他自己身上。一个人若追求其共有权利价值的最大化，就会倾向于过度捕猎、过度利用土地，因为他这样做的部分成本由他人承担。</blockquote>
+<p>共有所有权在三个成本维度上失灵。一是谈判：每个成员都必须同意，而每个拒不退让的人"都有权以他乐意的速度尽快使用土地"。二是监管（policing）：即便达成协议，监督执行依然代价高昂。三是时间：未来世代无法就当下的使用出价——在共有权利之下，没有人能出售对未来产出的索取权，而私有所有者"扮演经纪人（broker）的角色，其财富取决于他在多大程度上权衡现在与未来相互竞争的要求"。在共有产权之下，"当代人的要求会被赋予一种不经济的过大权重"。私有所有权通过排他（exclusion）把这类成本的大部分内部化——所有者可以指望获得养护（husbanding）猎物、改良土地带来的回报——但只是部分内部化：筑坝者会把自己土地上蓄积的水计入得失，却不管邻居地块上水位下降。私有所有权更深一层的优势在于，残余外部性（residual externalities）只触及少数所有者，谈判因此便宜；农场主—工程师的对话表明，在共有产权之下，工程师"无法保证另一位工程师不会接手这项工程"，一场两人谈判于是变成农场主与除他之外所有人的谈判。</p>
+<blockquote>This is the basic explanation, I believe, for the preponderance of single rather than multiple owners of property. Indeed, an increase in the number of owners is an increase in the communality of property and leads, generally, to an increase in the cost of internalizing. — Demsetz 1967, p. 357.</blockquote>
+<p>></p>
+<blockquote>中文复述：我相信，这就是财产多为单一所有者、很少为多个所有者这一普遍现象的基本解释。事实上，所有者人数增加意味着财产共有性的增强，通常会导致内部化成本的上升。</blockquote>
+<p>面对残余外部性，所有者要在契约协议与改变地块规模的收购（buy-out）之间选择，"选择哪一项，取决于哪一项更便宜"；地块规模趋向于让谈判/监管成本与所有权规模成本之和最小的尺寸——按 Demsetz 脚注 8 的说法，这正是 Coase（1937）为企业给出的理由。单一所有权的"例外"——公众持股公司——其实并不构成例外：经营上的规模经济并不要求资本供给上的规模经济，股份制（joint stock）因此可取，权力被委托给一小群管理者，他们成为事实上的所有者（de facto owner）——第一项法律修正。随后，合伙法使管理层决策对股东成为一项巨大的外部性，由有限责任（limited liability）加以弥补——第二项修正；而股份的自由转让——这条"逃生门（escape hatch）"——让股东在偏好分歧时得以退出，由此催生了有组织的证券交易（securities trading）。</p>
+<blockquote>De facto management ownership and limited liability combine to minimize the overall cost of operating large enterprises. Shareholders are essentially lenders of equity capital and not owners, although they do participate in such infrequent decisions as those involving mergers. — Demsetz 1967, p. 358.</blockquote>
+<p>></p>
+<blockquote>中文复述：事实上的管理层所有权与有限责任相结合，使经营大型企业的总成本降到最低。股东本质上是股权资本（equity capital）的出借人，而不是所有者，尽管他们确实参与并购这类不常遇到的决策。</blockquote>
+<p>股东拥有的是自己的股份，而不是公司本身；"在控制这个意义上的所有权，再次大体上成为一件个人事务"。这一范式延伸到观念：如果新观念可以被所有人自由攫取，发展它们的激励便告缺失，于是专利（patents）与版权（copyrights）赋予创造者部分私有权利——而它们使旧观念过时所造成的问题，交由市场谈判处理，因为"一切外部性问题都与土地所有权例子中产生的问题高度类似，相关变量完全相同"。</p>
+<h2>3. 证据与案例（Evidence / examples）</h2>
+<p>这是一篇理论文章；其证据由若干经过推敲的案例构成，其中蒙塔格奈（Montagnes）皮毛贸易案例是核心，被"相当详细地"展开。事实来自 Frank G. Speck——他在拉布拉多半岛（Labrador Peninsula）的印第安人中发现了悠久的土地产权传统——以及 Eleanor Leacock 的专著 <em>The Montagnes "Hunting Territory" and the Fur Trade</em>，后者确立了私有土地权利与商业皮毛贸易之间紧密的历史与地理关系。Leacock 检视的耶稣会记载（Le Jeune，1633–34 年冬；Druilletes，1647–48 年）显示，贸易之前不存在私人土地占有；随后的序列从纯粹临时性的划拨地段，到季节性的划拨地段（一份 1723 年的匿名记载描述猎人在树上刻下自己的族徽，"以免彼此侵入对方地界"），再到 18 世纪中叶相对稳定的领地。皮毛贸易之前，狩猎只为食物和自家少量皮毛；自由狩猎的外部性真实存在，却小到"不值得任何人把它们纳入考虑"，因此没有产权出现。贸易改变了两个边际：</p>
+<blockquote>We may safely surmise that the advent of the fur trade had two immediate consequences. First, the value of furs to the Indians was increased considerably. Second, and as a result, the scale of hunting activity rose sharply. Both consequences must have increased considerably the importance of the externalities associated with free hunting. — Demsetz 1967, p. 352.</blockquote>
+<p>></p>
+<blockquote>中文复述：我们可以稳妥地推断，皮毛贸易的到来有两个直接后果：其一，皮毛对印第安人的价值大幅提高；其二，由此狩猎活动的规模急剧扩大。这两个后果必定都大大提高了与自由狩猎相联系的外部性的重要性。</blockquote>
+<p>因果链经由养护（husbanding）闭合：贸易使养护皮毛动物在经济上变得合算；养护需要防止偷猎（poaching）；防止偷猎需要对狩猎土地实施排他。Speck 记录了由此产生的做法——报复越界侵入者；家族领地分成四块轮猎，中央保留一块地"当作一种储备（a sort of bank），除非常规地块短缺所迫，否则不去猎取"。这个例子的说服力来自一个内嵌的反例——西南平原没有发展出私人领地，与命题在成本与价值两个边际上均一致（Table 3）——也来自一个佐证案例：在森林动物占主导、纵帆船定期前来交易皮毛的地方，西北印第安人发展出了包括继承在内的家庭权利。</p>
+<p><strong>表（Table）。</strong> Table 3 — 拉布拉多半岛 vs. 西南平原：在两个边际上检验该命题（Labrador Peninsula vs. southwestern plains: the thesis tested on two margins）（Demsetz 1967, pp. 351–353）</p>
+<table>
+<thead><tr><th></th><th>要素（Factor）</th><th>拉布拉多半岛（Labrador Peninsula）——蒙塔格奈人（Montagnes）</th><th>西南平原（southwestern plains）</th></tr></thead>
+<tbody>
+<tr><td></td><td>猎物的商业价值（Commercial value of game）</td><td>森林皮毛动物，欧洲皮毛贸易到来后价值极高</td><td>欧洲人带来牛群之前，"没有任何平原动物的商业重要性可与森林皮毛动物相比"</td></tr>
+<tr><td></td><td>动物流动性 / 排他的成本（Animal mobility / cost of exclusion）</td><td>森林动物"把领地限制在相对较小的范围"，内部化养护效应成本低廉</td><td>草食动物"习性是在广阔土地上漫游"——动物会越过边界，划定边界代价高昂</td></tr>
+<tr><td></td><td>预测与观察到的权利（Predicted and observed rights）</td><td>出现私人家庭狩猎领地，配以对越界的报复与轮猎式养护</td><td>私人狩猎土地几乎无从发展；"该外部性根本不值得加以考虑"</td></tr>
+</tbody></table>
+<p>还有两个例子把可移植性逻辑延伸到土地之外：在游走民族中，可携带且制作费时的物品（武器、器皿）通常是私有财产；在最原始的农耕者那里，产权附着于可携带的作物，而非休耕地（pp. 353–354）。</p>
+<h2>4. 在文献中的位置（Position in the literature）</h2>
+<p>Demsetz（1967）是产权理论中经典、以效率为基础的分支的开创性表述。它延伸了 Demsetz 所引的两篇 Coase 论文：Coase（1937）——其企业节约的谈判成本，正是 Demsetz 用来解释地块规模与公司权力委托的成本（脚注 8）；以及 Coase（1960）——其不变性（invariance）结果（脚注 1）被受财富约束的牧场主案例所限定。Coase 把权利的分配当作既定前提，追问当事人是否会围绕它进行交易；Demsetz 则追问分配本身由什么决定，使所有权成为成本—收益压力下的内生结果——这就是权利的"效率观（efficiency view）"。</p>
+<p>PRT 谱系的地图还需要两个对照。与 Alchian & Demsetz（1972）相比，1967 年论文是互补的：它问存在哪些权利、以何种形式存在；1972 年论文则问一个既定的团队生产（team production）情境应当如何组织，其回答是：当监督代价高昂、偷懒（shirking）成问题时，一个集中化的剩余索取者（residual claimant）——监督投入、计量（metering）产出——是有效的应对。1967 年论文的公司讨论预示了这一分离问题（事实上的管理层所有权 vs. 股东），却用法律修正而非团队监督逻辑来解决它。最尖锐的对照是与现代形式化 PRT：Grossman & Hart（1986）与 Hart & Moore（1990）（集大成于 Hart 1995）放弃了零交易成本下的不变性，用事前（ex ante）不可缔约（non-contractible）的投资与套牢（hold-up）取代完全契约，并把所有权定义为契约未覆盖状态下对资产的<em>剩余控制权</em>（residual control rights）。Demsetz 解释的是权利为何存在；Grossman–Hart 则给定资产，追问谁应当持有剩余控制权，以便其关系专用性投资（relationship-specific investment）最重要的一方拥有最佳的事前激励——这正是 Demsetz"集中所有权优于共享所有权"论断的正式继承者。</p>
+<p><strong>表（Table）。</strong> Table 2 — Demsetz（1967）与其开启的 PRT 谱系：经典内部化分支、经典计量分支与现代形式化 PRT（Demsetz (1967) and the PRT line it opens: classical internalization, classical metering, and modern formal PRT）</p>
+<table>
+<thead><tr><th></th><th>阶段（Stage）</th><th>代表作（Representative works）</th><th>焦点问题（Focal question）</th><th>核心机制（Core mechanism）</th><th>所有权的含义（What ownership means）</th></tr></thead>
+<tbody>
+<tr><td></td><td>经典 PRT——内部化分支（Classical PRT — internalization branch）</td><td>Demsetz 1967</td><td>产权为何会出现，又为何取共有、私有或国家的形式？</td><td>收益超过成本时，权利改变以把外部性内部化</td><td>一种内生的社会工具，把收益与成本集中到决策者身上</td></tr>
+<tr><td></td><td>经典 PRT——计量分支（Classical PRT — metering branch）</td><td>Alchian & Demsetz 1972</td><td>团队生产为何采取设有中央监督者的经典企业形式？</td><td>监督代价高昂之下的偷懒（shirking）；剩余索取者（residual claimant）计量投入与产出</td><td>在既定生产团队内部解决监督问题的一种装置</td></tr>
+<tr><td></td><td>现代形式化 PRT（Modern formal PRT）</td><td>Grossman & Hart 1986; Hart & Moore 1990; Hart 1995</td><td>当契约不完全（incomplete contracts）、投资不可缔约时，谁应当拥有资产？</td><td>事前（ex ante）投资激励；套牢（hold-up）；剩余控制权（residual control rights）的配置</td><td>所有权 = 对资产的剩余控制，由投资最重要的一方持有</td></tr>
+<tr><td></td><td>战略转译与实证检验（Strategy translation and empirical test）</td><td>Kim & Mahoney 2005; Foss & Klein; Magelssen 2020</td><td>PRT 如何把企业边界、治理与绩效解释为战略变量？</td><td>PRT 与交易成本理论、代理理论的综合；实证识别（empirical identification）</td><td>所有权及其边界是受能力约束、可接受实证检验的战略选择</td></tr>
+</tbody></table>
+<p>在战略研究中，Demsetz（1967）支撑起如下论断：所有权结构是战略变量，而非约束条件。Kim & Mahoney（2005）把 PRT 与交易成本理论、代理理论系统化为一种组织经济学式的战略管理路径；所有权能力（ownership competence）与实证文献（如 Magelssen 2020）所检验的假设，其谱系都回溯到本文的三分法与内部化命题。</p>
+<h2>5. 局限（Limitations）</h2>
+<h3>(a) 作者自述的局限（The author's own stated limitations）</h3>
+<ul>
+<li>国家所有权被搁置一旁："我不会详细考察国家所有权这一选项……"——分析意在"辨别出一些支配着以私有产权为导向的社群中产权发展的宽泛原则"（p. 354）。</li>
+<li>作者承认外部性概念有歧义；工作定义有意涵盖外部成本与外部收益，以及货币性（pecuniary）与非货币性效应（p. 348）。</li>
+<li>生成命题有待严格检验：论文呼吁"大量而细致的经验工作"，并把印第安人材料只评价为"相当接近人类学领域可称为有说服力的证据"（pp. 350–351）。</li>
+<li>调整不必是有意识的；西方的变迁经由社会习俗与普通法判例推进，它们在某种程度上是"碰运气的试错程序（hit-and-miss procedures）"（p. 350）。</li>
+<li>社群对私有 vs. 国家所有权的偏好被视为既定前提——落在理论之外（p. 350）。</li>
+<li>脚注 2 承认：当再分配改变需求时，产出组合对所有权的分配保持不变（invariance），需要一次补偿性的财富变动作为前提；干净利落的结果只在通常的利润最大化企业情形下成立（pp. 348–349）。</li>
+</ul>
+<h3>(b) 独立判断（Independent judgment）</h3>
+<ul>
+<li><strong>[证据（evidence）]</strong> 支撑一般理论的证据基础很薄：皮毛贸易的相关性只建立在少数几份人类学来源上（Speck、Leacock、耶稣会报告 Jesuit Relations），而一个案例被要求支撑关于一切产权生成的论断——论文自己以要求"大量而细致的经验工作"的方式点出了这个缺口。</li>
+<li><strong>[推断（inference）]</strong> 因果可能双向。Demsetz 把证据读作皮毛贸易 → 皮毛价值上升 → 私人领地，但排他性领地也可能只是让某些群体通过控制与欧洲商人的接触来攫取贸易收益，使领地成为参与贸易的前提条件，而不仅仅是结果。关于两个直接后果的"稳妥推断（safe surmise）"只是针对这一替代解释的断言，并未得到论证。</li>
+<li><strong>[推断（inference）]</strong> 理论抽掉了权利创设中的权力与分配冲突。Demsetz 只指出财富在不同分配方案下分布不同；他没有追问当受损方抵制时，获益方如何促成权利的改变——而现实中的权利创设（圈地 enclosure、矿权 mineral titles）常常充满争议，事后看有时是低效的。</li>
+<li><strong>[开放问题（open question）]</strong> 理论没有预测：当内部化的收益显而易见时，共有或开放进入（open-access）安排为何仍会存续——社群的"口味（tastes）"是外生的，也没有任何解释覆盖让低效产权安排存续的转型成本、协调失败或政治过程。</li>
+<li><strong>[论文论断（paper claim）]</strong> 由于排除了国家所有权，三分法从未被三向比较过：Demsetz 确立了私有所有权相对共有所有权而言是内部化的理想形态，却没有给出国家何时才是有效率所有者的理论——这是现代 PRT 与实证文献继承的缺口。</li>
+<li><strong>[推断（inference）]</strong> 该框架是效率目的论式的（efficiency-teleological），并把适用限定于"高度重视效率成就"的社会，这使理论的预测内容取决于一个不可观察的偏好参数；当权利未能调整时，理论可以诉诸"口味"，而非一个可证伪的机制。</li>
+</ul>
+<h2>6. 结论（Conclusion）</h2>
+<p>Demsetz（1967）确立了三个持久的结论：产权是一种社会工具，其配置功能在于把外部性内部化；当内部化的收益超过其成本时，权利便会生成，由知识、技术与市场价值的变化所驱动（蒙塔格奈皮毛贸易是其经典例证）；而所有权的形式——共有、私有或国家——是一个经济选择变量，涵盖从河狸养护到现代公司的全部范围。战略层面的收获是：产权结构是选择的边际，不是固定的背景，因此"谁该拥有什么（who should own what）"应当这样回答——追问哪一种配置能以最低的交易成本，最好地对齐使用中的成本与收益。</p>
+<div class="golden"><strong>金句（Golden）。</strong> "Communal property means that future generations must speak for themselves." — Demsetz 1967, p. 356</div>
+<p>></p>
+<blockquote>中文复述：共有产权之下，未来世代无法指望任何现存的所有者替自己主张权益，他们必须自己为自己发声。</blockquote>
+<p>Demsetz 最深的动作，是把所有权读作社会对"谁应当承担谁的行为后果"这一问题的回答——并坚持：每当答错的代价上升，答案就会改变。</p>
+<div class="note"> <strong>AI 辅助声明（AI-assistance disclosure）。</strong> 本页由 AI 依据论文全文撰写（文本系用 pdftotext 从 AER 57(2), pp. 347–359 的 JSTOR 扫描件提取）。所有逐字引文均附页码，抄录自该提取文本（OCR 断行处的连字符已重新接合）。对照表与 Mermaid 图是 AI 对论文论证所做的条理化提炼，并非对任何原始图版的复制。学术使用前，应依据原版印刷分页核对页码。</div>
+</div>
+<div id="lang-en" style="display:none">
+
 
 <h1>Toward a Theory of Property Rights</h1>
 <div class="meta">
@@ -169,7 +297,19 @@ flowchart TD
 
 <div class="note"><strong>AI-assistance disclosure.</strong> This page was written by an AI from the paper's full text (pdftotext-extracted from the JSTOR scan of AER 57(2), pp. 347–359). All verbatim blockquotes carry page references and were copied from that extracted text (with OCR line-break hyphens rejoined). The comparison tables and Mermaid diagram are AI-organized distillations of the paper's argument, not reproductions of any original exhibit. Page numbers should be verified against the original print pagination before academic use.</div>
 
-<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
 
+</div>
+
+
+<div class="back"><a href="index.html">← Back to course index / 返回课程索引</a> · <a href="../index.html">All courses / 全部课程</a></div>
+
+<script>
+function setLang(l){
+  document.getElementById('lang-zh').style.display = (l==='zh') ? 'block' : 'none';
+  document.getElementById('lang-en').style.display = (l==='en') ? 'block' : 'none';
+  document.getElementById('btn-zh').className = (l==='zh') ? 'active' : '';
+  document.getElementById('btn-en').className = (l==='en') ? 'active' : '';
+}
+</script>
 </body>
 </html>

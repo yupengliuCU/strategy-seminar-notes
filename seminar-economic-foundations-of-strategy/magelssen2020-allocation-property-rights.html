@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,9 @@
 <style>
 :root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Serif SC",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
 h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
-h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
 h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
 .meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
 .meta a{color:var(--accent);text-decoration:none}
@@ -24,11 +24,14 @@ table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
 td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
 th{background:#f9fafb;font-weight:600}
 .summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
-.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.summary-box h2{margin:0 0 .5rem;color:var(--accent);border:none;font-size:1.1rem}
 .golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
 .note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
 .back{margin:3rem 0 1rem;font-size:.9rem}
 .back a{color:var(--accent);text-decoration:none}
+.langbar{position:sticky;top:0;background:var(--bg);padding:.7rem 0;z-index:10;display:flex;gap:.5rem;margin-bottom:1rem;border-bottom:1px solid var(--border)}
+.langbar button{border:1px solid var(--border);background:#fff;color:#333;padding:.45rem 1.1rem;border-radius:99px;cursor:pointer;font-size:.95rem;font-family:inherit}
+.langbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 @media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -39,6 +42,174 @@ th{background:#f9fafb;font-weight:600}
 <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
 </head>
 <body>
+
+<div class="langbar">
+  <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+</div>
+
+<div id="lang-zh">
+<h1>Allocation of Property Rights and Technological Innovation within Firms</h1>
+<blockquote><strong>元信息。</strong> <strong>作者：</strong> Catherine Magelssen（London Business School）</blockquote>
+<blockquote><strong>期刊：</strong> Strategic Management Journal, Vol. 41, No. 4, pp. 758–787</blockquote>
+<blockquote><strong>年份：</strong> 2020</blockquote>
+<blockquote><strong>DOI：</strong> 10.1002/smj.3103</blockquote>
+<blockquote><strong>性质：</strong> 实证研究（empirical study）——对跨国企业内部产权分配（property-rights allocation）的子公司层面计量分析（工具变量 instrumental variables + 三重差分 triple-difference 设计）</blockquote>
+<blockquote><strong>关键词：</strong> property rights, innovation, patents, multinational firms, subsidiaries</blockquote>
+<div class="summary-box"><h2>一句话总结</h2>
+<p>战略资产（strategic assets）的所有权可以在跨国企业内部被可信地分配：持有这些权利的子公司——同时握有控制权（control rights）与收益权（income rights）——比非所有者产出更多、质量更高的创新，对研发机会（R&D opportunity）的反应也更强烈；而当权利落在用于收入屏蔽（income shielding）的辖区而非专长所在的位置时，要付出实实在在的代价。</p>
+</div>
+<div class="note"> 这篇论文是课程脉络中指定的<em>实证检验</em>阅读：从经典的产权问题（Alchian & Demsetz 1972：计量 metering 与团队生产 team production），到正式的剩余控制权模型（Grossman & Hart 1986；Hart & Moore 1990），再到其在战略领域的转化（Kim & Mahoney 2005）与所有权能力（ownership competence）视角（Foss et al. 2021）。Magelssen 保留了 Grossman–Hart 的核心对象——资产上剩余权利的分配及其对事前（ex-ante）激励的影响——但把分析单元移到了企业<em>内部</em>：跨国企业中法律上相互独立的子公司。因此，它为下列问题提供了偏向因果的证据：经典产权理论（property-rights theory, PRT）因企业内部契约不可执行而视为不可能的内部权利分配，是否真实存在、是否可信、并是否会改变创新结果。</div>
+<h2>1. 背景与动机（Background and motivation）</h2>
+<p>战略理论把战略资产——技术、制造流程、专有知识（know-how）——视为竞争优势的来源（Amit & Schoemaker 1993），并沿 Dunning 的折衷框架（eclectic framework），把它们当作跨国企业可以<em>免费撬动（leverage freely）</em>、在分布于各地的单元之间自由调配的资源。Magelssen 攻击的正是这种"免费撬动"观里隐藏的假设：现实中，跨国企业的确会把战略资产的所有权（ownership rights）分配给特定子公司，方式是法律上相互独立的实体之间签订正式书面契约，并按税法要求把每一年的情况记录在转让定价报告（transfer-pricing reports）中。这种分配是真实的战略选择，因为所有权的两面朝相反方向拉扯：收益权（income rights）让处于低税"收入屏蔽（income-shielding）"辖区的子公司对攫取（appropriation）有价值，而控制权（control rights）让处于专长区域的子公司对创造（creation）有价值。避税研究已经记录第一种动机（Griffith, Miller & O'Connell 2014; Karkinsky & Riedel 2012）；还没有人衡量过牺牲第二种动机会给创新带来什么后果。</p>
+<p>理论障碍比"研究空白"更尖锐。产权理论应用于企业之间时预言：资产的拥有者——剩余控制权与剩余收益权的持有者——对提升资产价值有最强的投资激励（Grossman & Hart 1986; Hart & Moore 1990）。然而同一支文献，经 Williamson (1991) 与 Baker, Gibbons & Murphy (1999) 之手，认为企业<em>内部</em>的所有权无法被可信分配：部门或子公司之间的契约在法庭上不可执行，母公司总能推翻单元的控制、重新分配收益，所以内部所有权"不可信、也不应存在"。</p>
+<blockquote>"Because the parent’s incentive to intervene is too great, ownership rights to strategic assets within the firm are non-credible and should not exist (Baker et al., 1999)."</blockquote>
+<p>></p>
+<blockquote>中文复述：母公司干预的动机过强，因此企业内部对战略资产的所有权不可信、也不应存在（Baker et al. 1999）。</blockquote>
+<p>(Introduction, manuscript version)</p>
+<p>论文的开场动作是指出：跨国企业是企业内部唯一可能让这种"不可信"论断失效的地方——子公司是独立的法人，第三方——适用 OECD 转让定价指南（OECD Transfer Pricing Guidelines）与 IRS Treas. Reg. §1.482 的政府与税务机关——会执行子公司的所有权，并对任何把这些权利从子公司转走的内部操作施加可观的调整成本（adjustment costs）。因此，跨国企业内部的产权起着<em>可信承诺（credible commitments）</em>的作用，问题就变成实证的：这些权利在从事研发（R&D）的子公司之间的分配，会怎样改变它们创新的数量与质量？</p>
+<h2>2. 核心论点与框架（Core argument / framework）</h2>
+<h3>2.1 产权术语（The property-rights vocabulary）</h3>
+<p>Magelssen 引入 Grossman–Hart–Fama–Jensen 对资产上两类权利的区分。<em>特定权利（specific rights）</em>使一方有权以约定的收入从事特定活动——在被指派活动的范围内做运营决策。<em>所有权</em>则是其余的一切：就资产的使用、延伸、修改与终止做战略决策的<em>控制权（control rights）</em>，以及对交易中未承诺给他人的全部资产回报的<em>收益权</em>。论文的通篇例子把这种区分落到实处：一个对开发手机电池拥有特定权利的实体，可以对电池做运营决策，但未经所有者同意不能把技术转用于电子平板。收益权这一半承担激励工作——</p>
+<blockquote>"Whereas non-owners are paid an agreed upon amount for their R&D activities, the owner bears the consequences (responsibility) since it receives the income or loss from any innovations created above the payments promised to the non-owners (Fama and Jensen, 1983)."</blockquote>
+<p>></p>
+<blockquote>中文复述：非所有者按约定金额获得其研发活动的报酬；所有者则承担后果（责任）——它在支付了承诺给非所有者的报酬之后，收取任何新创造出来的创新的收益或亏损（Fama and Jensen 1983）。</blockquote>
+<p>(Theoretical Background — Property rights, manuscript version)</p>
+<h3>2.2 所有权为何能在跨国企业内部存在并具有约束力（Why ownership rights can exist and bind inside the MNE）</h3>
+<p>程式化例子是 ABC Transmissions：德国子公司持有变速箱技术的所有权，自己从事研发，并以成本加成 15%（a 15 percent mark-up on costs）内部签约让英国子公司承担研发。无论英国子公司发明什么，契约都把权利（title）归于德国；项目若失败，英国仍收取加成，德国记下亏损；若出现爆款，德国保留超出承诺支付额之上的收益。论文附录重现了一份真实内部研发契约中正是这一类的条款：子公司 B"应及时着手每个项目……并应尽最大努力按[子公司 A]的规格与指示完成项目"，按月汇报，并"承认[子公司 A]对无形财产（Intangible Property）拥有排他性权利、所有权与利益"。这些契约之所以镜像产权概念，是因为政府要求如此：转让定价法（transfer-pricing law）强制跨国企业为税务目的指定哪个实体在经济上拥有每项无形资产。于是所有权把战略控制与业绩后果，从仅仅执行活动的子公司，移到持有权利的子公司身上。</p>
+<blockquote>"Governments uphold subsidiary ownership rights and impose significant adjustment costs on MNEs to transfer ownership rights away from subsidiaries (e.g. OECD Transfer Pricing Guidelines "OECD TPG"; IRS Treas. Reg. §1.482). Thus, ownership rights may serve as credible commitments to delegating control and income rights to subsidiaries."</blockquote>
+<p>></p>
+<blockquote>中文复述：政府支持子公司的所有权，并对跨国企业把所有权从子公司转走施加可观的调整成本（如 OECD 转让定价指南 "OECD TPG"；IRS Treas. Reg. §1.482）。因此，所有权可作为把控制权与收益权下放给子公司的可信承诺。</blockquote>
+<p>(Introduction, manuscript version)</p>
+<h3>2.3 作为既定方案的对照目标：自主权与社会化（The target: autonomy-and-socialization as the received solution）</h3>
+<p>国际管理文献用两种工具管理子公司的研发：<em>决策权（decision-making authority）</em>的下放（自主权 autonomy）与<em>社会化（socialization）</em>。Magelssen 认为相对所有权，两者都不完整。没有收益权的下放对"谁获得回报、谁承担成本"保持沉默，因此母公司隐性地吸收后果，代理问题（agency problem）出现：自主的子公司可以挑选带来私人收益的偏好项目；因为比委托人更厌恶风险而选择稳妥下注；或因为转移知识的成本高而囤积想法（Hoenen & Kostova 2015; Fey & Furu 2008）。母公司以撤销授权相威胁的退路也站不住，论文给出三点理由：可预期的干预本身就会压制子公司对新项目的搜寻（Aghion & Tirole 1994; Baker et al. 1999）；橡皮图章式的母公司只在出现严重负面结果后才撤销授权，这诱使子公司去赌私人收益大、后果大的项目；想法不可观察，母公司无法判断子公司是否在真正执行这些想法。社会化的实证表现同样不佳：研究发现跨国企业实际上并不用社会化来控制自主的研发子公司（Ambos & Schlegelmilch 2007; Asakawa 1996），而且在卓越中心（centers of excellence），社会化与技术成功负相关（Ambos & Reitsperger 2004）——因为它培育出以总部为中心的文化，阻碍吸收本地知识（Frost 2001）。</p>
+<h3>2.4 独特机制：情境责任（The distinct mechanism: situated responsibility）</h3>
+<p>论文对机制之争的贡献是：所有权通过代理视角忽略的一个渠道起作用——不只是跨越母子公司间距离的激励对齐，而是决策控制与收入敞口（income exposure）的共置（co-location），它产生 Magelssen 所称的情境责任（situated responsibility，情境责任）。由于作为所有者的子公司承担战略资产的收益或亏损，企业能够追踪其业绩并让其负责；由于它也控制研究方向，它可以在不把每个决策都上报总部的情况下，对本地知识采取行动。</p>
+<blockquote>"Co-locating control rights with income rights motivate self-monitoring (Jensen and Meckling, 1992). When decision control and income rights are held by the same entity, the agency problem of goal misalignment goes away."</blockquote>
+<p>></p>
+<blockquote>中文复述：把控制权与收益权共置会激发自我监督（Jensen and Meckling 1992）。当决策控制与收益权由同一实体持有时，目标错位的代理问题就消失了。</blockquote>
+<p>(Theoretical Background — Management of international R&D, manuscript version)</p>
+<p>这些机制有现实咬合力。控制权砍掉了创新所需的沟通与审批成本——当想法是"粘性（sticky）"的（von Hippel 1994）、难以隔空解释时（Prahalad & Doz 1981）；收益权使所有者成为成功想法的剩余索取者（residual claimant），因此它搜寻得更用力，而无法捕获回报的非所有者几乎没有理由提出想法，项目失败时还能归咎于所有者。Magelssen 用一个日本子公司举例：它拥有每年产生 $80 million 收入的产品技术；价值提高 10% 会把它管理的资金池扩到 $88 million，可供它跨项目再投资——所有权让受风险的资源随子公司自身的成功而放大。</p>
+<h3>2.5 配置权衡与三个假设（The allocation trade-off and the three hypotheses）</h3>
+<p>因为所有权一旦授予就难以迁移（政府要求内部转移按净现值 net-present value 补偿），<em>事前（ex-ante）</em>的地点选择在战略上具有决定性。两类地点属性吸引权利：<em>创新潜力（innovation potential）</em>——区域专长加上东道国的研发激励（税收补贴 tax subsidies）——以及<em>收入屏蔽潜力（income-shielding potential）</em>——低税辖区。母公司在控制、创新与攫取之间权衡。这给出三个假设：所有者比非所有者申请更多专利（H1）；当研发机会上升时，所有者的产出增幅大于非所有者（H2）——因为机会只有在子公司既感知到本地信号、又控制研究方向时才可采取行动；所有者和非所有者之间的反应差距在相对技术优势较强（高 RTA，relative technological advantage）的地区扩大（H3）——那里外部知识流使"由专家控制"格外有价值。ABB–Westinghouse 轶事承载 H3：被收购的 Westinghouse 继电器单元此前无法说服母公司资助固态微处理器继电器；一旦 ABB 给了它项目选择与业绩责任，它立刻选择了那个方向——及时挡住了新的竞争对手。</p>
+<div class="mermaid">
+flowchart TD
+    A["Strategic choice: which subsidiary holds ownership rights to the MNE's strategic assets?"]
+    A --> B["Owner subsidiary: control rights + income rights"]
+    A --> C["Non-owner subsidiary: performs contracted R&D at cost plus markup"]
+    B --> D["Control: sets research direction without approval; fewer frictions on local ideas"]
+    B --> E["Income: bears gains and losses; situated responsibility and self-monitoring"]
+    C --> F["Needs owner approval; weak incentives to act on local knowledge"]
+    D --> G["H1: owners produce more innovations, of higher (citation-weighted) quality"]
+    E --> G
+    F --> G
+    G --> H["H2: after a shock to R&D opportunity (R&D tax subsidy increase), owners raise innovation output more than non-owners"]
+    H --> I["H3: the owner-non-owner gap is largest in high-RTA, technologically advantaged locations"]
+    A --> J["Countervailing pull: income-shielding (tax haven) locations attract ownership rights"]
+    J --> K["Innovation cost of tax-motivated allocation: fewer, less impactful innovations where expertise resides"]
+    subgraph IDENT["Identification strategy"]
+        L["TSLS with Tax Haven instrument (first-stage Kleibergen-Paap F = 22.52)"]
+        M["DDD on staggered R&D tax subsidy increases; subsidiary, year, and owner-year fixed effects"]
+    end
+    L --> H
+    M --> H
+</div>
+
+<p>A["Strategic choice: which subsidiary holds ownership rights to the MNE's strategic assets?"]</p>
+<p>A --> B["Owner subsidiary: control rights + income rights"]</p>
+<p>A --> C["Non-owner subsidiary: performs contracted R&D at cost plus markup"]</p>
+<p>B --> D["Control: sets research direction without approval; fewer frictions on local ideas"]</p>
+<p>B --> E["Income: bears gains and losses; situated responsibility and self-monitoring"]</p>
+<p>C --> F["Needs owner approval; weak incentives to act on local knowledge"]</p>
+<p>D --> G["H1: owners produce more innovations, of higher (citation-weighted) quality"]</p>
+<p>E --> G</p>
+<p>F --> G</p>
+<p>G --> H["H2: after a shock to R&D opportunity (R&D tax subsidy increase), owners raise innovation output more than non-owners"]</p>
+<p>H --> I["H3: the owner-non-owner gap is largest in high-RTA, technologically advantaged locations"]</p>
+<p>A --> J["Countervailing pull: income-shielding (tax haven) locations attract ownership rights"]</p>
+<p>J --> K["Innovation cost of tax-motivated allocation: fewer, less impactful innovations where expertise resides"]</p>
+<p>subgraph IDENT["Identification strategy"]</p>
+<p>L["TSLS with Tax Haven instrument (first-stage Kleibergen-Paap F = 22.52)"]</p>
+<p>M["DDD on staggered R&D tax subsidy increases; subsidiary, year, and owner-year fixed effects"]</p>
+<p>end</p>
+<p>L --> H</p>
+<p>M --> H</p>
+<h2>3. 证据与例子（Evidence / examples）</h2>
+<h3>3.1 情境与数据（Setting and data）</h3>
+<p>实证情境是一个新的、保密的子公司层面数据集。所有权信息来自一家咨询公司跨国企业客户的转让定价报告——OECD 转让定价指南要求跨国企业每年编制的文件——它们明确说明哪些实体拥有企业无形资产的经济所有权。专利数据来自 USPTO（按发明人城市/州/国家匹配到子公司、按申请日匹配到年份）；RTA 与研发税收补贴数据来自 OECD；市场集中度数据来自 Compustat Global Vantage；跨国企业财务数据来自 Orbis。分析在<em>子公司层面</em>进行：起始样本是 78 家跨国企业、1,134 家从事研发的子公司、1997–2011 年共 4,686 个子公司-年度观测；剔除被许可的权利（licensed rights）并合并控制变量后，缩减为 952 家子公司的 3,789 个观测；再剔除专利数为零的两位数行业后，为 942 家子公司的 3,753 个观测。数据集覆盖 50,934 项已授权专利，其中 29,028 项只有单一发明人，10,711 项的多位发明人位于同一子公司所在地，11,195 项横跨多个地点。样本在从事研发的外国子公司占比（16.9 vs. 18.2 percent）与每年专利数（16.10 vs. 18.65，p < 0.29）上近似于 Berry (2014)。从事研发的子公司中，13.3% 持有所有权，86.7% 是受所有者签约的非所有者。论文 Table 1 显示所有者同时聚集在避税天堂（tax havens：爱尔兰占所有者观测的 7.88 percent、瑞士 8.52、新加坡 2.09）与高 RTA、高税的核心区（美国 30.87、英国 13.34、德国 8.20、法国 4.98）——原始数据里"创造 vs. 屏蔽"权衡的可见证据。</p>
+<h3>3.2 变量度量与研究设计（Measures and design）</h3>
+<p><strong>表。</strong> Table 1. 实证设计速览：分析单元、构念、度量与来源（Empirical design at a glance: unit of analysis, constructs, measures, and sources，manuscript version）</p>
+<table>
+<thead><tr><th></th><th>要素（Element）</th><th>构念（Construct）</th><th>操作化（Operationalization）</th><th>在设计中的角色（Role in design）</th></tr></thead>
+<tbody>
+<tr><td></td><td>分析单元（Unit of analysis）</td><td>跨国企业从事研发的子公司（R&D-performing subsidiaries of MNEs）</td><td>3,753 subsidiary-year obs. on 942 subsidiaries of 78 MNEs, 1997–2011</td><td>样本（Sample）</td></tr>
+<tr><td></td><td>因变量 1（Dependent variable 1）</td><td>创新数量（Innovation quantity）</td><td>Number of successful USPTO patent applications by the subsidiary's inventors in the filing year; ln(x+1)</td><td>结果（Outcome）</td></tr>
+<tr><td></td><td>因变量 2（Dependent variable 2）</td><td>创新质量（Innovation quality）</td><td>Forward citations from other firms (excl. examiner) within five years; ln(x+1); sample ends 2009</td><td>结果（Outcome）</td></tr>
+<tr><td></td><td>因变量 3–4（Dependent variables 3–4）</td><td>探索性创新，稳健性（Exploratory innovation, robustness）</td><td>Innovation scope (Katila–Ahuja new-citation ratio); innovation new domains (new three-digit USPTO classes)</td><td>结果（Outcome）</td></tr>
+<tr><td></td><td>关键自变量（Key independent variable）</td><td>战略资产所有权（Strategic asset ownership）</td><td>Binary = 1 if transfer-pricing report designates the subsidiary economic owner of any strategic intangible (OECD 2017 definition)</td><td>处理（Treatment）</td></tr>
+<tr><td></td><td>调节变量（Moderator）</td><td>东道国相对技术优势（Host-country relative technological advantage, RTA）</td><td>OECD revealed technological advantage index minus the average of the MNE's other locations</td><td>情境（Context）</td></tr>
+<tr><td></td><td>工具变量（Instrument）</td><td>避税天堂（Tax haven）</td><td>Binary indicator, Dharmapala & Hines (2009) classification</td><td>TSLS 工具变量（TSLS instrument）</td></tr>
+<tr><td></td><td>冲击（Shock）</td><td>研发税收补贴提高（R&D tax subsidy increase）</td><td>Binary post-change indicator for a ≥0.01-point host-country increase (OECD significance threshold); median Δ = 0.01, mean = 0.027</td><td>三重差分处理时点（DDD treatment timing）</td></tr>
+<tr><td></td><td>控制变量（Controls）</td><td>市场、企业、子公司情境（Market, firm, subsidiary context）</td><td>Market concentration (4-firm), MNE size (ln revenue), MNE stock compensation (ln), M&A; two-digit SIC and year fixed effects; all lagged one year; subsidiary R&D and role added in secondary analyses</td><td>混杂因素（Confounders）</td></tr>
+</tbody></table>
+<p>创新数量与质量是头条结果；论文的描述性表格（Tables 2–3）显示原始差距。子公司平均每年 1.20 项专利、5.24 项被引加权（citation-weighted）的专利；但所有者申请的专利是非所有者的三倍以上（3.21 vs. 0.98），质量维度为 13.36 vs. 4.34；所有者还在新技术类别中申请更多专利。战略资产所有权与结果变量的相关为 0.16–0.25；避税天堂与结果负相关，但与所有权正相关（0.23）——税收驱动型配置的原始特征。</p>
+<h3>3.3 识别策略（Identification strategy）</h3>
+<p>所有权并非随机分配，论文对此直言不讳：提升创新的不可观测因素也可能提高子公司获得权利的概率，因果还可能从能力反向跑到所有权，使 OLS 上偏。识别因此依靠两个设计。其一，两阶段最小二乘（two-stage least squares, TSLS）模型用<em>避税天堂（Tax Haven）</em>作为战略资产所有权的工具变量（instrumental variable）——一个东道国哑变量，应当通过收入屏蔽动机预测所有权，但不应直接影响创新。第一阶段很强：位于避税天堂使持有所有权的概率提高 29.2%（系数 0.292，Table 4 第 2 列），研发税收补贴为正且显著，Kleibergen-Paap Wald F 统计量为 22.52，可排除弱工具问题。其二，<em>三重差分（triple-difference, DDD）</em>设计利用错开的、外生的研发机会冲击——各东道国在不同时点提高研发税收补贴——询问在所属国补贴提高后，所有者的创新是否相对非所有者上升，并以未受处理国家中所有者–非所有者差距作为反事实。DDD 通过子公司固定效应（fixed effects）、年份固定效应与所有者×年份固定效应（owner-by-year fixed effects），差分掉底层的所有者–非所有者差异（因此"权利被分配给更具创新力的子公司"这一点被差分消除），标准误在子公司层面聚类。事前趋势检验（Figure 2）显示，补贴变动前所有者–非所有者的相对趋势与零在统计上无差异。</p>
+<h3>3.4 核心结果（Headline results）</h3>
+<p><strong>表。</strong> Table 2. 假设、估计方法与核心结果（Hypotheses, estimators, and headline results；Tables 4–5, manuscript version）</p>
+<table>
+<thead><tr><th></th><th>假设（Hypothesis）</th><th>估计方法（Estimator）</th><th>核心结果（Headline result）</th></tr></thead>
+<tbody>
+<tr><td></td><td>H1：所有者比非所有者产出更多创新（H1: owners produce greater innovation output than non-owners）</td><td>TSLS 第二阶段，工具为避税天堂（TSLS second stage, Tax Haven instrument）</td><td>与 H1 一致：控制子公司研发投入与角色后，所有者比非所有者平均每年多产出 1 项专利、每年多获 9.99 次引用（Consistent with H1: after controlling for subsidiary R&D and role, owners produce an average of one more patent per year and receive 9.99 more citations per year than non-owners）</td></tr>
+<tr><td></td><td>H2：面对研发机会提高，所有者的产出增幅大于非所有者（H2: owners increase output more than non-owners in response to an R&D-opportunity increase）</td><td>对东道国研发税收补贴提高的三重差分（DDD on host-country R&D tax subsidy increases）</td><td>所有者 × 政策后为正且显著；换算非对数值，所有者相对非所有者的专利相对增加 25.5%、前向引用相对增加 44.3%（Owner × post-change positive and significant; non-logged values imply relative increases of 25.5% in patents and 44.3% in forward citations over non-owners）</td></tr>
+<tr><td></td><td>H3：所有者–非所有者的反应差距在高 RTA 地区更大（H3: the owner–non-owner response gap is larger in high-RTA locations）</td><td>按东道国 RTA 中位数分拆的三重差分（DDD split at median host-country RTA）</td><td>高 RTA：所有者相对非所有者，专利数量 +34.0%、被引加权专利 +64.0%；低 RTA：差异为正但在统计上与零无异；非所有者在政策后无显著反应（High RTA: owners +34.0% in patent quantity and +64.0% in citation-weighted patents relative to non-owners; low RTA: differences positive but statistically indistinguishable from zero; non-owners show no significant post-change response）</td></tr>
+<tr><td></td><td>稳健性（Robustness，Tables 6–8）</td><td>更换阈值、匹配样本、以研发支出为 DV、探索性创新 DV（Alternative thresholds; matched sample; R&D-spending DV; exploratory-innovation DVs）</td><td>所有者 × 政策后随补贴规模上升（1–3% 提高时数量系数 0.157，>3% 时为 0.475，p < 0.001；补贴削减后为负）；按政策前创新匹配后依然成立（Table 7）；以研发支出为 DV 时不显著（n.s.）；探索性创新上显现（高 RTA：scope 广度 +0.275 pp，新领域 +32.6%）（Owner × post-change rises with subsidy size; survives matching on pre-change innovation; absent for R&D expenditures as DV; appears for exploratory innovation）</td></tr>
+</tbody></table>
+<blockquote>"For Hypothesis 2, the coefficients for strategic asset ownership post-change are positive and significant in Columns 2 and 9. Calculating the non-logged values, the results indicate that there are relative increases of 25.5 percent in the number of patents produced and 44.3 percent in the number of forward citations received by owners over non-owners, using the differential performance of owners and non-owners in unaffected locations as a baseline."</blockquote>
+<p>></p>
+<blockquote>中文复述：对假设 H2，政策变化后战略资产所有权的系数在第 2 列与第 9 列为正且显著；换算为非对数值，以未受影响地区中所有者与非所有者的表现差异为基线，所有者相对非所有者生产专利数的相对增幅为 25.5%、获得的前向引用数的相对增幅为 44.3%。</blockquote>
+<p>(Results — Double difference-in-differences results, Table 5, manuscript version)</p>
+<blockquote>"The non-logged values indicate that owners in high RTA host-countries increased the quantity of patents produced by 34.0 percent more than non-owners post-R&D tax subsidy increase and have a 64.0 percent higher increase in citation-weighted patents than non-owners."</blockquote>
+<p>></p>
+<blockquote>中文复述：非对数值显示，在研发税收补贴提高后，高 RTA 东道国的所有者生产的专利数量比非所有者多提高 34.0%，被引加权专利的增幅比非所有者高 64.0%。</blockquote>
+<p>(Results — Double difference-in-differences results, Table 5, manuscript version)</p>
+<p>各设计之间的模式连贯。在横截面上，工具化的所有权预测每年大约多 1 项专利、多 10 项被引加权的专利。在 DDD 的事件研究（event-study）逻辑中，把研发机会的改善转化为更多、更好的创新的，是所有者——而非非所有者——而且效应恰好集中在理论预言"由专家控制"最重要的地方：高 RTA 地区。匹配样本分析（Table 7）回应"所有者在不可观测能力上不同"的担忧：按国家、行业以及政策前创新、研发投入、角色与跨国企业特征把所有者与非所有者匹配后，DDD 结果不变。一个安慰剂式检验（Table 8）显示，补贴提高后所有者与非所有者的<em>研发支出</em>并未分化——论文将此解读为：结果反映的是创新的<em>项目选择与努力</em>，而非差异化的资源流。探索性创新指标（scope、新技术领域）方向一致。</p>
+<h3>3.5 对实证部分的评述（Commentary on the empirics）</h3>
+<p>用一句话概括：这是一个子公司-年度面板，处理变量是一个二元指标——是否正式拥有任一战略无形资产（从保密转让定价报告编码而来），结果变量是 USPTO 专利数与五年内前向引用数，识别来自避税天堂工具（TSLS）与错开的东道国研发税收补贴提高（DDD，含子公司、年份与所有者×年份固定效应）。对研究权利分配的战略文献而言，这一设计非同寻常地强——它把经过验证、有行政记录的处理变量与两种不同的识别策略加一个外生冲击配对——但有四个威胁值得细察。</p>
+<p><strong>威胁 1——进入所有权的选择与工具的局限（selection into ownership and the limits of the instrument）。</strong> 持有权利的子公司恰恰是母公司根据创新与税收指向而选定的；作者明确承认由此产生的内生性与反向因果。TSLS 的回应完全押注在排他性约束（exclusion restriction）上：避税天堂区位只通过所有权影响创新。该约束合理但不可检验，而且它因如下事实而紧绷：位于避税天堂的"所有者"往往是低活动量的实体，主要职能是把收入入账——这类实体在不可观测维度上很可能不同于真正的研发所有者，差异超出权利哑变量本身。DDD 是更可信的一条腿，因为它差分掉任何永久性的所有者–非所有者差异。但所有权几乎不随时间变化——作者报告"所有权变动只有少量几次"——所以子公司固定效应吸收掉大部分处理变异，DDD 实际上靠所有者 × 补贴变化交互来识别；基于所有权<em>变动</em>（再分配事件）的设计会是更强的因果检验。相关地，DDD 只在改变补贴制度的国家上有识别力；从未改变的国家（包括多数避税天堂）只充当反事实对照。</p>
+<p><strong>威胁 2——处理变量的度量（measurement of the treatment）。</strong> 所有权是一个"持有任一战略资产"的二元旗标，由转让定价文件编码。"经济所有权"在这些报告里是一个税务分配构念：OECD 要求企业指定税务上<em>应当获得回报</em>的实体，这与研发决策的事实控制不必一致。只拥有一件商标的子公司与拥有公司核心技术的子公司得分相同；部分、联合与分层（tiered）所有权结构坍缩为同一类别；由一名研究员对保密文件编码，也不可独立复现。若所有权旗标含噪声，效应被衰减；若它系统性地标记了同时具备其他治理特征的子公司（如独立董事会、完整损益授权），系数可能捕获一揽子"独立主体地位"，而非权利本身。</p>
+<p><strong>威胁 3——结果变量的度量（measurement of the outcome）。</strong> 专利只捕捉编码化的、可专利的发明。申请速率对战略动机有反应（防御性申请、奖励专利数量的税收抵免规则）；当研发由一家子公司执行、权利由另一家持有时，发明人所在地匹配可能错置发明；基于引用的质量在 2009 年截断。Table 8 中研发支出的零结果削弱了"所有者只是拿到更多资源"的说法，但也与如下情形一致：所有者对补贴变化的反应是更多<em>改标签或申请</em>，而非更多发明——论文的解释（项目选择）只是对一个无法区分真实发明与报告发明之结果的一种解读。</p>
+<p><strong>威胁 4——外部效度（external validity）。</strong> 样本是一家转让定价咨询公司的客户名单（102 家数据完整的跨国企业；其中 78 家有申请专利的研发子公司），偏重制造业，观测期为 1997–2011，专利只在 USPTO 度量。在 USPTO 申请专利的外国子公司是一个被选择的总体；而且执行环境（转让定价审查）与税收制度此后都已变化。能强化因果识别的是：把所有权变动事件当作准实验（内部重组、法院裁决、或 OECD 监管转向——如迫使权利遣返的税基侵蚀规则 base-erosion rules），对"涉及哪些资产、利润份额多大"的更丰富连续度量，直接度量决策权与研发项目结果以分离控制渠道与收益渠道，以及非专利的创新结果。</p>
+<h2>4. 在文献中的位置（Position in the literature）</h2>
+<p>论文位于三支文献的交汇处，其在产权脉络中的位置是精确的。它接续现代产权理论研究纲领——Grossman & Hart (1986) 与 Hart & Moore (1990)，综述见 Hart (1995)——其核心是：把资产剩余控制权分配给事前投资最重要的一方会提高总价值。Magelssen 追问：当"缔约方"是一家企业的子公司时，这一逻辑意味着什么。在这样做时，它直面 Williamson (1991) 与 Baker, Gibbons & Murphy (1999) 的经典反驳：企业内部的权利不可能可信，因为科层总能推翻它们；Magelssen 的回答是：跨国企业子公司是例外，因为第三方（执行转让定价规则的政府）提供了内部科层缺乏的可信性。她对收益权与剩余索取权（residual claims）作为所有权中承担责任的半边（responsibility-bearing half）的强调，上溯到更早的产权/监督传统——Demsetz (1967)、Alchian & Demsetz (1972)、Fama & Jensen (1983)——以及 Jensen & Meckling (1992) 的命题：把决策权与收益权共置会产生自我监督（self-monitoring）。因此这篇论文不是新的正式模型，而是对"现代产权理论机制是否在企业边界<em>内部</em>运行"的实证检验。</p>
+<p>相对产权理论的战略应用，Magelssen 把 Lerner & Merges (1998)、Elfenbein & Lerner (2003)、Oxley (1999) 与 Leiponen (2008) 的跨企业实证工作——都研究联盟或契约边界上的权利分配——向内延伸到跨国企业内部契约。它还在子公司层面操作化了 Kim & Mahoney (2005) 把产权经济学接上资源基础观（resource-based view）时在概念上发展的逻辑；并回应所有权能力脉络（Foss、Klein 及其合作者；参见 Foss et al. 2021）——它显示权利相对能力的<em>位置</em>——谁拥有创新者需要的东西——能预测谁在创新。针对国际商务文献，论文的靶子是下放与社会化正典（Ghoshal & Bartlett 1988; Nobel & Birkinshaw 1998; Mudambi, Mudambi & Navarra 2007）：那支文献用自主权加公司文化来管理子公司主动性（subsidiary initiative），Magelssen 则论证收益权维度是缺失的变量，并以 Ambos & Schlegelmilch (2007)、Asakawa (1996) 与 Ambos & Reitsperger (2004) 为证：仅靠社会化并未奏效。最后，它把一支把所有权放置纯粹当作利润转移（profit-shifting）的税收文献（Griffith et al. 2014; Karkinsky & Riedel 2012; Dharmapala & Hines 2009）转化为战略性的——为税收动机的配置标出创新成本。在课程脉络内，这篇论文是实证的收官之作：检验 Alchian–Demsetz 与 Grossman–Hart 形式化的剩余权利逻辑，在接触真实企业边界后是否仍然成立。</p>
+<h2>5. 局限（Limitations）</h2>
+<h3>(a) 作者自述的局限（The author's own stated limitations）</h3>
+<ul>
+<li><strong>专利是唯一的创新度量：</strong> 论文"the analyses rely on patents as a measure of innovation"——分析以专利作为创新的度量——因此对其他创新类型（产品、流程、服务）的推广留待将来。</li>
+<li><strong>没有对权衡做福利核算：</strong> 把权利配置给价值创造、价值攫取与控制各自的相对损益，都"outside the scope of this study"（不在本研究的范围内）。</li>
+<li><strong>权利位置的简化模型：</strong> 第一阶段对"所有权放在哪里"的选择处理得很简约；更丰富的模型应允许跨国企业各区位选择之间的相互依赖。</li>
+<li><strong>所有权变动很少：</strong> "the sample has only a small number of changes in ownership"——样本中所有权变动只有少量几次——因此要识别<em>改变</em>权利配置的后果，需要更大、变动更多的样本。</li>
+</ul>
+<h3>(b) 独立判断（Independent judgment）</h3>
+<ul>
+<li><strong>[论文主张（paper claim）]</strong> 论文声称"subsidiary strategic asset ownership rights are a commitment mechanism that, beyond delegating decision making authority, credibly allocates control over the strategic asset and its income"——子公司战略资产所有权是一种承诺机制：在授权决策权之外，它把对战略资产及其收益的控制可信地分配出去。该主张是明说的，它的真实性使整个设计能被解读为权利在做因果工作。</li>
+<li><strong>[证据（evidence）]</strong> 支撑证据是制度记录——OECD 转让定价指南与 IRS 法规要求内部转让按净现值补偿——加上附录里显示权利被书面化并执行的真实契约条款。这是"跨国企业内部权利带第三方牙齿"的真实证据，尽管它记录的所有权更多是税务法律构念，而非事实上的管理控制。</li>
+<li><strong>[推断（inference）]</strong> 二元所有权度量几乎肯定低估了权利的经济异质性：拥有一件次要商标的子公司与拥有公司核心平台技术的子公司都得 1 分；分级所有权、联合所有权或只覆盖资产部分寿命的权利不可见。若理论讲的是剩余索取权的强度，那么处理变量含度量误差，效应很可能被衰减。</li>
+<li><strong>[推断（inference）]</strong> 渠道分解未经检验：控制权与收益权在所有权变量中、在理论中都捆绑在一起，因此 DDD 无法说明对研发机会冲击的反应来自更快的审批、更强的动机、还是两者兼有。论文自己的 Table 8（研发支出无差异）支持"项目选择"的故事，但要孤立出情境责任这一机制，需要固定控制权、变动收益权（或反之）的设计。</li>
+<li><strong>[开放问题（open question）]</strong> 效应反映的是真实发明还是专利<em>归属与申请行为</em>，仍未解决：因为权利决定哪个实体在法上拥有发明人的创造，一次所有权变动可以把专利数在子公司之间搬移，而底层的发明活动并未移动。区分"真实发明"与"被重新归置的发明"是论文最深层的未决问题，而作者自己"所有权变动很少"的局限意味着数据尚不能回答它。</li>
+</ul>
+<h2>6. 结论（Conclusion）</h2>
+<p>Magelssen 确立了三件事。第一，理论主张——企业内部的所有权不可信——恰恰在企业被组织为法律上独立的子公司之处失效：转让定价法使内部权利分配可执行、且逆转代价高昂，因此产权是跨国企业内部的真实治理工具。第二，在证据上，持有这些权利的子公司产出更多专利、更多带外部引用的专利，而且——最有说服力的是——把外生的研发机会改善转化为创新，而非所有者不会；差距集中在技术优势地区——那里"由专家控制"应当重要。第三，税收规避型的权利配置有可识别的战略成本：当所有权落在收入屏蔽地区，最有条件创新的研发单元产出的创新更少、影响力更低。对战略的一行总结是：无形资产上产权的位置不是税收后台的细节，而是关于"企业内部谁将为技术轨迹承担责任、并因此塑造它"的一阶决策。</p>
+<div class="golden">"An insight is that since ownership confers control rights, the subsidiaries that hold ownership rights can shape the technological trajectory of the firm."</div>
+<p>></p>
+<blockquote>中文复述：一个洞见是——既然所有权赋予控制权，持有所有权的子公司就能塑造企业的技术轨迹。</blockquote>
+<p>— Magelssen (2020), Discussion (manuscript version)</p>
+<p>框架（Framing）：使所有权成为企业之间解决方案的同一逻辑——剩余权利同时分配权威与问责——在凡是存在法律分离与第三方执行、使权利可信的地方，也就在企业内部运转起来。</p>
+<blockquote><strong>注。</strong> <strong>AI 辅助声明（AI-assistance disclosure）。</strong> 本页由 AI 助手根据论文全文撰写：用 pdftotext 从作者（London Business School）的 SMJ 文章预印本提取文本（出版版页码 SMJ 41(4): 758–787 或有差异；预印本无页码，因此引用标注的是提取文本中出现的章节、表格与图位置，即"manuscript version"）。所有逐字引文都精确引自该文本，并各自带位置标注。表格与图示由 AI 依据论文报告的数值整理；引用前请核对原文中的每一项统计量。</blockquote>
+</div>
+<div id="lang-en" style="display:none">
+
 
 <h1>Allocation of Property Rights and Technological Innovation within Firms</h1>
 
@@ -210,7 +381,19 @@ flowchart TD
 
 <div class="note"><strong>AI-assistance disclosure.</strong> This page was written by an AI assistant from the paper's full text, extracted with pdftotext from the author's London Business School preprint of the SMJ article (pagination of the published version, SMJ 41(4): 758–787, may differ; the preprint carries no page numbers, so references cite section, table, and figure locations as they appear in the extracted text, i.e., "manuscript version"). All verbatim blockquotes are quoted exactly from that text and each carries a location reference. Tables and the diagram were AI-organized from the numbers reported in the paper; readers should verify every statistic against the original before citing.</div>
 
-<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
 
+</div>
+
+
+<div class="back"><a href="index.html">← Back to course index / 返回课程索引</a> · <a href="../index.html">All courses / 全部课程</a></div>
+
+<script>
+function setLang(l){
+  document.getElementById('lang-zh').style.display = (l==='zh') ? 'block' : 'none';
+  document.getElementById('lang-en').style.display = (l==='en') ? 'block' : 'none';
+  document.getElementById('btn-zh').className = (l==='zh') ? 'active' : '';
+  document.getElementById('btn-en').className = (l==='en') ? 'active' : '';
+}
+</script>
 </body>
 </html>

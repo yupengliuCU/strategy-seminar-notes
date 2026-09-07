@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,9 @@
 <style>
 :root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Serif SC",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
 h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
-h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
 h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
 .meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
 .meta a{color:var(--accent);text-decoration:none}
@@ -21,15 +21,17 @@ strong{color:#111}
 ul,ol{margin:1rem 0 1rem 1.5rem}
 li{margin:.4rem 0}
 table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
-caption{caption-side:top;text-align:left;font-weight:600;color:#333;padding-bottom:.4rem;font-size:.95rem}
 td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
 th{background:#f9fafb;font-weight:600}
 .summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
-.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.summary-box h2{margin:0 0 .5rem;color:var(--accent);border:none;font-size:1.1rem}
 .golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
 .note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
 .back{margin:3rem 0 1rem;font-size:.9rem}
 .back a{color:var(--accent);text-decoration:none}
+.langbar{position:sticky;top:0;background:var(--bg);padding:.7rem 0;z-index:10;display:flex;gap:.5rem;margin-bottom:1rem;border-bottom:1px solid var(--border)}
+.langbar button{border:1px solid var(--border);background:#fff;color:#333;padding:.45rem 1.1rem;border-radius:99px;cursor:pointer;font-size:.95rem;font-family:inherit}
+.langbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 @media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -40,6 +42,180 @@ th{background:#f9fafb;font-weight:600}
 <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
 </head>
 <body>
+
+<div class="langbar">
+  <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+</div>
+
+<div id="lang-zh">
+<h1>Property Rights Theory, Transaction Costs Theory, and Agency Theory: An Organizational Economics Approach to Strategic Management</h1>
+<blockquote><strong>元信息（Meta）。</strong></blockquote>
+<div class="meta"><strong>作者：</strong> Jongwook Kim (Western Washington University) & Joseph T. Mahoney (University of Illinois at Urbana-Champaign)</div>
+<blockquote><strong>期刊：</strong> Managerial and Decision Economics, Vol. 26, No. 4, pp. 223–242</blockquote>
+<blockquote><strong>年份：</strong> 2005</blockquote>
+<blockquote><strong>DOI：</strong> 10.1002/mde.1218</blockquote>
+<blockquote><strong>性质：</strong> theory-integration essay / conceptual survey（理论整合文章 / 概念性综述）——把组织经济学（organizational economics）的三个分支比较性地应用于战略管理，并以石油田 unitization（油田整体化开发）案例加以说明</blockquote>
+<blockquote><strong>关键词：</strong> property rights theory（产权理论）; transaction costs theory（交易成本理论）; agency theory（代理理论）; organizational economics（组织经济学）; strategic management（战略管理）; oil-field unitization（石油田 unitization）; residual control rights（剩余控制权）; shared ownership（共享所有权）; resource-based theory（资源基础观 / 资源基础理论）</blockquote>
+<div class="summary-box"><h2>一句话总结（One-sentence summary）</h2>
+<p>Kim and Mahoney（2005）论证：产权理论（property rights theory）与交易成本理论（transaction costs theory）、代理理论（agency theory）共享 Coase–Alchian–Demsetz 的根源，却又自成一格；作者以石油田 unitization（油田整体化开发）为工作案例，展示产权的视角如何独到地解释另外两种理论当作既定前提而不再追问的现象——持续存在的无效率与共享所有权（shared ownership）。</p>
+</div>
+<div class="note"> 本文处在第三周阅读弧线（classical PRT → modern PRT → application to strategy → ownership competence → empirical test，即古典产权理论 → 现代产权理论 → 应用到战略 → 所有权能力 → 经验检验）的"应用到战略（application to strategy）"节点。它本身没有构建古典的计量/监督模型（那是 Alchian & Demsetz 1972 的工作），也没有构建正式的剩余控制权模型（Grossman & Hart 1986; Hart & Moore 1990）；它做的是把这两条脉络翻译成战略管理的语言——企业边界、合资企业、知识的占有（appropriation）、纵向一体化——并把古典与现代产权理论读作与交易成本理论（TCE）和代理理论（AT）互补。本文与 Mahoney（2005）的著作 <em>Economic Foundations of Strategy</em> 同年问世，而后者正是本研讨课的锚定文本；本文提供了该书组织经济学诸章以整本书篇幅展开的比较性三理论模板。它是把经济学形式体系转成战略构念（共享所有权 shared ownership、剩余索取权 residual claimancy、可占有性 appropriability）的桥梁，也预先指向了"所有权能力（ownership competence）"之争——坚持所有权是一个多维的、被分割的权利束（bundle of partitioned rights），而非单一不可分割的剩余权利。</div>
+<h2>1. 背景与动机（Background and motivation）</h2>
+<p>Kim and Mahoney 对准的具体靶子，是新古典经济学对企业行为的处理。在新古典世界里，价格机制——亚当·斯密的"看不见的手"（invisible hand）——以零成本高效率地协调经济活动，于是企业本身的存在就成了一个悖论（Coase 1937）。论文开篇先界定那个因不满这幅图景而成长起来的智识同盟。产权理论（property rights theory）、交易成本理论（transaction costs theory）与代理理论（agency theory）是 Barney and Ouchi（1986）所称"组织经济学"（organizational economics）的三个分支；Williamson（1985, p. 24）的"契约认知地图"（cognitive map of contract）把三者都放进组织经济学的<em>效率（efficiency）</em>分支，与垄断（monopoly）分支相对（其 Figure 1, p. 224）。作者指出，这些理论"构成战略管理学科理论内核的一部分"（"form part of the theoretical core of the discipline of strategic management", p. 223），并且它们已在战略领域证明了自身价值：交易成本理论阐明了纵向一体化（vertical integration; Mahoney 1992b）与企业多元化（Teece 1982）；代理理论被应用于会计、金融、营销、政治学与战略研究（Eisenhardt 1989）。</p>
+<p>本文要填补的缺口，是产权理论在战略研究中的缺席。尽管产权理论对解释基于知识的资源与知识产权（intellectual property rights）上的商业决策有潜在价值，它在战略管理研究者那里得到的理论与经验关注"相对很少"（"relatively little theoretical or empirical attention by strategic management researchers", p. 223）。论文的既定目标顺理成章：分析现有的产权理论，把它与更主流的 TCE、AT 视角连接起来，并通过分析美国石油田 unitization 的商业案例来说明三者共有的基本原理——这是一个"缔约失败（contracting failures）"的案例，其中持续的无效率是观察到的结果，而非例外。摘要用一句话说出了全文的纲领：</p>
+<blockquote>Property rights theory has common antecedents with contractual theories of the firm such as transaction costs and agency theories, and is yet distinct from these theories. We illustrate fundamental theoretical principles derived from these three theories by analyzing the business case of oil field unitization.</blockquote>
+<p>中文复述：产权理论与交易成本理论、代理理论等企业契约理论拥有共同的先辈，却又与它们不同。作者通过分析石油田 unitization（油田整体化开发）的商业案例，阐明源自这三支理论的基本原理。</p>
+<p>— Abstract, p. 223</p>
+<p>方法论上的赌注在于：一个有血有肉的商业案例能"给这些原本抽象的理论原理注入生气"（"breathes some life into these otherwise abstract theoretical principles", p. 229），让读者<em>看到</em>每个理论的分析单位、焦点成本与假设如何改变对同一契约情境的诊断。贯穿全文的更深主张是：三种理论互补（complementary）而非相互竞争——它们共享智识先辈，但各自补足他人遗漏之处；产权理论远非迟到者，它为 TCE 与 AT 提供了"理论背景"（"the theoretical background", p. 237）。</p>
+<h2>2. 核心论证与分析框架（Core argument / framework）</h2>
+<h3>2.1 古典理论：从 Coase 到权利的分解（The classical theory: from Coase to the partitioning of rights）</h3>
+<p>论文的历史叙事从 Coase（1937, 1959, 1960）开始。《企业的性质》（"The Nature of the Firm", 1937）与《社会成本问题》（"The Problem of Social Cost", 1960）被读作同一个洞见的两面：在一个存在正交易成本（transaction costs）的世界里，不同的组织方式必须相互比较。如果说 1937 年那篇论文讲的是治理结构（governance structures）影响效率结果，那么 1960 年那篇讲的就是法律规则影响效率结果；产权理论继承了后一主张。要补全古典平台，还需另外两点。第一，制度（institution）会对新的缔约情境做出动态回应——早期产权学者认为，经济制度会经由利害各方的谈判趋向更有效率的安排，但在正的、不可忽略的交易成本下，这一过程是渐进的，并且"在某些经济情形下可能导致无法达成契约协议"（"in some economic cases may result in failure to reach contractual agreement", p. 226）。North（1990）被引用来强化这一点：任何经济史学者都无法否认，有效率的经济结果属于例外而非常态。既得利益（vested interests）以及缔约各方既有的政治、社会与经济地位，可能把无效率的产权制度锁定下来（Libecap 1989; Alston et al. 1999）。</p>
+<p>第二点更微妙：古典理论把产权概念化为多维的。产权是"个人使用资源的权利……由礼节、社会习俗、排斥（ostracism）的力量，以及国家以暴力或惩罚为后盾的、正式制定颁布的法律来支撑"（"the rights of individuals to the use of resources … supported by the force of etiquette, social custom, ostracism, and formal legally enacted laws supported by the states' power of violence or punishment", Alchian 1965, p. 129，此处转引自 p. 226）——这是一个刻意宽泛的定义，横跨法律、文化与声誉。由于对任何资产的权利都可以被分解（partitioned），不同的人可以持有同一资源不同侧面的权利：一个人在土地上放牧，另一个人穿越它，第三个人从它上方飞过。用本文赞同引用的 Furubotn and Pejovich（1972）的话说，一切经济活动都是产权束（bundles of property rights）的交换。经济逻辑驱动这些分割被聚合成束，分配给能以最高生产率使用它们的缔约方——这是古典学派通行的效率标准。关键在于，对资源某些属性的控制权的转移"正是交易的定义：在交易各方之间重新配置权利"（Barzel 1997，转述于 p. 227）。古典立场对制度动态的概括，凝结在一段为全文看待"无效率为何可以持续"提供锚点的引文里：</p>
+<blockquote>The convergence to an optimal institutional arrangement is always attainable in the absence of transaction costs. Because of positive transaction costs, however, institutions that optimally suit the given contractual situation only gradually emerge, at best.</blockquote>
+<p>中文复述：在没有交易成本时，总能收敛到最优制度安排；但由于存在正的交易成本，最适配给定缔约情境的制度充其量只能逐渐浮现。</p>
+<p>— p. 227, "Key Ideas in Property Rights Theory"（《产权理论中的关键思想》）</p>
+<p>团队生产（team production）经由 Alchian and Demsetz（1972）进入叙事：当两个以上的缔约方影响一项权利束的收入流时，厘清各方权利变得困难，集体努力所产生收入的分配——团队生产——就成了关键的经济问题。Alchian and Demsetz 的监督（monitoring）方案（由一方居中监督每个成员的贡献）提出"谁来监督监督者？"（"Who will monitor the monitor?"）的问题——答案是把监督者变成剩余索取者（residual claimant）。这条剩余索取者的逻辑在论文结尾回归，成为所有权定义的一半。</p>
+<h3>2.2 现代理论（GHM）及其不满（The modern theory (GHM) and its discontents）</h3>
+<p>"现代产权理论"，亦称 GHM 模型（以 Grossman and Hart 1986 与 Hart and Moore 1990 命名），问的是一个战略问题："谁应该拥有什么资产"（who should own what assets）。在这些程式化模型里，契约因有限理性（bounded rationality）而不完全——各方无法预见所有未来或然事件，也无法在每种或然状态下衡量绩效——因此所有权被等同于<em>剩余控制权（residual control rights）</em>：以契约、法律或社会规范未禁止的任何方式使用资产的权利。当关系专用性资产（relation-specific assets）制造事后机会主义（opportunism）的危险（即套牢 hold-up）时，对一束关系专用性资产的剩余控制权必须集中于单一所有者，共同所有权（common ownership，即一体化 integration）为各方提供保障。所有者是从资产捆绑中获益最大的那一方。Hart（1995）收紧了这一定义性主张：控制权不可分割，而对收入的剩余权利可以分割，所以剩余<em>控制</em>是更强的所有权概念。</p>
+<p>随后论文摆出其前半部分最核心的理论对峙：现代理论"并非对古典产权理论的无可争议的科学超越"（"not an unambiguous scientific advance over classical property rights theories", p. 227）。三条批评被汇集起来。Demsetz（1998）攻击把所有权等同于剩余控制的做法牵强：剩余权利按定义难以明确表述，模型却假设法院会基于它们维护所有权主张；在实践中，所有权被认定属于持有权利束中最"重要"部分的一方，而那未必是剩余部分。Foss and Foss（1999, 2001）补上了一个逻辑矛盾——可在法院完全执行的剩余控制权，与模型所需要的"不完全契约"难以相容——并证明：即使在监督与计量（measurement）成本为正时，界定良好的非剩余权利也可能被占有（appropriated）。作者把这些困难的根源定位在模型对所有权过于单薄的构想上：</p>
+<blockquote>It is our argument that much of this ambiguity and logical inconsistency in the GHM model can be traced to its simple, uni-dimensional conception of property rights (ownership rights) to assets, perhaps necessitated by the practical limitations of analytical modeling.</blockquote>
+<p>中文复述：作者认为，GHM 模型中大量的模糊与逻辑不一致，都可追溯到它对资产产权（所有权）的简单、一维构想——这种构想或许只是分析建模的现实局限所迫。</p>
+<p>— p. 228</p>
+<p>由于剩余控制权不可分割，GHM 模型把共享所有权（shared ownership）整个排除在外。一个对半（50–50）股权合资企业能说明这一点：A 企业投入研发（R&D），B 企业投入制造与营销，双方显然应当各自控制自己的关键资产；但当一方为副产品找到新的商业用途时，合伙人之间应如何分享意料之外的收益——这正是剩余控制概念下的所有权无法回答的问题。Holmstrom（1999）的批评是：该模型解释了<em>个人</em>为何拥有资产，却没有解释<em>企业</em>为何拥有资产。一个租赁契约的例子补全了对单维性的反驳：即使承租人的权利事先得到完美界定，监督合规（信息不对称 asymmetric information）与衡量合规程度（计量成本 measurement costs; Barzel 1982）的显著成本，仍会让承租人在"完美界定"之下占有经济利益。因此，2.2 节的结论是一个由两部分组成的修正：全面的产权概念必须承认（1）对任何资产的权利可有多种分割，因为资产有多个属性；（2）即便非剩余权利也可能并非完全安全。</p>
+<h3>2.3 工作案例：石油田 unitization（油田整体化开发）（The worked case: oil-field unitization）</h3>
+<p>石油田 unitization（油田整体化开发）指指定一家公司作为单元作业者（unit operator），把整个油藏（oil reservoir）作为一个整体来开发。其经济学由地质与法律共同决定。石油是可流动的——它在油藏内向任何减压点移动——而依普通法的捕获规则（rule of capture），石油的产权仅在采出之时才被承认，因此一个地主可以钻井并抽走邻地之下的石油而无需担责。多个地主共享一个油藏、加上捕获规则与可流动的石油，共同制造出一个公共池塘问题（common-pool problem）：每个租约持有人都通过竞争性钻井（"一场生产竞赛"）最大化自己租约的价值，以过度资本、过快生产和总采收量损失的方式耗散油藏租金（dissipating reservoir rents）。效率上的理想安排是 unitization——一种私人契约安排，通常为期 10–20 年（接近油田自然寿命），并且是一份<em>一次性（once-and-for-all）</em>契约：分配规则必须事先固定、不可重新谈判，因为整体化会不可逆地改变油田的地质特征，因此各租约份额无法从整体化之后的产量中反推。单一单元作业者——通常是获益最大、损失也最大的那家企业——负责采出石油，并按预定分配规则分发收益（其 Table 1, p. 230）。驱动该案例的惊人经验事实，是潜在价值与实现价值之间的鸿沟：</p>
+<blockquote>Despite the potential for substantial economic value creation, the actual rate of oil field unitization is surprisingly low.</blockquote>
+<p>中文复述：尽管存在巨大的潜在经济价值创造空间，油田整体化（unitization）的实际发生率却低得惊人。</p>
+<p>— p. 230</p>
+<p>这个案例选得恰到好处，正因为它是一种<em>持续性</em>无效率的局面：整合的收益巨大，竞争性钻井把这些收益耗散掉，而自愿缔约却常常失败。</p>
+<h3>2.4 同一情境的三种透镜（Three lenses on the same situation）</h3>
+<p>论文逐节让每种理论对阵这个案例（其 Tables 2 and 3）。下文 Table A（即论文的 Table 2）复现论文的一般性比较；第 3 节的 Table C 承载针对案例的应用。</p>
+<p><strong>Table.</strong> 表 A——三大组织经济学理论比较（The three organizational-economics theories compared；改编自 Kim & Mahoney 2005, Table 2, p. 231）</p>
+<table>
+<thead><tr><th></th><th>维度（Dimension）</th><th>代理理论（Agency theory）</th><th>产权理论（Property rights theory）</th><th>交易成本理论（Transaction costs theory）</th></tr></thead>
+<tbody>
+<tr><td></td><td><strong>分析单位（Unit of analysis）</strong></td><td>委托—代理契约（Principal–agent contract）</td><td>制度（Institution）</td><td>交易（Transaction）</td></tr>
+<tr><td></td><td><strong>焦点维度（Focal dimension）</strong></td><td>激励（Incentives）</td><td>产权（Property rights）</td><td>各类资产专用性（Various types of asset specificity）</td></tr>
+<tr><td></td><td><strong>焦点成本关注（Focal cost concern）</strong></td><td>剩余损失（Residual loss）</td><td>外部性；寻租（Externalities; rent-seeking）</td><td>适应不良；套牢问题（Maladaptation; holdup problems）</td></tr>
+<tr><td></td><td><strong>契约焦点（Contractual focus）</strong></td><td>事前激励对齐；监督机制（Ex ante incentive alignment; monitoring mechanisms）</td><td>事前产权配置与事后分配冲突（Ex ante property rights allocation and ex post distributional conflicts）</td><td>（事后）治理机制的选择（Choice of (ex post) governance mechanism）</td></tr>
+<tr><td></td><td><strong>理论取向（Theoretical orientation）</strong></td><td>约束最优化（Constrained optimization）</td><td>比较评估（Comparative assessment）</td><td>比较评估（Comparative assessment）</td></tr>
+<tr><td></td><td><strong>战略意图（Strategic intent）</strong></td><td>股东观（Shareholder view）</td><td>利益相关者观（Stakeholder view）</td><td>股东观（Shareholder view）</td></tr>
+<tr><td></td><td><strong>市场摩擦来源（Sources of market frictions）</strong></td><td>信息不对称、不可观察性、（代理人的）风险规避（Information asymmetry, unobservability, risk aversion (by agents)）</td><td>外部性；界定不清、难以执行的产权（弱可占有性 appropriability）；既得利益（Externalities; unclearly defined and difficult-to-enforce property rights (weak appropriability); vested interests）</td><td>有限理性、不确定性、信息不对称、机会主义与资产专用性（Bounded rationality, uncertainty, information asymmetry, opportunism, and asset specificity）</td></tr>
+</tbody></table>
+<p><strong>分析单位（Unit of analysis）。</strong> 代理理论的分析单位是委托—代理契约关系；它把生产性资源当作石油租约本身（而非钻井能力——后者被假设为同质），并从单个石油企业的视角阅读案例。一旦整体化到位，石油企业是委托人（principals），唯一的单元作业者是代理人（agent），通过投票规则、通知要求、申诉与仲裁程序、报告与会计惯例以及一个监督委员会来监督（Libecap and Smith 1999, 2001）。TCE 的分析单位是交易——即整体化契约本身——它把组织形式解释为交易特征与治理机制的匹配（Hennart 1993; Williamson 1996）。产权理论的分析单位是 unitization 这种<em>制度</em>——一般意义上的"为整体化而缔约"，而非任何单一契约——于是政治环境与公共政策同微观分析的契约一起进入分析。正因如此，作者才能说：关于整体化的产权文献，对"政府为何在解决经济无效率时同样无效"具有含义（"why the government is also ineffective in resolving economic inefficiencies", p. 232，引 Libecap and Wiggins 1985 与 Kim and Mahoney 2002）。</p>
+<p><strong>焦点维度与成本关注（Focal dimensions and cost concerns）。</strong> 代理理论集中于让代理人的激励与委托人对齐，并通过事前契约设计最小化剩余损失；剩余损失之所以仍在，是因为监督是有成本的。它的成本概念由 Jensen and Meckling（1976, p. 308）界定：</p>
+<blockquote>Agency costs are comprised of '(1) the monitoring expenditures of the principal, (2) the bonding expenditures by the agent, and (3) the residual loss,' (Jensen and Meckling, 1976, p. 308).</blockquote>
+<p>中文复述：代理成本由三部分构成——（1）委托人的监督支出，（2）代理人的担保（bonding）支出，（3）剩余损失。</p>
+<p>— p. 233, quoting Jensen & Meckling (1976, p. 308)</p>
+<p>TCE 把各租约地块的相互依存看作资产专用性（asset specificity）。组建 unit 并把生产指派给单一作业者，"有效地消除了套牢问题"（"effectively eliminates the holdup problem", p. 233）——但那些本会有套牢激励的石油企业，转而在缔约阶段从事策略性的"拒不加入"（holdout）：除非得到补偿，否则拒绝加入，因为位于油藏地质优势区段的地块对有效开采具有关键作用。TCE 的焦点成本是事后成本——适应不良（maladaptation）、讨价还价、治理结构的设立与运行成本，以及担保成本（Williamson 1996, p. 176，引自 p. 234）。产权理论把相互依存问题一般化为外部性（externality）：捕获规则下产权不安全，意味着每家企业的钻井都通过削弱油藏压力而给其他企业的生产率施加负外部性。寻租（rent-seeking）——"既得经济利益"被导入政治活动以影响整体化立法——是一个在 TCE 与 AT 中都没有对应物的产权成本类别。由于整体化的失败常牵涉大量缔约方——有时是数百个独立所有者——且大企业与小企业的利益异质，共识很难达成（Libecap 1989）。</p>
+<p><strong>契约焦点与理论取向（Contractual focus and theoretical orientation）。</strong> 代理理论在完全契约（complete-contracting）框架内运作：事前把激励做对就能带来有效率缔约，因为事后执行问题被假设掉了；其取向是约束最优化（constrained optimization）——次优理论（theory of the second best），即在信息不对称与不可观察性之下的最优契约。TCE 假设契约不完全，因此关注事后治理；其取向是在离散的结构形式之间做比较评估（comparative assessment; Williamson 1991）——"在（不完美的）可用替代方案中做更优的治理选择"（"the better governance choice among (imperfect) available alternatives", p. 234）——而非最优组合。产权理论同样是比较性的，但它比较的是现实世界的制度（包括路径依赖的 path-dependent 制度），并以社会福利的改进为评估基准（Coase 1960）；TCE 则聚焦于降低成本（Coase 1937）。最深的不对称在这里：代理理论以及（较轻程度上的）TCE 假设均衡结果——在 TCE 下，"在契约起点把经济激励做对，并不能保证最优的整体化契约"，但两种理论都不追问整体化是否会发生。只有产权理论追问：为什么有效率的安排可能永远达不成：</p>
+<blockquote>An inefficient initial allocation of property right and path-dependence, even if decision-makers are intendedly rational, may result in fixed bargaining positions that are vastly divergent and hence difficult to reconcile, thus leading to persistent suboptimal contracting outcomes.</blockquote>
+<p>中文复述：即使决策者是有意理性的（intendedly rational），无效率的初始产权配置与路径依赖（path-dependence）也可能导致分歧巨大、难以调和的固化谈判立场，从而造成持续存在的次优缔约结果。</p>
+<p>— p. 234</p>
+<p><strong>战略意图与摩擦来源（Strategic intent and sources of frictions）。</strong> 代理理论与 TCE 采取股东观（shareholder view）——最大化委托人收益，或最小化交易成本以创造股东价值。产权理论采取利益相关者观（stakeholder view）：它把公共政策、各种利益集团与缔约各方都纳入权衡，因为初始禀赋（如土地最初分给定居者）、反垄断传统以及追求选票的立法机关，塑造了企业在其间竞争的权利结构。它对市场摩擦的清单——界定不清且不安全的权利、外部性、既得利益——既覆盖也包含另外两种理论所强调的摩擦。论文以两条总结性观察收束比较，其中第二条是最大胆的理论主张：</p>
+<blockquote>To sum up, there are at least two noteworthy theoretical features here. First is that agency theory is not concerned with the process of how a unitization agreement actually comes about. That is, agency theory focuses on the principal–agent relationship once a team production setting, with principal–agent relationship, is put in place. But why unitization (despite its potential for aggregate economic gain) is formed, or even more important, why it will not be formed, falls outside the analytical framework of agency theory. Second, both agency and transaction cost concepts of market frictions can be largely subsumed under the property rights concept of (negative) externalities.</blockquote>
+<p>中文复述：这里至少有两个值得注意的理论特征。其一，代理理论不关心 unitization 协议实际如何达成——它只关注"团队生产加委托—代理关系"就位之后的委托—代理关系；而 unitization 为何成立（尽管有总体经济收益的潜力）、更重要的是为何不成立，落在代理理论的分析框架之外。其二，代理理论与交易成本的市场摩擦概念，大体上都可以归入产权理论的（负）外部性概念之下。</p>
+<p>— p. 236</p>
+<div class="mermaid">
+flowchart TD
+    A["Neoclassical economics: frictionless markets make the existence of the firm a paradox (Coase 1937)"]
+    A --> B["Organizational economics: with positive transaction costs, governance structures and legal rules both matter (Coase 1937, 1960)"]
+    B --> C1["Transaction costs theory (Williamson 1975, 1985)"]
+    B --> C2["Agency theory (Jensen &amp; Meckling 1976; Fama 1980)"]
+    B --> C3["Classical property rights theory (Alchian 1965; Demsetz 1967; Alchian &amp; Demsetz 1972)"]
+    C3 --> C4["Modern property rights theory / GHM model (Grossman &amp; Hart 1986; Hart &amp; Moore 1990)"]
+    C1 --> D["Worked case: oil-field unitization (Tables 1-3)"]
+    C2 --> D
+    C3 --> D
+    C4 --> D
+    D --> E1["Agency lens: unit operator as agent; monitoring and residual loss"]
+    D --> E2["TCE lens: asset specificity; maladaptation; strategic holdout"]
+    D --> E3["PRT lens: insecure rights; negative externalities; vested interests and rent-seeking"]
+    E1 --> F["Complementary, not rival: PRT explains persistent inefficiency and shared ownership"]
+    E2 --> F
+    E3 --> F
+    F --> G["Strategy payoffs: vertical integration, joint ventures, franchising, intellectual property; foundations for resource-based theory (Mahoney 2005)"]
+</div>
+
+<p>A["Neoclassical economics: frictionless markets make the existence of the firm a paradox (Coase 1937)"]</p>
+<p>A --> B["Organizational economics: with positive transaction costs, governance structures and legal rules both matter (Coase 1937, 1960)"]</p>
+<p>B --> C1["Transaction costs theory (Williamson 1975, 1985)"]</p>
+<p>B --> C2["Agency theory (Jensen & Meckling 1976; Fama 1980)"]</p>
+<p>B --> C3["Classical property rights theory (Alchian 1965; Demsetz 1967; Alchian & Demsetz 1972)"]</p>
+<p>C3 --> C4["Modern property rights theory / GHM model (Grossman & Hart 1986; Hart & Moore 1990)"]</p>
+<p>C1 --> D["Worked case: oil-field unitization (Tables 1-3)"]</p>
+<p>C2 --> D</p>
+<p>C3 --> D</p>
+<p>C4 --> D</p>
+<p>D --> E1["Agency lens: unit operator as agent; monitoring and residual loss"]</p>
+<p>D --> E2["TCE lens: asset specificity; maladaptation; strategic holdout"]</p>
+<p>D --> E3["PRT lens: insecure rights; negative externalities; vested interests and rent-seeking"]</p>
+<p>E1 --> F["Complementary, not rival: PRT explains persistent inefficiency and shared ownership"]</p>
+<p>E2 --> F</p>
+<p>E3 --> F</p>
+<p>F --> G["Strategy payoffs: vertical integration, joint ventures, franchising, intellectual property; foundations for resource-based theory (Mahoney 2005)"]</p>
+<h2>3. 证据与案例（Evidence / examples）</h2>
+<p>这是一篇理论论文，所以它的"证据"是一个工作案例加二手经验材料，而不是新的数据集。论文的证据内核有三层。</p>
+<p><em>第一层，机制证据（mechanism evidence）。</em> unitization 案例确立了无效率是真实而结构性的：由于石油可流动、捕获规则只在采出时确认权利，单租约价值最大化就意味着竞争性钻井，而竞争性钻井会耗散有效开采所需的油藏压力；囚徒困境（prisoners' dilemma）的逻辑经由石油田整体化文献得到记录（Wiggins and Libecap 1985; Libecap 1998; Libecap and Wiggins 1984, 1985; Libecap and Smith 1999, 2001）。契约的一次性（once-and-for-all）性质——分配规则事先固定、不可重新谈判、油田地质被不可逆地改变后租约份额无从反推——让这个案例在分析上非常干净：各方必须在联合剩余被生产出来<em>之前</em>就其分配达成一致，而此时对各地块生产率的严重信息不对称仍在，事后也没有市场检验。</p>
+<p><em>第二层，数量证据（quantitative evidence）。</em> 论文最尖锐的数字来自注 7（note 7, p. 238）：新墨西哥州 1977 年加入强制 unitization 法规之后，33 起法定整体化在 20 年间使石油产量增加 2.8 亿桶（280 million barrels; Oil and Gas Journal, May 5, 1997）。把新墨西哥的经验外推到得克萨斯，预测 165 起州协助（强制）整体化将在 20 年内产出 14 亿桶（1.4 billion barrels）——对照基线是 1999 年美国原油总产量约 19.5 亿桶（1.95 billion barrels; U.S. Dept. of Energy 2000），以及 2000 年得克萨斯一州约 4 亿桶（400 million barrels）的产量（Railroad Commission of Texas 2001）。因此，被放弃的收益相对于全国总产出来说规模极为巨大——这恰恰解释了为什么低自愿整体化率对均衡理论是个谜题，对产权理论而言则是磨坊的谷物（grist for the mill）。</p>
+<p><em>第三层，承载概念重量的思想例证（worked thought examples）。</em> （i）地块分割的例子（一人放牧、一人穿越、一人飞越）确立：对一项资产的所有权并不是对该物理实体的所有权，而是对它特定分割权利的所有权。（ii）对半（50–50）合资的例子（A 企业贡献研发，B 企业贡献制造与营销）表明：剩余控制式所有权无法裁决合伙人如何分享副产品发现的意外收益——这是 GHM 模型无法表达的共享所有权（shared ownership）现象。（iii）租赁契约的例子表明：即便非剩余权利得到完美界定，当监督与计量成本为正时，它们仍可被占有（appropriable）。（iv）特许经营（franchising）把同一逻辑延伸到战略：品牌资本是一种共享的无形资源——一个公共池塘——特许人（franchisor）在其中大量投入，而加盟商（franchisees）并不承担质量水准下滑的全部成本（Michael 2000）。</p>
+<p><strong>Table.</strong> 表 B——古典与现代产权理论（Classical vs. modern property rights theory；综合自 Kim & Mahoney 2005, pp. 224–229）</p>
+<table>
+<thead><tr><th></th><th>维度（Dimension）</th><th>古典产权理论（Classical property rights theory）</th><th>现代产权理论（Modern property rights theory, GHM model）</th></tr></thead>
+<tbody>
+<tr><td></td><td><strong>代表人物（Exemplars）</strong></td><td>Coase (1959, 1960); Alchian (1965); Demsetz (1964–1967); Cheung (1969, 1970); Furubotn & Pejovich (1972); extended by North (1990), Libecap (1989), Barzel (1997)（并由 North 1990、Libecap 1989、Barzel 1997 加以扩展）</td><td>Grossman & Hart (1986); Hart & Moore (1990); Hart (1995)</td></tr>
+<tr><td></td><td><strong>方法与分析层级（Method and level of analysis）</strong></td><td>广义社会科学分析；历史与制度语境；经济发展、社会福利，直至单个企业（Broad social-science analysis; historical and institutional context; economic development, social welfare, down to the individual firm）</td><td>在单个企业及其资产的层面做程式化数学建模（Stylized mathematical modeling at the level of the individual firm and its assets）</td></tr>
+<tr><td></td><td><strong>所有权构想（Conception of ownership）</strong></td><td>被分割权利构成的多维权利束；所有权可以被共享；各分割相互依存（Multidimensional bundle of partitioned rights; ownership can be shared; partitions are interdependent）</td><td>所有权 ≡ 剩余控制权；不可分割，因而排除共享所有权（Ownership ≡ residual control rights; indivisible, so shared ownership is precluded）</td></tr>
+<tr><td></td><td><strong>契约情境（Contract setting）</strong></td><td>契约不完全且在演化；在正交易成本下，制度只能逐渐收敛于有效安排（Incomplete and evolving; institutions converge to efficient arrangements only gradually under positive transaction costs）</td><td>契约不完全；关系专用资产上的事后套牢（holdup）促成共同所有权（Incomplete contracts; ex post holdup on relation-specific assets motivates common ownership）</td></tr>
+<tr><td></td><td><strong>占有（Appropriation）</strong></td><td>当监督与计量成本高时，即便非剩余（已界定的）权利也可能被占有（Even non-residual (specified) rights can be appropriated when monitoring and measurement costs are high）</td><td>剩余控制保护所有者免于套牢；已界定的权利被视为可执行（Residual control safeguards owners from holdup; specified rights are treated as enforceable）</td></tr>
+<tr><td></td><td><strong>核心问题（Central question）</strong></td><td>产权界定如何产生？无效率的制度为何能持续？（How do property-rights specifications arise, and why can inefficient regimes persist?）</td><td>谁应该拥有什么资产？（Who should own what assets?）</td></tr>
+<tr><td></td><td><strong>智识近亲（Jensen 1983 类比）（Intellectual cousin (Jensen 1983 analogy)）</strong></td><td>实证代理理论（Positive agency theory; Fama 1980）</td><td>委托—代理模型（Principal–agent models; Holmstrom 1982）</td></tr>
+</tbody></table>
+<p><strong>Table.</strong> 表 C——三大理论应用于石油田 unitization（The three theories applied to oil-field unitization；浓缩自 Kim & Mahoney 2005, Table 3, p. 231）</p>
+<table>
+<thead><tr><th></th><th>维度（Dimension）</th><th>代理理论（Agency theory）</th><th>产权理论（Property rights theory）</th><th>交易成本理论（Transaction costs theory）</th></tr></thead>
+<tbody>
+<tr><td></td><td><strong>分析单位（Unit of analysis）</strong></td><td>石油企业（委托人）与单元作业者（代理人）（Oil firms (principals) and the unit operator (agent)）</td><td>作为制度的 unitization（一般意义上的"为整体化而缔约"）（Unitization as an institution (contracting for unitization in general)）</td><td>个别的 unitization 契约交易（Individual unitization contractual transactions）</td></tr>
+<tr><td></td><td><strong>焦点维度（Focal dimension）</strong></td><td>单元作业者的激励可能与其他石油企业分歧（Incentives of the unit operator may diverge from the other oil firms）</td><td>石油产权不安全（公共池塘资源 common-pool resource）（Property rights to oil are not secure (a common-pool resource)）</td><td>石油租约的相互依存（资产专用性）（Interdependence of oil leases (asset specificity)）</td></tr>
+<tr><td></td><td><strong>焦点成本关注（Focal cost concern）</strong></td><td>监督单元作业者的成本；激励对齐不完美造成的剩余损失（Cost of monitoring the unit operator; residual loss from imperfect incentive alignment）</td><td>负外部性（竞争性钻井）；影响公共政策的寻租（Negative externalities (competitive drilling); rent-seeking to influence public policy）</td><td>适应不良成本；潜在的（策略性）拒不加入（Maladaptation costs; potential (strategic) holdout）</td></tr>
+<tr><td></td><td><strong>战略意图（Strategic intent）</strong></td><td>股东观（最大化委托人收益）（Shareholder view (maximize principals' payoffs)）</td><td>利益相关者观（公共政策、利益集团、缔约各方）（Stakeholder view (public policy, interest groups, contracting parties)）</td><td>股东观（最小化交易成本以创造股东价值）（Shareholder view (minimize transaction costs to create shareholder value)）</td></tr>
+<tr><td></td><td><strong>关键摩擦来源（Key source of friction）</strong></td><td>唯一单元作业者难以观察（隐藏行动 hidden action）（Imperfect observability (hidden action) of the lone unit operator）</td><td>捕获规则下权利不安全；地块相互依存（外部性）；分配规则上的信息不对称；既得利益（Insecure rights under the rule of capture; interdependent tracts (externalities); information asymmetry over sharing rules; vested interests）</td><td>评估地块时的信息不对称；资产专用性（相互依存的地块）加剧之（Information asymmetry in evaluating tracts of land; asset specificity (interdependent tracts) exacerbates it）</td></tr>
+</tbody></table>
+<h3>对证据的评论（Commentary on the evidence）</h3>
+<p>这个案例是出色的<em>例证（illustration）</em>，却是孱弱的<em>检验（test）</em>。论文自己的经验主张都取自二手来源——油气经济学文献（Libecap and Wiggins 1985; Wiggins and Libecap 1985）与行业刊物统计——并被用来激发、而非估计缔约失败的量级。随之有三条告诫。第一，新墨西哥与得克萨斯的数字涉及<em>强制（州协助）</em>整体化：它们展示的是自愿缔约失败时监管者能达成什么；而得克萨斯数字是从新墨西哥经验外推出来的预测，不是观察到的结果。第二，底层的反事实——自愿整体化若成功会创造多少价值——从未被直接度量，因此"低得惊人"的发生率被记录了下来，但其福利成本只被括注（bracketed）。第三，案例是单一制度环境中的单一行业，因此它相对于知识型或无形资产的外部效度，依赖于特许经营例子与读者接受公共池塘类比的意愿。对一篇概念性综述而言，这些是尚可接受的经验局限；它们意味着本文的贡献是诊断性与纲领性的，而非证实性的（confirmatory）。</p>
+<h2>4. 在文献中的位置（Position in the literature）</h2>
+<p>论文与组织经济学的每一条主要脉络都做了明确对话。它延伸古典产权理论脉络：Coase（1959, 1960）、Alchian（1965, 1969）、Demsetz（1964, 1966, 1967, 1988, 1998）、Alchian and Demsetz（1972, 1973）、Cheung（1968–1983）、Furubotn and Pejovich（1972–1974），及其制度变迁的后继者 North（1981, 1990）、Libecap（1989）、Barzel（1982, 1997）、Eggertsson（1990）与 Alston et al.（1996, 1999）。它介入现代 GHM 脉络——Grossman and Hart（1986）、Hart and Moore（1990）、Hart（1995）——外加其注 2 所列庞大的扩展与批评文献（Aghion–Tirole、Baker–Gibbons–Murphy、Holmstrom–Milgrom、Rajan–Zingales、Maskin–Tirole、Whinston 等），并经由批评者 Demsetz（1998）与 Foss and Foss（1999, 2001）在两支脉络之间裁决。它把代理理论脉络从 Jensen and Meckling（1976）与 Jensen（1983）拉出，穿过 Fama（1980）、Fama and Jensen（1983）、Holmstrom（1979, 1982）与 Eisenhardt（1989）的评估；把 TCE 脉络从 Williamson（1975, 1985, 1991, 1996）拉出。总括伞是 Barney and Ouchi（1986）的组织经济学与 Mahoney（1992a）对组织经济学"在战略管理的对话之中"（"within the conversation of strategic management"）的定位——这正是 Mahoney（2005）在 <em>Economic Foundations of Strategy</em>（本研讨课的锚定文本）中发展的纲领：把 TCE、产权理论与代理理论呈现为战略的互补理论基础，而非相互竞争的候选者。</p>
+<p>具体到产权理论这一支内部，论文做了三个动作。第一，它拒绝让 GHM 模型充当产权理论的全部：它以古典构想——所有权是一束被分割、相互依存的权能构成的多维权利束——作为对现代模型单维剩余控制定义的修正，同时保留 GHM 的真实贡献（不完全契约情境中的所有权概念、关系专用资产，以及对"一体化意味着什么"的澄清）。第二，它把产权理论定位为另外两种理论的理论基础："交易成本理论与代理理论的某些理论支撑……扎根于产权理论"（"some of the theoretical underpinnings of transaction costs theory and agency theory … are rooted in property rights theory", p. 225）。第三，它锻造通往资源基础观（resource-based view / resource-based theory, RBV）的桥梁：产权理论为"概念化资源与能力"提供了"清晰的理论基础"（"a clear theoretical base for conceptualizing resources and capabilities", p. 237，引 Liebeskind 1996 与 Kim and Mahoney 2002），而组织一体化可以被理论化为共同所有权（common ownership）。其直接前身是作者自己的姊妹篇 Kim and Mahoney（2002）——那篇把资源基础观与产权视角应用于同一个石油田 unitization 案例；本文把比较从两种理论拓宽到三种，并把论证一般化到战略管理。</p>
+<p>由此得出的文献位置很有辨识度：一篇综合论文——在所有权实质问题上站在古典传统一边，同时承认现代模型的形式力量；把组织经济学的三支理论读作互补；并把产权理论从经济学中"关于企业的理论"重新定向为"关于战略的理论"——适用于纵向一体化（Grossman and Hart 1986）、合资与联盟中的共享所有权（Hennart 1993）、特许经营（Michael 2000）、生物技术的商业化政策（Argyres and Liebeskind 1998）、商业文化（Jones 1983）、知识与知识产权的价值（Liebeskind 1996; Miller and Shamsie 1996）、企业间联盟的结构（Oxley 1999）、国际合资事业（Chi and Roehl 1997）以及转型经济中的价值创造（Braguinsky 1999）。在第三周阅读弧线中，本文是正式产权理论模型与后来战略专属发展之间的枢纽：它提供了所有权能力工作（即能力观 capability view）与经验检验所继承的比较模板，也是 Mahoney（2005）的自然姊妹章来源。</p>
+<h2>5. 局限（Limitations）</h2>
+<h3>(a) 作者自己陈述的局限（The authors' own stated limitations）</h3>
+<ul>
+<li>论文明确是一次概览加例证（overview-and-illustration）的练习，而非新的形式或经验贡献："本文的目的，是帮助更好地理解产权理论，并解释产权理论如何应用于战略管理理论与商业现象"（"The purpose of the current paper is to contribute to a better understanding of property rights theory, and to explain how property rights theory can be applied to strategic management theory and business phenomena", p. 224）。它不声称解决了古典—现代之争。</li>
+<li>作者承认，GHM 模型的简化"或许只是分析建模的现实局限所迫"（"perhaps necessitated by the practical limitations of analytical modeling", p. 228），并把他们的两件套修正（分割 + 非剩余权利的占有）呈现为未来工作的方向，而非一个完成的模型。</li>
+<li>他们承认所援引的经验规律是别人的发现（Libecap and Wiggins 1985; Wiggins and Libecap 1985; Libecap and Smith 1999, 2001），并指出产权理论本身在战略研究者那里得到的经验关注一直很少。</li>
+<li>他们的前瞻性主张被明确标注为猜想——例如："我们猜想，随着信息技术促成的协调进步，知识产权研究在至少未来十年里将成为战略管理学科中的一个成长型产业"（"We conjecture that with advances in coordination enabled by information technology, intellectual property rights research will be a growth industry for at least the next decade in the discipline of strategic management", p. 237）。</li>
+</ul>
+<h3>(b) 独立判断（Independent judgment）</h3>
+<ul>
+<li><strong>[论文主张（paper claim）]</strong> 中心论点——代理理论与 TCE 假设均衡结果，而产权理论"非常适合解释无效率经济结果持续存在的商业情境"（"well suited to explain business situations where inefficient economic outcomes persist", 摘要 abstract, p. 223）——是在研究纲领特征描述的层面上被断言的；就石油案例而言它是公允的，但论文没有提供形式或经验证明，说明三种理论会以可检验的方式产生<em>不同</em>的预测。</li>
+<li><strong>[证据（evidence）]</strong> 支撑材料是一个行业案例外加二手计量与历史研究；头条数字（新墨西哥 33 起法定整体化产出 2.8 亿桶；得克萨斯 14 亿桶的预测）涉及的是强制、州协助的整体化，而理论的特有主张是关于<em>自愿</em>缔约的失败——因此证据更直接地记录了监管救助，而非孤立出"自愿失败"的机制。</li>
+<li><strong>[推断（inference）]</strong> 互补性论证是纲领性的：论文显示每种理论突出同一案例的不同契约特征，却从未给出决策规则，说明战略研究者何时该伸手拿 PRT 而非 TCE 或 AT——例如在何种条件下 TCE 会开出层级（hierarchy）的药方，而 PRT 预测持续无效率的不缔约。"互补性"主张因此描述的是智识劳动分工，而非一个带有跨理论比较静态的统一模型。</li>
+<li><strong>[推断（inference）]</strong> 对 GHM 的古典式修正（多重分割权利、可占有的非剩余权利）是通过例子论证的——地块、对半合资、租赁契约、特许经营——而非形式框架，因此论文没有确立一个分割权利模型会如何处理最初促使 GHM 产生的激励问题（关系专用投资上的套牢）。</li>
+<li><strong>[开放问题（open question）]</strong> 所有权能力（ownership competence）——后来的能力观：企业在生产性地界定与执行所有权安排上能力各异——通过多维权利构想被点到，但论文没有解释这种能力从何而来、如何建立，或它如何连接到论文所拉的 RBV 关系（课程弧线中所有权能力与经验检验的后续节点处理了这个缺口）。</li>
+<li><strong>[开放问题（open question）]</strong> 它的关键构念——"界定不清和/或不安全的产权"、"弱可占有性（weak appropriability）"、"既得利益（vested interests）"——从未被操作化，因此论文没有为关于产权的经验战略研究提供测量指引。</li>
+<li><strong>[推断（inference）]</strong> "归并（subsumption）"主张——代理与交易成本的摩擦可还原为产权理论的（负）外部性概念——有挑衅性但只是单向的：论文没有展示反向命题，即基于外部性的推理能否恢复 TCE 与 AT 所生成的治理、适应与激励处方——那才是检验 PRT 是否为一般理论、其余两者是否为特例的真正考验。</li>
+</ul>
+<h2>6. 结论（Conclusion）</h2>
+<p>论文确立了三件事。第一，组织经济学的三个分支在 Coase、Alchian 与 Demsetz 处共享共同先辈，却提出不同的问题，因此对任何战略情境的公允解读都需要全部三种透镜——其中产权理论补足另外两者假设掉的部分：无效率的契约结果为何持续，共享所有权如何运作。第二，所有权本身是一个双面概念：剩余<em>控制</em>权的恰当配置缓解事后契约问题（套牢），而剩余<em>索取</em>（residual claims）的恰当对齐缓解事前契约问题（激励）；"剩余控制与剩余索取（事前与事后的契约）问题，两者都处在所有权定义的核心"（"both residual control and residual claimancy (ex ante and ex post contractual) issues are at the heart of a definition of ownership", p. 237）。第三，产权理论为资源基础观奠基——它为概念化资源与能力提供了清晰的理论基础，并把组织一体化理论化为共同所有权。</p>
+<p>给战略的一句话要点：把所有权架构（ownership architecture）——谁对哪些资产的哪些分割握有剩余控制，谁承担剩余收入——当作在不完全契约与不安全权利之下做出的首要战略选择，并把制度与法律环境（捕获规则、反垄断政策、执行）当作战略的内生部分，而非背景。在一个存在正交易成本的经济世界里，弥合潜在价值与实现价值创造之间的鸿沟正是战略家的本职，而产权理论点出了那种摩擦（friction）的名字。</p>
+<div class="golden">"In an economic world of positive transaction costs, there are frictions in the development of property rights that can drive a persistent wedge between potential value and realized value creation." — p. 235</div>
+<p>中文复述：在一个存在正交易成本的经济世界里，产权发展过程中的摩擦会在潜在价值与已实现的价值创造之间打进一个持续存在的楔子。</p>
+<p>按照这种解读，战略就是持续努力设计与重画那些能收窄这个楔子的所有权安排——企业的边界、它共享的资产，以及它控制的每一项资源背后的权利分割。</p>
+<blockquote><strong>提示（Note）。AI 辅助声明（AI-assistance disclosure）。</strong> 本页由 AI 依据论文全文（pdftotext 提取）撰写。所有逐字引文均附页码；比较表格与 Mermaid 图由 AI 依据论文自身的 Tables 1–3 与论证组织而成；读者应以原始 PDF 核对页码（Managerial and Decision Economics 26(4), pp. 223–242, DOI 10.1002/mde.1218）。</blockquote>
+</div>
+<div id="lang-en" style="display:none">
+
 
 <h1>Property Rights Theory, Transaction Costs Theory, and Agency Theory: An Organizational Economics Approach to Strategic Management</h1>
 <div class="meta">
@@ -247,7 +423,19 @@ flowchart TD
 
 <div class="note"><strong>AI-assistance disclosure.</strong> This page was written by AI from the paper's full text (pdftotext-extracted). All verbatim quotations carry page references; the comparison tables and the Mermaid diagram were AI-organized from the paper's own Tables 1–3 and arguments; readers should verify page numbers against the original PDF (Managerial and Decision Economics 26(4), pp. 223–242, DOI 10.1002/mde.1218).</div>
 
-<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
 
+</div>
+
+
+<div class="back"><a href="index.html">← Back to course index / 返回课程索引</a> · <a href="../index.html">All courses / 全部课程</a></div>
+
+<script>
+function setLang(l){
+  document.getElementById('lang-zh').style.display = (l==='zh') ? 'block' : 'none';
+  document.getElementById('lang-en').style.display = (l==='en') ? 'block' : 'none';
+  document.getElementById('btn-zh').className = (l==='zh') ? 'active' : '';
+  document.getElementById('btn-en').className = (l==='en') ? 'active' : '';
+}
+</script>
 </body>
 </html>

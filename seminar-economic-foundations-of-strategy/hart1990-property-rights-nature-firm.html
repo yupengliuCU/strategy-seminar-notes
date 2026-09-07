@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,9 @@
 <style>
 :root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Serif SC",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
 h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
-h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
 h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
 .meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
 .meta a{color:var(--accent);text-decoration:none}
@@ -24,11 +24,14 @@ table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
 td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
 th{background:#f9fafb;font-weight:600}
 .summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
-.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.summary-box h2{margin:0 0 .5rem;color:var(--accent);border:none;font-size:1.1rem}
 .golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
 .note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
 .back{margin:3rem 0 1rem;font-size:.9rem}
 .back a{color:var(--accent);text-decoration:none}
+.langbar{position:sticky;top:0;background:var(--bg);padding:.7rem 0;z-index:10;display:flex;gap:.5rem;margin-bottom:1rem;border-bottom:1px solid var(--border)}
+.langbar button{border:1px solid var(--border);background:#fff;color:#333;padding:.45rem 1.1rem;border-radius:99px;cursor:pointer;font-size:.95rem;font-family:inherit}
+.langbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 @media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -39,6 +42,147 @@ th{background:#f9fafb;font-weight:600}
 <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
 </head>
 <body>
+
+<div class="langbar">
+  <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+</div>
+
+<div id="lang-zh">
+<h1>Property Rights and the Nature of the Firm</h1>
+<div class="meta"><strong>作者：</strong> Oliver Hart (MIT) and John Moore (London School of Economics)</div>
+<blockquote><strong>期刊：</strong> <em>Journal of Political Economy</em>, Vol. 98, No. 6 (December 1990), pp. 1119–1158</blockquote>
+<blockquote><strong>年份：</strong> 1990</blockquote>
+<blockquote><strong>DOI：</strong> 10.1086/261729</blockquote>
+<blockquote><strong>性质：</strong> formal economic model — modern property-rights theory of the firm (incomplete contracts), generalizing Grossman & Hart (1986) to many agents and many assets（正式经济模型——现代产权理论的企业理论，基于不完全契约，把 Grossman & Hart (1986) 从两人一资产推广到多主体、多资产）</blockquote>
+<blockquote><strong>关键词：</strong> property rights, residual control rights, theory of the firm, ownership, vertical integration, hold-up, incomplete contracts, Shapley value, asset complementarity, employment relationship</blockquote>
+<div class="summary-box"><h2>一句话总结（One-sentence summary）</h2>
+<p>企业是其所有者控制的非人力资产（non-human assets）的集合。由于所有权（ownership）归根到底是把他人排除在资产之外的权力（排除权，exclusion），把严格互补（strictly complementary）的资产配置给共同所有、把经济上相互独立（economically independent）的资产配置给分别的所有者，最能保护所有者—经理人（owner-managers）与雇员双方的期前（ex ante）投资激励。</p>
+</div>
+<div class="note"> 在第三周的脉络（classical PRT → modern PRT → 战略应用 application to strategy → 所有权能力 ownership competence → 实证检验 empirical test）里，本文<em>就是</em>那个正式的剩余控制权（residual control rights）模型：它承接 Grossman–Hart (1986) 的引擎，把它从两位高管加一项资产推广到多主体（包括不持股的雇员）、多资产与一般的控制结构（合伙制 partnerships、工人合作社与消费者合作社 worker and consumer cooperatives 都是它的特例）。它是现代产权理论（modern PRT）诸结论——谁该拥有（who should own）、哪些资产应归并（which assets should be grouped）——的规范表述，后来的战略管理转译（Kim & Mahoney 2005）、所有权能力视角与实证检验（如 Magelssen 2020）都建立其上。Coase (1937) 提出问题；Alchian & Demsetz (1972) 攻击答案；Grossman & Hart (1986) 使之形式化；Hart & Moore (1990) 完成正式的基线。</div>
+<h2>1. 背景与动机（Background and motivation）</h2>
+<p>Hart 和 Moore 进攻的是 Coase (1937) 在半个世纪前提出、形式化经济学一直没能回答的问题：什么是企业？企业内部进行的交易与通过市场进行的交易有何不同？他们的靶子不只是缺少一个模型，还包括两个他们认为不完整的立场。Williamson (1975, 1985) 与 Klein, Crawford, and Alchian (1978) 把企业定位于套牢问题（hold-up problem）：当各方做了专用性投资（specific investments）而详尽的长契约又不可能时，这些投资产生的准租（quasi-rents）无法事先分割，一体化（integration）便成为遏制机会主义重新谈判（opportunistic renegotiation）的手段。Grossman and Hart (1986) 把这条逻辑提炼成一种两面性论证：把一项资产的所有权转移给新主人，会提高其行动自由、从而提高其期前投资激励，同时降低卖方（原所有者）的激励。一体化的成本与收益是同一枚硬币的两面。</p>
+<p>Grossman–Hart 留下两个缺口，由本文弥合。第一，他们的分析"solely in terms of the incentive effects on top management"（只从一体化对高层管理者（top management）的激励效应着眼）看待一体化的成本与收益（p. 1121）：通常有很多人在一家企业里工作，其中只有一部分人拥有它，而关于一体化如何改变雇员激励，他们什么也没说。第二，该框架本质上是双边（bilateral）的——一项资产、一个收购方；它既不能回答数项资产中哪些该归并到同一所有者名下，也处理不了合伙制、工人合作社、消费者合作社这类控制结构。Hart 和 Moore 构建了一个多主体、多资产的经济，追问资产所有权的配置如何影响非所有者与所有者—经理人双方的激励（p. 1120）。</p>
+<p>论文还给早先那场关于"权威（authority）"的争论一个精确内容。Alchian and Demsetz (1972) 曾主张雇主的权力是幻觉——他只能解雇雇员，正如顾客可以不再向杂货商买东西。Hart 和 Moore 回应：雇员所需的资产归谁所有，决定了雇员的未来生计在多大程度上系于所有者，这正是雇佣（employment）能够塑造行为、而保持距离的交易（arm's-length contracting）做不到的地方。这一与 Alchian and Demsetz 的和解在脚注 29（footnote 29）展开，是本文被引用最多的动作之一。</p>
+<h2>2. 核心论点与框架（Core argument / framework）</h2>
+<h3>2.1 作为排除权的所有权：资产何以赋予对人的支配力（Ownership as exclusion, and why assets give power over people）</h3>
+<p>论文继承了 Grossman–Hart 的定义：企业是其所有者控制的资产的集合；所有权是对这些资产的剩余控制权。随后它把"剩余控制"的含义加以特殊化（specialize），这一步承担了决定性的分析工作：</p>
+<blockquote>Following Grossman and Hart (1986), we identify a firm with the assets it possesses and take the position that ownership confers residual rights of control over the firm's assets: the right to decide how these assets are to be used except to the extent that particular usages have been specified in an initial contract. Hart & Moore (1990), p. 1120, Sec. I (Introduction)</blockquote>
+<p>></p>
+<blockquote>中文复述：沿用 Grossman and Hart (1986)，我们把企业等同于它所拥有的资产，并主张所有权赋予对企业资产的剩余控制权——即除初始契约已具体规定用途的限度之外，决定如何使用这些资产的权利。（p. 1120，第 I 节 导论）</blockquote>
+<blockquote>In addition, we specialize the meaning of residual control rights relative to Grossman and Hart. We suppose that the sole right possessed by the owner of an asset is his ability to exclude others from the use of that asset. That is, the owner of a machine can decide who can and who cannot work on that machine, the owner of a building can decide who can and who cannot enter the building, the owner of an insurance company's client list can decide who has and who does not have access to the list, and so forth. Hart & Moore (1990), p. 1121, Sec. I</blockquote>
+<p>></p>
+<blockquote>中文复述：此外，相对于 Grossman and Hart，我们把剩余控制权的含义加以特殊化：假定资产所有者拥有的唯一权利，是把他人排除在资产使用之外的能力（ability to exclude）。机器的主人决定谁能在机器上工作、谁不能；大楼的主人决定谁能进入、谁不能；保险公司客户名单的主人决定谁能查阅名单、谁不能；如此等等。（p. 1121，第 I 节）</blockquote>
+<p>对物质资产的控制于是间接地变成对人的控制。某个工人的技能只有在他能使用某台特定机器时才产生回报，他就必须让所有者愿意接纳他；为了强化自己未来与这位所有者的谈判地位，他今天会部分地按所有者的利益行事。"所有者"是谁，因此决定了工人们为谁的利益服务。由此推出的尖锐结论就是本文的就业 vs 独立承包（employment vs. independent contractor）框架：一个人对雇来的工人——即当他拥有该工人所使用的资产时——比对另一家外部企业中与他只订有保持距离契约的雇员拥有更多控制，因为在第一种情形里，工人未来谈判的对象是<em>他</em>。一个脚注让产权逻辑保持严谨：控制权的所有权不同于对（可验证的）利润流的权利主张；如果企业 1 只想要企业 2 的一部分利润，它可以签约取得；它只有为了取得对企业 2 资产的控制才需要一体化（p. 1121，n. 3）。</p>
+<h3>2.2 模型：今日投资、明日 Shapley 谈判（The model: investments today, Shapley bargaining tomorrow）</h3>
+<p>正式模型（第 II 节，Sec. II，pp. 1125–30）包含：一个含 $I$ 个风险中性（risk-neutral）主体的集合 S、一个含 $N$ 项资产的集合 A，以及两个日期。在第 0 期（date 0），每个主体 $i$ 选择一项标量人力资本投资（human-capital investment）$x_i\in[0,\bar{x}]$，成本函数 $C_i(x_i)$ 为凸（假设 1，Assumption 1）。三条不完备性假设推动一切：投资水平过于复杂、无法写入契约；第 1 期的生产与交易计划无法在第 0 期写成契约（或有表述 contingent statements 的代价高得不可行），因此第 1 期要重新谈判一份新契约；第 0 期的利润分成协议被排除在外，因为成本与收入不可验证（n. 7）。到第 1 期，投资对交易伙伴已可观察，因此第 1 期谈判在对称信息（symmetric information）下进行。</p>
+<p>联盟价值（coalition values）是基本对象。若主体联盟 $S$ 控制了资产集 $A'$，它可以排除其他所有人、在现货市场上雇到替代者，并实现某个最大美元价值 $v(S,A'\mid x)$（假定超可加 superadditive，且边际上随联盟规模与资产递增——假设 2–6，Assumptions 2–6）。假设 3 编码了"投资是人力资本投资"：主体 $i$ 的边际投资只提高那些含 $i$ 的联盟的价值。假设 6——边际收益随联盟内其他主体与资产的数目增加而上升——保证结论是关于投资不足（underinvestment）的。</p>
+<p>控制结构（control structure）是一个从主体联盟到其所控制资产集的映射 $\alpha$，满足单调性（monotonicity）条件（$S'\subseteq S \Rightarrow \alpha(S')\subseteq\alpha(S)$），并满足：在主体的任何划分中，每项资产至多由一方控制。单独所有（sole ownership）、多数决下的按股份投票（voting with shares under majority rule）、随机（随机化）所有权（stochastic (randomized) ownership）都落在这个对象之内；债务这类"购买选择权"契约（option-to-own contracts）被有意搁置（n. 10）。给定 $\alpha$，主体 $i$ 在第 1 期剩余中分到的份额是他的 Shapley 值（Shapley value）</p>
+<p>$$B_i(\alpha\mid x)=\sum_{S\ni i} p(S)\big[v(S,\alpha(S)\mid x)-v(S\setminus\{i\},\alpha(S\setminus\{i\})\mid x)\big],$$</p>
+<p>其中 $p(S)$ 按主体 $i$ 在 $I$ 个主体的均匀随机排序中加入联盟 $S$ 的概率给每个联盟加权。随机排序的解释本身就是整场博弈的缩影：只有当 $i$ 排在第一位时，他才能拿到自己的全部边际产出；只要有人排在他前面，他第 0 期投资回报的一部分就会在与那个人的谈判中耗散。</p>
+<h3>2.3 投资不足与所有权设计（Underinvestment and the design of ownership，命题 1）</h3>
+<p>在第 0 期，主体非合作地选择投资，预见到 Shapley 分割。命题 1（Proposition 1）给出本文的基线结论：对任何控制结构都存在投资不足——唯一纳什均衡（Nash equilibrium）满足：对每个投资主体，$x_i^e(\alpha) < x_i^*$——并且，任何能提高每个主体投资边际收益的控制结构变动，都会单调地提高福利（welfare）。外部性（externality）一目了然：投资回报的一部分在第 1 期被谈判拿走，私人回报于是低于社会回报。一个脚注记录了与 Grossman–Hart 的差异：这里的投资不足由假设 6 保证，而 Grossman–Hart 较弱的设定还允许过度投资（overinvestment）（n. 13）。</p>
+<p>由于任何改善边际激励的控制结构都会提高福利，假定各主体在第 0 期谈判，选出使 $W(x^e(\alpha))$ 最大化的控制结构——对"谁拥有什么"做有效的事前订约（efficient ex ante contracting）（p. 1131）。所有权设计由此变成一个激励设计问题，论文其余部分刻画它的解。</p>
+<h3>2.4 谁应拥有（Who should own，Sec. III）</h3>
+<ul>
+<li><strong>命题 2（Proposition 2，p. 1131）。</strong> 若只有一名主体投资，他应拥有全部资产：让他在每个联盟中都能用到每项资产，可使他的边际收益最大化，部分治愈他的套牢问题。</li>
+<li><strong>命题 3（Proposition 3，p. 1132）。</strong> 对任一联盟，每项资产应由该联盟或它的补集控制。让双方分控一项资产会浪费激励价值；其推论（命题 4，Proposition 4）是：对同一资产持否决权（veto power）的主体至多一名——某些共同所有权（joint-ownership）安排被严格占优。脚注 16（footnote 16）指出这预设了人力资本投资；当主体为转售而共同建造一项物质资产时，共享所有权可以是最优的。</li>
+<li><strong>命题 5 与 6（Propositions 5 and 6，pp. 1133–34）。</strong> 对某主体具特质性（idiosyncratic）的资产——对其他人边际收益无关紧要——应由他自己拥有；对某项资产"不可或缺"（indispensable）的主体——没有他，该资产对任何人的边际产出都无所增益——即使他完全不做投资，也应拥有它。第二个结果是本文最核心的"谁"陈述：所有权不仅来自自己行动的重要性，也来自自己作为交易伙伴的重要性。</li>
+<li><strong>命题 7（Proposition 7，p. 1135）。</strong> 若存在"关键群体"（key group）G——需要其过半成员在场，一项资产才有生产力——控制权应由 G 内部简单多数投票决定，由此推出合伙制（G 是工人的一个子集）、工人合作社（G = 全体工人）与消费者合作社（G = 消费者）等特例。</li>
+<li><strong>命题 9–10（Propositions 9–10，pp. 1136–38）。</strong> 在随机控制可行时，不做投资的可替代（dispensable）主体不应持有任何控制权；"外部方"（outside party）——与他人经济上独立的主体——也不应持有，因为他只会把投资回报稀释到更大的谈判集合中去。当两组主体及其资产经济上相互独立时，控制也应相互独立：所有权不应跨越互不相关的生意。</li>
+<li><strong>命题 11–12（Propositions 11–12，pp. 1138–39）。</strong> 若投资主体赖以行动的关键资产由别人拥有，那个所有者应拥有全部资产（这样每个含该所有者的联盟，也都携带投资者所需的每一项资产）。此外，工人群体的关键资产与其老板自己的关键资产分处不同企业的混合结构是被占优的——边界应重画成一家企业、顶端一个老板。</li>
+</ul>
+<h3>2.5 哪些资产应归并（Which assets should be grouped，Sec. III，续）</h3>
+<p>严格互补（<em>(strictly) complementary</em>）的资产——不合用就没有生产力，如同厨房与船体——应共同所有或共同控制（命题 8，Proposition 8，pp. 1135–36）：分别的所有者会迫使每个第三方与两个人而非一个人谈判，而且除非某个联盟同时控制两者，互补资产的边际收益会归零。在另一个极端，彼此没有协同的资产不应共同所有，所有权也不应延伸到经济上相互独立的主体（命题 10，p. 1138）——把互不相关的资产共同所有，等于把控制权交给外部方，只会稀释激励（命题 9，Proposition 9）。两个命题夹出企业的轮廓：互补资产把所有权拉向共同，独立资产把它推向分离，有效率的企业边界（firm boundaries）落在两股力量平衡之处。</p>
+<div class="mermaid">
+flowchart TD
+    A["Date 0: incomplete contracts; a control structure alpha allocates each asset to a coalition"] --> B["Agents choose noncontractible human-capital investments x_i"]
+    B --> C["Date 1: coalition S controlling assets alpha(S) generates value v(S, alpha(S), x); surplus split by Shapley value"]
+    C --> D["Private marginal return falls short of the social return: underinvestment (Prop. 1)"]
+    D --> E["Date 0 ownership design: choose alpha maximizing W(x^e(alpha))"]
+    E --> F["Who should own: sole investor (P2), indispensable trading partner (P6), key group by majority rule (P7); never dispensable outsiders (P9, P10)"]
+    E --> G["How assets group: strictly complementary assets jointly owned (P8); economically independent assets separately owned (P10)"]
+    F --> H["Boundary of the firm = the set of assets under common ownership"]
+    G --> H
+    H --> I["Ownership = right to exclude others from non-human assets"]
+    I --> J["Exclusion over assets becomes authority over people: employees act in the interest of the owner of their essential asset"]
+    J --> K["Employment vs. independent contractor: integration lets one owner selectively fire; nonintegration lets him fire only the whole firm"]
+</div>
+
+<p>A["Date 0: incomplete contracts; a control structure alpha allocates each asset to a coalition"] --> B["Agents choose noncontractible human-capital investments x_i"]</p>
+<p>B --> C["Date 1: coalition S controlling assets alpha(S) generates value v(S, alpha(S), x); surplus split by Shapley value"]</p>
+<p>C --> D["Private marginal return falls short of the social return: underinvestment (Prop. 1)"]</p>
+<p>D --> E["Date 0 ownership design: choose alpha maximizing W(x^e(alpha))"]</p>
+<p>E --> F["Who should own: sole investor (P2), indispensable trading partner (P6), key group by majority rule (P7); never dispensable outsiders (P9, P10)"]</p>
+<p>E --> G["How assets group: strictly complementary assets jointly owned (P8); economically independent assets separately owned (P10)"]</p>
+<p>F --> H["Boundary of the firm = the set of assets under common ownership"]</p>
+<p>G --> H</p>
+<p>H --> I["Ownership = right to exclude others from non-human assets"]</p>
+<p>I --> J["Exclusion over assets becomes authority over people: employees act in the interest of the owner of their essential asset"]</p>
+<p>J --> K["Employment vs. independent contractor: integration lets one owner selectively fire; nonintegration lets him fire only the whole firm"]</p>
+<h2>3. 证据与例子（Evidence / examples）</h2>
+<p>作为一篇理论论文，证据有两种形态：承载直觉的算例（worked examples），以及把诸命题的实际内容推导出来的应用小节。导论部分的游艇例子（pp. 1122–24）承担前一种工作。一名厨师与一名船长用一艘豪华游艇向一位大亨（tycoon）联合供应美食海鲜。厨师可以采取一项资产专用性行动，成本 100，创造价值 240；船长在第 1 期有许多替代者；大亨是唯一的消费者。若<em>船长</em>拥有游艇，厨师预见到三方分割，只拿 $1/3(240)=80 < 100$——他不投资。若<em>大亨</em>拥有游艇，船长可以被替换，分割变成两方，$1/2(240)=120 > 100$——厨师投资。再给船长加一项第 0 期行动，为大亨再创造 240 价值，比较就会以干净的方式反转：当两名工人都做对这位大亨专用性的投资时，大亨拥有游艇优于任何一名工人拥有——"it may be efficient to give ownership of assets to agents who are indispensable even though they may not make important investment or effort decisions"（把资产所有权交给不可或缺的主体可能是有效率的，即使他们并不做重要的投资或努力决策，pp. 1123–24）——这正是命题 6 背后的直觉。</p>
+<p>例子的第二个变体（p. 1124）给出互补性（complementarity）。假设游艇由两件组成——厨房（galley）与船体（hull），分开便毫无用处，三位主体各有一项值 240 的第 0 期行动。在分别所有下——厨师拥有厨房、船长拥有船体——激励条件为 $1/2(240) > c_1$、$1/2(240) > c_2$ 与 $1/3(240) > c_3$：每名工人为了用到整艘游艇，必须与另一个人谈判；大亨则必须与两个人谈判。把整艘游艇给厨师：大亨只需与一个人而非两个人谈判，船长的处境不变；被套牢（holdups）的次数更少、福利更高——命题 8 的微型表述。</p>
+<h3>3.1 单一资产：所有权体制与组织形式（One asset: ownership regimes and organizational forms，Sec. IV.A）</h3>
+<p>当一项单一资产对一组向消费者供货的工人必不可少时，模型生成一套所有权分类（ownership taxonomy）。若必须存在某个关键群体，任何工人的投资才有回报，那么该群体内的多数决最优——群体的身份决定组织形式：关键群体是工人的一个子集时为合伙制，是全体工人时为工人合作社，是消费者时为消费者合作社（p. 1140）。当所有主体都可替代时，最优控制退化为在投资集合 $H$ 上分配概率 $p_i$——主体 $i$ 属于控制该资产的联盟的概率——受固定和约束 $\sum_{i\in H} p_i = 1/2 + 1/(2|H|)$ 限制（式 [6]，eq. [6]，pp. 1140–41）。投资对称时，相等的 $p_i$ 最优（当 $|H|$ 为奇数时可用多数决实现）；当有一个投资占主导的"大"工人时，全部控制权都归他，因为小工人们无论是否拥有，他们的总投资几乎不变。</p>
+<h3>3.2 双资产：企业边界（Two assets: the boundary of the firm，Sec. IV.B）</h3>
+<p>双资产情形（pp. 1141–45）是本文雇佣分析之所在。每项资产 $a_i$ 有一名大工人 $i$ 和许多可替代的小工人；问题是：1 拥有 $a_1$、2 拥有 $a_2$（非一体化，nonintegration），1 拥有两者（一体化，integration），2 拥有两者，还是绝无最优的"反向非一体化"（reverse nonintegration，1 拥有 $a_2$、2 拥有 $a_1$）。写出每种体制下的一阶条件（eqq. [7a]–[7h]）并加以比较，就得到一体化对激励的完整账本，见下表。头条结论：一体化下老板 1 的激励上升，因为他此后总是两资产在手；老板 2 的激励下降，因为他要用 $a_2$ 就得与 1 谈判；收购方企业的一名普通工人 $w_1$ 在下一体化下激励无歧义地更高（每当他与老板 1 同处一个联盟，现在也够得到 $a_2$——命题 11，Proposition 11）；被收购企业的工人 $w_2$ 则面对两股方向相反的力。正面看，$w_2$ 现在只需与一个人谈判就能同时够到两资产；负面看，他更少处于把旧老板 2 与 $a_2$ 结合起来的联盟——而且若 2 对 $a_2$ 不可或缺，$w_2$ 的投资激励严格下降（p. 1144）。论文总结道："there are two effects from integration on employees. On the one hand, there is a positive effect due to increased coordination … On the other hand, there is a negative effect due to the fact that an employee of the acquired firm now has to negotiate with two people to have access to both his essential asset and his old boss"（一体化对雇员有两重效应：一方面，协调增强带来正效应……另一方面，被收购企业的雇员现在要与两个人谈判，才能同时用到他的关键资产并接触他的旧老板——这是负效应，p. 1144）。</p>
+<p><strong>Table.</strong> 表 1——双资产模型：一体化（主体 1 拥有两资产）中谁得谁失（Table 1 — Two-asset model: who gains and who loses from integration, agent 1 owns both assets）</p>
+<table>
+<thead><tr><th></th><th>主体（Agent）</th><th>非一体化下：1 拥有 a1、2 拥有 a2（Under nonintegration: 1 owns a1, 2 owns a2）</th><th>一体化下：1 拥有两者（Under integration: 1 owns both）</th><th>对投资激励的影响（Effect on investment incentives）</th></tr></thead>
+<tbody>
+<tr><td></td><td>老板 1（收购方，Boss 1, acquirer）</td><td>用 a2 须与 2 达成协议（Must reach agreement with 2 to use a2）</td><td>始终控制两资产（Always controls both assets）</td><td>上升——FOC (7e) > (7a)，经典 Grossman–Hart 收益（Rises; the classic Grossman–Hart gain）</td></tr>
+<tr><td></td><td>老板 2（被收购方，Boss 2, acquired）</td><td>总能使用自己的 a2（Always has access to his own a2）</td><td>用 a2 需要 1 的合作（Needs 1's cooperation for a2）</td><td>下降——FOC (7g) < (7c)（Falls）</td></tr>
+<tr><td></td><td>工人 w1（收购方企业雇员，Worker w1）</td><td>只在含 1 的联盟中有生产力；单独只够到 a1（Productive only in coalitions with 1; access to a1 alone）</td><td>每个含 1 的联盟都同时携带 a2（Every coalition with 1 also carries a2）</td><td>无歧义上升（命题 11，Rises unambiguously, Proposition 11）</td></tr>
+<tr><td></td><td>工人 w2（被收购企业雇员，Worker w2）</td><td>需同时与 1、2 结盟才能到两资产（Needs coalition with both 1 and 2 to reach both assets）</td><td>协调收益（一个老板管两资产）对失去 {2, a2} 组合（Coordination gain vs. loss of the {2, a2} combination）</td><td>方向不定（Ambiguous）；若 2 对 a2 不可或缺则下降（falls if 2 is indispensable to a2）</td></tr>
+</tbody></table>
+<p>三个特例消解这种不定性。若主体 2 可替代，负面的雇员效应消失，一体化的唯一成本是 2 自己损失的激励。若资产经济上相互独立，非一体化整体压过一体化（命题 10，Proposition 10）：在 $a_1$ 之外再拥有 $a_2$，使主体 1 成为生意 2 的纯粹外部方，稀释激励而不增加协调价值。若资产严格互补，一体化占优（命题 8，Proposition 8）：2 与 $w_2$ 反正都要与 1 达成协议，无所损失，而第三方现在只需与一位所有者而非两位谈判（p. 1145）。</p>
+<p><strong>Table.</strong> 表 2——两资产转向共同所有何时提高或降低效率（Table 2 — When a move to common ownership of two assets raises or lowers efficiency，Sec. V 小结，p. 1149）</p>
+<table>
+<thead><tr><th></th><th>条件（Condition）</th><th>共同所有更可能提高效率，当……（Common ownership likely increases efficiency when …）</th><th>共同所有更可能降低效率，当……（Common ownership likely decreases efficiency when …）</th></tr></thead>
+<tbody>
+<tr><td></td><td>资产间关系（Relationship between the assets）</td><td>资产强互补（命题 8，Assets are strongly complementary, Prop. 8）</td><td>资产经济上独立（命题 10，Assets are economically independent, Prop. 10）</td></tr>
+<tr><td></td><td>被收购的所有者—经理人（主体 2，Target owner-manager, agent 2）</td><td>2 可替代，或其投资并不特别重要（2 is dispensable or his investment is not particularly important）</td><td>2 有重要投资，或 a2 对 2 具特质性（2 has an important investment, or a2 is idiosyncratic to him）</td></tr>
+<tr><td></td><td>收购方所有者（主体 1，Acquiring owner, agent 1）</td><td>1 对 2 与工人 {w2} 是重要交易伙伴，且 1（或 {w1} 合计）有重要投资（1 is an important trading partner for 2 and {w2}, and 1 or {w1} in aggregate has an important investment）</td><td>1 的投资并不特别重要（1's investment is not particularly important）</td></tr>
+<tr><td></td><td>被收购方雇员（{w2}，Employees of the target）</td><td>得（Gain）：与单一老板谈判即可够到两资产（negotiate with a single boss for access to both assets）</td><td>失（Lose）：把旧老板 2 与 a2 配对的联盟变得更稀有（coalitions pairing their old boss 2 with a2 become rarer）</td></tr>
+</tbody></table>
+<h3>3.3 三资产：兼并有溢出效应（Three assets: mergers have spillovers，Sec. IV.C）</h3>
+<p>在三项单独所有资产的情形中，新的控制结构是部分一体化（partial integration）——1 拥有 $a_1$ 与 $a_2$，3 拥有 $a_3$——其独特的结果是：1 收购 $a_2$ 会改变外部人 3 的激励。比较 3 在各体制下的一阶条件：只要 $v_3(a_1,a_2,a_3)+v_3(a_3) > v_3(a_1,a_3)+v_3(a_2,a_3)$（式 [8]，eq. [8]，p. 1147），3 在部分一体化下的投资就多于非一体化——该不等式在 3 与 1、2 的协同缺少第三方时就有限时成立。当 $a_1$ 与 $a_2$ 对 3 的生意是接近的替代品时，结论反转——此时非一体化对 3 更有利，因为分开的所有者 1、2 为了接近 $a_3$ 必须互相竞争。论文的表述是：</p>
+<blockquote>… as one might expect, if two competing traders merge, this will worsen the incentives of the owner-manager of a firm that trades with them. Hart & Moore (1990), p. 1148, Sec. IV.C</blockquote>
+<p>></p>
+<blockquote>中文复述：……如人所料，若两个相互竞争的交易者合并，会恶化与它们交易的那家企业的所有者—经理人的激励。（p. 1148，第 IV.C 节）</blockquote>
+<h3>3.4 多资产：输油管道案例（Many assets: the pipeline case，Sec. IV.D）</h3>
+<p>多资产应用采用 Klein–Crawford–Alchian 的输油管道例子：一条管道 $a_1$ 服务多家炼油厂 $a_2,\dots,a_N$；唯一的协同是管道与每家炼油厂之间的双边协同，而炼油厂离了管道毫无用处。若管道的投资重要，答案是下游一体化（downstream integration）——管道所有者拥有一切。若管道所有者的投资微不足道、而炼油厂的投资重要，炼油厂应通过股份或多数决下的投票分享对管道的控制权，主体的所有权概率随其票数递增——"Arrangements like these are in fact observed in the case of oil pipelines, with an agent's share being linked to his use of the pipeline"（此类安排在输油管道上确实可见：主体的份额与其对管道的使用挂钩，p. 1149，citing Klein et al. 1978；另见铁路企业共有桥梁的例子，Chandler 1977，p. 124）。</p>
+<h2>4. 在文献中的位置（Position in the literature）</h2>
+<p>论文位于本课程追踪的产权理论谱系的枢纽。相对 <strong>Coase (1937)</strong>：它接过两个奠基性问题，以及"雇佣关系（employment relation）是典型的、企业式的交易"这一想法，却拒绝 Coase 自己的答案——权威在于雇主"吩咐（telling）"雇员做什么。相对 <strong>Alchian and Demsetz (1972)</strong>：它承认他们的批评（雇主不能发号施令，只能解雇，正如顾客不再向杂货商购买），却经由资产恢复权威：雇员所用资产的所有者控制着雇员未来的生计，因此雇员无须任何吩咐就服务于所有者的利益。脚注 2（footnote 2）把排除（exclusion）的想法归功于 Alchian and Demsetz；脚注 29 明确调和两派，途中还引用 Simon (1951) 与 Arrow (1974)。相对 <strong>Williamson (1975, 1985)</strong> 与 <strong>Klein, Crawford, and Alchian (1978)</strong>：它接受资产专用性/套牢的诊断——并复用他们的输油管道案例作为自己的第 IV.D 节应用——但用"一体化同时也摧毁被收购方激励"的正式两面论述，替换掉"一体化即减少机会主义"的模糊概念。</p>
+<p>它的直接前身是 <strong>Grossman and Hart (1986)</strong>，作者在四个有据可查的方向上加以扩展：从高层管理者到雇员；从单一交易对到多主体、多资产；从一项资产到资产组合；从简单所有权到合伙制、合作社以及多数决与随机控制结构。论文还把 Grossman–Hart 的剩余控制权特殊化为唯一的排除权，其假设 6 把 Grossman–Hart 中可能的过度投资转成干净的普遍投资不足基线（n. 13）。自引锚定着整个研究纲领：工作论文版 Hart and Moore (1988)、他们关于债务与重新谈判的姊妹篇（Hart and Moore 1989，为 option-to-own contracts 而引）、Hart 对企业理论的综述（O. Hart 1989），以及当时即将出版的 Holmstrom and Tirole 手册章节（1989）。</p>
+<p>在研讨课按 classical PRT → modern PRT → 战略应用 → 所有权能力 → 实证检验顺序阅读的现代产权理论序列里，Hart and Moore (1990) 是第二阶段（modern PRT）的规范表述：<strong>Hart (1995)</strong> 后来把 Grossman–Hart–Moore 凝结成书；<strong>Kim and Mahoney (2005)</strong> 与所有权能力文献把"谁应拥有、哪些资产应归并"的结果转译进战略管理（strategic management）；<strong>Magelssen (2020)</strong> 这类实证工作则用可观察到的所有权来检验由此推出的边界预测。论文本身并不引用这些后来的作品——它是它们的基础。</p>
+<h2>5. 局限（Limitations）</h2>
+<h3>5(a) 作者自述的局限（The authors' own stated limitations）</h3>
+<p>Hart 和 Moore 对自己框架做不到什么异常坦率。用 Shapley 值分割第 1 期剩余的做法"obviously strong"（显然是很强的假设），尽管他们论证：任何"一方从固定剩余中分到的份额随其需要达成协议的人数增加而下降"的谈判解，都会保留定性结论（pp. 1150–51）。事后谈判有效率（ex post bargaining efficiency）的假设同样很强：无效率只来自事前（ex ante）行动，而用不对称信息（asymmetric information）恰当处理事后无效率，被留给未来工作（p. 1152）。在零一投资情形之外，投资不足不再有保证：若假设 6 不成立，有些主体可能相对一阶最优（first-best）过度投资，而且"holdups may be good, not bad"（套牢可能有益而非有害）——此时把资产从不可或缺的交易伙伴手中拿开、或拆分互补资产，反而可取（p. 1151）。当主体既选择行动的类型又选择行动的水平时，所有权可能最优地归于非不可或缺的主体（pp. 1151–52）。模型忽略收益的不确定性、风险厌恶（risk aversion）与财富约束（wealth constraints），因此出资者与经理人之间的所有权配置落在模型之外（p. 1152）；它忽略信息传播与协调，而且"in our model an employer never has to tell an employee what to do"（在我们的模型里，雇主从不需要告诉雇员做什么，pp. 1152–53）；投资被假定是人力资本专用性的（假设 3），因此增强资产型投资（asset-enhancing investment）被排除（p. 1153）；而对企业理论最具后果的是，"the model in its present state cannot explain the delegation of control or the determination of hierarchical structure within a firm"（模型目前的状态无法解释控制权的下放或企业内部层级结构（hierarchical structure）的确定，p. 1153）。利润分成与揭示机制（revelation mechanisms）被排除（n. 7），秘密的资产转移被假设掉（n. 14），事前不确定性未被建模（n. 5）。</p>
+<h3>5(b) 独立判断（Independent judgment）</h3>
+<ul>
+<li><strong>[论文论断]（paper claim）</strong> 企业被唯一地等同于它的非人力资产。作者把这一点说得直白——"in the absence of any nonhuman assets, it is unclear what authority or control means"（没有非人力资产，权威或控制意味着什么都不清楚，p. 1150）——并猜测该逻辑可以延伸到商誉（goodwill）等无形资产。对人力资本密集的组织（咨询公司、研究实验室、其"资产"是声誉与代码的平台企业）而言，这个边界命题因此不如对机器密集型企业有咬合力。</li>
+<li><strong>[证据]（evidence）</strong> 提供的支持是解析式的与轶事式的：算例（游艇）、特例命题与制度例证（输油管道、十九世纪铁路桥梁联合体，引自 Klein et al. 1978 与 Chandler 1977）。论文没有对其所有权预测做任何系统的实证检验；作者指向 Joskow (1988)，并表达希望"the model or its extensions will throw light on integration decisions in particular empirical contexts"（模型或其扩展能照亮特定经验情境中的一体化决策，p. 1153），后来 Magelssen (2020) 这类工作接了过去。</li>
+<li><strong>[推论]（inference）</strong> 命题 8 与 10 在互补资产与独立资产之间划出利落的分界，但实践中的相互依赖是一个连续谱。模型没有为中间程度的互补性提供度量或比较静态，因此它的应用处方——"own together versus own apart"（一起拥有对分开拥有）——是二元的，而真实的一体化决策是分级的。</li>
+<li><strong>[推论]（inference）</strong> 资产是给定的、已经"就位"（"already in place"，p. 1122）；模型从不问资产由谁创造、为何创造。创业问题——一项尚不存在的资产该由谁拥有，或价值取决于不可验证想法的资产——落在框架之外，这削弱了它对创业与知识密集型情境的直接适用性，在那里资产与其第一个所有者是被共同选定的。</li>
+<li><strong>[推论]（inference）</strong> 一体化的协调收益只被建模为一种谈判产物（bargaining artifact）——要达成的协议更少——而不是驱动多数管理学企业叙事的那种实时指挥、信息流动或任务分派。作者承认在模型里雇主从不指挥雇员（p. 1153）；要把这一点读成优点，须相信事前激励是企业存在的全部故事。</li>
+<li><strong>[开放问题]（open question）</strong> 三资产的结果——相近替代者的兼并会恶化外部人的激励——暗示着竞争效应，但框架里没有市场结构、价格或消费者福利。一旦加入竞争者的反应与最终品价格，为最大化私人剩余而选择的产权一体化，究竟是提高还是降低社会福利，仍是开放的——"competing traders merge"（相互竞争的交易者合并）的反垄断解读也是如此。</li>
+<li><strong>[开放问题]（open question）</strong> 对控制结构的事前有效率选择，预设第 0 期谈判可行（p. 1131）而第 1 期订约失败。若阻碍详细第 1 期契约的那种不完备性，同样阻碍第 0 期无成本的所有权再配置，初始禀赋与财富约束就会束缚所有权模式——论文在把融资问题搁置一旁时点到了这一点（p. 1152），但没有解决。</li>
+</ul>
+<h2>6. 结论（Conclusion）</h2>
+<p>论文建立了资产最优配置的完整框架，并表明企业边界是激励设计的均衡，而非技术事实。所有权是把他人排除在非人力资产之外的剩余权利；由于雇员必须够到所有者才能实现其人力资本的回报，资产所有权便转化为对人的权威，而企业正是一个控制结构握在一起的资产集合。规范核心是：命题 6（不可或缺的交易伙伴应拥有）、命题 8（严格互补的资产应共同拥有）、命题 10（经济上独立的资产应分开拥有），以及那张说明一体化何时提高或降低各类雇员激励的双资产账本。用论文自己的收尾语说：</p>
+<blockquote>In spite of its restrictive assumptions, we believe that our analysis has identified some of the forces determining the boundaries of the firm. For example, it can explain why a firm faces first increasing and then decreasing returns to scale (increasing returns due to the positive benefits of coordinating complementary assets [proposition 8] and decreasing returns due to the inefficiencies of centralized control as new managers with economically independent roles must be brought in [proposition 10]). Hart & Moore (1990), p. 1153, Sec. V (Concluding Remarks)</blockquote>
+<p>></p>
+<blockquote>中文复述：尽管假设苛刻，我们仍相信我们的分析识别出了决定企业边界的一部分力量。例如，它可以解释为什么企业先面临规模报酬递增、后面临递减——递增来自协调互补资产的正收益（命题 8），递减来自集中控制的低效率，因为必须引入承担经济上独立角色的新经理（命题 10）。（p. 1153，第 V 节 结语）</blockquote>
+<div class="golden">“We have argued that this authority over assets translates into authority over people: an employee will tend to act in the interest of his boss.” (Hart & Moore 1990, p. 1150)</div>
+<p>></p>
+<blockquote>中文复述：我们主张，对资产的这种控制权会转化为对人的控制权：雇员会倾向于按老板（his boss）的利益行事。（p. 1150）</blockquote>
+<p>一句话带走：把所有权交给投资重要、或其合作不可或缺的人；让严格互补的资产留在同一个所有者名下；把经济上独立的资产与外部方排除在所有权结构之外——企业边界由此取决于：谁必须持有哪些资产，才能做好投资。</p>
+<blockquote><strong>AI 辅助声明。</strong> 本页由 AI 助手根据 Hart & Moore (1990) 全文写成，全文经 pdftotext 从 JSTOR 扫描件提取，原载 <em>Journal of Political Economy</em> 98(6): 1119–1158。所有逐字引文均如上附页码；表格与图示是对论文命题及第 IV 节比较的 AI 整理综合，并非期刊自身 Table 1 的复制。引用前请对照原版 PDF 核验页码与公式。</blockquote>
+</div>
+<div id="lang-en" style="display:none">
+
 
 <h1>Property Rights and the Nature of the Firm</h1>
 
@@ -233,7 +377,19 @@ In spite of its restrictive assumptions, we believe that our analysis has identi
 <strong>AI-assistance disclosure.</strong> This page was written by an AI assistant from the full text of Hart &amp; Moore (1990), extracted with pdftotext from the JSTOR scan of <em>Journal of Political Economy</em> 98(6): 1119–1158. All verbatim quotations carry page references as cited above; tables and the diagram are AI-organized syntheses of the paper's propositions and Section IV comparisons, not reproductions of the journal's own Table 1. Readers should verify page numbers and formulas against the original PDF before citing.
 </div>
 
-<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
 
+</div>
+
+
+<div class="back"><a href="index.html">← Back to course index / 返回课程索引</a> · <a href="../index.html">All courses / 全部课程</a></div>
+
+<script>
+function setLang(l){
+  document.getElementById('lang-zh').style.display = (l==='zh') ? 'block' : 'none';
+  document.getElementById('lang-en').style.display = (l==='en') ? 'block' : 'none';
+  document.getElementById('btn-zh').className = (l==='zh') ? 'active' : '';
+  document.getElementById('btn-en').className = (l==='en') ? 'active' : '';
+}
+</script>
 </body>
 </html>

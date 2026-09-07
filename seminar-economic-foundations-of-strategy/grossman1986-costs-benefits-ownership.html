@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,9 @@
 <style>
 :root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Serif SC",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
 h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
-h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
 h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
 .meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
 .meta a{color:var(--accent);text-decoration:none}
@@ -23,13 +23,15 @@ li{margin:.4rem 0}
 table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
 td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
 th{background:#f9fafb;font-weight:600}
-caption{caption-side:top;text-align:left;font-weight:600;font-size:.95rem;padding-bottom:.35rem;color:#333}
 .summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
-.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.summary-box h2{margin:0 0 .5rem;color:var(--accent);border:none;font-size:1.1rem}
 .golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
 .note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
 .back{margin:3rem 0 1rem;font-size:.9rem}
 .back a{color:var(--accent);text-decoration:none}
+.langbar{position:sticky;top:0;background:var(--bg);padding:.7rem 0;z-index:10;display:flex;gap:.5rem;margin-bottom:1rem;border-bottom:1px solid var(--border)}
+.langbar button{border:1px solid var(--border);background:#fff;color:#333;padding:.45rem 1.1rem;border-radius:99px;cursor:pointer;font-size:.95rem;font-family:inherit}
+.langbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 @media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -40,6 +42,157 @@ caption{caption-side:top;text-align:left;font-weight:600;font-size:.95rem;paddin
 <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
 </head>
 <body>
+
+<div class="langbar">
+  <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+</div>
+
+<div id="lang-zh">
+<h1>The Costs and Benefits of Ownership: A Theory of Vertical and Lateral Integration</h1>
+<div class="meta"> <strong>作者：</strong> Sanford J. Grossman (Princeton University) & Oliver D. Hart (Massachusetts Institute of Technology)</div>
+<blockquote><strong>期刊：</strong> Journal of Political Economy, Vol. 94, No. 4, pp. 691–719</blockquote>
+<blockquote><strong>年份：</strong> 1986</blockquote>
+<blockquote><strong>DOI：</strong> 10.1086/261404</blockquote>
+<blockquote><strong>性质：</strong> Formal two-period game-theoretic model（两期博弈论正式模型：不完全契约 incomplete contracts、现代企业产权理论 modern property-rights theory of the firm），并附对保险分销（insurance distribution）的非正式行业应用</blockquote>
+<blockquote><strong>关键词：</strong> residual rights of control; specific vs. residual contractual rights; incomplete contracts; relationship-specific (ex ante) investment; hold-up; vertical & lateral integration; ownership allocation</blockquote>
+<div class="summary-box"><h2>一句话总结</h2>
+<p>所有权是对资产剩余控制权（residual control rights）的购买，因此一体化（integration）只是把控制权从一方再配置给另一方；它应当给予关系专用性投资（relationship-specific investment）最重要的一方——用该方更强的激励换取另一方更弱的激励。</p>
+</div>
+<div class="note"> 本文是课程第三周线索中<em>现代</em>产权理论（modern property-rights theory, PRT）的奠基性正式表述：它接续关注监督与计量（monitoring and metering）的古典产权理论（Alchian & Demsetz 1972），把"谁是监督团队生产（team production）的剩余索取者（residual claimant）？"换成"契约不完全（incomplete contracts）时谁应拥有哪些资产？"。它提供了剩余控制权（residual control rights）框架——战略管理应用由此推出企业边界（firm-boundary）与所有权能力（ownership-competence）的论证（Kim & Mahoney 2005 及所有权能力文献流），也产生了后来实证工作（如 Magelssen 2020）检验的配置规则。把它读作交易成本经济学（transaction-cost economics）与产权方法之间的枢纽：一体化既非免费，也非自动有益——它是对控制权的一次再配置，且成本在两侧都存在。</div>
+<h2>1. 背景与动机（Background and motivation）</h2>
+<p>本文攻击的问题是交易成本经济学（transaction-cost economics，TCE）提出过、但在 Grossman 和 Hart 看来从未回答的问题：企业是什么？其活动的纵向或横向一体化程度由什么决定？两位作者明确立足于 Coase (1937)、Klein, Crawford, and Alchian (1978) 和 Williamson (1979)——这些文献都强调，当完全契约（complete contracts）成本高昂或无法写定时"控制（control）"的收益。他们的诊断是：这一传统留有两个未解决的缺口。</p>
+<p>第一个缺口在于：交易成本论证解释了独立企业之间的市场缔约为何成本高昂，却没有解释一体化为何能修复它。如果一体化总能降低交易成本，任何买方与卖方都能靠一种机械式的重组改善处境：买下对方，把原有契约当作内部转移价格（transfer price）保留，再让被收购方的经理拿子公司的利润作为报酬。TCE 中没有解释这种"复制"为何行不通——这其实就是"什么限制了企业规模"这一问题的另一种问法。</p>
+<blockquote>"Furthermore, if vertical integration always reduces transaction costs, any buyer A and seller B that have a contractual relationship should be able to make themselves better off as follows: (i) A buys B and makes the previous owner of B the manager of a new subsidiary; (ii) A sets a transfer price between the subsidiary and itself equal to the contract price that existed when the firms were separate enterprises; and (iii) A gives the manager of B a compensation package equal to the profit of the subsidiary. Given this, however, how can integration ever be strictly worse than nonintegration; that is, what limits the size of the firm?"</blockquote>
+<p>— Grossman & Hart (1986), p. 693, §I.A（对一体化交易成本论点的批评；另见 Evans & Grossman 1983, fn. 1）</p>
+<p>中文复述：进一步说，如果纵向一体化总能降低交易成本，任何存在契约关系的买方 A 与卖方 B 都应能按以下方式改善自身处境：(i) A 买下 B，让 B 的原所有者出任新子公司的经理；(ii) A 在子公司与自身之间设定一个转移价格，等于两家企业独立时的原契约价格；(iii) A 给 B 的经理一份等于子公司利润的报酬包。既然如此，一体化怎么可能严格劣于非一体化？也就是说，是什么限制了企业规模？</p>
+<p>第二个缺口是定义性的。"一体化"没有被清楚地定义：把零售队伍称作"雇员（employees）"的企业，是否比使用"独立但专属的销售代理人（independent but exclusive sales agents）"的企业更一体化？Grossman 和 Hart 用一个资产检验越过这些标签——重要的是谁拥有生产性资产，而不是各方被称作什么。在保险零售业中，雇员型代理人（employee-agent）与独立代理人（independent agent）的差别只在于：雇员不拥有自己的客户名单，独立代理人则拥有；一家"直接承保人（direct writer）"只要拥有客户名单和代理人的其他重要资产，就和雇用自己销售队伍的公司一样一体化。Chandler (1977) 描述的制鞋业从"发料外包"（putting-out）转向工厂制的转变说明的是同一点：即使计件工资完全相同，工厂也更一体化，因为工厂主拥有机器。界定企业的是所有权（ownership），而不是报酬方式。</p>
+<h2>2. 核心论证与框架（Core argument and framework）</h2>
+<h3>2.1 特定权利与剩余权利（Specific rights versus residual rights）</h3>
+<p>核心的概念动作是把契约权利分成两类。<em>特定权利（specific rights）</em>是契约授予的、针对另一方资产或行动逐项列明的权利。<em>剩余控制权</em>则是其余的一切：决定资产一切未被契约明确让渡之用途的权利。由于逐条列出覆盖每种未来偶发事件的特定权利成本高昂，一方可以改买"契约特别提及者之外的一切权利"——而这笔购买就是所有权。</p>
+<blockquote>"This is the simplest possible illustration of our assumption that the owner of an asset has the residual rights of control of that asset, that is, the right to control all aspects of the asset that have not been explicitly given away by contract."</blockquote>
+<p>— Grossman & Hart (1986), p. 695, §I.B（出版商—印刷商例子：当一次未预见的二次加印变得有利可图时，决定权属于印刷机的所有者）</p>
+<p>中文复述：这是对我们假设的最简单说明：资产所有者拥有该资产的剩余控制权，即控制该资产一切未经契约明确让渡之方面的权利。</p>
+<p>剩余权利正是一体化并不免费的原因。所有权权利是零和的：一方购入剩余权利，另一方就失去它们——论文开篇即说这"必然造成扭曲（inevitably creates distortions）"。失去控制权的一方也失去了对事后剩余的议价能力，因此每一笔收购都带有一侧的成本，这正是论文其余部分要精确化的内容。</p>
+<h3>2.2 模型（The model，论文 Section II）</h3>
+<p>正式模型有两个企业、两个时期。在标准的纵向解读中，企业 1 在下游、企业 2 在上游（企业 2 向企业 1 供应一种投入品）；同样的结构也涵盖横向（lateral）关系，例如两家相邻的零售店。每个企业由一名经理经营，经理获得其企业活动的全部回报——一种私人的、不可验证（nonverifiable）的收益 $B_i[a_i, \phi_i(q_1,q_2)]$（管理者的在职消费或努力），它从不进入账目，因此无法写进契约。</p>
+<p>时间线承载了理论的全部分量：</p>
+<ul>
+<li><strong>日期 0（Date 0）。</strong> 契约只能做一件实质性的事：配置两家企业资产的所有权（剩余控制权），外加一笔一次性转移支付（lump-sum transfer）。$a_i$、$q_i$、$B_i$ 中任何一项都无法事前（ex ante）缔约——投资要么过于复杂而难以描述，要么是不可验证的管理努力；各 $q$ 也无法针对每一种世界状态事先写定。</li>
+<li><strong>日期 0（缔约之后）。</strong> 经理 1 与经理 2 同时、非合作地选择各自的关系专用性投资 $a_1, a_2$；到日期 1 投资即沉没（sunk）。</li>
+<li><strong>日期 1。</strong> 状态实现，相关的生产选择变得清晰，$q_1, q_2$ 变为事后（ex post）可缔约。在默认（不重谈 renegotiation）结果中，每项资产的所有者选择他所控制的 $q$。由于信息对称且重谈无成本，双方总会重谈至一个事后有效（ex post efficient）的配置，并按 50:50 分割增益（纳什谈判 Nash bargaining）。</li>
+</ul>
+<p>两个选择值得强调。其一，谈判中的分歧点（disagreement point）是非合作结果——每个所有者最大化自己的 $\phi_i$；所有权只经由这个分歧点、从而经由剩余的分割产生影响。其二，在无成本重谈与对称信息下根本不存在事后无效率：给定投资，任何所有权结构都产生有效配置，因此全部福利损失都是事前（ex ante）的投资扭曲。这就是论文所说的"套牢（hold-up）"的含义：每个投资者预期只能从自己沉没投资的边际剩余中拿回谈判所得的那一份，于是投资低于第一最优（first best）——这不是因为一件已完成的资产被攫取（Klein, Crawford, and Alchian 1978 的可占用准租金 appropriable quasi-rents 故事），而是因为剩余将在日后被分割。</p>
+<blockquote>"The inefficiency arises, then, because manager i puts 50 percent weight on the noncooperative outcome q, which is generally ex post inefficient, instead of all the weight on the cooperative outcome, which is ex post efficient; this is in spite of the fact that the noncooperative outcome never occurs!"</blockquote>
+<p>— Grossman & Hart (1986), p. 703, §III.A（投资不足机制；参 Grout 1984）</p>
+<p>中文复述：无效率之所以产生，是因为经理 i 把 50% 的权重放在一般事后无效率的非合作结果 q 上，而不是把全部权重放在事后有效的合作结果上——尽管非合作结果从未真正出现。</p>
+<p>不完全性假设是承重的。如果各 $q$ 事前可缔约，那么即使投资不可缔约，任何所有权结构下都能达到第一最优（固定 $q_i = q_i^*$，每个经理都会正确投资）；如果收益 $B_i$ 可转移（transferable），一切利益冲突都会消失。所有权之所以有效率内容，仅仅因为缔约是不完全的——这正是结论部分追问"Coase 定理的哪条假设被放弃"时所指出的要点。</p>
+<h3>2.3 三种所有权结构与主要结果（The three ownership structures and the main results，论文 Section III）</h3>
+<p>既然日期 0 的契约只是所有权配置加一笔转移支付，三种结构就值得关注：非一体化（nonintegration，即每个经理拥有并控制自己企业的资产）、企业 1 控制（firm 1 control，经理 1 拥有两家企业的资产）与企业 2 控制（firm 2 control，镜像情形）——在纵向解读中即第一类与第二类一体化：买方拥有其供应商，或供应商拥有买方。第四种情形——交叉持股（cross-ownership）以及随信息而定的"选择权式拥有（option to own）"契约——被搁置为次优方案（fn. 13, p. 701）。</p>
+<p>所有权经由一条单调性渠道影响激励。给定假设 5（Assumption 5：平均收益高时边际收益也高），一位因所有权改善了分歧点、从而在事后剩余中占有更大份额的经理会相对第一最优<em>过度投资（overinvest）</em>，而失去控制权的经理则<em>投资不足（underinvest）</em>。于是企业 1 控制使经理 1 过度投资、经理 2 投资不足；企业 2 控制则相反；非一体化让双方都保有一定权力，产生温和的——通常偏低的——投资。有效的结构使这些扭曲造成的总损失最小。</p>
+<blockquote>"Firm 1 control will be desirable when firm 1's ex ante investment is much more important than firm 2's (so that firm 2's underinvestment under firm 1 control is relatively unimportant) and when overinvestment by firm 1 under firm 1 control is a less severe problem than underinvestment by firm 1 as in, for example, the nonintegrated solution. … Finally, nonintegration is desirable if a1 and a2 are both "important" in some sense, so that it is preferable to have both of them at a medium level than to have one very high and the other very low as under integration."</blockquote>
+<p>— Grossman & Hart (1986), p. 708, §III（核心权衡的口头表述）</p>
+<p>中文复述：当企业 1 的事前投资远比企业 2 的重要（于是企业 1 控制下企业 2 的投资不足相对无足轻重），且企业 1 控制下经理 1 的过度投资不像非一体化等方案中经理 1 的投资不足那样严重时，企业 1 控制是可取的。……最后，若 $a_1$ 与 $a_2$ 在某种意义上都"重要"，让两者都处于中等水平就优于一方极高、另一方极低（如一体化之下那样），此时非一体化是可取的。</p>
+<p>正式表述是命题 1（Proposition 1）。若企业 1 的收益主要取决于自己的 $q_1$，企业 2 的收益主要取决于 $q_2$，非一体化就接近第一最优，因为每个所有者的单边选择几乎事后有效。若企业 2 几乎不在乎那些不可缔约变量（其 $\phi_2$ 在 $q_1, q_2$ 上近乎常数），企业 1 控制接近第一最优；对称地，当企业 1 的收益几乎不依赖各 $q$ 时，企业 2 控制接近第一最优。组织原则是：<em>如果不可缔约变量对企业 j 无关紧要，j 失去对它们的控制也无妨——j 的投资保持无扭曲，而若由 j 拥有它们，反而会扭曲真正在乎它们那一方的投资。</em> 注记 1（Remark 1）处理一名经理无效率损失地经营两家企业的情形（$B_2 \approx 0$：互补性活动与闲置产能，见 Aron 1984 与 Mann & Wissink 1984）；此时企业 1 控制占优。注记 2（Remark 2）陈述人力资本边界：当控制的一个子向量必须留在被收购的经理手中（只有他能行使）时——买下律师事务所的律师客户便是如此——所有权的价值甚微。</p>
+<p>过度投资效应使模型真正具有两面性。即使企业 2 的投资无关紧要（$\partial B_2 / \partial a_2 = 0$），企业 1 控制也不是自动第一最优的，因为控制可能使企业 1 过度投资。只有当企业 2 的收益完全<em>可让渡（alienable）</em>——经理 1 可在日期 1 解雇并替换经理 2，从而取走 $B_2$——过度投资才消失，企业 1 控制才达到第一最优。不可让渡的私人收益（inalienable private benefits）是所有权的成本一面的来源。</p>
+<h3>2.4 为什么"更大可行集"论证会失败（Why the "larger feasible set" argument fails）</h3>
+<p>受过标准契约理论训练的读者可能反驳：收购一个企业只会扩大可行集（feasible set），因此一体化应当弱占优（weakly dominate）。模型说明了这为何失败。收购方的所有者获得了以种种方式干预子公司、从而扭曲子公司经理激励的权力，而且——关键地——所有者<em>无法承诺有选择地干预</em>，因为剩余权利按定义就是无法事先以可执行的细节加以规定的权力。因此一体化既带来收益也施加成本；只要双方的投资与收益都随控制权的配置而变化，第一最优就不可企及。</p>
+<div class="mermaid">
+flowchart TD
+    A["Date 0: contract allocates ownership = residual rights of control over assets + a transfer"] --> B["Managers choose relationship-specific investments a1, a2 (noncontractible, sunk)"]
+    B --> C["Date 1: state realized; q1, q2 become contractible; owner(s) hold default control"]
+    C --> D["Costless renegotiation to ex post efficient allocation; surplus split 50:50"]
+    D --> E["Each manager's investment incentive = his bargaining share of its marginal return"]
+    E --> F{"Ownership structure"}
+    F --> G["Nonintegration: each keeps control of own assets — moderate investment by both; underinvestment if default outcome is far off the efficiency frontier"]
+    F --> H["Type-1 integration (firm 1 owns firm 2): manager 1 overinvests, manager 2 underinvests"]
+    F --> I["Type-2 integration (firm 2 owns firm 1): manager 2 overinvests, manager 1 underinvests"]
+    G --> J["Choose the structure that minimizes the total ex ante investment distortion"]
+    H --> J
+    I --> J
+    J --> K["Assign ownership to the party whose relationship-specific investment matters most"]
+    style F fill:#faf5ff,stroke:#7c3aed
+    style K fill:#f0f4ff,stroke:#2563eb
+</div>
+
+<h2>3. 证据与推演实例（Evidence and worked examples）</h2>
+<h3>3.1 模型内的推演实例（Worked examples inside the model）</h3>
+<p>作为一篇理论论文，第三部分（Section III）的"证据"是固定机制含义的推演性案例。<em>出版商—印刷商（publisher–printer）</em>案例定义剩余权利：命令一次未预见的加印的权利属于印刷机的所有者。<em>坑口电厂（mine-mouth power plant）</em>案例（沿 Joskow 1985 对长期煤炭契约的研究）说明不可缔约者如何到事后才变得可缔约：煤的潜在杂质多到无法事前逐一列出，但一旦实现，相关的那一种（高灰分 high ash）就清楚了——拥有煤矿使电厂得以指定低灰煤，拥有电厂则使煤矿得以指定锅炉改造。<em>解雇与替换（firing-and-replacement）</em>案例（p. 709）说明可让渡性（alienability）：拥有资产使收购方能够通过替换把目标经理的私人收益取走，让一体化逼近"一个拥有社会目标函数的经理"。<em>律师事务所（law firm）</em>例子（注记 2, p. 709）划定理论的边界：当一项资产的价值寓于某个人身上时，买下资产并不能买下那个人的裁量权，所有权权利的价值甚微。</p>
+<h3>3.2 应用：保险业中谁拥有客户名单（Application: who owns the client list in insurance，论文 Section IV）</h3>
+<p>第四部分（Section IV）把框架应用于单一资产的场景，在其中非一体化没有意义：选择恰恰是保单持有人名单归公司控制还是归代理人控制。在财产—意外险与寿险中，"直接承保人"（雇员或专属代理人 captive agents）不拥有保单持有人名单；独立代理人（independent agents）拥有。名单所有权决定关系终止时谁能接触客户、谁能拿到续保（renewal）。模型的逻辑经由佣金结构运行：由于代理人"带来持久客户"的努力不可验证，有效的佣金必须后置（back-loaded）——首期佣金低于获客成本，续期佣金高于服务成本。只有没有任何其他因素能干扰续保现金流时，后置才无害；有两类不可缔约因素可以干扰：</p>
+<ul>
+<li><strong>第一类——公司拥有名单时损害代理人的行动。</strong> 公司可以降低自身产品的竞争力（提价、在某地区削减服务质量、改变广告），使客户流失，毁掉代理人后置的续保租金。若代理人拥有名单，他可以把客户带到匹配更好的公司；若公司拥有名单，代理人事前生产持久客户的努力就被钝化。</li>
+<li><strong>第二类——代理人拥有名单时损害公司的行动。</strong> 公司向代理人的客户推介新开发的产品前必须征得代理人同意；在把客户转给竞争对手只是把剩余从公司转移到代理人的状态里，代理人会这么做。这扭曲了公司在名单建设、产品开发与保单持有人服务上的事前投资。</li>
+</ul>
+<blockquote>"Our analysis therefore predicts that, in products in which the renewal is not guaranteed and is sensitive to the agent's actions, the agent will be more likely to own the list, whereas in products in which the renewal is more certain and is less sensitive to the agent's actions, the company will be more likely to own the list."</blockquote>
+<p>— Grossman & Hart (1986), p. 714, §IV（把预测带到保险数据上）</p>
+<p>中文复述：我们的分析因此预测：在续保没有保证、且对代理人行动敏感的险种中，代理人更可能拥有名单；而在续保更确定、对代理人行动不那么敏感的险种中，公司更可能拥有名单。</p>
+<p><strong>表 1（Table 1）。</strong> 按寿险产品观察到的"代理人名单所有权（agent list ownership）的重要性"（Grossman & Hart 1986, Table 1, p. 715；数据来源 Czepiec 1984）</p>
+<table>
+<thead><tr><th></th><th>产品（Product）</th><th>续保经济学（Renewal economics）</th><th>模型预测（Model prediction）</th><th>经经纪（名单自有 list-owning）渠道布局的代理人占比（%）Agents using brokerage (list-owning) placement, %</th></tr></thead>
+<tbody>
+<tr><td></td><td>次标准体保险（Substandard insurance）</td><td>找到好的匹配需大量代理人努力；客户留存取决于匹配质量</td><td>代理人拥有名单（agent owns list）</td><td>55.9</td></tr>
+<tr><td></td><td>定期寿险（Term insurance）</td><td>期限短；续保是现实事件，对代理人的服务敏感</td><td>代理人拥有名单（agent owns list）</td><td>46.2</td></tr>
+<tr><td></td><td>团体/养老金保险（Group/pension insurance）</td><td>匹配客户与保险人需相当多的代理人努力</td><td>代理人拥有名单（较弱）（agent owns list, weaker）</td><td>43.1</td></tr>
+<tr><td></td><td>终身寿险（Whole life insurance）</td><td>长期契约；续保基本自动，对代理人努力不敏感</td><td>公司拥有名单（company owns list）</td><td>19.4</td></tr>
+</tbody></table>
+<p>同样的模式在财产—意外险各险种中也成立：独立（名单自有）代理人持有私人乘用车责任险 47 percent 的份额，但在保证保险（surety insurance）中高达 96 percent（Webb et al. 1984）；Marvel (1982) 报告，跨产品看，独立代理人的重要性与代理人获客成本的大小正相关。汽车保险期限短、续保对努力敏感；保证保险则是特异的（idiosyncratic）、对匹配敏感——两者都把所有权推向代理人。作者反驳了 Marvel 的竞争性解释——排他交易加广告论（exclusive-dealing-and-advertising account；fn. 20, pp. 714–715）：排他交易（exclusive dealing）更宜读作名单所有权的一种执行装置，而且 Marvel 既没有把续保所有权与排他交易分开，也没有解释为何寿险使用专属代理人的程度远高于财产—意外险。</p>
+<h3>3.3 对证据的评注（Commentary on the evidence）</h3>
+<p>保险材料刻意是非正式的——模型被"相当宽松地（with considerable latitude）"应用，因为现实中有些变量可缔约；理论也"缺乏定量完备性（lacks quantitative completeness）"（pp. 697, 710）。证据是相关性的、产品层面的：保费份额、经纪销售比例与 Marvel 的跨产品相关性——没有回归、没有控制变量、没有识别策略来把激励渠道与竞争性解释分开。这些数字与理论一致——论文也只主张这些；它们并没有在统计意义上让理论与 TCE 对检。在论文自身的话语内，证据是一种可信性演示（plausibility demonstration）：随着续保确定性与努力敏感性在不同产品间变化，客户名单所有权的归属沿投资激励逻辑所要求的方向移动。</p>
+<h2>4. 在文献中的位置（Position in the literature）</h2>
+<p>Grossman and Hart (1986) 是<em>现代</em>产权理论的奠基论文，其地位体现在它与之对话的文献上。它拓展了 Coase (1937)，给"企业的性质"一个 TCE 所缺乏的定义——企业是一个所有权单位所控制的一组资产；它也拓展了 Coase (1960)，说明即使事后谈判被允许且无成本，只要契约不完全，产权的事前配置仍有效率后果。它精炼了 Klein, Crawford, and Alchian (1978)：套牢仍源于关系专用性投资，但对象从"事后被攫取的准租金"变为"因预期到剩余分割而产生的事前投资扭曲"。它回应 Williamson (1971, 1979, 1983) 及周边 TCE 线索（Williamson, Wachter, and Harris 1975; Teece 1980），否定了"内部组织近似完全契约结果"这一隐含前提。相对把企业定位于"计量团队生产的剩余索取者"的古典产权理论（Alchian & Demsetz 1972），Grossman 和 Hart 把戏份移到两位拥有不可让渡私人收益的所有者—经理（owner-manager）之间、围绕资产的剩余控制之上。</p>
+<p><strong>表 2（Table 2）。</strong> 关于企业的古典产权理论（Classical PRT）vs. 现代产权理论（Modern PRT，Grossman & Hart 1986）vs. 交易成本经济学（TCE，Williamson）</p>
+<table>
+<thead><tr><th></th><th>维度（Dimension）</th><th>古典产权理论 Classical PRT（Alchian & Demsetz 1972）</th><th>现代产权理论 Modern PRT（Grossman & Hart 1986）</th><th>交易成本经济学 TCE（Williamson 1975, 1979, 1985）</th></tr></thead>
+<tbody>
+<tr><td></td><td>核心问题（Core question）</td><td>如何计量（meter）团队生产并遏制偷懒（shirking）</td><td>谁应拥有哪些资产（持有剩余控制权 hold residual control）</td><td>哪种治理（governance）模式匹配哪种交易</td></tr>
+<tr><td></td><td>关键概念（Key concept）</td><td>剩余索取者/中央监督者；企业没有"命令权（power of fiat）"</td><td>剩余控制权；特定权利 vs. 剩余权利；事前投资</td><td>资产专用性（asset specificity）；机会主义（opportunism）；治理成本</td></tr>
+<tr><td></td><td>无效率来源（Source of inefficiency）</td><td>计量个体努力成本高昂下的偷懒</td><td>不完全缔约造成的事前投资不足/过度投资（事后 ex post 总是有效）</td><td>不完全契约下的事后讨价还价（haggling）、适应不良（maladaptation）、套牢</td></tr>
+<tr><td></td><td>一体化的作用（What integration does）</td><td>与缔约并无实质区别；监督者拥有团队的产出</td><td>把剩余权利从一方再配置给另一方——真正的权衡，而非单向收益</td><td>以科层（hierarchy）替代市场；节约交易成本</td></tr>
+<tr><td></td><td>底线处方（Bottom-line prescription）</td><td>剩余索取者＝有权调整报酬的监督者</td><td>把所有权给予其关系专用性投资最重要的一方</td><td>让治理（自制还是外购 make-or-buy）与资产专用性、不确定性相匹配</td></tr>
+</tbody></table>
+<p><strong>表 3（Table 3）。</strong> Grossman & Hart (1986) 第 III 部分（§III）的三种所有权结构（the three ownership structures）</p>
+<table>
+<thead><tr><th></th><th>所有权结构（Ownership structure）</th><th>无重谈时谁控制各 q（Who controls the q's absent renegotiation）</th><th>事前投资形态（Ex ante investment pattern）</th><th>何时（近似）最优 When (approximately) optimal</th></tr></thead>
+<tbody>
+<tr><td></td><td>非一体化（Nonintegration）</td><td>经理 1 控制 q1，经理 2 控制 q2；无协调的默认结果可能高度无效率</td><td>双方投资温和；若默认结果落在有效前沿（efficiency frontier）的西南方向，双方都投资不足</td><td>双方投资都重要，故双方取中等水平优于一方极高、一方极低（Prop. 1A：各方收益取决于自己控制的变量）</td></tr>
+<tr><td></td><td>第一类一体化（Type-1 integration，企业 1 拥有企业 2）</td><td>经理 1 控制 q1 与 q2</td><td>经理 1 过度投资；经理 2 投资不足</td><td>企业 1 的投资远比企业 2 的重要（Prop. 1B：企业 2 的收益几乎不依赖各 q；Remark 1：$B_2 \approx 0$）</td></tr>
+<tr><td></td><td>第二类一体化（Type-2 integration，企业 2 拥有企业 1）</td><td>经理 2 控制 q1 与 q2</td><td>经理 2 过度投资；经理 1 投资不足</td><td>企业 2 的投资远比企业 1 的重要（Prop. 1C，对称）</td></tr>
+</tbody></table>
+<p>在产权理论线索内部，本文的直接前身是作者自己 1984 年的油印稿《Vertical Integration and the Distribution of Property Rights》，本文对之作大量修订——该稿与 Farrell (1985) 一起发展了事后无效率的变体（重谈障碍 barriers to renegotiation）。直接后继者是 Hart and Moore (1990)，把所有权推广到多资产、多主体的环境；以及 Hart (1995)，整合产权方法并把它推进到融资结构——即结论所勾勒的投资者控制议程（investor-control agenda；p. 717）。在战略领域，"把所有权给予其投资最重要的一方"这一规则支撑着联合专用资产与企业边界方面的应用（Kim & Mahoney 2005），支撑着"行使剩余控制本身是一种能力"的所有权能力思想，也支撑着 Magelssen (2020) 这样的实证检验。对称性主张是后来文献引用最多的、与 Williamson 对照之句：TCE 说一体化通过消除机会主义来保护专用投资；GH (1986) 说一体化只是把机会主义行为的激励从一方转移到另一方。</p>
+<h2>5. 局限（Limitations）</h2>
+<h3>（a）作者自己声明的局限（The author's own stated limitations）</h3>
+<p>论文对自身不覆盖什么异常坦白。最刺眼的承认关乎那些恰恰使所有权重要的假设：</p>
+<blockquote>"It is nonetheless very strong to assume that no aspects of these variables are contractible. In any realistic situation, some parts of a firm's performance will be reflected in verifiable shareholders' profit, even if other parts, such as managerial well-being, are not. … While we are confident that some version of our results will continue to hold when a1, q1, and B1 are partly contractible, the formal extension of our analysis to this case is by no means straightforward."</blockquote>
+<p>— Grossman & Hart (1986), p. 700, end of §II</p>
+<p>中文复述：假设这些变量完全不可缔约仍然过强。任何现实情形中，企业表现的某些部分会反映在可验证的股东利润上，即便另一些部分（如管理者福祉）不会。……我们确信，当 $a_1$、$q_1$、$B_1$ 部分可缔约时，我们结果的某种版本仍会成立，但把分析形式化地推广到该情形绝非直截了当。</p>
+<p>其余作者声明的局限都能在正文中找到出处：（i）假设 7（Assumption 7）——各 $q$ 的事后有效选择独立于投资——是"很强的假设"，当收益对 $q$ 可微时不合理，不过对离散的 $q$ 可以成立（pp. 706–707）。（ii）若重谈被交易成本或信息不对称阻断，剩余权利就会影响事后剩余的规模而不只是分配；作者把这一分析推给 Grossman and Hart (1984) 与 Farrell (1985)（p. 717）。（iii）关系是一次性的；重复与声誉（reputation，Telser 1980; Kreps 1984）被搁置，声誉对资产所有权没有清晰的含义（fn. 5, pp. 695–696）。（iv）"经理＝完全剩余索取者"与不可让渡性假设是极端的；可让渡性只在特殊的替换情形中得到探讨（p. 709）。（v）只考虑简单配置——交叉持股与"选择权式拥有"契约被忽略，分析也只覆盖两家企业及其控制可转移的资产（fn. 13, p. 701；注记 2, p. 709）。（vi）理论"缺乏定量完备性"，因此应用是定性的（p. 697）；风险厌恶与融资动机被承认是剩余权利重要的另一些未建模理由（p. 717）。</p>
+<h3>（b）独立判断（Independent judgment）</h3>
+<ul>
+<li><strong>[论文主张（paper claim）]</strong> 在模型的假设下（特别是单调性 monotonicity——假设 5：投资的边际收益与平均收益同向变动），企业 i 控制使企业 i 过度投资、企业 j 投资不足，而非一体化使双方投资温和；最优结构使总的事前投资扭曲最小，所有权应归于投资最重要的一方。这是论文的核心主张，而非评论者的转述。</li>
+<li><strong>[论文主张]</strong> 由于重谈无成本、信息对称，给定投资，任何所有权结构都产生事后有效配置；一切福利损失都是事前的，所有权只经由投资激励起作用。作者反复陈述这一点（pp. 703, 717）——但这是对一种假设环境的描述，不是关于真实交易的定理。</li>
+<li><strong>[证据（evidence）]</strong> 保险格局（名单自有代理人的保费份额 65 vs. 12 percent；表 1 的经纪销售比例；代理份额 47 vs. 96 percent；Marvel 的相关性）是非正式的、截面性的、相关性的——与模型的比较静态一致，却无法排除 Marvel 的广告/排他交易解释等竞争性解释；作者对后者的反驳建立在可信性而非数据之上（fn. 20, pp. 714–715）。</li>
+<li><strong>[证据]</strong> 第一至第三部分内部的推演案例（出版商—印刷商、坑口电厂、解雇与替换、律师事务所）是机制的可信性演示，不是关于真实所有权格局的实证证据。</li>
+<li><strong>[推断（inference）]</strong> 模型的福利核算排除了驱动 TCE 的事后交易成本。一旦重谈有成本或信息不对称，一体化就能产生事前投资指标之外的利益——避免讨价还价与适应不良——因此 Grossman–Hart 的比较低估了科层能买到什么、市场缔约会失去什么。作者对此有所示意（p. 717），但没有把它纳入正式模型。</li>
+<li><strong>[推断]</strong> 投资反应的符号取决于单调性（边际回报随平均回报上升）。若回报非单调——控制超过某点滋生自满，或边际回报在中等剩余份额处达到峰值——"受控则过度投资、失控则投资不足"的处方可能弱化乃至反转；因此"谁的投资最重要"的实证内容依赖一个论文未用证据辩护的函数形式性质。</li>
+<li><strong>[开放问题（open question）]</strong> 双企业、双经理、单一关系的设定留下其后继者接手的未答问题：多资产设定中互补资产应由谁拥有（Hart & Moore 1990）；以及剩余权利如何作用于人与行动——作者自己标为未来工作的雇主—雇员 vs. 承包商—被承包商之分（p. 717）——而非只作用于资产。</li>
+<li><strong>[开放问题]</strong> 如何从经验上观察剩余权利——对无形资产、数据与人力资本来说"所有权"意味着什么——以及如何在数据中把配置规则与 TCE 对检，仍未解决；作者没有提供测量策略，这项任务落到了后来的应用研究身上。</li>
+</ul>
+<h2>6. 结论（Conclusion）</h2>
+<p>论文确立了三点。第一，一个定义：企业是它所拥有的一组资产，所有权是对剩余控制权的购买——决定资产一切未被契约明确让渡之用途的权利。第二，一个机制：因为契约不完全，剩余权利决定各方在日期 1 的谈判地位，并经由它决定各方在日期 0 做关系专用性投资的激励；因此即便事后谈判是完美的，所有权配置仍有真实的效率后果。第三，一条内含权衡的规范规则：当一方投资具有关键性时一体化——集中剩余控制会强化该方的激励，同时削弱另一方的；当双方投资都重要、都应保持在中等水平时，保持非一体化。</p>
+<blockquote>"We argue that the relevant comparison is not between the nonintegrated outcome and the complete contract outcome but instead between a contract that allocates residual rights to one party and a contract that allocates them to another. … Integration shifts the incentives for opportunistic and distortionary behavior, but it does not remove these incentives."</blockquote>
+<p>— Grossman & Hart (1986), p. 716, §V（结论 Conclusions）</p>
+<p>中文复述：我们认为，相关的比较不在非一体化结果与完全契约结果之间，而在"把剩余权利配置给一方的契约"与"把剩余权利配置给另一方的契约"之间。……一体化会转移机会主义与扭曲行为的激励，但不会消除这些激励。</p>
+<blockquote>"The impossibility of ex ante bargaining over all aspects of the product to be delivered, that is, the incompleteness of the contract, is the source of our conclusion that the distribution of property rights has efficiency consequences."</blockquote>
+<p>— Grossman & Hart (1986), p. 718, §V（被放弃的是哪条 Coase 定理假设）</p>
+<p>中文复述：无法在事前对将要交付之产品的所有方面讨价还价——即契约的不完全性——是我们得出"产权分配有效率后果"这一结论的来源。</p>
+<p>给战略的一条规范要点：识别谁的关系专用性投资创造了剩余，把剩余控制——所有权——放到那一方，同时接受：每一次一体化行动都是用另一方激励的代价来购买一方的激励。</p>
+<div class="golden">"When residual rights are purchased by one party, they are lost by a second party, and this inevitably creates distortions." — Grossman & Hart (1986), p. 691（正是这句话把一体化从单向收益变成权衡，也解释了为何此理论名为"所有权的成本与收益"）</div>
+<p>中文复述：一方购入剩余权利，另一方就失去它们，这必然造成扭曲——一体化因此是一种权衡而非单向收益。</p>
+<blockquote><strong>AI 辅助披露（AI-assistance disclosure）。</strong> 本页由 AI 助手依据论文全文撰写（自已发表的 JPE 文章 pp. 691–719 经 pdftotext 提取的文本）。所有逐字引文均复现自该提取文本，页码取自文章页眉；表格与 Mermaid 图由 AI 依据论文内容整理。引用前请以原文核对引文措辞与页码。</blockquote>
+</div>
+<div id="lang-en" style="display:none">
+
 
 <h1>The Costs and Benefits of Ownership: A Theory of Vertical and Lateral Integration</h1>
 
@@ -232,7 +385,19 @@ flowchart TD
 
 <div class="note"><strong>AI-assistance disclosure.</strong> This page was written by an AI assistant from the paper's full text (pdftotext-extracted from the published JPE article, pp. 691–719). All verbatim blockquotes are reproduced from that extracted text and carry page references drawn from the article's running heads; tables and the Mermaid diagram were AI-organized from the paper's content. Readers should verify quoted wording and page numbers against the original before citing them.</div>
 
-<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
 
+</div>
+
+
+<div class="back"><a href="index.html">← Back to course index / 返回课程索引</a> · <a href="../index.html">All courses / 全部课程</a></div>
+
+<script>
+function setLang(l){
+  document.getElementById('lang-zh').style.display = (l==='zh') ? 'block' : 'none';
+  document.getElementById('lang-en').style.display = (l==='en') ? 'block' : 'none';
+  document.getElementById('btn-zh').className = (l==='zh') ? 'active' : '';
+  document.getElementById('btn-en').className = (l==='en') ? 'active' : '';
+}
+</script>
 </body>
 </html>

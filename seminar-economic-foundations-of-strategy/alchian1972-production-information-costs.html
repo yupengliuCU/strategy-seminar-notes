@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,9 @@
 <style>
 :root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Serif SC",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
 h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
-h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
 h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
 .meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
 .meta a{color:var(--accent);text-decoration:none}
@@ -24,11 +24,14 @@ table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
 td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
 th{background:#f9fafb;font-weight:600}
 .summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
-.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.summary-box h2{margin:0 0 .5rem;color:var(--accent);border:none;font-size:1.1rem}
 .golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
 .note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
 .back{margin:3rem 0 1rem;font-size:.9rem}
 .back a{color:var(--accent);text-decoration:none}
+.langbar{position:sticky;top:0;background:var(--bg);padding:.7rem 0;z-index:10;display:flex;gap:.5rem;margin-bottom:1rem;border-bottom:1px solid var(--border)}
+.langbar button{border:1px solid var(--border);background:#fff;color:#333;padding:.45rem 1.1rem;border-radius:99px;cursor:pointer;font-size:.95rem;font-family:inherit}
+.langbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 @media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -39,6 +42,167 @@ th{background:#f9fafb;font-weight:600}
 <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
 </head>
 <body>
+
+<div class="langbar">
+  <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+</div>
+
+<div id="lang-zh">
+<h1>Production, Information Costs, and Economic Organization</h1>
+<div class="meta"> <strong>作者：</strong> Armen A. Alchian and Harold Demsetz</div>
+<blockquote><strong>期刊：</strong> American Economic Review, Vol. 62, No. 5, pp. 777–795</blockquote>
+<blockquote><strong>年份：</strong> 1972</blockquote>
+<blockquote><strong>DOI：</strong> 无 —— JSTOR 稳定链接：http://www.jstor.org/stable/1815199</blockquote>
+<blockquote><strong>性质：</strong> theoretical economics essay（理论经济学论文：经典的产权理论企业观；以事例说明的言语模型，无数据）</blockquote>
+<blockquote><strong>关键词：</strong> team production, metering/monitoring, shirking, residual claimant, classical capitalist firm</blockquote>
+<blockquote><strong>目录：</strong> 1. 背景与动机（Background and motivation）· 2. 核心论证与框架（Core argument and framework）· 3. 证据与例子（Evidence and examples）· 4. 文献定位（Position in the literature）· 5. 局限（Limitations）· 6. 结论（Conclusion）</blockquote>
+<div class="summary-box"><h2>一句话总结</h2>
+</div>
+<h3>一句话总结</h3>
+<p>企业是解决团队生产之计量问题（metering problem）的一种契约装置：一位作为剩余索取者（residual claimant）的中心代理人监督各项协作投入，遏制联合产出掩盖各成员边际产品（marginal product）时出现的偷懒（shirking）。企业不是市场海洋中的一座权威孤岛——这正是本文要反对的图景。</p>
+<div class="note"> Alchian and Demsetz（1972）开启了第三周主线（Week-3 arc）的古典阶段：本文<em>定义</em>了监督/计量问题与剩余索取者的解决方案，此后主线的每一站都以之为前提。Demsetz（1967）曾论证产权是为内部化外部性而出现；本文把这一逻辑带进企业内部，把团队生产中的偷懒视为一种由一束剩余权利加以内部化的外部性。现代产权理论（Grossman and Hart 1986；Hart and Moore 1990）、所有权能力研究议程（Foss、Klein 及其合作者），以及主线上的实证应用（如 Magelssen 2020），都继承了它的问题——谁拥有什么、为什么——即使它们用对资产的正式剩余控制权（residual control rights）取代了它的监督机制。</div>
+<h2>1. 背景与动机（Background and motivation）</h2>
+<p>Alchian and Demsetz 开篇即交代经济组织理论的任务：它必须做两件事——"解释在何种条件下，专业化与合作生产的好处更适合在企业这样的组织内部获得，还是在市场之中跨主体获得；并解释组织的结构"（p. 777）。这两个问题是有意绑在一起的。只告诉你企业何时胜过市场的理论，对企业的内部架构——谁雇佣谁、谁拥有什么、谁监督谁——保持沉默；而作者要推导的恰恰是这些事实。</p>
+<p>文章的攻击目标，是当时主流的、Coase 式的企业图景——把企业看作一块<em>权威（authority）</em>的领地。针对这幅图景，论文抛出了它最著名的一段话（p. 777）：</p>
+<blockquote>It is common to see the firm characterized by the power to settle issues by fiat, by authority, or by disciplinary action superior to that available in the conventional market. This is delusion. The firm does not own all its inputs. It has no power of fiat, no authority, no disciplinary action any different in the slightest degree from ordinary market contracting between any two people. — Alchian and Demsetz (1972), p. 777</blockquote>
+<p>></p>
+<blockquote>中文复述：人们常把企业刻画成靠命令（fiat）、权威或纪律处分来裁决问题的力量，且这些手段胜过普通市场。这是错觉。企业并不拥有它所有的投入；它在命令、权威、纪律处分上，与任意两个人之间的普通市场缔约没有任何细微差别。</blockquote>
+<p>"错觉（delusion）"一说靠类比来论证。雇主能"惩罚"雇员的唯一方式是停止未来的生意往来或提起诉讼——与对付杂货商（grocer）的手段完全相同。"叫雇员打这封信而不是归档那份文件，就像我让杂货商卖我这个牌子的金枪鱼而不是那个牌子的面包一样"（p. 777）。任何一方都没有继续下去的约束；"雇主与雇员之间的长期契约，并不是我们称为企业的那个组织的本质"（p. 777）。雇主—雇员关系是一连串双方都必须接受的再谈判（renegotiation），而非某项管理特权的行使。</p>
+<p>如果命令（fiat）不是企业的区分性特征，那什么才是？杂货商之问提供了答案（pp. 777–778）：</p>
+<blockquote>Wherein then is the relationship between a grocer and his employee different from that between a grocer and his customers? It is in a team use of inputs and a centralized position of some party in the contractual arrangements of all other inputs. It is the centralized contractual agent in a team productive process not some superior authoritarian directive or disciplinary power. — Alchian and Demsetz (1972), pp. 777–778</blockquote>
+<p>></p>
+<blockquote>中文复述：杂货商与雇员的关系、杂货商与顾客的关系，差别到底在哪？差别在于投入的团队式使用（team use of inputs），以及某个当事方在与其他所有投入的契约安排中占据的中心位置。关键是一个团队生产过程中的集中化契约代理人（centralized contractual agent），而不是某种更高级的权威指令或纪律权力。</blockquote>
+<p>第二个更隐蔽的对手是古典价格理论本身。分配论的边际生产率理论（marginal-productivity theory of distribution）悄悄假定：已经存在某个组织在按生产率计量报酬。Alchian and Demsetz 把因果方向倒转过来："所依赖的那套具体报酬制度，会激发特定的生产率反应"（pp. 778–779）。计量得差的组织产出低生产率，计量得好的组织产出高生产率。因此在他们手里，组织经济学就是<em>计量（metering）</em>经济学——测量与付酬的经济学——并且在正的信息成本（positive information cost）下展开。</p>
+<h2>2. 核心论证与框架（Core argument and framework）</h2>
+<p>论证沿七个步骤推进，与论文自身的章节结构（I–VIII）逐节对应。在搭建机制之前，表 1 先固定术语。</p>
+<p><strong>Table.</strong> 表 1. Alchian and Demsetz 所定义的核心概念，以及各自在论证中的位置（Core concepts as Alchian and Demsetz define them, and where each enters the argument）</p>
+<table>
+<thead><tr><th></th><th>概念（Concept）</th><th>论文所用定义（Definition used in the paper）</th><th>在论证中的作用与页码（Role in the argument, pages）</th></tr></thead>
+<tbody>
+<tr><td></td><td>计量（Metering）</td><td>"To measure and also to apportion"（注 1）：既计量投入生产率，也计量报酬</td><td>§I——每个经济组织都要承担的两项要求（p. 778）</td></tr>
+<tr><td></td><td>团队生产（Team production）</td><td>投入的联合使用：产出不是各可分离产出之和；交叉偏导 ∂²Z/∂Xi∂Xj ≠ 0</td><td>§II——代价高昂的计量问题之源（p. 779）</td></tr>
+<tr><td></td><td>偷懒（Shirking）</td><td>当休闲的实际成本（realized cost）低于其真实成本时把努力转向休闲；因侦测成本高而可行</td><td>§II——企业必须控制的无效率（pp. 780–781）</td></tr>
+<tr><td></td><td>监督（Monitoring）</td><td>计量产出绩效、分配报酬、观察投入行为、下达任务、修订契约</td><td>§III——减少偷懒的专业化活动（pp. 781–782）</td></tr>
+<tr><td></td><td>剩余索取者（Residual claimant）</td><td>在向其他投入支付契约约定款项之后、对团队净收益（net earnings）拥有索取权的一方</td><td>§III——约束监督者的激励（p. 782）</td></tr>
+<tr><td></td><td>古典企业（Classical firm）</td><td>契约结构：一个共同当事方、剩余索取权、成员资格修订权、可出售的中心地位</td><td>§III 与 §VIII——组织上的答案（pp. 783, 794）</td></tr>
+</tbody></table>
+<h3>2.1 计量问题（The metering problem，论文 §I）</h3>
+<p>"经济组织面临两项关键要求——计量投入生产率和计量报酬"（p. 778）。如果报酬相对于努力是随机发放的，就不会有人付出生产性努力；如果报酬与生产率负相关，组织就是在招引破坏行为（sabotage）。只要产出可分离且可直接观察，市场就能廉价地解决这个问题：一个农民按现行价格把小麦产出提高 10%，收入就提高 10%，于是市场"直接计量产出、揭示边际产品并分配报酬"（p. 778）。整套古典的生产与分配理论装置都预设这种零成本计量存在。团队生产打破了这一预设，因为在团队生产中，个人努力与可观察产出之间的联系被切断了。</p>
+<h3>2.2 团队生产与偷懒（Team production and shirking，论文 §II）</h3>
+<p>基准例子是两个人往卡车上搬货：如果只观察每天装进车的总重量，谁也无法确定每个人的边际产品。Alchian and Demsetz 用生产函数把这一点形式化：Z 的团队生产至少使用两种投入 Xi 与 Xj，且交叉偏导 ∂²Z/∂Xi∂Xj ≠ 0 为正，因此 Z 无法写成两个可分离函数之和。团队组织问题由三个条件界定：(1) 使用多种类型的资源；(2) 产品不是各协作资源可分离产出之和；(3) 并非团队生产所用的一切资源都属于同一个人（pp. 779–780）。</p>
+<blockquote>With team production it is difficult, solely by observing total output, to either define or determine each individual's contribution to this output of the cooperating inputs. The output is yielded by a team, by definition, and it is not a sum of separable outputs of each of its members. — Alchian and Demsetz (1972), p. 779</blockquote>
+<p>></p>
+<blockquote>中文复述：在团队生产中，单靠观察总产出，很难界定或确定每个个体对协作投入之产出的贡献。按定义，产出由团队产出，它不是每个成员可分离产出之和。</blockquote>
+<p>不可分离性使计量成本相对可分离生产"高出一个数量级"（p. 779）。其后果就是偷懒。休闲与收入都进入效用函数，因此每个人都会调整努力，使休闲与产出之间的边际替代率等于他自己的<em>实际</em>（realized）替代率——而由于松懈（relaxation）难以被完全侦测，其成本的一部分由队友承担。"侦测这类行为的困难，使他行为的私人成本低于其全部成本"（p. 780）。侦测支出只会被推进到边际收益等于边际成本那一点，所以均衡中总有一些偷懒存活；侦测成本"像是对工作报酬课税"，"可行的偷懒（viable shirking）是结果"（p. 781）。作者举的大学例子把这个观点落到实处：教师把办公室电话和文具用于私人目的，行政人员则加以容忍，因为揪出每个违规者的成本高于省下的钱——报酬只是在货币形式上更低，而以"特权、额外待遇或附加福利（privileges, perquisites, or fringe benefits）"的形式更高（p. 780）。</p>
+<blockquote>But since costs must be incurred to monitor each other, each input owner will have more incentive to shirk when he works as part of a team, than if his performance could be monitored easily or if he did not work as a team. — Alchian and Demsetz (1972), p. 780</blockquote>
+<p>></p>
+<blockquote>中文复述：既然相互监督必须付出成本，那么与绩效容易被监督或根本不以团队方式工作相比，每个投入所有者在作为团队成员工作时会有更强的偷懒激励。</blockquote>
+<p>为什么不让每个人拥有一切，或让市场来监督团队？一人所有制（one-owner）这条路被很快搁置：奴隶制被禁止；人们厌恶为买下全部资产而借贷的风险；买卖价差（purchase–resale spread）可能超过租用成本（p. 779）。市场这条路因两条理由失败（p. 781）：其一，可能竞价替换偷懒成员的外部人，自己也得侦测偷懒——而在只能观察团队总产出时，侦测天然昂贵；其二，接受更小报酬份额的挑战者，仍只承担自己偷懒所造成产出损失的一部分，因此他的偷懒激励至少与在位者一样大。</p>
+<h3>2.3 监督的解决方案：谁来监督监督者？（The monitoring solution: who monitors the monitor?，论文 §III）</h3>
+<p>建设性的一步是监督的专业化。一人专司核查团队成员投入的绩效——计量产出、分配报酬、把投入行为作为边际生产率的线索来观察、下达任务（教练与队长的对比：教练把战术发进场内，队长贴身观察并向其报告，p. 782）。但专业化把激励问题向上推了一层：谁来监督监督者？潜在监督者之间的市场竞争是一种约束，但基于刚才给出的理由，它并不完善。决定性的第二重约束是"让他对团队的净收益拥有索取权，即扣除对其他投入的支付之后的净额"（p. 782）。剩余索取者自我约束，因为作为监督者偷懒现在直接由他自己埋单；而他通过减少偷懒来赚取剩余——既经由他向投入所有者支付的价格，也经由他对投入使用方式的观察与指挥（p. 782）。</p>
+<p>要约束别人，他还必须能在不重新谈判整个团队的情况下修订单个契约，这就是为什么剩余索取者地位与成员资格权利（membership rights）融为一体（p. 783）：</p>
+<blockquote>It is this entire bundle of rights: 1) to be a residual claimant; 2) to observe input behavior; 3) to be the central party common to all contracts with inputs; 4) to alter the membership of the team; and 5) to sell these rights, that defines the ownership (or the employer) of the classical (capitalist, free-enterprise) firm. — Alchian and Demsetz (1972), p. 783</blockquote>
+<p>></p>
+<blockquote>中文复述：正是这一整束权利——(1) 作为剩余索取者；(2) 观察投入行为；(3) 作为与各项投入缔约的共同中心当事方；(4) 改变团队构成；(5) 出售这些权利——定义了古典（资本主义、自由企业）企业的所有权（或雇主）。</blockquote>
+<p>这一结构的出现需要两个必要条件：(1) 团队生产能提高生产率，而其中各投入的边际产出难以直接计量；(2) 通过观察或规定投入行为来估计边际生产率是经济的（p. 783）。当投入活动是产出的良好线索时——码头工人、装配线——细致的指挥有效；当投入活动不是产出的良好线索时——律师、广告专员、医生——靠观察来监督无效，取而代之的是更松的缰绳加利润分享（p. 786）。按这种读法，每个成员与所有者之间的关系就是一份"交换条件（quid pro quo）"契约；雇员与雇主一样可以随时终止关系，长期契约"不是企业的本质属性"，"威权式（authoritarian）""独裁式（dictational）"或"命令式（fiat）"的属性与其概念或效率无关（p. 783）。图 1 画出完整的因果链。</p>
+<div class="mermaid">
+flowchart TD
+    A["Team production: joint inputs, output not the sum of separable outputs (cross partial ∂2Z/∂Xi∂Xj ≠ 0)"] --> B["Costly metering: each member's marginal product is hard to observe from team output"]
+    B --> C["Shirking: realized cost of leisure falls below true cost, since detection is costly"]
+    C --> D{"Can market competition police shirking?"}
+    D -- "No: outsiders cannot detect shirking cheaply; entrants still under-bear their own shirking" --> E["Specialized monitor: observes input behavior, meters output, apportions rewards, assigns tasks"]
+    E --> F["Who monitors the monitor?"]
+    F --> G["Residual claimant: title to net team earnings disciplines the monitor; right to revise any input's contract"]
+    G --> H["Classical capitalist firm = bundle of rights: residual claim, observe inputs, central contracting party, alter membership, sell the position"]
+    H --> I["Predictions: profit sharing only in small teams; corporate devices (limited liability, salable shares, takeovers); more shirking in nonprofits; input-ownership patterns; firm as surrogate market"]
+    D -- "Partially: small teams, partnerships, artistic and professional work" --> I
+    J["Coase 1937: firm = authority and direction that saves market transaction costs"] -.->|"Rebutted: no fiat — only renegotiation and exit, plus metering"| A
+</div>
+
+<h3>2.4 组织形态的多样性即计量方式的多样性（Organizational variety as metering variety，论文 §IV–V）</h3>
+<p>随后这套框架被推到各种替代性组织形态上，每一种都被解读为对同一个偷懒问题的不同回答。<em>利润分享型企业（profit-sharing firms）</em>只在小团队中可行：均分利润使每个成员承担更大份额的自身偷懒损失，而偷懒激励"与均分利润方案下团队的最优规模正相关"（p. 786）；在不均分的情况下，避免偷懒的激励可用赫芬达尔指数（Herfindahl index）度量（注 10）。<em>社会主义企业</em>（南斯拉夫）说明政治约束：当法律要求全体雇员分享剩余时，监督者偷懒加剧造成的损失超过雇员偷懒减少带来的收益，于是工人委员会（workers' committee）应运而生去监督监督者——建议解雇经理的契约（pp. 786–787）。<em>公司（corporation）</em>面对的是剩余索取权分散在众多股东手中的问题：有限责任保护小投资者，可自由转让的股票让异议者退出（"无需其他任何股东批准即可出售公司股票的权利，" p. 788），对经理偷懒的约束来自潜在经理的外部竞争，以及把表决权集中为决定性集团的接管（takeover）或代理权争夺战（proxy battle）（pp. 788–789）。在一个著名脚注里，作者把股东重述为"不过是资助企业的群体中风险厌恶较低或更乐观的成员"——其剩余索取权主要不服务于监督功能（注 14，pp. 788–789）。<em>互助与非营利企业（mutual and nonprofit firms）</em>无法把改善的管理资本化进股价，于是潜在监督者之间的竞争更弱，"因此，在非营利、互助所有的企业中应当观察到更多的偷懒"（p. 790）。<em>合伙（partnerships）</em>适合艺术与专业团队——规模小、自我监督，且更可能出现在亲属或长期相识、彼此熟悉工作习惯的人之间（p. 790）——而<em>工会（employee unions）</em>则表现为雇员雇来监督难以计量的雇主绩效（如或有性附加福利）的专业监督者（p. 790）。第五节补充说，"团队精神（team spirit）"与忠诚在经济上是理性的：每个成员都偏好一个无人偷懒的团队——包括他自己——而忠诚是让实际替代率趋近真实替代率的廉价途径（p. 790）。</p>
+<h3>2.5 企业拥有哪些投入？（Which inputs does the firm own?，论文 §VI–VII）</h3>
+<p>由于剩余索取者式的监督者必须有能力以自身财富支付承诺的损失，他要投入资本；"企业的剩余索取者所有者，将是在企业中投入可再售资本设备（resalable capital equipment）的投资者"——即相对初始成本再售价值高、且预计在企业内长期使用的投入（p. 791）。在通过观察使用来侦测使用者成本与折旧最廉价的地方，预测是拥有而非租用：易损坏的锤子应被拥有而非租用，因为所有者在场时的不小心使用事后很难从锤子上计量出来；卡车则倾向于由司机拥有，因为"由司机来监督卡车使用中的爱惜程度相对便宜"（p. 792）。最后，第七节把企业一般化为"一种高度专业化的替代市场（highly specialized surrogate market）"（p. 793）：通过监督众多投入，雇主积累了关于其生产才能的卓越知识，把雇员放进好的投入组合从而把这些信息"出售"给雇员，并且能比一般市场搜寻更廉价地重组异质资源——这正是 Alchian and Demsetz 预测日本式终身雇佣（lifetime employment）应催生大型联合大企业（conglomerate firm）的依据（pp. 793–794）。</p>
+<h2>3. 证据与例子（Evidence and examples）</h2>
+<p>本文是理论论文，没有数据集，因此它的"证据"是一组工作例子与比较制度观察，每个都经过设计，用来隔离计量问题的一个边际。表 3 汇集了主要案例。</p>
+<p><strong>Table.</strong> 表 3. 论文中的工作例子及其各自承载的理论要点（Worked examples in the paper and the theoretical point each carries）</p>
+<table>
+<thead><tr><th></th><th>例子与页码（Example, page）</th><th>情境（Situation）</th><th>所说明的要点（Point demonstrated）</th></tr></thead>
+<tbody>
+<tr><td></td><td>Two men loading cargo（p. 779）</td><td>每天只能观察到总重量</td><td>团队生产：每个人的边际产品无法从团队产出中界定</td></tr>
+<tr><td></td><td>Cigarette breaks, tilted load（p. 780）</td><td>装货时观察一个人如何干活</td><td>观察投入行为是比计量产出更廉价的边际生产率线索</td></tr>
+<tr><td></td><td>Faculty telephones and stationery（p. 780）</td><td>大学容忍办公用品的私人使用</td><td>侦测只推进到边际收益等于边际成本之处；额外待遇替代货币报酬</td></tr>
+<tr><td></td><td>Putting-out weavers and central power（p. 784）</td><td>廉价集中动力出现后的工厂织布</td><td>缔约的交易成本<em>下降</em>了，工厂却扩张——解释这一转变的是团队生产的计量，而非市场缔约成本</td></tr>
+<tr><td></td><td>Dock workers vs. lawyers（p. 786）</td><td>可见的活动 vs. 不可见的脑力工作</td><td>活动能揭示产出之处，细致指挥有效；专业工作需要利润分享或合伙</td></tr>
+<tr><td></td><td>Yugoslavian residual-sharing firms（p. 787）</td><td>法律要求全体雇员分享剩余</td><td>工人委员会出现，以约束经理被放大的偷懒激励</td></tr>
+<tr><td></td><td>Corporate governance devices（pp. 788–789）</td><td>股东分散</td><td>剩余索取权分散时，有限责任、可转让股票、代理权争夺与接管约束经理—监督者</td></tr>
+<tr><td></td><td>Hammer, trucks, tools of the trade（p. 792）</td><td>易损坏设备的使用者成本</td><td>折旧最宜由使用者侦测的投入，倾向于被拥有而非租用</td></tr>
+<tr><td></td><td>Sports leagues（注 15，p. 791）</td><td>球队以相对技艺竞争</td><td>"反向偷懒（reverse shirking）"：技能增益外溢给对手时对训练的过度投资；联盟约束加以遏制</td></tr>
+<tr><td></td><td>Japan's lifetime employment（p. 794）</td><td>雇员按惯例终身留在同一企业</td><td>投入修订范围宽广，使大型联合企业成为有效率的形态</td></tr>
+</tbody></table>
+<p>三个例子值得细看，因为它们承载的论证分量最重。<em>外放加工制（putting-out system）</em>直接瞄准交易成本理论：把织工集中到廉价动力源附近，降低了谈判契约的成本，然而出现的却是工厂——企业的扩张。作者坚持认为，原因在于"设备联合使用中的团队生产变得更加重要"：工人们通过共享机器相互作用，使得边际生产率的测量更困难——哪怕缔约变得更便宜——而集中化活动又让管理投入行为更容易（p. 784）。这个例子是被特意选来充当市场交易成本理论与他们的计量理论预测不同组织反应的场合。</p>
+<p><em>锤子</em>例子（p. 792）演示投入所有权逻辑。一把不易损坏、边际产品容易侦测的锤子，使用者成本为零，可以租用；一把易损坏、不小心使用会造成额外折旧的锤子，通过观察使用来监督比事后检查锤子更廉价。因此，不在场的所有者会对预期的滥用收取更高的租金，使自用（owner-use）比租用更便宜——这就是"所有权比租用更经济"这类误导性说法的有效内容（p. 792）。职业运动员脚注（注 16）把同一原则推到极限：当球队老板握有运动员的未来服务时，运动员从表现下滑中承担的财富损失更小，因此老板必须监督他的身体状况——作者推测，这就是运动员的未来服务被拥有而非被雇佣的原因（p. 792）。</p>
+<p><em>比较制度</em>观察——南斯拉夫的工人自治企业、非营利组织的偷懒、作为雇员监督者的工会、亲属间的合伙——都充当粗糙的自然实验：政治或法律约束迫使某种剩余索取安排成立，理论则预测随之出现的补偿性控制装置（否决经理的工人委员会、非营利组织中更多的偷懒、专门监督附加福利的工会专家）。作者对这些案例的证据地位很坦率。关于有表决权与无表决权股票的证据，他们写道"我们的粗略证据只配得起'激发兴趣'的分量"（注 14，p. 789）；对体育联盟的解释，他们承认没有实证检验能把过度投资解释与单纯的垄断限制区分开（注 15，p. 791）。论文自己可检验的含义，是以定性预测形式列出的——企业拥有哪类投入、利润分享在哪里可行、哪里应当观察到更多偷懒——而不是量化假说。</p>
+<h2>4. 文献定位（Position in the literature）</h2>
+<p>本文最主要的对话者是 Ronald Coase（1937），它与《企业的性质》的关系既恭敬又修正。Alchian and Demsetz 接受交易成本取向，同时拆掉其中的权威故事（p. 783）：</p>
+<blockquote>Our view of the firm is not necessarily inconsistent with Coase's; we attempt to go further and identify refutable implications. Coase's penetrating insight is to make more of the fact that markets do not operate costlessly, and he relies on the cost of using markets to form contracts as his basic explanation for the existence of firms. We do not disagree with the proposition that, ceteris paribus, the higher is the cost of transacting across markets the greater will be the comparative advantage of organizing resources within the firm; it is a difficult proposition to disagree with or to refute. — Alchian and Demsetz (1972), p. 783</blockquote>
+<p>></p>
+<blockquote>中文复述：我们对企业的看法与 Coase 未必不一致；我们试图走得更远并找出可反驳的含义。Coase 的洞见在于重视市场并非无成本运作这一事实，并以利用市场缔约的成本作为企业存在的基本解释。我们并不反对如下命题——其他条件相同时，跨市场交易成本越高，在企业内部组织资源的比较优势越大；这个命题很难反对，也很难反驳。</blockquote>
+<p>抱怨在于，Coase 的框架"就其迄今被发展出的程度而言"止步太早（p. 784）：</p>
+<blockquote>Coase's analysis insofar as it had heretofore been developed would suggest open-ended contracts but does not appear to imply anything more—neither the residual claimant status nor the distinction between employee and subcontractor status (nor any of the implications indicated below). And it is not true that employees are generally employed on the basis of long-term contractual arrangements any more than on a series of short-term or indefinite length contracts. — Alchian and Demsetz (1972), p. 784</blockquote>
+<p>></p>
+<blockquote>中文复述：Coase 迄今被发展出的分析只会导向开放性契约（open-ended contracts），似乎不再蕴含别的什么——既不蕴含剩余索取者地位，也不蕴含雇员与分包商地位之分（也不蕴含下文列出的任何含义）。雇员一般也并非基于长期契约安排受雇，而是基于一连串短期或不定期契约。</blockquote>
+<p>Frank Knight（1921）是第二个被挑战的先辈。Knight 的风险分配论——企业家作为不确定性的承担者——被视为一种事后补充，它解释不了剩余索取者的监督角色（p. 785）：</p>
+<blockquote>We deduce the system of paying the manager with a residual claim (the equity) from the desire to have efficient means to reduce shirking so as to make team production economical and not from the smaller aversion to the risks of enterprise in a dynamic economy. We conjecture that "distribution-of-risk" is not a valid rationale for the existence and organization of the classical firm. — Alchian and Demsetz (1972), p. 785</blockquote>
+<p>></p>
+<blockquote>中文复述：我们之所以推出以剩余索取权（股权）支付经理的制度，是出于要有高效手段减少偷懒、使团队生产经济的愿望，而不是因为企业家在动态经济中对风险厌恶较小。我们推测，"风险分配"并不是古典企业存在与组织的有效理由。</blockquote>
+<p>在论文内部，作者把自己摆在同时代一个紧密圈子的对立面与同一边：他们肯定 Stewart Macaulay（1963）关于非契约关系的研究——它解释了开放性契约为何管用；援引 S. N. Cheung（1969）的分成租佃理论——称其"正好建立在我们所用同样的因素上"，即侦测产出绩效与使用者成本（注 17，p. 793）；借鉴 Henry Manne（1967）的股东投资者观（注 14）；并致谢 Morris Silver and Richard Auster（1969）、H. B. Malmgren（1961）、Eirik Furubotn and Svetozar Pejovich（1970）、Earl A. Thompson（1970）与 Michael Canes（1970）——论文写作时所处的 UCLA 产权圈子（致谢感谢 Lilly Endowment 对 UCLA 的资助，"用于研究产权的行为效应"，p. 777）。</p>
+<p>与 Harold Demsetz 自己早前那篇《迈向产权理论》（"Toward a Theory of Property Rights"，1967）的关系是解释性的而非文字上的：Alchian and Demsetz（1972）没有引用它，但两文构成同一个研究纲领。Demsetz（1967）论证，当内部化的收益超过其成本时，产权就会出现以内部化外部性——他的拉布拉多毛皮贸易案例显示，加剧的海狸捕猎生出了私人土地权。Alchian and Demsetz（1972）恰恰把这一内部化逻辑应用到企业<em>内部</em>：团队生产中的偷懒是团队成员相互施加的外部性，而把剩余索取权指派给中心监督者，正是内部化它的制度装置。这就是第三周主线随后加以形式化与扩展的古典产权理论路线：Williamson（1975, 1985）经由机会主义与资产专用性（asset specificity）重新表述同样的缔约问题，却恢复了 Alchian and Demsetz 曾经否认的层级治理角色；Grossman and Hart（1986）与 Hart and Moore（1990）把所有权形式化为对资产的剩余<em>控制权（control rights）</em>，把核心摩擦从监督移向事前投资与套牢（hold-up，参见 Hart 1995）；Kim and Mahoney（2005）把产权理论读作一种经济组织的系统观，并将其接入战略管理；所有权能力（ownership competence）议程（Foss、Klein 及其合作者）在资产所有权中复兴了对判断（judgment）的 Knight 式强调；Magelssen（2020）则提供了主线上产权理论所有权预测的实证应用。表 2 把这些经典论文彼此对照。</p>
+<p><strong>Table.</strong> 表 2. 三种组织经济学理论对照：什么定义了企业、企业为何存在（Three organizational-economics theories compared: what defines the firm and why it exists）</p>
+<table>
+<thead><tr><th></th><th>维度（Dimension）</th><th>Coase (1937)</th><th>Alchian and Demsetz (1972)</th><th>Grossman and Hart (1986); Hart and Moore (1990)</th></tr></thead>
+<tbody>
+<tr><td></td><td>核心摩擦（Core friction）</td><td>使用价格机制的正成本（市场交易成本）</td><td>团队生产内部对边际产品计量的高成本</td><td>不完全契约（incomplete contracts）与不可契约化的事前投资</td></tr>
+<tr><td></td><td>什么定义了企业（What defines the firm）</td><td>企业家"指挥"资源；权威取代价格机制</td><td>与所有投入契约共同的中心剩余索取者一方；无命令（fiat）</td><td>资产的所有者持有对其非契约用途的剩余控制权</td></tr>
+<tr><td></td><td>为什么需要老板/中心代理人（Why a boss / central agent）</td><td>指挥节约市场缔约成本</td><td>监督者自己必须被剩余索取权约束（"谁来监督监督者？"）</td><td>配置控制权保护关系专用性投资免于套牢</td></tr>
+<tr><td></td><td>所有权的含义（Meaning of ownership）</td><td>并非论证的中心</td><td>一束权利：剩余索取、观察投入、修订成员资格、再售该地位</td><td>对实物资产的剩余控制权</td></tr>
+<tr><td></td><td>边界预测（Boundary prediction）</td><td>企业扩张直到内部组织成本在边际上等于市场交易成本</td><td>团队生产的可行性及各投入的计量成本决定所有权组合；投入修订范围大者偏向联合大企业</td><td>互补资产需要不可契约化投资时一体化最优；联合资产导致 1/N 所有权</td></tr>
+<tr><td></td><td>对权威的立场（Stance on authority）</td><td>权威/指挥是企业的本质</td><td>拒绝命令："没有命令权，没有权威"（p. 777）</td><td>权威由对资产的剩余控制权派生</td></tr>
+</tbody></table>
+<h2>5. 局限（Limitations）</h2>
+<h3>5(a) 作者自陈的局限（The authors' own stated limitations）</h3>
+<ul>
+<li>他们把团队生产当作企业的"一个本质（必要？）条件"来处理，并用问号标出自己的不确定；小麦品质的例子表明，高监督成本的非团队来源也可能催生类似安排，他们承认"尚未深入地分析其他来源"——他们偏好的说法是"当前且随时可修正的推测"（pp. 784–785）。</li>
+<li>他们没有解释为什么联合使用的资源不由一个人全部拥有；这个问题被三条简短理由搁置——奴隶制被禁止、风险厌恶可能阻碍借贷买下全部资产、买卖价差可能超过租用成本（p. 779）。</li>
+<li>团队规模被当作外生给定，尽管剩余索取权的集中程度会影响它；这被承认是一种近似（注 10，p. 786）。</li>
+<li>对风险分配论的否定本身被标为推测（"risk distribution 不是有效的理由"，p. 785），结尾"企业作为私人市场"的解释也被说成"高度推测性但可能有意义"（p. 794）。</li>
+<li>定义被刻意收窄："企业"一词的日常用法"含义臃肿，我们不可能指望解释每一个"挂上这个名字的实体；联合大企业与控股公司可能是按 Knight 思路运作的投资装置，而不是他们意义上的企业（p. 785）。</li>
+<li>若干经验观察附有明确保留：有表决权与无表决权股份的证据"只配得起'激发兴趣'的分量"（注 14，p. 789）；没有实证检验能把体育联盟的过度投资解释与垄断解释分开（注 15，p. 791）。</li>
+</ul>
+<h3>5(b) 独立判断（Independent judgment）</h3>
+<ul>
+<li><strong>[论文主张（paper claim）]</strong> 企业之所以存在，是因为它比市场交换更廉价地计量团队生产。这一主张被当作论文的中心结论断言，并以 p. 783 陈述的两个必要条件为前提。</li>
+<li><strong>[证据（evidence）]</strong> 支撑材料清一色是举例性的——搬货、教员额外待遇、锤子、日本、南斯拉夫——没有系统性数据；作者自己把其中一部分评为"粗略"（注 14，p. 789）。论文自己可检验的含义（哪些投入被拥有、利润分享在哪里存活、偷懒集中在哪里）是定性的，此处未予操作化。</li>
+<li><strong>[推断（inference）]</strong> 监督理论本身并不能确定企业的<em>边界（boundary）</em>——为什么正是这一组投入组成团队、团队在何种规模上停止扩张。作者把团队规模当作外生（注 10），并把企业的优势定位于对已在内投入的更廉价重组（pp. 793–794）——这解释内部范围，强于解释某一既定资产为何被拥有而非被缔约。现代产权理论通过资产层面的剩余控制权（Grossman and Hart 1986）提供边界解释，这是 Alchian and Demsetz 没有尝试的补充。</li>
+<li><strong>[开放问题（open question）]</strong> 在大型公众公司中，剩余索取权分散在众多股东手里，而按论文自己的注 14，这些股东是投资者而非监督者。于是 p. 782 处闭合"谁来监督监督者"链条的剩余索取者纪律实际上缺席，Alchian and Demsetz 只能退回到接管竞争与外部经理竞争。这些装置是否强到足以替代集中的剩余索取权，是断言而非论证。</li>
+<li><strong>[论文主张（paper claim）]</strong> 要紧的摩擦是偷懒，而不是机会主义套牢；它特地从团队产出的不可分离性中产生。现代产权理论把摩擦移到事前投资与对准租金（quasi-rent）的事后讨价还价（Grossman and Hart 1986；Hart and Moore 1990）；本文既没有调和这两种机制，也没有说明各自何时占主导。</li>
+<li><strong>[开放问题（open question）]</strong> "计量成本"从不独立于它被用来解释的组织结果加以度量，这带来循环论证的风险：观察到企业，那么计量想必成本高昂。论文对可检验含义（拥有哪类投入；非营利组织中偷懒更多）只做了示意，却没有给出外部研究者可以拿去处理数据的侦测成本度量——这正是主线上的实证应用试图填补的空缺。</li>
+</ul>
+<h2>6. 结论（Conclusion）</h2>
+<p>本文确立的是一个定义与一种机制。古典资本主义企业是一种契约结构——联合投入生产；多个投入所有者；一个与所有投入契约共同的当事方；独立重新谈判任何一份投入契约的权利；剩余索取权；出售整个中心地位的权利——解释它的机制，则是通过专业化、剩余索取者式的监督来减少团队生产中的偷懒。结语以最强的形式重述反 Coase 的命题（p. 794）：</p>
+<blockquote>The essence of the classical firm is identified here as a contractual structure with: 1) joint input production; 2) several input owners; 3) one party who is common to all the contracts of the joint inputs; 4) who has rights to renegotiate any input's contract independently of contracts with other input owners; 5) who holds the residual claim; and 6) who has the right to sell his central contractual residual status. The central agent is called the firm's owner and the employer. No authoritarian control is involved; the arrangement is simply a contractual structure subject to continuous renegotiation with the central agent. — Alchian and Demsetz (1972), p. 794</blockquote>
+<p>></p>
+<blockquote>中文复述：古典企业的本质在此被界定为一种契约结构：(1) 联合投入生产；(2) 多个投入所有者；(3) 一个与联合投入的所有契约都共同的当事方；(4) 他有权独立于与其他投入所有者的契约，重新谈判任何一份投入契约；(5) 他持有剩余索取权；(6) 他有权出售自己的中心契约剩余地位。这个中心代理人被称为企业所有者与雇主。其中不涉及任何威权控制；安排不过是一种持续与中心代理人再谈判的契约结构。</blockquote>
+<p>从这一单一机制出发，作者推出了数量惊人的结构：利润分享在何时可行；公司、非营利组织、工会与合伙各自如何回应偷懒问题；企业拥有而非租用哪些投入；为什么企业可以读作一种汇集异质投入知识的私有市场。对第三周主线的读者来说，战略上的收获只有一句话：<em>必须被信任去约束他人的一方，正是被授予索取权——以及成员资格权利——从而使约束变得值得的那一方。</em> 让剩余索取权与再谈判权利去匹配团队的计量问题，所有权结构随之而来；试图靠权威来运转团队，权威就会被证明是一种幻觉。</p>
+<div class="golden">"Could it be that the market suffers from the defects of communal property rights in organizing and influencing uses of valuable resources?"</div>
+<p>></p>
+<blockquote>中文复述：会不会是市场——而非企业——在组织与影响宝贵资源的使用上带有共有产权（communal property rights）的缺陷？</blockquote>
+<p>论文以反转 Coase 的问题收尾：Coase 问的是市场为何失灵、企业为何成功；Alchian and Demsetz 则以反问收束——带产权缺陷的会不会是市场本身，而内部组织正是对这种缺陷的矫正。— Alchian and Demsetz (1972), p. 795</p>
+<blockquote><strong>AI 使用披露。</strong> 本阅读笔记页面由 AI 依据论文全文撰写（文本取自 JSTOR 扫描件的 pdftotext 提取）。所有逐字引文都带有对应 AER 原始页码（pp. 777–795）；行尾连字符断词已被静默去除。表格与图为 AI 依论文论证整理。引用前请以原文核对页码与措辞。</blockquote>
+</div>
+<div id="lang-en" style="display:none">
+
 
 <h1>Production, Information Costs, and Economic Organization</h1>
 
@@ -275,7 +439,19 @@ The essence of the classical firm is identified here as a contractual structure 
 <p><strong>AI-assistance disclosure.</strong> This reading-note page was written by AI from the paper's full text (pdftotext-extracted from the JSTOR scan). All verbatim blockquotes carry page references to the original AER pagination (pp. 777–795); minor line-break hyphenation was silently removed. Tables and the diagram were AI-organized from the paper's argument. Readers should verify page numbers and wording against the original before citing.</p>
 </div>
 
-<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
 
+</div>
+
+
+<div class="back"><a href="index.html">← Back to course index / 返回课程索引</a> · <a href="../index.html">All courses / 全部课程</a></div>
+
+<script>
+function setLang(l){
+  document.getElementById('lang-zh').style.display = (l==='zh') ? 'block' : 'none';
+  document.getElementById('lang-en').style.display = (l==='en') ? 'block' : 'none';
+  document.getElementById('btn-zh').className = (l==='zh') ? 'active' : '';
+  document.getElementById('btn-en').className = (l==='en') ? 'active' : '';
+}
+</script>
 </body>
 </html>

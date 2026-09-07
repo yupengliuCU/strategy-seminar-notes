@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,9 @@
 <style>
 :root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.8;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Serif SC",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:780px;margin:0 auto;font-size:17px}
 h1{font-size:1.9rem;margin:0 0 .3rem;line-height:1.3}
-h2{font-size:1.3rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h2{font-size:1.3rem;margin:2.8rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
 h3{font-size:1.1rem;margin:1.5rem 0 .5rem;color:#333}
 .meta{color:var(--muted);font-size:.9rem;margin-bottom:2.5rem;line-height:1.8}
 .meta a{color:var(--accent);text-decoration:none}
@@ -24,11 +24,14 @@ table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.93rem}
 td,th{border:1px solid var(--border);padding:.6rem .9rem;text-align:left;vertical-align:top}
 th{background:#f9fafb;font-weight:600}
 .summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
-.summary-box h3{margin:0 0 .5rem;color:var(--accent)}
+.summary-box h2{margin:0 0 .5rem;color:var(--accent);border:none;font-size:1.1rem}
 .golden{font-size:1.2rem;font-weight:600;color:var(--accent);text-align:center;padding:2rem 1rem;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);margin:2.5rem 0;line-height:1.6}
 .note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.9rem}
 .back{margin:3rem 0 1rem;font-size:.9rem}
 .back a{color:var(--accent);text-decoration:none}
+.langbar{position:sticky;top:0;background:var(--bg);padding:.7rem 0;z-index:10;display:flex;gap:.5rem;margin-bottom:1rem;border-bottom:1px solid var(--border)}
+.langbar button{border:1px solid var(--border);background:#fff;color:#333;padding:.45rem 1.1rem;border-radius:99px;cursor:pointer;font-size:.95rem;font-family:inherit}
+.langbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 @media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.5rem}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -39,6 +42,133 @@ th{background:#f9fafb;font-weight:600}
 <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
 </head>
 <body>
+
+<div class="langbar">
+  <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+</div>
+
+<div id="lang-zh">
+<h1>Ownership competence</h1>
+<blockquote><strong>元信息。</strong> <strong>作者：</strong> Nicolai J. Foss, Peter G. Klein, Lasse B. Lien, Thomas Zellweger, Todd Zenger</blockquote>
+<blockquote><strong>期刊：</strong> Strategic Management Journal, Vol. 42, No. 2, pp. 302–328</blockquote>
+<blockquote><strong>年份：</strong> 2021（2020 年 8 月 9 日在线首发 first published online）</blockquote>
+<blockquote><strong>DOI：</strong> 10.1002/smj.3222</blockquote>
+<blockquote><strong>性质：</strong> conceptual / theory-development paper（概念性/理论构建论文）——一种所有权的能力观（competence/capability view of ownership）：从激励转向“拥有的技能”（from incentives to the skill of owning）</blockquote>
+<blockquote><strong>关键词：</strong> assets, economic value creation, ownership, theory of the firm（按论文原文所印 as printed in the article）</blockquote>
+<div class="summary-box"><h2>一句话总结</h2>
+</div>
+<h3>一句话总结</h3>
+<p>所有者（owners）行使使用（use）、收益（appropriation）、转让（transfer）三项财产权利的技能水平参差不齐；所有权能力（ownership competence）——即知道拥有什么（what to own，匹配 matching）、如何拥有（how to own，治理 governance）、何时拥有（when to own，时机 timing）——对价值创造的解释力，胜过代理理论（agency theory）与不完全契约理论（incomplete-contracting theory）所强调的激励对齐（incentive alignment）。</p>
+<div class="note"> 在第 3 周的主线里——古典产权理论（classical property-rights theory）→ 现代产权理论（modern property-rights theory）→ 战略管理转译（strategic-management translation）→ 所有权能力（ownership competence）→ 实证检验（empirical test）——本文提供的是能力观（capability view）：它把所有权能力界定为一个构念（construct），分解为植根于使用、收益、转让古典权利三分的匹配能力（matching competence）、治理能力（governance competence）与时机能力（timing competence）。Alchian & Demsetz (1972) 诊断的是计量问题（metering problem）；Grossman & Hart (1986) / Hart & Moore (1990) 把剩余控制权（residual control rights）建模为事前投资激励装置；Foss, Klein, Lien, Zellweger 与 Zenger (2021) 则主张所有权还承载着异质的技能（skill）——由此把现代产权经济学接回古典产权经济学（Alchian；Barzel），又向前接到以判断为基础的企业观（judgment-based view of the firm；Knight；Foss & Klein 2012）。它为主线末端将要进行的实证检验铺好了议程。</div>
+<h2>1. 背景与动机（Background and motivation）</h2>
+<p>本文针对的是主导所有权战略研究的三支经济理论共同拥有的盲点：代理理论（agency theory）、不完全契约理论（incomplete-contracting theory）与（古典）产权经济学（property-rights economics）。在这三支理论中，所有权之所以重要，是因为它重塑<em>激励</em>（incentives）。代理理论把所有权与剩余索取权（residual claimancy）相连——即索取契约约定的要素支付之后所余收益的权利——并主张以持股与监督来对付所有者与经理人之间的利益分歧。不完全契约理论把所有权与剩余控制权（residual control rights）相连——即在契约未描述的状态下决定资产用途的权利——并把所有权配置给关系专用性投资最重要的一方，以缓和套牢（hold-up）。产权经济学则强调权利的多维结构——使用（use）、收益（income）、转让（transfer）——以及通过有效控制实现外部性的内部化（internalization of externalities）（见下文表 1）。</p>
+<p>作者的批评集中于该框架在一个具体意义上的不完整之处，而非否定激励本身的作用：它把所有者视为认知上同质（cognitively homogeneous），于是唯一的问题只是给多少所有权、给谁，从不问所有者将拥有得多娴熟。激励观隐含地假定行为者彼此相同，无论谁占据所有者角色都会高效地行使它，以最大化价值的方式管理与投资（p. 303）。然而，关于通往价值创造之最佳路径的判断（judgment）是个人特有（idiosyncratic）且不可让渡（inalienable）的；价值创造的战略并非广为人知；高效的所有者也不会自动与资产匹配。论文的核心直觉如下：</p>
+<blockquote>Building on the notion that ownership affords control in resource deployment, we develop the argument that ownership can be exercised with greater or lesser competence and that this matters to value creation.</blockquote>
+<p>></p>
+<blockquote>Foss et al. (2021), p. 303, Introduction</blockquote>
+<p>></p>
+<blockquote>中文复述：基于“所有权在资源配置中赋予控制权”这一看法，作者提出：所有权可以被更高或更低的能力来行使，而这影响价值创造。</blockquote>
+<p>两个框架性观察推动焦点从所有权集中度（ownership concentration）转向所有者身份（owner identity）。其一：更换资源的所有者，其影响可能大于改变所有权集中度——Steve Jobs 与苹果（Apple）的所有者取得对 Xerox 处组成之资源的许可控制权（licensed control）时，或 Sam Walton 的沃尔玛（Wal-Mart）接管小镇地产时，所创造的价值很难归因于激励的边际变化（p. 304）。其二：一条脚注指出，代理理论的经典框架预设股权高度分散（Jensen & Meckling 1976），而绝大多数企业是个人独资（sole proprietorships），所有者全权控制并参与日常经营——对这类企业，“激励对齐并非真正的核心挑战”（p. 306, n. 1）。在此背景下，论文援引关于“聪明钱”（smart money）的风险投资（venture capital, VC）研究：Sorensen (2007) 把资深 VC 的价值分解为筛选（sorting，投资于更好的公司）与影响（influence，重新配置资源组合），并把 VC 回报的持续性解读为“这些投资者技能异质性”的证据（p. 307）。论证的要点是：所有者身份具有激励类理论无法表达的战略内容。</p>
+<h2>2. 核心论点 / 框架（Core argument / framework）</h2>
+<h3>2.1 所有权的三重含义与各自的缺陷（The three meanings of ownership and the problem with each）</h3>
+<p>论文第 2 节循法律与经济文献，区分了三种所有权概念化（conceptualizations of ownership）（论文表 1，p. 305；下表重制）。对三者的批评同出一辙：每种都把所有权当作一件工具，只要“正确”地部署，就能对齐激励、最大化共同创造的价值。被遗漏的是：所有者与潜在所有者对最优资源构形（resource configurations）持有彼此分歧的理论，而哪一套理论经由所有权获得授权，决定了结果。所有者可以把使用权拆分并委派给经理、董事会与员工，却无法完全委派这类终极决定——资产究竟是做什么用的、哪些权利委派给谁、所有权是否以及何时应当易手。因此所有者的认知——判断（judgment）、信念（beliefs）、认知框架（cognitive frames）——是激励理论所忽略的一个战略变量。</p>
+<p><strong>表。</strong> 表 1. 三种经济学的所有权概念化（Three economic conceptualizations of ownership；依论文表 1 重制 reconstructed from the paper's Table 1, p. 305）</p>
+<table>
+<thead><tr><th></th><th>理论（Theory）</th><th>代表性文献（Representative contributions）</th><th>所有权赋予什么（What ownership confers）</th><th>所有权的功能（Function of ownership）</th><th>盲点（Blind spot，能力观所指出的）</th></tr></thead>
+<tbody>
+<tr><td></td><td>代理理论（Agency theory）</td><td>Alchian & Demsetz (1972); Jensen & Meckling (1976); Holmstrom (1979); Fama (1980)</td><td>剩余索取权（residual claimancy）——索取契约约定的要素支付之后所余收益（利润）的权利</td><td>配置所有权归属，使委托–代理关系中的价值创造最大化，例如通过持股（ownership stakes）与监督（monitoring）</td><td>预设股权分散；把所有者视为可互换，于是所有者<em>身份</em>（identity）与<em>技能</em>（skill）被剔除</td></tr>
+<tr><td></td><td>不完全契约理论（Incomplete-contracting theory）</td><td>Grossman & Hart (1986); Hart & Moore (1990); Hart (1995); building partly on Williamson (1985)</td><td>剩余控制权（residual control rights）——在契约未描述的情形下对资产作决策的权利</td><td>把所有权配置给作出最重要关系专用性投资的一方，缓解套牢（hold-up）、最大化团队剩余（team surplus）</td><td>假定所有者会高效行使剩余控制权；所有者关于拥有什么（what to own）的判断与误判没有容身之地</td></tr>
+<tr><td></td><td>产权经济学（Property-rights economics）</td><td>Coase (1960); Alchian (1961, 1965); Demsetz (1964, 1967); Barzel (1997)</td><td>使用权（usus，right to use）、收益权（usus fructus，right to derive income）、转让权（abusus，right to alienate）；对（资源）进入的有效控制（effective control over access）</td><td>把资产使用的外部性内部化：溢出（spillovers）、耗竭（depletion）、公共品供给不足（public-good underprovision）</td><td>提供了能力观所依托的多维权利结构，但低估了行使各项权利时技能（skill）的异质性</td></tr>
+</tbody></table>
+<h3>2.2 能力视角的四项假设（Four assumptions of the competence perspective）</h3>
+<p>第 3.1 节陈述该框架赖以成立的假设。<em>其一</em>，所有者处于 Knight 不确定性（Knightian uncertainty）与巨大复杂性之中：事前未知的不只是结果，连可能的资源与战略集合也是未知的，因此所有者与企业家（entrepreneurs）一样，把关于手段–目的关系的信念投射到现实之上。在真正的不确定性之下，让所有者得以按判断行事的是控制权（control），而非契约（contract）；若没有不确定性，所有权就没有必要——契约性的远见已足够。<em>其二</em>，判断的要素市场（factor markets）是“封闭的”（closed）：关于价值创造的信念是个人特有的，往往无法说服他人，且恰恰在独一无二时最有价值，因此其表达与验证成本高得惊人，没有哪个市场能有效地为它定价。<em>其三</em>，所有权是把自身判断放到现实中检验、并捕获其创造之价值的唯一可靠途径——契约做不到这一点，因为他人不信这套理论；所有权允许进入、退出以及快速地重新捆绑资产（re-bundling of assets）。<em>其四</em>，所有权的功能不止于收益权，还扩展到使用权与转让权——它们让所有者得以改变方向、从先前的部署中学习、清算，并对自身判断的质量作出最终评估。</p>
+<h3>2.3 定义及其产权基础（The definition and its property-rights foundations）</h3>
+<p>该框架把古典产权经济学映射为一套所有者技能类型学（typology）。任何人拥有一项资源时都保有 (a) 使用权、(b) 索取其收益的权利（the right to appropriate its returns）、(c) 转让这些权利的权利（Alchian 1961; Libecap 1986）。所有者行使各项权利时的能力各不相同——由此引出论文的核心建构：</p>
+<blockquote>We call these competences (a) matching competence (knowing what to own), (b) governance competence (knowing how to own), and (c) timing competence (knowing when to own), respectively. We thus define ownership competence as the skills with which asset owners exercise matching, governance, and timing competence (Castanias & Helfat, 1991; Helfat & Peteraf, 2015).</blockquote>
+<p>></p>
+<blockquote>Foss et al. (2021), p. 309, Section 3.2</blockquote>
+<p>></p>
+<blockquote>中文复述：作者分别称这三种能力为 (a) 匹配能力（知道拥有什么）、(b) 治理能力（知道如何拥有）、(c) 时机能力（知道何时拥有），并由此把所有权能力定义为资产所有者行使匹配、治理、时机能力时所具备的技能。</blockquote>
+<p>映射是一一对应的：使用权奠基匹配能力（拥有什么）；收益权奠基治理能力（如何拥有）；转让权奠基时机能力（何时拥有）——参见论文图 1 与表 2（p. 310），以及下文表 2 的重制。所有权能力经由关于拥有什么、如何拥有、何时拥有的卓越技能创造经济价值。作者认同 Alchian (1961: 63) 的说法：所有权能力“包括对风险承担的态度、对不同人生产能力（productive abilities）的了解、远见（foresight），当然还有判断（judgment）”（p. 309）。</p>
+<p>一个展开的例子固定住这套逻辑（pp. 310–311）：某行动者预见到自家街区能跑出租车生意，买下一辆合适的车（拥有什么——匹配）；她决定自己开还是雇一名司机；若雇，如何监督他、如何分成（如何拥有——治理）；日后她可能把生意卖给一家比自己更看重这桩生意的竞争性出租车公司（何时拥有——时机）。司机行使的是关于日常运营的<em>派生</em>判断（derived judgment）；所有者则保有不可让渡的权利，决定出租车生意究竟存不存在、由谁经营、利润如何分割、所有权何时转手他人。</p>
+<h3>2.4 三种能力详解（The three competences in detail）</h3>
+<p><strong>匹配能力（matching competence）：知道拥有什么（what to own）。</strong> 匹配能力是预见、判断或理论化地构想有价值资源组合的能力——这类组合服务于某个特定的、有意的目的，或解决某个独特的问题。它要求先界定目的或问题——这是使用权之下所有者特有的权能（prerogative）——再构造出能引导搜寻（自己的与他人的）资源之有价值（重新）组合的心智表征（mental representations）。由于资源具有多重属性，而组合空间浩瀚无边，试验、思想实验与理论化便替代了事前的详尽说明（论文将此与 Demsetz 的观察相连：可拥有的权利集合无法被完全描述，Demsetz 1988: 19）。正是匹配能力让所有者克服“功能固着”（functional fixedness）、识别被低估的资源，并借由决定拥有什么来划定企业边界。在 VC 情境中，它对应的是选中赢家（picking winners；Sorensen 2007; Baum & Silverman 2004）；私募股权（private equity）投资者之所以保留对组合内公司（portfolio companies）聚焦方向、结构与边界的权利，正是为了行使这一能力（p. 312）。</p>
+<p><strong>治理能力（governance competence）：知道如何拥有（how to own）。</strong> 治理能力是通过有效的治理与组织设计，把设想的资源束（resource bundle）组合起来的能力。它最接近“把激励弄对”（getting the incentives right），但同样是一种技能：挑选经理，使管理技能与资源配置要求相匹配；在信息不对称下选择自己管理还是委托他人；设计收益分享（rent-sharing）、派息（payout）、激励与监督制度（基于行为还是基于结果、留意动机挤出 motivation crowding）；按所有者自身的风险特征（risk profile）校准激励；并塑造对外关系，让作出关系专用性投资的利益相关者安心、免受套牢。论文呼应 Williamson (1996: 9)——各方“向前看、察觉风险，并把这些风险折回契约关系之中”（look ahead, perceive hazards, and factor these back into the contractual relation）——并补充道：能干的所有者在向伙伴投入资源时，也要保护<em>自己</em>免受套牢（p. 313, n. 6）。</p>
+<p><strong>时机能力（timing competence）：知道何时拥有（when to own）。</strong> 时机能力是为最大化价值创造而把握投资进出项目、资产乃至所有权本身的时机。它含三个成分。其一，<em>市场择时</em>（market timing）：买入被低估、卖出被高估的资源——市值高时发股、低时回购（Baker & Wurgler 2002），在市场高点附近推动公司上市（Lerner 1994）。其二，<em>分期投入</em>（staging）：把投资摊开在时间轴上，让价值逐步显现，从而限制下行风险、产生类实物期权（real option）式的战略灵活性——即日后行动的权利，而非义务。其三，<em>继任与退出规划</em>（succession and exit planning）：判断自己是否仍是“最佳所有者”（best owner；Dobbs, Huyett & Koller 2009）。竞争力量与技术变迁会使在位所有者的能力过时，因此具备时机能力的所有者能识别何时另一位所有者拥有更优的匹配能力或互补资源，接受高于该资产对自身价值的整体报价（lump-sum price），并规划自己的退出（pp. 314–315）。时机能力由此把企业边界的比较能力逻辑（comparative-capabilities logic）操作化（Argyres & Zenger 2012; Jacobides & Winter 2005; Poppo & Zenger 1998）。</p>
+<p><strong>表。</strong> 表 2. 所有权能力的三个维度（The three dimensions of ownership competence；自论文表 2 与图 1 压缩 condensed from the paper's Table 2 and Figure 1, p. 310）</p>
+<table>
+<thead><tr><th></th><th>能力（Competence；引导问题 guiding question）</th><th>依托的权利（Rooted property right）</th><th>技能内涵（Skill content，按论文定义）</th><th>示例性任务 / 子技能（Illustrative tasks / sub-skills）</th></tr></thead>
+<tbody>
+<tr><td></td><td><strong>匹配能力（Matching competence）</strong>“拥有什么（what to own）”</td><td>使用权（right to use）——自由决定一项被拥有资源的用途</td><td>预见可达成目的之有价值资源组合的技能</td><td>界定有价值的目的；对有价值资源（重新）配置的远见与创造；对风险承担的态度（attitude toward risk bearing）；克服“功能固着”（functional fixedness）</td></tr>
+<tr><td></td><td><strong>治理能力（Governance competence）</strong>“如何拥有（how to own）”</td><td>收益权（right to appropriate）——获取所部署资源带来的收益</td><td>为最大化价值创造而设定恰当激励的技能</td><td>经理遴选（manager selection）；收益分享制度（rent-sharing regime：激励与持股计划 incentive and stock-ownership plans、派息政策 payout policy）；监督制度（monitoring regime：预算与报告政策 budget and reporting policy）</td></tr>
+<tr><td></td><td><strong>时机能力（Timing competence）</strong>“何时拥有（when to own）”</td><td>转让权（right to transfer）——委派（delegate）或让渡（alienate）另外两项权利</td><td>为最大化价值创造而把握资源投资时机的技能</td><td>市场择时（market timing：买入被低估、卖出被高估的资源）；投资分期投入（staging of investments：降低风险、战略灵活性）；继任规划（succession planning：评估自己是否仍是“最佳所有者” best owner）</td></tr>
+</tbody></table>
+<h3>2.5 区分性、习得性与情境（Distinctiveness, learning, and context）</h3>
+<p>三种能力彼此不同、可以分离：所有者可能某一种强而另几种弱。匹配能力卓越的创始人型所有者往往掌舵太久（时机弱）；家族企业可能在治理（吸引非家族经理）与时机（跨代控制意图使主观估值偏高）上吃亏，却凭行业知识与网络在匹配上出色（p. 315）；公司掠夺者（corporate raiders：T. Boone Pickens、KKR）兑现的是时机能力，激进投资者（activist investors：Nelson Peltz）兑现的是匹配能力；Warren Buffett 被树为时机能力尤强的范例（p. 316）。所有权能力看来也可习得：行业内的经验、治理的经历与反复的资产转让都能提升它们，连环创业者（serial entrepreneurs）每创立并拥有一个企业就精进一分（Gompers et al. 2006; Lafontaine & Shaw 2016, p. 316）。</p>
+<p>所有权能力的价值依情境而定。所有权集中度（ownership concentration）被重新表述为调节变量（moderator）而非原因：集中持股放大能干所有者的效应、压制无能所有者的效应；集中度的真正作用是让按能力筛选出来的所有者获得控制权（Feldman & Montgomery 2015 发现：持股甚多但缺乏高层经验的董事与企业价值负相关，p. 316）。沿企业<em>生命周期</em>（life cycle），起步阶段匹配能力主导（拼出与创始人愿景契合的初始资源配置）；随增长与专业化，治理能力走到台前；企业成熟、必须剥离、购并并重新择时资产时，时机能力最重要。在<em>环境不确定性</em>之下，所有权能力比激励对齐更有价值：最优的所有者–资产匹配事前难以看清，受控实验不可能，个人特有的判断取代了循规则的搜寻——“当关于拥有什么、不拥有什么的边界抉择发生在效率相关性较低的不确定环境之中时，能力观应当支配激励观”（p. 318）。最后，<em>要素市场效率</em>（factor-market efficiency）给该理论画下边界：若资产市场按资源最可设想的用途完美定价，所有权能力便无法增值；它恰恰在失衡（disequilibrium）——资源落在错误的人手中——之时创造价值（p. 318）。</p>
+<div class="mermaid">
+flowchart TD
+    A["Incentive-based views of ownership<br/>(agency theory · incomplete contracting ·<br/>property-rights economics)"] --> B["Ownership as an incentive device;<br/>owners treated as cognitively homogeneous"]
+    B --> C["Critique: owners differ in skill —<br/>matching assets to efficient owners is not automatic"]
+    C --> D["Ownership competence<br/>(ownership: from incentive to competence)"]
+    D --> E["Matching competence<br/>what to own"]
+    D --> F["Governance competence<br/>how to own"]
+    D --> G["Timing competence<br/>when to own"]
+    E --> H["Rooted in the right to USE"]
+    F --> I["Rooted in the right to APPROPRIATE"]
+    G --> J["Rooted in the right to TRANSFER"]
+    H --> K["Economic value creation"]
+    I --> K
+    J --> K
+    L["Knightian uncertainty & judgment<br/>(Foss & Klein 2012; Knight 1921)"] -.-> D
+    M["Contextual moderators:<br/>ownership concentration · life cycle ·<br/>environmental uncertainty · factor-market efficiency"] -.-> K
+</div>
+
+<h2>3. 证据 / 例证（Evidence / examples）</h2>
+<p>这是概念性论文，其“证据”由思想示例、推演案例与从既往研究引来的实证结果构成——用途是说明框架，而非检验框架。论辩由三种装置承载。</p>
+<p><strong>推演示例（Worked example）。</strong> 出租车生意的例子（pp. 310–311）在单一决策序列中走遍三种能力——买车（匹配）、雇司机并监督、分成（治理）、把生意卖给更看重它的竞争者（时机）——并用它区分所有者的原始判断（original judgment）与经理的派生判断（derived judgment）。</p>
+<p><strong>历史与传记案例（Historical and biographical cases）。</strong> 论文选用价值效应难以单用激励解释的所有权更迭：Steve Jobs 与苹果所有者对 Xerox 资源的重组；Sam Walton 的沃尔玛收购小镇地产（p. 304）；公司掠夺者拆解与再分配“低效的公司投资组合”（inefficient corporate portfolios）；激进投资者以少数股权强制推行更优的匹配判断；以及作为时机能力原型的 Warren Buffett（pp. 315–316）。这些以似真性案例（plausibility cases）呈现，并非系统性证据。</p>
+<p><strong>借自相邻文献的实证结果（Empirical results borrowed from adjacent literatures）。</strong> 论文倚重几组发现：(i) VC“聪明钱”研究——Sorensen (2007) 区分筛选（sorting）与影响（influence），以 VC 回报的持续性作为投资者技能异质性的证据；另有 Hsu (2004) 的发现：高声誉 VC 以 10–14% 的折价获得初创企业股权（p. 312, n. 5）；(ii) 公司治理与股权结构研究——Thomsen & Pedersen (2000) 表明所有者身份（创始家族、银行、机构、其他公司、政府）在所有权集中度之外还影响利润目标、股息、资本结构与增长（p. 307），以及 Feldman & Montgomery (2015) 关于缺乏高层经验的董事持有大额持股的研究（p. 316）；(iii) 关于时机的金融研究——Baker & Wurgler (2002) 论围绕市场价值的发股与回购，Lerner (1994) 论资深 VC 在市场高点附近推动公司上市（p. 314）；(iv) 家族企业研究中治理与时机之弱、匹配之强的证据（Neckebrouck et al. 2018; Zellweger et al. 2012）；(v) 连环创业的证据——所有权能力经由反复创立与拥有企业而习得（Gompers et al. 2006; Lafontaine & Shaw 2016, p. 316）。</p>
+<p><strong>以可检验的预测代替检验（Testable predictions instead of tests）。</strong> 讨论部分把框架转译为新的预测（第 5.2 节）：在其余方面相同的企业里持股相同的两位所有者，会因能力不同而作出不同的决策；所有权集中度调节能力–绩效关系；无能所有者是独立于激励不足或小股东掠夺（minority-shareholder expropriation）之外的价值毁灭来源——错配善意的项目、留住本应出售的资产；无能所有者会招致经理人的恶行，并可能使有能力的经理人泄气到保留努力或离职——道德风险（moral hazard）“不是代理理论所预言的投机（opportunism）的后果，而是低水平所有权能力所导致的挫败与动机低落的后果”（p. 321）；公司控制权市场把资产分派给最有能力的<em>所有者</em>，而不只是给最好的<em>经理</em>。这些以有待检验的假说形式陈述；第 5.3 节勾勒了测量路径（借鉴 Danneels 2016 的能力测量技术；更精细的所有权变动测量，如资产买卖、并购与剥离、重组与重构）。论文未提供原始数据。</p>
+<h2>4. 在文献中的位置（Position in the literature）</h2>
+<p>在第 3 周的产权主线内，本文位于第四个节点——能力/胜任力观（capability/competence view）——夹在产权经济学的战略管理转译（Kim & Mahoney 2005; Foss & Foss 2005）与收官主线的实证检验之间。其独特的一步是给现代产权理论“搬了戏眼”。Grossman & Hart (1986) 与 Hart & Moore (1990) 把剩余控制权当作事前投资激励装置：所有权配置给关系专用性投资最重要的一方，资产的互补性（complementarity）证成共同所有权。Foss 等接受剩余权利这套机制，但拒绝其中隐含的假设——无论谁拥有都会娴熟地行使控制。在他们手中，所有权之所以要紧，不仅因为它保护激励，更因为它赋权于<em>判断</em>（judgment）：即按照关于价值创造的个人特有、不可让渡的信念来组合资源的权利。因此，本文是对 Grossman & Hart (1986)、Hart & Moore (1990) 与 Hart (1995)——即形式化的剩余控制权分支——的自觉批判与延伸，方向指向古典产权经济学（Alchian 1961, 1965; Demsetz 1964, 1967; Barzel 1997）与奥地利学派/判断传统（Knight 1921; Foss & Klein 2012; Foss, Klein & Bjørnskov 2019）。</p>
+<p>论文还整合而非反驳若干非产权理论（non-PRT）的战略学脉络。它自 Penrose (1959) 与资源基础观（resource-based view, RBV）取来“资源组合与能力是价值创造之核心”的思想，但指出多数 RBV 与动态能力（dynamic capabilities）研究很少谈到：组装这类资源束何时必须诉诸所有权（而非租赁或契约）——所有权能力“可被理解为坐落于所有者层面的一组高层级能力”（p. 320）。它自管理能力研究（Castanias & Helfat 1991; Helfat & Peteraf 2015; Sirmon, Hitt & Ireland 2007）借取技能词汇与“能力异质、可习得、栖身于个人”的看法；自企业家判断与基于理论观（theory-based view）文献（Felin & Zenger 2009, 2017; Benner & Zenger 2016）取来这一主张：行动者是“理论家”（theorists），其关于价值创造的分歧性信念才是真正稀缺的资源。定位（positioning）、交易成本经济学（transaction-cost economics）、战略要素市场（strategic factor markets）与增加值逻辑（added-value logic）（Porter 1985; Williamson 1985; Barney 1986; Brandenburger & Stuart 1996）在第 5.1 节被逐一重访，并被表明各自预设——却从未言明——一个具备匹配、治理或时机能力的行动者。该构念还与董事会能力（board competence）区分开来；公司控制权市场被重新解释为一台把资产分派给最胜任所有者的筛选装置。</p>
+<p>论文明确点出自己的谱系：它遵从 Alchian (1961: 63) 的箴言——“人作为所有者的天赋各不相同”（people differ in their talents as owners）——并把“所有权能力”一词的提出归功于 Pelikan (1993)（在比较政治制度的语境中，很可能由其首创）：之所以需要自由市场，恰恰因为中央计划者无法评估或配置这种能力（p. 309, n. 2）。Foss & Lien (2010) 与 Foss & Klein (2012) 提供了以判断为基础的地基。Foss & Klein (2012) 把企业家判断（entrepreneurial judgment）视为不确定性之下关于资源配置的决策；本文则进一步收紧分析单元：匹配能力是“企业家判断得以行使的准确度”（p. 312, n. 4）。在课程主线里，这篇论文是从现代产权理论通向其后关于所有权假说实证检验的理论桥梁。</p>
+<h2>5. 局限（Limitations）</h2>
+<h3>5(a) 作者自陈的局限（The authors' own stated limitations）</h3>
+<ul>
+<li>论文对所有权能力的前因（antecedents）说得很少：“我们对所有权能力的前因说得很少”（p. 322）。连环创业者的证据暗示经验与决策频率要紧，但论文没有给出能力从何而来、如何发展的理论。</li>
+<li>测量被承认悬而未决。作者提议借用为其他能力开发的技术（Danneels 2016; Grant & Verona 2015; Stadler, Helfat & Verona 2013）与更精细的所有权变动测量，但测量工具尚不存在；各项调节效应（集中度、生命周期、不确定性、要素市场效率）“值得研究”，而非已经确立（p. 322）。</li>
+<li>所有权能力位于<em>所有者</em>层面而非资产层面，因此同一位所有者可能擅长拥有某些资产、不擅长拥有另一些（能干的企业家可能是糟糕的金融资产投资者；Zellweger 2017）。能力在跨资产组合中如何加总，悬而未决。</li>
+<li>关于公司控制权市场（把资产分派给最佳所有者）与三种能力相对重要性的预测，是以“亟待实证检验”（rife for empirical testing）的假说形式陈述的，并无直接测量（p. 322）。</li>
+<li>框架把目的括在括号之外：所有者持有资产的目的可能超出“为所有者创造价值”，因此评估能力应透过资产持有目的来过滤（Henderson & Serafeim 2020）——提及了，未展开。</li>
+</ul>
+<h3>5(b) 独立评断（Independent judgment）</h3>
+<ul>
+<li><strong>[论文论断]</strong> 核心前提——代理、不完全契约与产权理论都把所有者视为同质、从而漏掉技能——是论文自身的刻画（pp. 303–304）。这一论断对形式化的 GHM 传统是公允的，对古典产权经济学则稍欠公允：后者早已在 Alchian 的“所有者的天赋”（talents as owners）一语中埋下了能力的种子，而论文自己就引用了这句话。</li>
+<li><strong>[证据]</strong> 支撑性经验材料（VC 回报持续性、Thomsen & Pedersen 2000、Feldman & Montgomery 2015、连环创业者结果）借自相邻领域，属示例性质。Feldman & Montgomery (2015) 研究的是持股甚多而高层经验有限的董事——这是所有权能力的间接代理指标（proxy），不是直接测量。</li>
+<li><strong>[推断]</strong> 存在潜在的循环论证风险：若所有权能力是从已实现的价值创造中反推出来的，“能干的所有者创造价值”就近乎定义上为真（definitionally true）。作者提出的测量（所有权变动、连环成功）能缓解却消除不了这一点，因为能力与有利机会中的选择效应事前难以分离。论文没有处理这一顾虑。</li>
+<li><strong>[推断]</strong> 治理能力与普通管理能力之间的边界，比论文暗示的更薄。既然所有者可以把治理设计委托给雇来的经理与董事会，论文所称治理能力的大部分，可能只是所有者层面关于<em>把权委给谁</em>的判断——而这又滑回匹配与时机。三个维度在操作上的可分性，可能低于概念上的可分性。</li>
+<li><strong>[开放问题]</strong> 所有权能力究竟是个体特质（trait）、所有者群体的属性，还是企业层面的组织能力，尚无定论；论文在“所有者”、创始团队与所有者群体之间摇摆，第 5.3 节也承认跨组合的加总无人研究。</li>
+<li><strong>[开放问题]</strong> 该理论的预测内容取决于能力稀缺、异质且不可契约化（non-contractible）。在要素市场（近乎）有效之处——拥有流动市场、强力中介与成熟董事会的大型上市公司——所有权能力能够增值的领地可能远比论文的修辞所暗示的窄；论文自己承认这条效率边界，但没有量化现实经济体落在边界的何处。</li>
+<li><strong>[推断]</strong> 若时机能力包含把资产卖给更优的所有者，匹配能力包含识别被低估的资源束，则框架隐含：缺乏能力的所有者往往无法认清这一事实——作者承认了这点（“所有权无能常造成持续错失的机会”，p. 321），但关于市场如何纠错的含义（接管机制依赖某个有能力的人来买，而非无能的卖方自己察觉）值得更锋利的处理。</li>
+</ul>
+<h2>6. 结论（Conclusion）</h2>
+<p>论文确立了一种所有权的能力观，作为对主导代理理论与不完全契约理论的激励观（incentive view）的补充——以及部分修正。其持久的贡献在于：所有权能力这一构念——定义为以技能行使所有权以创造价值；把它分解为匹配（拥有什么）、治理（如何拥有）、时机（何时拥有）三种能力，各自植根于三项古典财产权利之一；论证了异质的所有者技能——而不只是所有权集中度或激励强度——驱动价值创造；并给出一个横跨测量、调节变量、生命周期动态，以及把公司控制权市场重新解释为“把资产分派给最有能力所有者的市场”的研究议程。论文的收尾句承载一句规范性的总结：</p>
+<blockquote>We stress that value is created when those who possess competence also assume ownership.</blockquote>
+<p>></p>
+<blockquote>Foss et al. (2021), p. 323, Conclusion</blockquote>
+<p>></p>
+<blockquote>中文复述：我们强调：当拥有能力的人同时承担所有权时，价值便被创造出来。</blockquote>
+<p>对经理人与投资者的战略启示直截了当：所有权是一份有技能要求的工作——治理应围绕筛选并留住“有能力拥有”（competent to own）的所有者来搭建；当能力匹配恶化时，更换所有者，就像经理人的技能不再匹配时更换经理一样自然。</p>
+<div class="golden">"People differ in their talents as owners." (Alchian, 1961: 63, as quoted in Foss et al., 2021, p. 304)</div>
+<blockquote>中文复述：人作为所有者的天赋各不相同。</blockquote>
+<p>Foss 与同事把 Alchian 的顺带一言发展成一套理论：价值创造中稀缺的资源，不只是激励之下的努力，更是关于谁拥有、拥有什么、所有权何时应当更替的判断（judgment）。</p>
+<blockquote><strong>说明。</strong> <strong>AI 辅助披露。</strong> 本阅读笔记页面由 AI 依据论文全文起草（文本经 pdftotext 自 Foss et al., "Ownership competence," <em>Strategic Management Journal</em> 42(2): 302–328, DOI 10.1002/smj.3222 提取）。所有逐字引文均附页码，页码取自提取文本的页眉；表格（论文表 1 与表 2 的重制）与 Mermaid 图由 AI 依据论文内容整理。引用前请对照原始 PDF 核验页码、引文与表格内容。</blockquote>
+</div>
+<div id="lang-en" style="display:none">
+
 
 <h1>Ownership competence</h1>
 <div class="meta">
@@ -203,7 +333,19 @@ Foss and colleagues turn Alchian's aside into a theory: the scarce resource in v
 
 <div class="note"><strong>AI-assistance disclosure.</strong> This reading-note page was drafted by AI from the full text of the article (pdftotext-extracted from Foss et al., "Ownership competence," <em>Strategic Management Journal</em> 42(2): 302–328, DOI 10.1002/smj.3222). All verbatim blockquotes carry page references taken from the running headers of the extracted text; tables (reconstructions of the paper's Tables 1 and 2) and the Mermaid diagram were AI-organized from the article's content. Readers should verify page numbers, quotations, and table content against the original PDF before citing.</div>
 
-<div class="back"><a href="index.html">← Back to course index</a> · <a href="../index.html">All courses</a></div>
 
+</div>
+
+
+<div class="back"><a href="index.html">← Back to course index / 返回课程索引</a> · <a href="../index.html">All courses / 全部课程</a></div>
+
+<script>
+function setLang(l){
+  document.getElementById('lang-zh').style.display = (l==='zh') ? 'block' : 'none';
+  document.getElementById('lang-en').style.display = (l==='en') ? 'block' : 'none';
+  document.getElementById('btn-zh').className = (l==='zh') ? 'active' : '';
+  document.getElementById('btn-en').className = (l==='en') ? 'active' : '';
+}
+</script>
 </body>
 </html>
