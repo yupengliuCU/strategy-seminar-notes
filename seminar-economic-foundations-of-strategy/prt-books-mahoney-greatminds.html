@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>两本书中的产权理论 · Mahoney (2005) &amp; Great Minds (2005)</title>
+<style>
+:root{--text:#1a1a1a;--bg:#fafaf8;--accent:#2563eb;--muted:#6b7280;--border:#e5e7eb;--code-bg:#f3f4f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Serif SC",Georgia,serif;color:var(--text);background:var(--bg);line-height:1.85;padding:2.5rem 1.5rem;max-width:820px;margin:0 auto;font-size:16.5px}
+h1{font-size:1.7rem;margin:0 0 .3rem;line-height:1.35}
+h2{font-size:1.25rem;margin:2.6rem 0 .8rem;color:var(--accent);padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.05rem;margin:1.5rem 0 .5rem;color:#1d4ed8}
+.meta{color:var(--muted);font-size:.9rem;margin-bottom:2rem;line-height:1.8}
+p{margin:1rem 0}
+strong{color:#111}
+ul,ol{margin:1rem 0 1rem 1.5rem}
+li{margin:.5rem 0}
+blockquote{border-left:3px solid var(--accent);padding:.6rem 1.2rem;margin:1.4rem 0;background:#f0f4ff;border-radius:0 8px 8px 0;font-size:.95rem}
+.note{background:#fff8e6;border:1px solid #f0e0b0;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;font-size:.88rem}
+.summary-box{background:linear-gradient(135deg,#f0f4ff,#faf5ff);padding:1.5rem;border-radius:12px;margin:1.5rem 0}
+.summary-box h2{margin:0 0 .5rem;border:none;color:var(--accent);font-size:1.1rem}
+.back{margin:3rem 0 1rem;font-size:.9rem}
+.back a{color:var(--accent);text-decoration:none}
+.langbar{position:sticky;top:0;background:var(--bg);padding:.7rem 0;z-index:10;display:flex;gap:.5rem;margin-bottom:1rem;border-bottom:1px solid var(--border)}
+.langbar button{border:1px solid var(--border);background:#fff;color:#333;padding:.45rem 1.1rem;border-radius:99px;cursor:pointer;font-size:.95rem;font-family:inherit}
+.langbar button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+@media(max-width:600px){body{font-size:16px;padding:1.2rem 1rem}h1{font-size:1.4rem}}
+</style>
+</head>
+<body>
+
+<div class="langbar">
+  <button id="btn-zh" class="active" onclick="setLang('zh')">中文</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+</div>
+
+<div id="lang-zh">
+<h1>两本书中的产权理论：Mahoney (2005) 与 Great Minds (2005)</h1>
+<div class="meta"><strong>来源：</strong>① Joseph T. Mahoney,《Economic Foundations of Strategy》(Sage, 2005) 第 3 章「Property Rights Theory」；② Ken G. Smith &amp; Michael A. Hitt (eds.),《Great Minds in Management: The Process of Theory Development》(Oxford, 2005) 第 23 章 Oliver E. Williamson「Transaction Cost Economics」中对产权理论的讨论。</div>
+
+<div class="summary-box"><h2>一句话总结</h2><p>Mahoney 的书把产权理论（property rights theory, PRT）作为一个独立章节，梳理了从 Coase (1960) 到 Alchian–Demsetz、再到 Grossman–Hart–Moore 的完整脉络；Great Minds 那本书则没有产权理论的专章，产权理论是作为交易成本经济学（TCE）的「姊妹理论」在 Williamson 自述理论发展时被反复提及——Coase 定理、古典产权文献、以及 A&amp;D 与 GHM 对 TCE 的两处关键交锋。</p></div>
+
+<h2>一、Mahoney (2005)《Economic Foundations of Strategy》第 3 章：产权理论</h2>
+
+<p>Mahoney 把组织经济学（organizational economics）分为五个理论，产权理论位列其中（行为理论、交易成本理论、<strong>产权理论</strong>、代理理论、资源基础/动态能力）。第 3 章回答的基本问题是：<strong>企业如何创造与配置财富？</strong></p>
+
+<h3>1.1 古典产权理论：乐观的效率演化论</h3>
+<ul>
+<li>起点是 <strong>Coase (1960)</strong>，高潮是 <strong>Alchian &amp; Demsetz (1973)</strong>。</li>
+<li><strong>Demsetz (1967)</strong> 是新古典经济学传统的典范，乐观地认为产权会向经济效率演化。</li>
+<li>产权效率的三个标准：<strong>普遍性</strong>（universality，所有稀缺资源都有主）、<strong>排他性</strong>（exclusivity，权利是排他的）、<strong>可转让性</strong>（transferability，资源能从低收益用途流向高收益用途）。</li>
+</ul>
+
+<h3>1.2 对乐观论的批判：效率演化常常失败</h3>
+<ul>
+<li><strong>Libecap (1989)</strong> 与 <strong>North (1990)</strong> 用历史研究挑战「产权必然向效率演化」的乐观判断。</li>
+<li>核心机制：<strong>分配冲突（distributional conflicts）</strong>给政治家带来政治风险，于是他们会提出「不严重动摇现状排名」的规制，只对公共池塘资源（common-pool）损失提供有限救济；监管机构也有同样的既得利益。</li>
+<li><strong>历史重要（history matters）</strong>：今天的选择受昨天决策的约束。North 尤其关注那些导致经济停滞与衰退的制度框架，而不只是成功。</li>
+</ul>
+
+<h3>1.3 其他古典脉络</h3>
+<ul>
+<li><strong>Eggertsson (1990)</strong> 三层分析：① 产权结构被显式建模但外生；② 组织形式内生、但产权基本结构外生；③ 把社会/政治规则与政治制度结构都视为内生。</li>
+<li><strong>Barzel (1989)</strong>：因为精确测量资产全部属性成本高昂，<strong>权利永远无法被完全界定</strong>，财产因而面临被他人侵占的危险（逆向选择、搭便车、偷懒）。</li>
+</ul>
+
+<h3>1.4 现代产权理论：Grossman–Hart–Moore</h3>
+<ul>
+<li><strong>Hart (1990, 1995)</strong> 把「契约不完全性（contractual incompleteness）」与「控制（control）」两个概念结合，回答四个问题：(a) 所有权意味着什么？(b) 什么决定企业边界？(c) 契约不完全性的经济含义？(d) 非人力资产与权威的角色？</li>
+<li><strong>所有权 = 剩余控制权（residual control rights）</strong>。买 vs 租：零交易成本下二者等价；在正交易成本 + 契约不完全的世界里，所有者掌握契约未写明的用途的决定权，因此有更强的激励去维护机器、学会正确操作、并购置能与之形成协同的其他机器。</li>
+<li><strong>企业边界</strong>：边界的选择是为了在各方之间<strong>最优配置控制权</strong>。高度互补的资产若分属不同所有者，谁都无法真正控制对方，合并（把全部控制权给一方）能增进价值。</li>
+<li><strong>与其他理论的关系</strong>：委托—代理理论假设契约可以零成本地写完备，因此控制权无关紧要；TCE 与 PRT 最接近，但 TCE 更强调写契约的成本与由此导致的契约不完全性，较少关注「制度安排如何配置控制权」。</li>
+</ul>
+
+<h3>1.5 前瞻</h3>
+<p>Mahoney 判断：随着信息时代知识产权（intellectual property rights）日益重要，产权理论在战略管理中将得到更多关注，是未来研究的增长领域。</p>
+
+<h2>二、Great Minds (2005)：Williamson 第 23 章（TCE）里的产权理论</h2>
+
+<p>Great Minds 没有产权理论的专章；产权理论出现在 Williamson 自述交易成本经济学发展过程的第 23 章里，作为 TCE 的姊妹理论出现四处关键讨论：</p>
+
+<h3>2.1 Coase 定理与产权配置</h3>
+<blockquote>在零交易成本下，谈判会达成财富最大化的安排，<strong>与初始的产权配置无关</strong>；一旦引入正交易成本，产权配置就变得重要。（Coase 1960，转引自 Williamson，p. 491）</blockquote>
+
+<h3>2.2 古典产权文献滋养了 TCE</h3>
+<p>Williamson 回忆他在宾大（Penn）组织的两学期组织理论课，广泛吸收了他 Carnegie 的背景、社会学、<strong>「产权经济学文献」</strong>、经理自由裁量文献、以及市场失灵文献。</p>
+
+<h3>2.3 A&amp;D (1972) 对「权威/fiat」的反驳</h3>
+<blockquote>「那篇著名的 Alchian &amp; Demsetz (1972) 论文……对企业与市场之间的『命令（fiat）』差异不以为然。」（脚注 15，p. 498）</blockquote>
+<p>这是 A&amp;D 与 Williamson 的直接交锋：Williamson 认为企业拥有市场所没有的「命令与权威」（fiat、协调适应的治理结构）；A&amp;D 则认为企业与市场没有权威上的差别，区别只在于「团队生产 + 中央缔约方」。</p>
+
+<h3>2.4 GHM (1986) 抽象掉了治理差异</h3>
+<blockquote>「『企业的产权理论』（Grossman &amp; Hart, 1986）把这些（fiat、治理结构等）差异全部假设掉了。」（脚注 16，p. 499）</blockquote>
+<p>Williamson 的立场：现代产权理论（GHM）虽与 TCE 同源，但它在模型里抽象掉了 TCE 强调的治理结构差异，聚焦于事前投资激励与剩余控制权。</p>
+
+<h2>三、两本书合起来看</h2>
+<ul>
+<li><strong>Mahoney (2005)</strong> 给的是产权理论的「全景教科书式梳理」：古典（Coase/Demsetz/A&amp;D/Barzel/Eggertsson）→ 批判（Libecap/North 的「效率演化会失败」）→ 现代（Hart/GHM 的剩余控制权与企业边界）。</li>
+<li><strong>Great Minds (2005)</strong> 给的是产权理论在 TCE 发展史中的「关系定位」：Coase 定理是共同起点，古典产权文献滋养了 TCE，而 A&amp;D 与 GHM 分别从「无权威」与「抽象掉治理」两个方向对 TCE 提出挑战或互补。</li>
+<li>两者互为补充：Mahoney 讲「产权理论本身是什么」，Great Minds 讲「产权理论在组织经济学版图中与 TCE 如何对话」。</li>
+</ul>
+
+<div class="note"><strong>来源与 AI 说明：</strong>本文由 AI 依据 Mahoney (2005) 第 3 章与 Smith &amp; Hitt (2005) 第 23 章的 PDF 全文撰写；页码为原书页码，引用均逐字取自原文。中英术语并置，引用保留英文原样。</div>
+</div>
+
+<div id="lang-en" style="display:none">
+<h1>Property Rights Theory in Two Books: Mahoney (2005) &amp; Great Minds (2005)</h1>
+<div class="meta"><strong>Sources:</strong> ① Joseph T. Mahoney, <em>Economic Foundations of Strategy</em> (Sage, 2005), Ch. 3 "Property Rights Theory"; ② Ken G. Smith &amp; Michael A. Hitt (eds.), <em>Great Minds in Management: The Process of Theory Development</em> (Oxford, 2005), Ch. 23, Oliver E. Williamson, "Transaction Cost Economics", where property rights theory is discussed.</div>
+
+<div class="summary-box"><h2>One-sentence summary</h2><p>Mahoney's book gives property rights theory (PRT) its own chapter, tracing the full line from Coase (1960) through Alchian–Demsetz to Grossman–Hart–Moore; the Great Minds volume has no standalone PRT chapter — instead PRT appears inside Williamson's account of TCE's development, as a sibling theory: the Coase theorem, the classical property-rights literature, and two telling encounters with A&amp;D (1972) and GHM (1986).</p></div>
+
+<h2>1. Mahoney (2005), Ch. 3: Property Rights Theory</h2>
+
+<p>Mahoney organizes organizational economics into five theories, with property rights among them (behavioral theory, transaction costs, <strong>property rights</strong>, agency, resource-based/dynamic capabilities). Ch. 3 answers the basic question: <strong>How can firms create and allocate wealth?</strong></p>
+
+<h3>1.1 Classical PRT: the optimistic efficiency view</h3>
+<ul>
+<li>Initiated by <strong>Coase (1960)</strong>; peaked with <strong>Alchian &amp; Demsetz (1973)</strong>.</li>
+<li><strong>Demsetz (1967)</strong> is the neoclassical exemplar, optimistic that property rights evolve toward efficiency.</li>
+<li>Three efficiency criteria: <strong>universality</strong> (all scarce resources are owned), <strong>exclusivity</strong> (rights are exclusive), <strong>transferability</strong> (resources move from low- to high-yield uses).</li>
+</ul>
+
+<h3>1.2 The critique: efficient evolution often fails</h3>
+<ul>
+<li><strong>Libecap (1989)</strong> and <strong>North (1990)</strong> supply historical accounts challenging the inevitable-evolution view.</li>
+<li>Mechanism: <strong>distributional conflicts</strong> create political risk, so politicians propose regulations that do not upset the status quo and offer only limited relief from common-pool losses; regulatory agencies hold similar vested interests.</li>
+<li><strong>History matters</strong>: today's choices are constrained by yesterday's decisions. North is as concerned with institutions that induce stagnation and decline as with successes.</li>
+</ul>
+
+<h3>1.3 Other classical strands</h3>
+<ul>
+<li><strong>Eggertsson (1990)</strong>, three levels: ① property-rights structure modeled but exogenous; ② organizational form endogenous, rights exogenous; ③ social/political rules and political institutions treated as endogenous.</li>
+<li><strong>Barzel (1989)</strong>: because measuring all of an asset's attributes is costly, <strong>rights are never fully delineated</strong>, leaving property open to appropriation (adverse selection, free-riding, shirking).</li>
+</ul>
+
+<h3>1.4 Modern PRT: Grossman–Hart–Moore</h3>
+<ul>
+<li><strong>Hart (1990, 1995)</strong> joins <strong>contractual incompleteness</strong> and <strong>control</strong> to answer: (a) what does ownership mean? (b) what determines firm boundaries? (c) what are the implications of contractual incompleteness? (d) the roles of non-human assets and authority?</li>
+<li><strong>Ownership = residual rights of control.</strong> Buy vs rent: equivalent under zero transaction costs; under positive costs and incomplete contracts the owner decides the unspecified uses, hence has stronger incentives to maintain the machine, learn to operate it, and acquire synergistic assets.</li>
+<li><strong>Firm boundaries</strong> are chosen to <strong>allocate control rights optimally</strong>; highly complementary assets under different owners → merge to give control to one party.</li>
+<li><strong>Relation to other theories</strong>: principal-agent theory assumes costless complete contracting, so control is irrelevant; TCE is closest to PRT but stresses the costs of writing contracts and pays less attention to how arrangements allocate control rights.</li>
+</ul>
+
+<h3>1.5 Forward look</h3>
+<p>Mahoney predicts that with the growing importance of <strong>intellectual property rights</strong> in the information age, PRT will receive greater attention in strategic management — a growth area for research.</p>
+
+<h2>2. Great Minds (2005): property rights inside Williamson's Ch. 23 (TCE)</h2>
+
+<p>Four key passages situate PRT as TCE's sibling:</p>
+
+<h3>2.1 The Coase theorem and property-rights assignment</h3>
+<blockquote>In a regime of zero transaction costs, negotiations would lead to wealth-maximizing arrangements <strong>irrespective of the initial assignment of property rights</strong>; with positive transaction costs, the assignment matters. (Coase 1960, quoted in Williamson, p. 491)</blockquote>
+
+<h3>2.2 The classical PRT literature fed TCE</h3>
+<p>Williamson recalls his two-semester organization-theory sequence at Penn drawing on his Carnegie background, sociology, <strong>"some of the economics of property rights literature"</strong>, the managerial-discretion literature, and market-failure literature.</p>
+
+<h3>2.3 A&amp;D (1972) dismissive of "fiat"</h3>
+<blockquote>"The famous paper by Armen Alchian and Harold Demsetz (1972)… was dismissive of fiat differences between firm and market." (fn. 15, p. 498)</blockquote>
+<p>A direct clash: Williamson holds that the firm has command/fiat and governance the market lacks; A&amp;D hold there is no difference in authority, only team production plus a central contracting party.</p>
+
+<h3>2.4 GHM (1986) assumes away governance differences</h3>
+<blockquote>"The 'property rights theory of the firm' (Grossman and Hart, 1986) assumes away all of these differences." (fn. 16, p. 499)</blockquote>
+<p>Williamson's stance: modern PRT (GHM) shares TCE's ancestry but abstracts away the governance-structure differences TCE emphasizes, focusing instead on ex-ante investment incentives and residual control.</p>
+
+<h2>3. The two books together</h2>
+<ul>
+<li><strong>Mahoney (2005)</strong> gives the panoramic textbook treatment: classical (Coase/Demsetz/A&amp;D/Barzel/Eggertsson) → critique (Libecap/North's "efficient evolution fails") → modern (Hart/GHM's residual control and boundaries).</li>
+<li><strong>Great Minds (2005)</strong> gives the relational placement within TCE's history: the Coase theorem as shared origin, the classical PRT literature feeding TCE, and A&amp;D and GHM challenging or complementing TCE from the "no authority" and "governance assumed away" directions.</li>
+<li>They are complementary: Mahoney tells what PRT itself is; Great Minds tells how PRT converses with TCE in the organizational-economics map.</li>
+</ul>
+
+<div class="note"><strong>Source &amp; AI disclosure:</strong> Written by AI from the full texts of Mahoney (2005) Ch. 3 and Smith &amp; Hitt (2005) Ch. 23; page numbers are the books' printed pages; quotations are verbatim from the texts.</div>
+</div>
+
+<div class="back"><a href="index.html">← Back to course index / 返回课程索引</a> · <a href="../index.html">All courses / 全部课程</a></div>
+
+<script>
+function setLang(l){
+  document.getElementById('lang-zh').style.display = (l==='zh') ? 'block' : 'none';
+  document.getElementById('lang-en').style.display = (l==='en') ? 'block' : 'none';
+  document.getElementById('btn-zh').className = (l==='zh') ? 'active' : '';
+  document.getElementById('btn-en').className = (l==='en') ? 'active' : '';
+}
+</script>
+</body>
+</html>
